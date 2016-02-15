@@ -21,7 +21,7 @@
 
         <TextView
             android:textSize="120sp"
-            android:text="wertyuiwertyuiwertyuiwertyuiwertyui /n wertyui /n /n /n wertyuiwertyuiwertyuiwertyuiwertyui"
+            android:text="RanaBanana /n wertyui /n /n /n wertyuiwertyuiwertyuiwertyuiwertyui"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
