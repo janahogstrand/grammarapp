@@ -13,8 +13,4 @@
     tools:showIn="@layout/app_bar_main_menu"
     tools:context="com.grammar.trocket.grammar.MainMenu">
 
-    <TextView
-        android:text="Hello World!"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 </RelativeLayout>
