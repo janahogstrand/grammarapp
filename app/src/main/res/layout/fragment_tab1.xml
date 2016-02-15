@@ -21,7 +21,7 @@
 
             <TextView
                 android:textSize="120sp"
-                android:text="Fragment2Fragment2Fragment2Fragment2Fragment2Fragment2Fragment2Fragment2Fragment2Fragment2"
+                android:text="Fragment1Fragment1Fragment1Fragment1Fragment1Fragment1Fragment1Fragment1Fragment1Fragment1Fragment1Fragment1Fragment1Fragment1Fragment1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </RelativeLayout>

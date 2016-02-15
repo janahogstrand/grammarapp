@@ -113,41 +113,6 @@ public class MainMenu extends AppCompatActivity
     }
 
     /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class MainFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public MainFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static MainFragment newInstance(int sectionNumber) {
-            MainFragment fragment = new MainFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_tab, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
-    }
-
-    /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
@@ -161,7 +126,20 @@ public class MainMenu extends AppCompatActivity
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a MainFragment (defined as a static inner class below).
-            return MainFragment.newInstance(position + 1);
+            //return MainFragment.newInstance(position + 1);
+            FragmentTab1 tab1 = new FragmentTab1();
+            FragmentTab2 tab2 = new FragmentTab2();
+            FragmentTab3 tab3 = new FragmentTab3();
+            switch (position){
+                case 0:
+                    return tab1;
+                case 1:
+                    return tab2;
+                case 2:
+                    return tab3;
+                default:
+                    return tab3;
+            }
         }
 
         @Override
