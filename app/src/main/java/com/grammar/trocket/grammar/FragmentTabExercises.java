@@ -24,7 +24,6 @@ public class FragmentTabExercises extends Fragment {
         rv = (RecyclerView)v.findViewById(R.id.recycleView);
 
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        //rv.setLayoutManager(llm);
         rv.setHasFixedSize(true);
 
         initializeData();
@@ -34,17 +33,23 @@ public class FragmentTabExercises extends Fragment {
     }
 
 
-
+    /**
+     * Get data here
+     * //TODO Make this interact with database
+     * **/
     private void initializeData(){
         categories = new ArrayList<>();
-        categories.add(new Category("Greetings", "23 years old", R.drawable.ic_menu_share));
-        categories.add(new Category("Directions", "25 years old", R.drawable.ic_menu_send));
-        categories.add(new Category("Food & Drink", "35 years old", R.drawable.ic_menu_gallery));
-        categories.add(new Category("Greetings", "23 years old", R.drawable.ic_menu_share));
+        categories.add(new Category("Greetings", "Learn basic greetings!", R.drawable.ic_menu_share));
+        categories.add(new Category("Directions", "Learn you're way round", R.drawable.ic_menu_send));
+        categories.add(new Category("Food & Drink", "Learn to order!", R.drawable.ic_menu_gallery));
+        categories.add(new Category("Greetings", "Super super long sentence as a test to see how long the sentences should be roughly (In case clinet want a really really long description)", R.drawable.ic_menu_share));
         categories.add(new Category("Directions", "25 years old", R.drawable.ic_menu_send));
         categories.add(new Category("Food & Drink", "35 years old", R.drawable.ic_menu_gallery));
     }
 
+    /**
+     * Set new adapter
+     * **/
     private void initializeAdapter(){
         RAdapter adapter = new RAdapter(categories);
         rv.setAdapter(adapter);

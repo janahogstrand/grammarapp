@@ -19,6 +19,9 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.CategoryViewHolder> 
         TextView desc;
         ImageView icon;
 
+        /**
+         * Get ids
+         * **/
         CategoryViewHolder(View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.cv);
@@ -28,24 +31,34 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.CategoryViewHolder> 
         }
     }
 
+    //List of data, in this case categories
     List<Category> categorys;
 
     RAdapter(List<Category> categorys){
         this.categorys = categorys;
     }
 
+    /**
+     *Attach to recycle view
+     * **/
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
 
+    /**
+     * Apply card view with ViewHolder
+     * **/
     @Override
     public CategoryViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview, viewGroup, false);
-        CategoryViewHolder pvh = new CategoryViewHolder(v);
-        return pvh;
+        CategoryViewHolder cvh = new CategoryViewHolder(v);
+        return cvh;
     }
 
+    /**
+     * Add values
+     * **/
     @Override
     public void onBindViewHolder(CategoryViewHolder categoryViewHolder, int i) {
         categoryViewHolder.catName.setText(categorys.get(i).name);
