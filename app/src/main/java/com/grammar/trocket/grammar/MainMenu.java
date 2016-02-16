@@ -74,6 +74,8 @@ public class MainMenu extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
     }
 
     @Override
@@ -127,9 +129,9 @@ public class MainMenu extends AppCompatActivity
             // getItem is called to instantiate the fragment for the given page.
             // Return a MainFragment (defined as a static inner class below).
             //return MainFragment.newInstance(position + 1);
-            FragmentTab1 tab1 = new FragmentTab1();
-            FragmentTab2 tab2 = new FragmentTab2();
-            FragmentTab3 tab3 = new FragmentTab3();
+            FragmentTabExercises tab1 = new FragmentTabExercises();
+            FragmentTabResources tab2 = new FragmentTabResources();
+            FragmentTabDictionary tab3 = new FragmentTabDictionary();
             switch (position){
                 case 0:
                     return tab1;
