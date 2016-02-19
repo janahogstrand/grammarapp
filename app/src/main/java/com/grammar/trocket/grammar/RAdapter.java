@@ -21,26 +21,26 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.CategoryViewHolder> 
 
         /**
          * Get ids
-         * **/
+         **/
         CategoryViewHolder(View itemView) {
             super(itemView);
-            cv = (CardView)itemView.findViewById(R.id.cv);
-            catName = (TextView)itemView.findViewById(R.id.category_name);
-            desc = (TextView)itemView.findViewById(R.id.desc);
-            icon = (ImageView)itemView.findViewById(R.id.icon);
+            cv = (CardView) itemView.findViewById(R.id.cv);
+            catName = (TextView) itemView.findViewById(R.id.category_name);
+            desc = (TextView) itemView.findViewById(R.id.desc);
+            icon = (ImageView) itemView.findViewById(R.id.icon);
         }
     }
 
     //List of data, in this case categories
     List<Category> categorys;
 
-    RAdapter(List<Category> categorys){
+    RAdapter(List<Category> categorys) {
         this.categorys = categorys;
     }
 
     /**
-     *Attach to recycle view
-     * **/
+     * Attach to recycle view
+     **/
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
@@ -48,7 +48,7 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.CategoryViewHolder> 
 
     /**
      * Apply card view with ViewHolder
-     * **/
+     **/
     @Override
     public CategoryViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview, viewGroup, false);
@@ -58,7 +58,7 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.CategoryViewHolder> 
 
     /**
      * Add values
-     * **/
+     **/
     @Override
     public void onBindViewHolder(CategoryViewHolder categoryViewHolder, int i) {
         categoryViewHolder.catName.setText(categorys.get(i).name);
