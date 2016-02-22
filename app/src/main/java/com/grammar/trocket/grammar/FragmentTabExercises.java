@@ -40,7 +40,7 @@ public class FragmentTabExercises extends Fragment {
      **/
     private void initializeData() {
         categories = new ArrayList<>();
-        categories.add(new Category("Greetings", "Learn basic greetings!", R.drawable.ic_menu_share, false));
+        categories.add(new Category("Greetings", "Learn basic greetings!", R.drawable.ic_menu_share, true));
         categories.add(new Category("Directions", "Learn you're way round", R.drawable.ic_menu_send, true));
         categories.add(new Category("Food & Drink", "Learn to order!", R.drawable.ic_menu_gallery, true));
         categories.add(new Category("Greetings", "Super super long sentence as a test to see how long the sentences should be roughly (In case clinet want a really really " +

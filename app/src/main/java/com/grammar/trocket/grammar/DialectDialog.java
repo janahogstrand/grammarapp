@@ -1,12 +1,8 @@
 package com.grammar.trocket.grammar;
-import android.app.Activity;
-import android.app.Dialog;
-import android.app.DialogFragment;
+
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.util.SparseArray;
 import android.widget.ArrayAdapter;
 
 /**
@@ -15,7 +11,7 @@ import android.widget.ArrayAdapter;
  */
 public class DialectDialog extends AlertDialog.Builder {
 
-    protected DialectDialog(Context context,final ArrayAdapter<String> dialectOptions ) {
+    protected DialectDialog(Context context, final ArrayAdapter<String> dialectOptions) {
         super(context);
         addListContent(context, dialectOptions);
     }
@@ -23,14 +19,14 @@ public class DialectDialog extends AlertDialog.Builder {
     /**
      * //TODO Implementation where information is off server
      * Adds information to dialog
-     * @param context context to run on
+     *
+     * @param context        context to run on
      * @param dialectOptions List of possible dialects
-     * **/
-    public void addListContent(final Context context, final ArrayAdapter<String> dialectOptions){
-        // this.setIcon(R.drawable.ic_launcher);
-
+     **/
+    public void addListContent(final Context context, final ArrayAdapter<String> dialectOptions) {
         this.setTitle("Select a dialect");
 
+        //Set button
         this.setNegativeButton(
                 "Finshed",
                 new DialogInterface.OnClickListener() {
@@ -40,6 +36,7 @@ public class DialectDialog extends AlertDialog.Builder {
                     }
                 });
 
+        //New dialog once finished
         this.setAdapter(
                 dialectOptions,
                 new DialogInterface.OnClickListener() {
@@ -63,6 +60,7 @@ public class DialectDialog extends AlertDialog.Builder {
                         builderInner.show();
                     }
                 });
+        //Show dialog
         this.show();
     }
 

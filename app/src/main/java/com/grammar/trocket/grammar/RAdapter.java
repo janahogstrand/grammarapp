@@ -1,14 +1,7 @@
 package com.grammar.trocket.grammar;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,33 +33,37 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.CategoryViewHolder> 
             desc = (TextView) itemView.findViewById(R.id.desc);
             icon = (ImageView) itemView.findViewById(R.id.icon);
             view = itemView;
-            view.setOnClickListener(new View.OnClickListener(){
-                @Override public void onClick(View v){
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     //Card clicked
+                    //Check if dialog is needed
+                    if(currentItem.hasDialect){
+                        //TODO make this adapter get information from database
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                                view.getContext(),
+                                android.R.layout.select_dialog_singlechoice);
+                        arrayAdapter.add("Spanish");
+                        arrayAdapter.add("Mexican");
+                        arrayAdapter.add("Spanish");
+                        arrayAdapter.add("Mexican");
+                        arrayAdapter.add("Spanish");
+                        arrayAdapter.add("Mexican");
+                        arrayAdapter.add("Spanish");
+                        arrayAdapter.add("Mexican");
+                        arrayAdapter.add("Spanish");
+                        arrayAdapter.add("Mexican");
+                        arrayAdapter.add("Spanish");
+                        arrayAdapter.add("Mexican");
+                        arrayAdapter.add("Spanish");
+                        arrayAdapter.add("Mexican");
+                        arrayAdapter.add("Spanish");
+                        arrayAdapter.add("Mexican");
 
-                    //TODO make this adapter get information from database
-                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                            view.getContext(),
-                            android.R.layout.select_dialog_singlechoice);
-                    arrayAdapter.add("Spanish");
-                    arrayAdapter.add("Mexican");
-                    arrayAdapter.add("Spanish");
-                    arrayAdapter.add("Mexican");
-                    arrayAdapter.add("Spanish");
-                    arrayAdapter.add("Mexican");
-                    arrayAdapter.add("Spanish");
-                    arrayAdapter.add("Mexican");
-                    arrayAdapter.add("Spanish");
-                    arrayAdapter.add("Mexican");
-                    arrayAdapter.add("Spanish");
-                    arrayAdapter.add("Mexican");
-                    arrayAdapter.add("Spanish");
-                    arrayAdapter.add("Mexican");
-                    arrayAdapter.add("Spanish");
-                    arrayAdapter.add("Mexican");
-                    
-                    //Load dialog with adapter
-                    DialectDialog d = new DialectDialog(view.getContext(), arrayAdapter);
+                        //Load dialog with adapter
+                        DialectDialog d = new DialectDialog(view.getContext(), arrayAdapter);
+                    }
+
                 }
             });
         }
