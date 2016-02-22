@@ -8,6 +8,7 @@ public class Category {
     String name;
     String desc;
     int icon;
+    boolean hasDialect;
 
     /**
      * @param icon Icon for category
@@ -15,9 +16,10 @@ public class Category {
      * @param name Name of Category
      *
      * **/
-    Category(String name, String desc, int icon){
+    Category(String name, String desc, int icon, boolean hasDialect){
         this.name = name;
         this.desc = desc;
         this.icon = icon;
+        this.hasDialect = hasDialect;
     }
 }
