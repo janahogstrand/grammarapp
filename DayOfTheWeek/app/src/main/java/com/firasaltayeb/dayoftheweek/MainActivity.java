@@ -1,8 +1,8 @@
 package com.firasaltayeb.dayoftheweek;
 
+import android.app.Activity;
 import android.media.MediaPlayer;
 import android.speech.tts.TextToSpeech;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -12,7 +12,7 @@ import android.widget.Button;
 import java.util.Locale;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     Button mondayBtn;
     Button tuesdayBtn;
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void mondayBtnClicked(View view){
         if(mondayMissing){
-            textToSpeech.speak("Lunes", TextToSpeech.QUEUE_FLUSH, null, "");
+            textToSpeech.speak("Lunes", TextToSpeech.QUEUE_FLUSH, null);
         }else { mondayPlayer.start();}
     }
 
