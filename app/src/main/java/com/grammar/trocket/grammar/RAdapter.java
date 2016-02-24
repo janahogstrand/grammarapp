@@ -11,64 +11,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class RAdapter extends RecyclerView.Adapter<RAdapter.CategoryViewHolder> {
-
-    public static class CategoryViewHolder extends RecyclerView.ViewHolder {
-
-        CardView cv;
-        TextView catName;
-        TextView desc;
-        ImageView icon;
-        public View view;
-        public Category currentItem;
-
-        /**
-         * Get ids
-         * Set on click listener
-         **/
-        CategoryViewHolder(View itemView) {
-            super(itemView);
-            cv = (CardView) itemView.findViewById(R.id.cv);
-            catName = (TextView) itemView.findViewById(R.id.category_name);
-            desc = (TextView) itemView.findViewById(R.id.desc);
-            icon = (ImageView) itemView.findViewById(R.id.icon);
-            view = itemView;
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Card clicked
-                    //Check if dialog is needed
-                    if(currentItem.hasDialect){
-                        //TODO make this adapter get information from database
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                                view.getContext(),
-                                android.R.layout.select_dialog_singlechoice);
-                        arrayAdapter.add("Spanish");
-                        arrayAdapter.add("Mexican");
-                        arrayAdapter.add("Spanish");
-                        arrayAdapter.add("Mexican");
-                        arrayAdapter.add("Spanish");
-                        arrayAdapter.add("Mexican");
-                        arrayAdapter.add("Spanish");
-                        arrayAdapter.add("Mexican");
-                        arrayAdapter.add("Spanish");
-                        arrayAdapter.add("Mexican");
-                        arrayAdapter.add("Spanish");
-                        arrayAdapter.add("Mexican");
-                        arrayAdapter.add("Spanish");
-                        arrayAdapter.add("Mexican");
-                        arrayAdapter.add("Spanish");
-                        arrayAdapter.add("Mexican");
-
-                        //Load dialog with adapter
-                        DialectDialog d = new DialectDialog(view.getContext(), arrayAdapter);
-                    }
-
-                }
-            });
-        }
-    }
-
+public class RAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
+    
     //List of data, in this case categories
     List<Category> categorys;
 
