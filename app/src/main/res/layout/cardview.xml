@@ -9,39 +9,126 @@
         android:layout_height="wrap_content"
         android:id="@+id/cv"
 
+
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:padding="5dp"
+            android:background="@drawable/cardview_borders"
             >
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/icon"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="16dp"
-                />
+                android:weightSum="1"
+                android:paddingLeft="5sp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/category_name"
-                android:layout_toRightOf="@+id/icon"
-                android:layout_alignParentTop="true"
-                android:textSize="30sp"
-                />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".05">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/desc"
-                android:layout_toRightOf="@+id/icon"
-                android:layout_below="@+id/category_name"
-                />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/icon"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="16sp"
+                        android:layout_gravity="center_vertical"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/category_name"
+                        android:layout_toRightOf="@+id/icon"
+                        android:layout_alignParentTop="true"
+                        android:textSize="30sp"
+                        android:layout_gravity="center_vertical"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:id="@+id/desc"
+                    android:layout_toRightOf="@+id/icon"
+                    android:layout_below="@+id/category_name"
+                    android:layout_weight=".2"
+                    />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5sp">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginBottom="4sp">
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Observe"
+                            android:id="@+id/button3"
+                            android:layout_gravity="left"
+                            android:background="@drawable/menu_button_design"
+                            android:textSize="11dip"
+                            android:minHeight="30dip"
+                            android:textColor="#ffffff"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|bottom"
+                        android:layout_alignWithParentIfMissing="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="4sp">
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Reflect"
+                            android:id="@+id/button2"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/menu_button_design"
+                            android:textSize="11sp"
+                            android:minHeight="30sp"
+                            android:textColor="#ffffff"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|right"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="5sp"
+                        android:layout_marginBottom="4sp">
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Experiment"
+                            android:minHeight="30sp"
+                            android:id="@+id/button"
+                            android:layout_gravity="right"
+                            android:background="@drawable/menu_button_design"
+                            android:textSize="11sp"
+                            android:textColor="#ffffff"/>
+                    </RelativeLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
 
         </RelativeLayout>
 

@@ -15,19 +15,40 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@android:drawable/sym_def_app_icon"
-        android:id="@+id/imageView" />
+        android:id="@+id/imageView"
+        android:layout_gravity="center_horizontal"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="John Doe"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:text="CURRENT LANGUAGE"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:gravity="center_horizontal"/>
 
-    <TextView
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="android.studio@android.com"
-        android:id="@+id/textView" />
+        android:layout_gravity="center_horizontal">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            android:background="@drawable/circular_progress_bar_background"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:max="100"
+            android:progress="65"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+id/progressBar"
+            android:id="@+id/txtNavBarProgress"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
 
 </LinearLayout>

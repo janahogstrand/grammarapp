@@ -94,6 +94,7 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.CategoryViewHolder> 
         return cvh;
     }
 
+
     /**
      * Add values
      **/
