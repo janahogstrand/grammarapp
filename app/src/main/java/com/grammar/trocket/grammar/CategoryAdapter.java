@@ -11,12 +11,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class RAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
-    
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
+
     //List of data, in this case categories
     List<Category> categorys;
 
-    RAdapter(List<Category> categorys) {
+    CategoryAdapter(List<Category> categorys) {
         this.categorys = categorys;
     }
 

@@ -53,7 +53,7 @@ public class FragmentTabExercises extends Fragment {
      * Set new adapter
      **/
     private void initializeAdapter() {
-        RAdapter adapter = new RAdapter(categories);
+        CategoryAdapter adapter = new CategoryAdapter(categories);
         rv.setAdapter(adapter);
     }
 
