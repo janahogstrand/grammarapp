@@ -19,6 +19,7 @@ public class MainActivity extends Activity {
     Button fridayBtn;
     Button saturdayBtn;
     Button sundayBtn;
+    // MediaPlayer instances act as a place holder for the audio files.
     MediaPlayer mondayPlayer, tuesdayPlayer, wednesdayPlayer, thursdayPlayer, fridayPlayer,
                 saturdayPlayer, sundayPlayer;
     boolean mondayMissing, tuesdayMissing, wednesdayMissing, thursdayMissing, fridayMissing,
@@ -47,6 +48,11 @@ public class MainActivity extends Activity {
         assignBtnSounds();
     }
 
+    /** 
+     * This method assigns text to the View/Buttons with the target 
+     * language word in the first line and the English version 
+     * in the second line. 
+     */
     public void assignBtnText(){
         mondayBtn.setText("Lunes\nMonday");
         tuesdayBtn.setText("Martes\nTuesday");
@@ -57,6 +63,11 @@ public class MainActivity extends Activity {
         sundayBtn.setText("Domingo\nSunday");
     }
 
+
+    /** 
+     * This method determines which language will be used by the textToSpeech API/object 
+     * and then sets it for the textToSpeech instance/variable. 
+     */
     public void assignLanguage(){
         language = new Locale("es", "ES");
         textToSpeech=new TextToSpeech(MainActivity.this, new TextToSpeech.OnInitListener() {
@@ -66,6 +77,11 @@ public class MainActivity extends Activity {
         });
     }
 
+    /** 
+     * This method determines whether an audio file is found or not when a search is done, 
+     * if the audio file is not available the correspondent boolean variable 
+     * is assigned as true thus indicating that textToSpeech should be used in its case. 
+     */
     public void assignBtnSounds(){
         try {
             mondayPlayer = MediaPlayer.create(this, R.raw.monday); mondayMissing = false;
@@ -97,6 +113,16 @@ public class MainActivity extends Activity {
 
     }
 
+    //---------------------------------------------------------------------------------------------- 
+    // All the BtnClicked methods below share the same comment
+
+    /** 
+     * This method is invoked when the associated button is clicked, the methods checks 
+     * whether the audio is missing or not, if the audio is missing the speak method plays 
+     * the string it received as an argument, if the audio is not missing the audio 
+     *  will be played using the start method. 
+     *  @param view 
+     */
     public void mondayBtnClicked(View view){
         if(mondayMissing){
             textToSpeech.speak("Lunes", TextToSpeech.QUEUE_FLUSH, null);
