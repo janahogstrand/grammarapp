@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mycompany.videotesttwo">
 
+    <!-- Added internet permissions so that youtube can work -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application

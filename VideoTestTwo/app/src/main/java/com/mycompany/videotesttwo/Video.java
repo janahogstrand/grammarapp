@@ -22,13 +22,16 @@ public class Video extends YouTubeBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
 
+        // get video address from previous activity
         Intent intent = getIntent();
         address = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
+        // initialise player and listener
         player = (YouTubePlayerView) findViewById(R.id.view);
         listener = new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+                // set fullscreen, load video address, and play video
                 youTubePlayer.setFullscreen(true);
                 youTubePlayer.loadVideo(address);
                 youTubePlayer.play();
@@ -36,6 +39,8 @@ public class Video extends YouTubeBaseActivity {
 
             @Override
             public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+
+                // Toast to notify user in case of initialisation failure
                 Context context = getApplicationContext();
                 CharSequence message = "Initialisation failed";
                 int duration = Toast.LENGTH_LONG;
@@ -45,6 +50,7 @@ public class Video extends YouTubeBaseActivity {
             }
         };
 
+        // actually initialise  player
         player.initialize("AIzaSyBanFg2brLDxGdcdPVhiqif7igZKydGb8c",listener);
 
     }

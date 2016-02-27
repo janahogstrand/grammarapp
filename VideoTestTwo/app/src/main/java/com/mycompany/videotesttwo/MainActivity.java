@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // initialise buttons
         button = (Button) findViewById(R.id.button);
         button2 = (Button) findViewById(R.id.button2);
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onButtonClick(View view) {
 
+        // start new youtube activity and pass the video address to it
         Intent intent = new Intent(this, Video.class);
         String address = "xLSgm06J6sM";
 
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onButton2Click(View view) {
 
+        // start new youtube activity and pass the video address to it
         Intent intent = new Intent(this, Video.class);
         String address = "qyXTgqJtoGM";
 

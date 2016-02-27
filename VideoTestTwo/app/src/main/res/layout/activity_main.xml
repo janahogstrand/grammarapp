@@ -9,6 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.mycompany.videotesttwo.MainActivity">
 
+    <!-- buttons have onclick methods to start up the youtube player -->
 
     <Button
         android:layout_width="wrap_content"
