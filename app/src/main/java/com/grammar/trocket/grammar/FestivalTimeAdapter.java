@@ -10,23 +10,22 @@ import java.util.List;
 /**
  * Created by jamiemoreland on 24/02/16.
  */
-public class FestivalAdapter extends RecyclerView.Adapter<FestivalViewHolder>  {
+public class FestivalTimeAdapter extends RecyclerView.Adapter<FestivalTimeViewHolder>  {
 
-    private List<FestivalItem> festivalData;
+    private List<FestivalTimeItem> festivalData;
 
-    FestivalAdapter(List<FestivalItem> festData){this.festivalData = festData;}
+    FestivalTimeAdapter(List<FestivalTimeItem> festData){this.festivalData = festData;}
 
 
     @Override
-    public FestivalViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FestivalTimeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_festival, parent, false);
-        FestivalViewHolder viewHolder = new FestivalViewHolder(v);
+        FestivalTimeViewHolder viewHolder = new FestivalTimeViewHolder(v, festivalData);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(FestivalViewHolder holder, int position) {
-        //holder.festivalName.setText(festivalData.get(position).getName());
+    public void onBindViewHolder(FestivalTimeViewHolder holder, int position) {
         holder.festivalPicture.setImageResource(festivalData.get(position).getPhoto());
     }
 

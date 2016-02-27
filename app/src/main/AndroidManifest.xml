@@ -21,6 +21,7 @@
         <activity android:name=".FragmentTab3" />
         <activity android:name=".FragmentTab2" />
         <activity android:name=".FragmentTab1" />
+        <activity android:name=".BigView" android:label="Item viewer"/>
     </application>
 
 </manifest>
