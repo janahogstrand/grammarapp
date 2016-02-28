@@ -1,5 +1,6 @@
 package com.grammar.trocket.grammar;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 public class MainMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,20 +33,20 @@ public class MainMenu extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-//        Button one;
-//        one = (Button) this.findViewById(R.id.btnA);
-//        final MediaPlayer Amusic;
-//        Amusic = MediaPlayer.create(this, R.raw.abcd);
-//
-//        one.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//
-//            public void onClick(View v) {
-//                Amusic.start();
-//
-//            }
-//        });
-//    }
+        Button one;
+        one = (Button) this.findViewById(R.id.btnA);
+        final MediaPlayer Amusic;
+        Amusic = MediaPlayer.create(this, R.raw.abcd);
+
+        one.setOnClickListener(new View.OnClickListener() {
+            @Override
+
+            public void onClick(View v) {
+                Amusic.start();
+
+            }
+        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
