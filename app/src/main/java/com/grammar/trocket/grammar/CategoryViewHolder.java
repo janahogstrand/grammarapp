@@ -55,6 +55,11 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
     }
 
+    /**
+     * Checks first card to see if it is a resources
+     * if so then all of them must be
+     * sets them invisible
+     * **/
     private void checkResource(){
         if(categories.get(0).isResource) {
             observe.setVisibility(View.INVISIBLE);
@@ -100,15 +105,15 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
 
 
-//        Button observe = (Button) view.findViewById(R.id.observe);
-//        observe.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //Times times = new Times();
-//                Intent times = new Intent(v.getContext(), Times.class);
-//                v.getContext().startActivity(times);
-//            }
-//        });
+        Button observe = (Button) view.findViewById(R.id.observe);
+        observe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Times times = new Times();
+                Intent times = new Intent(v.getContext(), Times.class);
+                v.getContext().startActivity(times);
+            }
+        });
     }
     public void setIndex(int index){
         this.index = index;
