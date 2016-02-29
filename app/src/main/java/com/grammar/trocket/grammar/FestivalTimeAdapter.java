@@ -9,14 +9,29 @@ import java.util.List;
 
 /**
  * Created by jamiemoreland on 24/02/16.
+ * An adapter that inflates cards, binds data and attaches
+ * items to the recycle viewers
  */
-public class FestivalTimeAdapter extends RecyclerView.Adapter<FestivalTimeViewHolder>  {
+public class FestivalTimeAdapter extends RecyclerView.Adapter<FestivalTimeViewHolder> {
 
     private List<FestivalTimeItem> festivalData;
 
-    FestivalTimeAdapter(List<FestivalTimeItem> festData){this.festivalData = festData;}
+    /**
+     * Gives data so a new view can be inflated with this data
+     *
+     * @param festData festival or time objects with data
+     * @see FestivalTimeAdapter
+     */
+    FestivalTimeAdapter(List<FestivalTimeItem> festData) {
+        this.festivalData = festData;
+    }
 
-
+    /**
+     * Inflates card festival which is a layout
+     * for the time/festival view
+     *
+     * @see FestivalTimeViewHolder
+     **/
     @Override
     public FestivalTimeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_festival, parent, false);
@@ -24,11 +39,17 @@ public class FestivalTimeAdapter extends RecyclerView.Adapter<FestivalTimeViewHo
         return viewHolder;
     }
 
+    /**
+     * Binds photo to card view
+     **/
     @Override
     public void onBindViewHolder(FestivalTimeViewHolder holder, int position) {
         holder.festivalPicture.setImageResource(festivalData.get(position).getPhoto());
     }
 
+    /**
+     * Returns festivalData size
+     **/
     @Override
     public int getItemCount() {
         return festivalData.size();

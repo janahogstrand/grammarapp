@@ -10,6 +10,13 @@ import java.util.List;
 
 /**
  * Created by jamiemoreland on 27/02/16.
+ * <p/>
+ * This class should be used when an instance of the
+ * Times resources activity is needed
+ * data can retrieved from the database and
+ * views will then be inflated
+ *
+ * @see BigView
  */
 public class Times extends AppCompatActivity {
     private List<FestivalTimeItem> timeData;
@@ -18,12 +25,11 @@ public class Times extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_festivalstime);
-        RecyclerView rv = (RecyclerView)findViewById(R.id.rv);
+        RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
 
         GridLayoutManager glm = new GridLayoutManager(Times.this, 3);
         rv.setLayoutManager(glm);
         rv.setHasFixedSize(true);
-
 
 
         FestivalTimeAdapter festivalTimeAdapter = new FestivalTimeAdapter(getData());
@@ -31,17 +37,22 @@ public class Times extends AppCompatActivity {
     }
 
 
-
-    private List<FestivalTimeItem> getData(){
+    /**
+     * Gets data to pass to adapter
+     * //TODO make this interact with database
+     *
+     * @see FestivalTimeAdapter
+     **/
+    private List<FestivalTimeItem> getData() {
         timeData = new ArrayList<FestivalTimeItem>();
-        timeData.add(new FestivalTimeItem("El is a time", "This is a a time", R.drawable.placeholder));
-        timeData.add(new FestivalTimeItem("El time", "This is a time", R.drawable.placeholder2));
-        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3));
-        timeData.add(new FestivalTimeItem("Es Test", "The Test", R.drawable.placeholder));
-        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2));
-        timeData.add(new FestivalTimeItem("uber festival", "Wow much festival", R.drawable.placeholder3));
-        timeData.add(new FestivalTimeItem("im trapped in a text view", "much test", R.drawable.placeholder));
-        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2));
+        timeData.add(new FestivalTimeItem("El is a time", "", R.drawable.placeholder));
+        timeData.add(new FestivalTimeItem("El time", "", R.drawable.placeholder2));
+        timeData.add(new FestivalTimeItem("El Indianas", "", R.drawable.placeholder3));
+        timeData.add(new FestivalTimeItem("Es Test", "", R.drawable.placeholder));
+        timeData.add(new FestivalTimeItem("Es Brits", "", R.drawable.placeholder2));
+        timeData.add(new FestivalTimeItem("uber festival", "", R.drawable.placeholder3));
+        timeData.add(new FestivalTimeItem("im trapped in a text view", "", R.drawable.placeholder));
+        timeData.add(new FestivalTimeItem("Es Brits", "", R.drawable.placeholder2));
         timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3));
         timeData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder));
         timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2));

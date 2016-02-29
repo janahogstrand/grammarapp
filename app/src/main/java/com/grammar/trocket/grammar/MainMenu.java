@@ -13,7 +13,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.Window;
 
 public class MainMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -35,7 +34,7 @@ public class MainMenu extends AppCompatActivity
 
     /**
      * Creates Tabs, Navigation drawer and page adapter
-     * **/
+     **/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,9 +64,10 @@ public class MainMenu extends AppCompatActivity
 
 
     }
+
     /**
      * Back press for drawer
-     * **/
+     **/
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -80,7 +80,7 @@ public class MainMenu extends AppCompatActivity
 
     /**
      * Getting drawer items
-     * **/
+     **/
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -125,9 +125,10 @@ public class MainMenu extends AppCompatActivity
                     return tab3;
             }
         }
+
         /**
          * Gets total pages
-         * **/
+         **/
         @Override
         public int getCount() {
             // Show 3 total pages.

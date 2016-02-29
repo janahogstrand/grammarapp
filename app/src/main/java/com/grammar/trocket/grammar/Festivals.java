@@ -1,13 +1,24 @@
 package com.grammar.trocket.grammar;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Created by jamiemoreland on 27/02/16.
+ * <p/>
+ * This class should be used when an instance of the
+ * Festival resources activity is needed
+ * data can retrieved from the database and
+ * views will then be inflated
+ *
+ * @see BigView
+ */
 public class Festivals extends AppCompatActivity {
     private List<FestivalTimeItem> festData;
 
@@ -15,12 +26,11 @@ public class Festivals extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_festivalstime);
-        RecyclerView rv = (RecyclerView)findViewById(R.id.rv);
+        RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
 
         GridLayoutManager glm = new GridLayoutManager(Festivals.this, 3);
         rv.setLayoutManager(glm);
         rv.setHasFixedSize(true);
-
 
 
         FestivalTimeAdapter festivalTimeAdapter = new FestivalTimeAdapter(getData());
@@ -28,8 +38,13 @@ public class Festivals extends AppCompatActivity {
     }
 
 
-
-    private List<FestivalTimeItem> getData(){
+    /**
+     * Gets data to pass to adapter
+     * //TODO make this interact with database
+     *
+     * @see FestivalTimeAdapter
+     **/
+    private List<FestivalTimeItem> getData() {
         festData = new ArrayList<FestivalTimeItem>();
         festData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder));
         festData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2));

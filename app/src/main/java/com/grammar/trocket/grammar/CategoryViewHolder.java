@@ -9,6 +9,11 @@ import android.widget.TextView;
 
 /**
  * Created by jamiemoreland on 24/02/16.
+ * Adds on clicks for Categories
+ * Opens DialectDialog with data
+ * provided here
+ *
+ * @see DialectDialog
  */
 public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
@@ -20,7 +25,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
     public Category currentItem;
 
     /**
-     * Get ids
+     * Init views
      * Set on click listener
      **/
     CategoryViewHolder(View itemView) {
@@ -30,12 +35,20 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         desc = (TextView) itemView.findViewById(R.id.desc);
         icon = (ImageView) itemView.findViewById(R.id.icon);
         view = itemView;
+        makeOnClicks();
+
+    }
+
+    /**
+     * When card is clicked dialogs are opened
+     **/
+    private void makeOnClicks() {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Card clicked
                 //Check if dialog is needed
-                if(currentItem.hasDialect){
+                if (currentItem.hasDialect) {
                     //TODO make this adapter get information from database
                     ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                             view.getContext(),
@@ -64,4 +77,5 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             }
         });
     }
+
 }

@@ -14,9 +14,8 @@ public class Category {
      * @param icon Icon for category
      * @param desc Description for Category
      * @param name Name of Category
-     *
-     * **/
-    Category(String name, String desc, int icon, boolean hasDialect){
+     **/
+    Category(String name, String desc, int icon, boolean hasDialect) {
         this.name = name;
         this.desc = desc;
         this.icon = icon;

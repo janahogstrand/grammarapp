@@ -14,6 +14,9 @@ import java.util.Locale;
 /**
  * Created by jamiemoreland on 25/02/16.
  * Used for clock and festivals activities
+ * Loads an activity where pictures and sentences will be filled
+ *
+ * @see FestivalTimeViewHolder
  */
 public class BigView extends AppCompatActivity {
     ImageView centerImage;
@@ -37,6 +40,7 @@ public class BigView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_big_view);
 
+        //Get data
         Bundle data = getIntent().getExtras();
         dataFest = data.getParcelableArrayList("data");
         index = data.getInt("current");
@@ -80,10 +84,21 @@ public class BigView extends AppCompatActivity {
 
 
     /**
-     * Assigining on click listeners for next and prev
+     * Setting on click listeners for next and prev
      * buttons
+     * nextImage goes to next activity
+     * prevImage goes to previous activity
+     * centerImage plays sound when clicked
      **/
     private void makeOnClicks() {
+
+        centerImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playAudio();
+            }
+        });
+
         nextImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,6 +145,7 @@ public class BigView extends AppCompatActivity {
             prevImage.setVisibility(View.INVISIBLE);
             prevText.setVisibility(View.INVISIBLE);
         }
+
         playAudio();
 
     }
@@ -137,7 +153,7 @@ public class BigView extends AppCompatActivity {
     /**
      * Plays from audio file if not found
      * then plays textToSpeech
-     * **/
+     **/
     private void playAudio() {
         try {
             assignAudio(nameSpanish.getText().toString());
@@ -176,7 +192,7 @@ public class BigView extends AppCompatActivity {
      * Stops all current sound
      * If text to speech is running this will stop
      * If media player is running this will stop
-     * **/
+     **/
     private void stopAllSound() {
         try {
             if (textToSpeech.isSpeaking()) {

@@ -1,16 +1,17 @@
 package com.grammar.trocket.grammar;
 
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.List;
 
+
+/**
+ * An adapter that inflates cards, binds data and attaches
+ * items to the recycle viewers
+ */
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
 
     //List of data, in this case categories
@@ -50,6 +51,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
         categoryViewHolder.currentItem = categorys.get(i);
     }
 
+    /**
+     * Returns categories size
+     **/
     @Override
     public int getItemCount() {
         return categorys.size();

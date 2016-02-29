@@ -1,9 +1,12 @@
 package com.grammar.trocket.grammar;
 
-        import android.content.Context;
-        import android.util.AttributeSet;
-        import android.widget.ImageView;
+import android.content.Context;
+import android.util.AttributeSet;
+import android.widget.ImageView;
 
+/**
+ * Used instead of image view to make images square
+ **/
 final class SquareImageView extends ImageView {
     public SquareImageView(Context context) {
         super(context);
@@ -13,7 +16,8 @@ final class SquareImageView extends ImageView {
         super(context, attrs);
     }
 
-    @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         setMeasuredDimension(getMeasuredWidth(), getMeasuredWidth());
     }

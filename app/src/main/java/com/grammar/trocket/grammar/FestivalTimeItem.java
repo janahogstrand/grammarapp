@@ -5,6 +5,11 @@ import android.os.Parcelable;
 
 /**
  * Created by jamiemoreland on 24/02/16.
+ * Creates an item to hold data
+ * for either a festival or the time
+ * Parcelable is used so that items of this type
+ * can be parsed to a new intent
+ * @see Parcelable
  */
 public class FestivalTimeItem implements Parcelable {
     String spanishName;
@@ -14,25 +19,37 @@ public class FestivalTimeItem implements Parcelable {
     /**
      * @param spanishName Name of festival or time in spanish
      * @param englishName Name of festival or time in english
-     * @param picture Picture of festival
-     * **/
-    public FestivalTimeItem(String spanishName, String englishName, int picture){
+     * @param picture     Picture of festival
+     **/
+    public FestivalTimeItem(String spanishName, String englishName, int picture) {
         this.spanishName = spanishName;
         this.englishName = englishName;
         this.picture = picture;
     }
-
-    public String getSpanishName(){
+    /**
+     * Gets name in spanish
+     * **/
+    public String getSpanishName() {
         return spanishName;
     }
-    public String getEnglishName(){
+    /**
+     * Gets name in english
+     * **/
+    public String getEnglishName() {
         return englishName;
     }
-    public int getPhoto(){
+    /**
+     * Gets int of photo
+     * **/
+    public int getPhoto() {
         return picture;
     }
-
-    public FestivalTimeItem(Parcel in){
+    /**
+     * Constructor for parcel
+     * data is parsed through
+     * @see Parcel
+     * **/
+    public FestivalTimeItem(Parcel in) {
         String data[] = new String[3];
 
         in.readStringArray(data);
@@ -41,20 +58,29 @@ public class FestivalTimeItem implements Parcelable {
         this.picture = Integer.parseInt(data[2]);
     }
 
+    /**
+     * Used for parcel
+     * **/
     @Override
     public int describeContents() {
         return 0;
     }
-
+    /**
+     * Parses data to parcel
+     * **/
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeStringArray(new String[] {this.spanishName, this.englishName, ("" + this.picture)});
+        dest.writeStringArray(new String[]{this.spanishName, this.englishName, ("" + this.picture)});
     }
-    public static final Parcelable.Creator CREATOR = new Parcelable.Creator(){
-        public FestivalTimeItem createFromParcel(Parcel in){
-            return  new FestivalTimeItem(in);
+    /**
+     * Returns FestivalTimeItem with parcel parameter
+     * **/
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public FestivalTimeItem createFromParcel(Parcel in) {
+            return new FestivalTimeItem(in);
         }
-        public FestivalTimeItem[] newArray(int size){
+
+        public FestivalTimeItem[] newArray(int size) {
             return new FestivalTimeItem[size];
         }
     };
