@@ -41,39 +41,73 @@ public class BigView extends AppCompatActivity {
         dataFest = data.getParcelableArrayList("data");
         index = data.getInt("current");
 
+        player = new MediaPlayer();
         initViews();
-        assignAssets();
-        //assignLanguage();
+        assignAssets(index);
         makeOnClicks();
 
+        //TODO get language off database
         language = new Locale("es", "ES");
 
 
     }
 
-    public void makeOnClicks() {
+    /**
+     * Inits views and init listener for TTS
+     * Should only be called once at start of program
+     **/
+    private void initViews() {
+        centerImage = (ImageView) findViewById(R.id.centerImage);
+        nextImage = (ImageView) findViewById(R.id.next);
+        prevImage = (ImageView) findViewById(R.id.previous);
+        nextText = (TextView) findViewById(R.id.textView2);
+        prevText = (TextView) findViewById(R.id.textView);
+        nameEnglish = (TextView) findViewById(R.id.name_english);
+        nameSpanish = (TextView) findViewById(R.id.name_spanish);
+
+        textToSpeech = new TextToSpeech(BigView.this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                textToSpeech.setLanguage(language);
+                //For first TTS played
+                if (status == TextToSpeech.SUCCESS) {
+                    playAudio();
+                }
+            }
+        });
+
+    }
+
+
+    /**
+     * Assigining on click listeners for next and prev
+     * buttons
+     **/
+    private void makeOnClicks() {
         nextImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetAssets(index + 1);
+                assignAssets(index + 1);
             }
         });
         prevImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetAssets(index - 1);
+                assignAssets(index - 1);
             }
         });
     }
 
-    public void resetAssets(int newIndex){
+    /**
+     * Will attempted to load images for previous and next
+     * if it is the starting or ending button they will
+     * become invisible
+     *
+     * @param newIndex Index of page so correct page
+     *                 can be loaded
+     **/
+    private void assignAssets(int newIndex) {
         index = newIndex;
-        assignAssets();
-        testAudio();
-
-    }
-
-    public void assignAssets(){
         current = dataFest.get(index);
         centerImage.setImageResource(current.getPhoto());
         nameEnglish.setText(current.getEnglishName());
@@ -88,7 +122,7 @@ public class BigView extends AppCompatActivity {
             nextText.setVisibility(View.INVISIBLE);
         }
         try {
-            prev = dataFest.get(index-1);
+            prev = dataFest.get(index - 1);
             prevImage.setImageResource(prev.getPhoto());
             prevImage.setVisibility(View.VISIBLE);
             prevText.setVisibility(View.VISIBLE);
@@ -96,62 +130,68 @@ public class BigView extends AppCompatActivity {
             prevImage.setVisibility(View.INVISIBLE);
             prevText.setVisibility(View.INVISIBLE);
         }
-        testAudio();
-
-
+        playAudio();
 
     }
 
-    public void initViews(){
-        centerImage = (ImageView) findViewById(R.id.centerImage);
-        nextImage = (ImageView) findViewById(R.id.next);
-        prevImage = (ImageView) findViewById(R.id.previous);
-        nextText = (TextView) findViewById(R.id.textView2);
-        prevText = (TextView) findViewById(R.id.textView);
-        nameEnglish = (TextView) findViewById(R.id.name_english);
-        nameSpanish = (TextView) findViewById(R.id.name_spanish);
-    }
-
-    public void testAudio(){
-        try{
+    /**
+     * Plays from audio file if not found
+     * then plays textToSpeech
+     * **/
+    private void playAudio() {
+        try {
             assignAudio(nameSpanish.getText().toString());
-        }catch (Exception e){
-            textToSpeech = new TextToSpeech(BigView.this, new TextToSpeech.OnInitListener() {
-                @Override
-                public void onInit(int status) {
-                    textToSpeech.setLanguage(language);
-                    textToSpeech.speak(nameSpanish.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
-                }
-            });
+        } catch (Exception e) {
+            textToSpeech.speak(nameSpanish.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
         }
     }
 
-    /** 
+    /**
      * Database will assign correct audio files, for now I have used
      * if statements to simulate this
+     * TODO database implementation
+     *
+     * @throws NullPointerException When no audio is found
      */
-    public void assignAudio(String text){
-        try{
-            textToSpeech.stop();
-        }catch (Exception e){
+    private void assignAudio(String text) {
+        stopAllSound();
 
-        }
-        try{
-            player.stop();
-        }catch (Exception e){
-
-        }
-        switch (text){
-            case "Es Brits":  player = MediaPlayer.create(BigView.this, R.raw.placeholderaudio1);
+        switch (text) {
+            case "Es Brits":
+                player = MediaPlayer.create(BigView.this, R.raw.placeholderaudio1);
                 break;
-            case "El Indianas": player = MediaPlayer.create(BigView.this, R.raw.placeholderaudio2);
+            case "El Indianas":
+                player = MediaPlayer.create(BigView.this, R.raw.placeholderaudio2);
                 break;
-            case "Es Test":  player = MediaPlayer.create(BigView.this, R.raw.placeholderaudio3);
+            case "Es Test":
+                player = MediaPlayer.create(BigView.this, R.raw.placeholderaudio3);
                 break;
-            default: player = null;
+            default:
+                player = null;
         }
         player.start();
     }
 
+    /**
+     * Stops all current sound
+     * If text to speech is running this will stop
+     * If media player is running this will stop
+     * **/
+    private void stopAllSound() {
+        try {
+            if (textToSpeech.isSpeaking()) {
+                textToSpeech.stop();
+            }
+            if (player != null) {
+                if (player.isPlaying()) {
+                    player.stop();
+                    player.reset();
+                    player.release();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
