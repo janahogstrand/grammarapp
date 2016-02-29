@@ -9,9 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Festivals"
+            android:name=".MainMenu"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,6 +22,8 @@
         <activity android:name=".FragmentTab2" />
         <activity android:name=".FragmentTab1" />
         <activity android:name=".BigView" android:label="Item viewer"/>
+        <activity android:name=".Festivals" android:label="Festivals"/>
+        <activity android:name=".Times" android:label="Times"/>
     </application>
 
 </manifest>

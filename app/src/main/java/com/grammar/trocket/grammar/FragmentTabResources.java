@@ -41,12 +41,12 @@ public class FragmentTabResources extends Fragment {
      **/
     private void initializeData() {
         categories = new ArrayList<>();
-        categories.add(new Category("Numbers", "Learn to count", R.drawable.ic_menu_manage, false));
-        categories.add(new Category("Seasons", "Learn the seasons", R.drawable.ic_menu_slideshow, false));
-        categories.add(new Category("Festivals", "Learn the festivals", R.drawable.ic_menu_gallery, false));
-        categories.add(new Category("Calendar", "Learn how to read a calendar", R.drawable.ic_menu_camera, false));
-        categories.add(new Category("Directions", "Learn to ask for directons", R.drawable.ic_menu_send, false));
-        categories.add(new Category("Food & Drink", "Learn to ask for food and drinks", R.drawable.ic_menu_gallery, true));
+        categories.add(new Category("Times", "Learn to tell the time", R.drawable.ic_menu_send, true, true));
+        categories.add(new Category("Festivals", "Learn about all the festivals", R.drawable.ic_menu_slideshow, true, true));
+        categories.add(new Category("Festivals", "Learn the festivals", R.drawable.ic_menu_gallery, false, true));
+        categories.add(new Category("Calendar", "Learn how to read a calendar", R.drawable.ic_menu_camera, false, true));
+        categories.add(new Category("Directions", "Learn to ask for directons", R.drawable.ic_menu_send, false, true));
+        categories.add(new Category("Food & Drink", "Learn to ask for food and drinks", R.drawable.ic_menu_gallery, true, true));
     }
 
     /**

@@ -35,7 +35,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     @Override
     public CategoryViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview, viewGroup, false);
-        CategoryViewHolder cvh = new CategoryViewHolder(v);
+        CategoryViewHolder cvh = new CategoryViewHolder(v, categorys);
         return cvh;
     }
 

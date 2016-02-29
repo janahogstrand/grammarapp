@@ -2,6 +2,7 @@ package com.grammar.trocket.grammar;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.widget.ArrayAdapter;
 
@@ -11,8 +12,13 @@ import android.widget.ArrayAdapter;
  */
 public class DialectDialog extends AlertDialog.Builder {
 
-    protected DialectDialog(Context context, final ArrayAdapter<String> dialectOptions) {
+    Context c;
+    Intent intent;
+
+    protected DialectDialog(Context context, final ArrayAdapter<String> dialectOptions, Context c, Intent intent) {
         super(context);
+        this.c = c;
+        this.intent = intent;
         addListContent(context, dialectOptions);
     }
 
@@ -28,7 +34,7 @@ public class DialectDialog extends AlertDialog.Builder {
 
         //Set button
         this.setNegativeButton(
-                "Finshed",
+                "Exit",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -42,22 +48,7 @@ public class DialectDialog extends AlertDialog.Builder {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String strName = dialectOptions.getItem(which);
-                        android.app.AlertDialog.Builder builderInner = new android.app.AlertDialog.Builder(
-                                context);
-                        builderInner.setMessage(strName);
-                        builderInner.setTitle("This should now send you to a new activity with new dialect");
-                        builderInner.setPositiveButton(
-                                "Ok",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(
-                                            DialogInterface dialog,
-                                            int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                        builderInner.show();
+                        context.startActivity(intent);
                     }
                 });
         //Show dialog
