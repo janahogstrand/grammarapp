@@ -12,7 +12,7 @@
         android:layout_alignParentStart="true">
 
         <!-- TODO change hardcoded 290dp to dimen value-->
-    <com.grammar.trocket.grammar.SquareImageView
+    <com.grammar.trocket.grammar.com.grammar.trocket.customviews.SquareImageView
         android:id="@+id/centerImage"
         android:layout_width="290dp"
         android:layout_height="290dp"
@@ -59,7 +59,7 @@
             android:layout_alignParentStart="true">
 
             <!-- TODO change hardcoded 120dp to dimen value-->
-            <com.grammar.trocket.grammar.SquareImageView
+            <com.grammar.trocket.grammar.com.grammar.trocket.customviews.SquareImageView
                 android:id="@+id/previous"
                 android:src="@drawable/placeholder3"
                 android:layout_width="120dp"
@@ -78,7 +78,7 @@
 
 
             <!-- TODO change hardcoded 120dp to dimen value-->
-            <com.grammar.trocket.grammar.SquareImageView
+            <com.grammar.trocket.grammar.com.grammar.trocket.customviews.SquareImageView
                 android:id="@+id/next"
                 android:src="@drawable/placeholder3"
                 android:layout_width="120dp"

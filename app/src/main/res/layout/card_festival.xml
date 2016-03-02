@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/cv">
 
-    <com.grammar.trocket.grammar.SquareImageView
+    <com.grammar.trocket.grammar.com.grammar.trocket.customviews.SquareImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"

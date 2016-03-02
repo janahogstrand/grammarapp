@@ -1,9 +1,11 @@
-package com.grammar.trocket.grammar;
+package com.grammar.trocket.grammar.com.grammar.trocket.main.category;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.grammar.trocket.grammar.R;
 
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     //List of data, in this case categories
     List<Category> categorys;
 
-    CategoryAdapter(List<Category> categorys) {
+    public CategoryAdapter(List<Category> categorys) {
         this.categorys = categorys;
     }
 

@@ -1,4 +1,4 @@
-package com.grammar.trocket.grammar;
+package com.grammar.trocket.grammar.com.grammar.trocket.main.category;
 
 /**
  * Created by jamiemoreland on 15/02/16.
@@ -18,7 +18,7 @@ public class Category {
      * @param name Name of Category
      * @param  hasDialect Dialect  of category
      **/
-    Category(String name, String desc, int icon, boolean hasDialect) {
+    public Category(String name, String desc, int icon, boolean hasDialect) {
         this.name = name;
         this.desc = desc;
         this.icon = icon;
@@ -33,7 +33,7 @@ public class Category {
      * @param  hasDialect Dialect  of category
      * @param isResource Set true if this is a boolean, this will turn buttons on the card invisible
      **/
-    Category(String name, String desc, int icon, boolean hasDialect, boolean isResource) {
+    public Category(String name, String desc, int icon, boolean hasDialect, boolean isResource) {
         this.name = name;
         this.desc = desc;
         this.icon = icon;

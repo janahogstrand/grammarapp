@@ -1,4 +1,4 @@
-package com.grammar.trocket.grammar;
+package com.grammar.trocket.grammar.com.grammar.trocket.main;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -13,6 +13,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabDictionary;
+import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabExercises;
+import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabResources;
 
 public class MainMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

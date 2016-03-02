@@ -1,4 +1,4 @@
-package com.grammar.trocket.grammar;
+package com.grammar.trocket.grammar.com.grammar.trocket.resources;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -7,6 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeItem;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeViewHolder;
 
 import java.util.ArrayList;
 import java.util.Locale;

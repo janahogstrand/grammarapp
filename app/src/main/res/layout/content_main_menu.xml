@@ -11,6 +11,6 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_main_menu"
-    tools:context="com.grammar.trocket.grammar.MainMenu">
+    tools:context=".com.grammar.trocket.main.MainMenu">
 
 </RelativeLayout>

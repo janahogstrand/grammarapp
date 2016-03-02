@@ -1,15 +1,19 @@
-package com.grammar.trocket.grammar;
+package com.grammar.trocket.grammar.com.grammar.trocket.main.category;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.Festivals;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.Times;
 
 import java.util.List;
 

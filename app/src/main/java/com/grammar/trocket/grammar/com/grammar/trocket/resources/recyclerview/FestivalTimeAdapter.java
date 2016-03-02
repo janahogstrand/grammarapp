@@ -1,9 +1,11 @@
-package com.grammar.trocket.grammar;
+package com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.grammar.trocket.grammar.R;
 
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class FestivalTimeAdapter extends RecyclerView.Adapter<FestivalTimeViewHo
      * @param festData festival or time objects with data
      * @see FestivalTimeAdapter
      */
-    FestivalTimeAdapter(List<FestivalTimeItem> festData) {
+    public FestivalTimeAdapter(List<FestivalTimeItem> festData) {
         this.festivalData = festData;
     }
 

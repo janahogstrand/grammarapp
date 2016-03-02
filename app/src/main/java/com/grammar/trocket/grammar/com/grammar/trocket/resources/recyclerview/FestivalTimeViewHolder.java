@@ -1,4 +1,4 @@
-package com.grammar.trocket.grammar;
+package com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.BigView;
+import com.grammar.trocket.grammar.R;
 
 import java.util.ArrayList;
 import java.util.List;

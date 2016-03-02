@@ -1,4 +1,4 @@
-package com.grammar.trocket.grammar;
+package com.grammar.trocket.grammar.com.grammar.trocket.dialogs;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,7 +15,7 @@ public class DialectDialog extends AlertDialog.Builder {
     Context c;
     Intent intent;
 
-    protected DialectDialog(Context context, final ArrayAdapter<String> dialectOptions, Context c, Intent intent) {
+    public DialectDialog(Context context, final ArrayAdapter<String> dialectOptions, Context c, Intent intent) {
         super(context);
         this.c = c;
         this.intent = intent;
