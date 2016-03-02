@@ -25,7 +25,7 @@ public class FragmentTabExercises extends Fragment {
      **/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_tab1, container, false);
+        View v = inflater.inflate(R.layout.fragment_tab_exercises, container, false);
         rv = (RecyclerView) v.findViewById(R.id.recycleView);
 
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));

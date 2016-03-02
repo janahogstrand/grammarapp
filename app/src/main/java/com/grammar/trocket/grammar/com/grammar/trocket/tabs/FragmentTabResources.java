@@ -21,12 +21,12 @@ public class FragmentTabResources extends Fragment {
     private RecyclerView rv;
 
     /**
-     * Inflae fragement tab 2
+     * Inflate fragement tab 2
      * Set recycle view for card view
      **/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_tab2, container, false);
+        View v = inflater.inflate(R.layout.fragment_tab_resources, container, false);
         rv = (RecyclerView) v.findViewById(R.id.recycleView);
 
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
