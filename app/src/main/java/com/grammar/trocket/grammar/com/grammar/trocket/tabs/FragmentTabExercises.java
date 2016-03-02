@@ -16,11 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentTabExercises extends Fragment {
+
     private List<Category> categories;
     private RecyclerView rv;
 
     /**
-     * Inflae fragement tab 1
+     * Inflate fragments tab 1
      * Set recycle view for card view
      **/
     @Override

@@ -18,9 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FragmentTab3" />
-        <activity android:name=".FragmentTab2" />
-        <activity android:name=".FragmentTab1" />
+        <activity android:name=".com.grammar.trocket.resources.ListViewActivity" />
         <activity android:name=".com.grammar.trocket.resources.BigView" android:label="Item viewer"/>
         <activity android:name=".com.grammar.trocket.resources.Festivals" android:label="Festivals"/>
         <activity android:name=".com.grammar.trocket.resources.Times" android:label="Times"/>

@@ -12,6 +12,7 @@ import android.os.Parcelable;
  * @see Parcelable
  */
 public class FestivalTimeItem implements Parcelable {
+
     String spanishName;
     String englishName;
     int picture;

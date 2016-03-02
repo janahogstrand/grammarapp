@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Festivals;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.ListViewActivity;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Times;
 
 import java.util.List;
@@ -38,6 +39,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
     public Category currentItem;
     List<Category> categories;
     int index;
+    Intent intent;
 
     /**
      * Init views
@@ -81,33 +83,27 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View v) {
                 //Card clicked
                 //Check if dialog is needed
+                Context context = view.getContext();
+                selectIntent(context);
+
                 if (currentItem.hasDialect) {
                     //TODO make this adapter get information from database
                     ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                             view.getContext(),
                             android.R.layout.select_dialog_singlechoice);
+
                     arrayAdapter.add("Spanish");
                     arrayAdapter.add("Mexican");
 
-                    Context c = view.getContext();
-                    Intent intent = new Intent();
 
-                    //Load dialog with adapter
-                    if(currentItem.name.equals("Times")){
-                        intent = new Intent(c, Times.class);
-                    }else{
-                        intent = new Intent(c, Festivals.class);
-                    }
-                    DialectDialog d = new DialectDialog(view.getContext(), arrayAdapter, c, intent);
+                    DialectDialog dialectDialog = new DialectDialog(context, arrayAdapter, intent);
 
+                } else {
+                    context.startActivity(intent);
                 }
 
             }
         });
-
-
-
-
 
         Button observe = (Button) view.findViewById(R.id.observe);
         observe.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +115,24 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             }
         });
     }
+
+
+    // TODO Adjust code below according to the database
+    public void selectIntent(Context context){
+        //Load dialog with adapter
+        if(currentItem.name.equals("Times")){
+            intent = new Intent(context, Times.class);
+        }else if(currentItem.name.equals("Festivals"))
+        {
+            intent = new Intent(context, Festivals.class);
+        }else if(currentItem.name.equals("Calendar"))
+        {
+            intent = new Intent(context, ListViewActivity.class);
+        }
+    }
+
+
+
     public void setIndex(int index){
         this.index = index;
     }

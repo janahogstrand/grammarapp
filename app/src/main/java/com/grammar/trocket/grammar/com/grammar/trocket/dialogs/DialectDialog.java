@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
 /**
@@ -12,12 +13,15 @@ import android.widget.ArrayAdapter;
  */
 public class DialectDialog extends AlertDialog.Builder {
 
-    Context c;
+    public final static String DIALECT_INFO = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE";
+
+    Context context;
     Intent intent;
 
-    public DialectDialog(Context context, final ArrayAdapter<String> dialectOptions, Context c, Intent intent) {
+
+    public DialectDialog(Context context, final ArrayAdapter<String> dialectOptions, Intent intent) {
         super(context);
-        this.c = c;
+        this.context = context;
         this.intent = intent;
         addListContent(context, dialectOptions);
     }
@@ -47,7 +51,9 @@ public class DialectDialog extends AlertDialog.Builder {
                 dialectOptions,
                 new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(DialogInterface dialog, int position) {
+                        String selectedDialect = dialectOptions.getItem(position);
+                        intent.putExtra(DIALECT_INFO, selectedDialect);
                         context.startActivity(intent);
                     }
                 });

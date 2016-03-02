@@ -21,11 +21,11 @@ public class FestivalTimeAdapter extends RecyclerView.Adapter<FestivalTimeViewHo
     /**
      * Gives data so a new view can be inflated with this data
      *
-     * @param festData festival or time objects with data
+     * @param data festival or time objects with data
      * @see FestivalTimeAdapter
      */
-    public FestivalTimeAdapter(List<FestivalTimeItem> festData) {
-        this.festivalData = festData;
+    public FestivalTimeAdapter(List<FestivalTimeItem> data) {
+        this.festivalData = data;
     }
 
     /**

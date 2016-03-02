@@ -31,8 +31,8 @@ public class Times extends AppCompatActivity {
         setContentView(R.layout.activity_festivalstime);
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
 
-        GridLayoutManager glm = new GridLayoutManager(Times.this, 3);
-        rv.setLayoutManager(glm);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
+        rv.setLayoutManager(gridLayoutManager);
         rv.setHasFixedSize(true);
 
 
