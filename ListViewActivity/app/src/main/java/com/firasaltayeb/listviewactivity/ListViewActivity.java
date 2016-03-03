@@ -1,5 +1,6 @@
 package com.firasaltayeb.listviewactivity;
 
+import android.app.Activity;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -16,7 +17,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ListViewActivity extends AppCompatActivity {
+public class ListViewActivity extends Activity {
 
 
     Locale language;
@@ -29,10 +30,10 @@ public class ListViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.firasaltayeb.listviewactivity.R.layout.list_view_activity);
+        setContentView(R.layout.list_view_activity);
 
-         listView = (ListView) findViewById(com.firasaltayeb.listviewactivity.R.id.listView);
-         linerLayout = (LinearLayout)findViewById(com.firasaltayeb.listviewactivity.R.id.linerLayout);
+         listView = (ListView) findViewById(R.id.listView);
+         linerLayout = (LinearLayout)findViewById(R.id.linerLayout);
 
         assignLanguage();
         assignStringArray();
@@ -64,8 +65,14 @@ public class ListViewActivity extends AppCompatActivity {
 
     public void assignMediaPlayers() {
         for(int i = 0;i<29;i++){
-            MediaPlayer mediaPlayer = MediaPlayer.create(this, com.firasaltayeb.listviewactivity.R.raw.monday);
-            mediaPlayers.add(mediaPlayer);
+            if (i%2 == 0){
+                MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.monday);
+                mediaPlayers.add(mediaPlayer);
+            }else {
+                MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.monday);
+                mediaPlayers.add(mediaPlayer);
+            }
+
         }
     }
 

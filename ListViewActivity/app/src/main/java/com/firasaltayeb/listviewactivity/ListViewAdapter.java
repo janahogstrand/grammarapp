@@ -2,6 +2,7 @@ package com.firasaltayeb.listviewactivity;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,23 +50,26 @@ public class ListViewAdapter extends BaseAdapter {
         if (output == null) {
             // there wasn't a recycled view to work with, so create one from scratch
             LayoutInflater inflater = activity.getLayoutInflater();
-            output = inflater.inflate(com.firasaltayeb.listviewactivity.R.layout.list_view_row, parent, false);
+            output = inflater.inflate(R.layout.list_view_row, parent, false);
         }
 
+
         // get hold of the TextView
-        TextView textView = (TextView) output.findViewById(com.firasaltayeb.listviewactivity.R.id.name);
+        TextView textView = (TextView) output.findViewById(R.id.name);
 
         // get the name to display
         String name = (String) getItem(position);
 
         // put the name in the TextView
         textView.setText(name);
+        textView.setGravity(Gravity.CENTER);
 
         if (position%2==0) {
-            textView.setBackgroundColor(Color.RED);
+            textView.setBackgroundResource(R.drawable.rounded_button_primary);
         } else {
-            textView.setBackgroundColor(Color.TRANSPARENT);
+            textView.setBackgroundResource(R.drawable.rounded_button_secondary);
         }
+
 
 
         return output;
