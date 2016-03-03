@@ -27,7 +27,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main_menu"/>
+    <include layout="@layout/main_menu_content"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
