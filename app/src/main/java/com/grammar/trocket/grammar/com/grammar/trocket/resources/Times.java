@@ -1,10 +1,12 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.resources;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeAdapter;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeItem;
 import com.grammar.trocket.grammar.R;
@@ -24,11 +26,13 @@ import java.util.List;
  */
 public class Times extends AppCompatActivity {
     private List<FestivalTimeItem> timeData;
+    private String dialect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_festivalstime);
+        getDialect();
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
@@ -40,6 +44,11 @@ public class Times extends AppCompatActivity {
         rv.setAdapter(festivalTimeAdapter);
     }
 
+    public void getDialect(){
+        Intent intent = getIntent();
+        dialect = intent.getStringExtra(DialectDialog.DIALECT_INFO);
+    }
+
 
     /**
      * Gets data to pass to adapter
@@ -49,30 +58,30 @@ public class Times extends AppCompatActivity {
      **/
     private List<FestivalTimeItem> getData() {
         timeData = new ArrayList<FestivalTimeItem>();
-        timeData.add(new FestivalTimeItem("El is a time", "", R.drawable.placeholder));
-        timeData.add(new FestivalTimeItem("El time", "", R.drawable.placeholder2));
-        timeData.add(new FestivalTimeItem("El Indianas", "", R.drawable.placeholder3));
-        timeData.add(new FestivalTimeItem("Es Test", "", R.drawable.placeholder));
-        timeData.add(new FestivalTimeItem("Es Brits", "", R.drawable.placeholder2));
-        timeData.add(new FestivalTimeItem("uber festival", "", R.drawable.placeholder3));
-        timeData.add(new FestivalTimeItem("im trapped in a text view", "", R.drawable.placeholder));
-        timeData.add(new FestivalTimeItem("Es Brits", "", R.drawable.placeholder2));
-        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3));
-        timeData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder));
-        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2));
-        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3));
-        timeData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder));
-        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2));
-        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3));
-        timeData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder));
-        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2));
-        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3));
-        timeData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder));
-        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2));
-        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3));
-        timeData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder));
-        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2));
-        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3));
+        timeData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder, dialect));
+        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
+        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
+        timeData.add(new FestivalTimeItem("Es Test", "The Test", R.drawable.placeholder,dialect));
+        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
+        timeData.add(new FestivalTimeItem("uber festival", "Wow much festival", R.drawable.placeholder3, dialect));
+        timeData.add(new FestivalTimeItem("im trapped in a text view", "much test", R.drawable.placeholder, dialect));
+        timeData.add(new FestivalTimeItem("Es Test", "The Brits", R.drawable.placeholder2, dialect));
+        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
+        timeData.add(new FestivalTimeItem("Es Test", "The Box", R.drawable.placeholder, dialect));
+        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
+        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
+        timeData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder, dialect));
+        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
+        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
+        timeData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder, dialect));
+        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
+        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
+        timeData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder, dialect));
+        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
+        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
+        timeData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder, dialect));
+        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
+        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
 
         return timeData;
     }

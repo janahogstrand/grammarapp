@@ -1,5 +1,6 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.resources;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeItem;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeViewHolder;
 
@@ -37,13 +39,14 @@ public class BigView extends AppCompatActivity {
     int index;
     TextToSpeech textToSpeech;
     Locale language;
+    String dialect;
     MediaPlayer player = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_big_view);
-
+        assignLanguage();
         //Get data
         Bundle data = getIntent().getExtras();
         dataFest = data.getParcelableArrayList("data");
@@ -54,11 +57,20 @@ public class BigView extends AppCompatActivity {
         assignAssets(index);
         makeOnClicks();
 
-        //TODO get language off database
-        language = new Locale("es", "ES");
+
 
 
     }
+
+    //TODO get language off database
+    public void assignLanguage(){
+        Intent intent = getIntent();
+        dialect = intent.getStringExtra(DialectDialog.DIALECT_INFO);
+        if(dialect.equals("Spanish")){
+            language = new Locale("es", "ES");
+        }else { language = new Locale("es", "US");}
+    }
+
 
     /**
      * Inits views and init listener for TTS

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.BigView;
 import com.grammar.trocket.grammar.R;
 
@@ -53,6 +54,7 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
                 bigView.putParcelableArrayListExtra("data", dataFest);
                 //Current position
                 b.putInt("current", current);
+                b.putString(DialectDialog.DIALECT_INFO, data.get(getAdapterPosition()).getDialect());
 
                 //Start activity with data
                 bigView.putExtras(b);

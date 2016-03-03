@@ -16,16 +16,19 @@ public class FestivalTimeItem implements Parcelable {
     String spanishName;
     String englishName;
     int picture;
+    String dialect;
 
     /**
      * @param spanishName Name of festival or time in spanish
      * @param englishName Name of festival or time in english
      * @param picture     Picture of festival
+     * @param dialect     Dialect of phrase
      **/
-    public FestivalTimeItem(String spanishName, String englishName, int picture) {
+    public FestivalTimeItem(String spanishName, String englishName, int picture, String dialect) {
         this.spanishName = spanishName;
         this.englishName = englishName;
         this.picture = picture;
+        this.dialect = dialect;
     }
     /**
      * Gets name in spanish
@@ -40,6 +43,12 @@ public class FestivalTimeItem implements Parcelable {
         return englishName;
     }
     /**
+     * Gets dialect
+     * **/
+    public String getDialect() {
+        return dialect;
+    }
+    /**
      * Gets int of photo
      * **/
     public int getPhoto() {
@@ -51,12 +60,13 @@ public class FestivalTimeItem implements Parcelable {
      * @see Parcel
      * **/
     public FestivalTimeItem(Parcel in) {
-        String data[] = new String[3];
+        String data[] = new String[4];
 
         in.readStringArray(data);
         this.spanishName = data[0];
         this.englishName = data[1];
         this.picture = Integer.parseInt(data[2]);
+        this.dialect = data[3];
     }
 
     /**
@@ -71,7 +81,7 @@ public class FestivalTimeItem implements Parcelable {
      * **/
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeStringArray(new String[]{this.spanishName, this.englishName, ("" + this.picture)});
+        dest.writeStringArray(new String[]{this.spanishName, this.englishName, ("" + this.picture), this.dialect});
     }
     /**
      * Returns FestivalTimeItem with parcel parameter
