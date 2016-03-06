@@ -1,7 +1,6 @@
 package com.firasaltayeb.listviewactivity;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +42,16 @@ public class ListViewAdapter extends BaseAdapter {
         return 0;
     }
 
+    /**
+     * This method creates a view for every object/item in the data arrayList.
+     * The view's design is based on the view in the "list_view_row" layout file.
+     * After the view is found in the "list_view_row" layout file, the view's
+     * gravity and background will change to match the requested design.
+     * @param position
+     * @param recycledView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View recycledView, ViewGroup parent) {
         // try to use the recycled view, if there is one
@@ -52,8 +61,6 @@ public class ListViewAdapter extends BaseAdapter {
             LayoutInflater inflater = activity.getLayoutInflater();
             output = inflater.inflate(R.layout.list_view_row, parent, false);
         }
-
-
         // get hold of the TextView
         TextView textView = (TextView) output.findViewById(R.id.name);
 
@@ -69,8 +76,6 @@ public class ListViewAdapter extends BaseAdapter {
         } else {
             textView.setBackgroundResource(R.drawable.rounded_button_secondary);
         }
-
-
 
         return output;
     }

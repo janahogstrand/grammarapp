@@ -1,19 +1,14 @@
 package com.firasaltayeb.listviewactivity;
 
-import android.app.Activity;
-import android.content.res.AssetFileDescriptor;
-import android.graphics.Color;
-import android.media.MediaPlayer;
-import android.net.Uri;
-import android.speech.tts.TextToSpeech;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
+import android.os.Bundle;
 import android.view.View;
+import android.app.Activity;
+import android.media.MediaPlayer;
+import android.speech.tts.TextToSpeech;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -23,6 +18,8 @@ public class ListViewActivity extends Activity {
     Locale language;
     ListView listView;
     ArrayList<String> data = new ArrayList<String>();
+    // mediaPlayers arrayList will hold mediaPlayers who each are
+    // assigned with a unique audio file
     ArrayList<MediaPlayer> mediaPlayers = new ArrayList<MediaPlayer>();
     LinearLayout linerLayout;
     TextToSpeech textToSpeech;
@@ -47,6 +44,9 @@ public class ListViewActivity extends Activity {
 
     }
 
+    /**
+     * This method assigns a string arrayList with information retried from the database.
+     */
     public void assignStringArray(){
         for(int i = 0;i<31;i++){
             String myString = new String("Place holder");
@@ -54,6 +54,11 @@ public class ListViewActivity extends Activity {
         }
     }
 
+    /**
+     * This method assigns a language and a dialect to a variable according to the
+     * language the user has chosen and then assigns the textToSpeech object with
+     * the selected language.
+     */
     public void assignLanguage(){
         language = new Locale("es", "ES");
         textToSpeech=new TextToSpeech(ListViewActivity.this, new TextToSpeech.OnInitListener() {
@@ -63,6 +68,10 @@ public class ListViewActivity extends Activity {
         });
     }
 
+    /**
+     *This method creates a mediaPlayers object for every item in listView and then
+     * adds it to the mediaPlayer arrayList.
+     */
     public void assignMediaPlayers() {
         for(int i = 0;i<29;i++){
             if (i%2 == 0){
@@ -76,6 +85,12 @@ public class ListViewActivity extends Activity {
         }
     }
 
+    /**
+     * This method is ran when any item in the listView is clicked. This method checks
+     * whether the clicked item has a media player in the same position as it in the mediaPlayer
+     * arrayList. If the mediaPlayer does not exist, the textToSpeech object runs the speak()
+     * method which plays the clicked item's text.
+     */
     public AdapterView.OnItemClickListener myOnClickListener = new AdapterView.OnItemClickListener() {
 
         @Override
