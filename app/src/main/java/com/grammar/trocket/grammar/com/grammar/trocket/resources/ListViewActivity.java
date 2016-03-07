@@ -110,5 +110,23 @@ public class ListViewActivity extends Activity {
         }
     };
 
+    /**
+     * This method is called whenever an activity is closed or destroyed.
+     * This method stops the textToSpeech object from running and
+     * then destroys it inorder for it not to leak information.
+     */
+    @Override
+    protected void onDestroy() {
+        //Close the Text to Speech Library
+        if(textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+            Log.d("-------------------", "TTS Destroyed");
+        }
+        super.onDestroy();
+    }
+
+
+
 
 }

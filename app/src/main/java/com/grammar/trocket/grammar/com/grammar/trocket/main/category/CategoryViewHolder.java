@@ -16,6 +16,7 @@ import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Festivals;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.ListViewActivity;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Times;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.seasons.SeasonsMain;
 
 import java.util.List;
 
@@ -200,7 +201,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
                 break;
             case "Festividades": intent = new Intent(context, Festivals.class);
                 break;
-            case "Estaciones y Meses": intent = new Intent(context, ListViewActivity.class);
+            case "Estaciones y Meses": intent = new Intent(context, SeasonsMain.class);
                 break;
             case "La Hora": intent = new Intent(context, Times.class);
                 break;
@@ -208,19 +209,6 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
         }
 
-
-
-//        if(currentItem.name.equals("Times")){
-//            intent = new Intent(context, Times.class);
-//        }else if(currentItem.name.equals("Festivals"))
-//        {
-//            intent = new Intent(context, Festivals.class);
-//        }else if(currentItem.name.equals("Calendar"))
-//        {
-//            intent = new Intent(context, ListViewActivity.class);
-//        } else {
-//            intent = new Intent(context, ListViewActivity.class);
-//        }
     }
 
 

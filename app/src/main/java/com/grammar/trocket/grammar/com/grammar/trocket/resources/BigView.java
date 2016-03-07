@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -224,6 +225,28 @@ public class BigView extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * This method is called whenever an activity is closed or destroyed.
+     * This method stops the textToSpeech object from running and
+     * then destroys it inorder for it not to leak information.
+     */
+    @Override
+    protected void onDestroy() {
+        //Close the Text to Speech Library
+        if (player.isPlaying()) {
+            player.stop();
+            player.reset();
+            player.release();
+        }
+
+        if(textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+            Log.d("-------------------", "TTS Destroyed");
+        }
+        super.onDestroy();
     }
 
 }

@@ -22,6 +22,15 @@
         <activity android:name=".com.grammar.trocket.resources.BigView" android:label="Item viewer"/>
         <activity android:name=".com.grammar.trocket.resources.Festivals" android:label="Festivals"/>
         <activity android:name=".com.grammar.trocket.resources.Times" android:label="Times"/>
+
+        <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsMain"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="SeasonsMain"
+            />
+        <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsFirstActivity" android:label="SeasonsFirstActivity"/>
+        <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsSecondActivity" android:label="SeasonsSecondActivity"/>
+        <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsThirdActivity" android:label="SeasonsThirdActivity"/>
+        <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsFourthActivity" android:label="SeasonsFourthActivity"/>
     </application>
 
 </manifest>
