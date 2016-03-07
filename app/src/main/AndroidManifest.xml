@@ -31,6 +31,7 @@
         <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsSecondActivity" android:label="SeasonsSecondActivity"/>
         <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsThirdActivity" android:label="SeasonsThirdActivity"/>
         <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsFourthActivity" android:label="SeasonsFourthActivity"/>
+        <activity android:name=".com.grammar.trocket.resources.DaysOfTheWeek" android:label="DaysOfTheWeek"/>
     </application>
 
 </manifest>
