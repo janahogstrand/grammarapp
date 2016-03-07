@@ -24,6 +24,8 @@
         <activity android:name=".com.grammar.trocket.resources.BigView" android:label="Item viewer"/>
         <activity android:name=".com.grammar.trocket.resources.Festivals" android:label="Festivals"/>
         <activity android:name=".com.grammar.trocket.resources.Times" android:label="Times"/>
+        <activity android:name=".com.grammar.trocket.audioQuiz.Audio_Quiz_Main_Activity" android:label="Audio Quiz"/>
+        <activity android:name=".com.grammar.trocket.audioQuiz.Audio_Quiz_Statistics_Activity" android:label="Results"/>
     </application>
 
 </manifest>

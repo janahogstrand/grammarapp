@@ -129,7 +129,7 @@ public class Audio_Quiz_Answer_List {
         }
         if (Question.equals(qusList[8])){
             ans1 = "Shingled";
-            ans2 = "Tiger";
+            ans2 = "Shark";
             ans3 = "Pebbledashed";
             ans4 = "Stoned";
             ans5 = "Shriti";
@@ -139,7 +139,7 @@ public class Audio_Quiz_Answer_List {
             ans1 = "Seer";
             ans2 = "Rear";
             ans3 = "Fear";
-            ans4 = "Shark";
+            ans4 = "Tiger";
             ans5 = "king";
             ans6 = "boss";
         }

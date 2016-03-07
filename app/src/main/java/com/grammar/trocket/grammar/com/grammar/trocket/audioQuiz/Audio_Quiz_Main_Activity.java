@@ -1,24 +1,26 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.audioQuiz;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.grammar.trocket.grammar.R;
 
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
+import java.util.Locale;
+import android.os.Handler;
+
+import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.audioQuiz.Audio_Quiz_Statistics_Activity;
+
 
 /**
  * Created by Sam on 06/03/2016.
  */
-public class Audio_Quiz_Main_Activity extends AppCompatActivity {
+public class Audio_Quiz_Main_Activity extends AppCompatActivity{
 
     public TextView question;
     public Button answerOption1;
@@ -37,14 +39,13 @@ public class Audio_Quiz_Main_Activity extends AppCompatActivity {
     public int successCounter = 0;
     public int mistakeCounter = 0;
     public int questionNumber = 0;
-
-    public final static String EXTRA_MESSAGE = "";
-    public final static String EXTRA_MESSAGE2 = "";
+    TextToSpeech textToSpeech;
+    public final static String EXTRA_MESSAGE = "com.grammar.trocket.grammar.com.grammar.trocket.audioQuiz.MESSAGE";
+    public final static String EXTRA_MESSAGE2 = "com.grammar.trocket.grammar.com.grammar.trocket.audioQuiz.MESSAGE2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_audio_quiz_main);
         isSpanishDialect = true; //THIS NEEDS TO BE CHANGED!!
         question = (TextView) findViewById(R.id.question);
@@ -58,6 +59,7 @@ public class Audio_Quiz_Main_Activity extends AppCompatActivity {
         questionsListArray = questionsList.createArray();
         assignVariables();
         assignTextView();
+        initalise();
     }
 
     /**
@@ -69,6 +71,7 @@ public class Audio_Quiz_Main_Activity extends AppCompatActivity {
         currentQuestion = questionsListArray[questionNumber];
         answerOptionArray = answersList.getAnswerOptions(currentQuestion);
         correctAnswer = answersList.getCorrectAnswer(currentQuestion);
+
     }
 
     /**
@@ -97,6 +100,7 @@ public class Audio_Quiz_Main_Activity extends AppCompatActivity {
      */
     public void checkResult(View view) {
         Button pressedButton = (Button) view;
+        Log.d("Answer Given:", pressedButton.getText().toString());
         if(correctAnswer.equals(pressedButton.getText().toString())) {
             Log.d("correct", "correct");
             pressedButton.setBackgroundResource(R.drawable.rounded_button_green);
@@ -149,31 +153,45 @@ public class Audio_Quiz_Main_Activity extends AppCompatActivity {
      * an intent sends the user to the statics screen with message which changes according to
      * how the user performed in the quiz.
      */
-    public void checkQuestionNumber() {
-        if (questionNumber == 10) {
+    public void checkQuestionNumber(){
+        if(questionNumber == 10){
+
             Intent intent = new Intent(this, Audio_Quiz_Statistics_Activity.class);
-            intent.putExtra(EXTRA_MESSAGE, "" + successCounter);
-            intent.putExtra(EXTRA_MESSAGE2, "" + mistakeCounter);
+            intent.putExtra(EXTRA_MESSAGE, ""+successCounter);
+            intent.putExtra(EXTRA_MESSAGE2, ""+mistakeCounter);
             startActivity(intent);
-        } else {
-            // Execute run() after 2 seconds have passed
-            Handler handler = new Handler() {
-                handler.postDelayed(new
-
-                Runnable() {
-                    @Override
-                    public void run () {
-                        assignVariables();
-                        assignTextView();
-                        restoreColor();
-                    }
+        }
+        else {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    assignVariables();
+                    assignTextView();
+                    restoreColor();
+                    playAudio();
                 }
+            }, 1000);
 
-                ,1000);
-            }
+
         }
     }
 
+    public void initalise() {
+        textToSpeech = new TextToSpeech(Audio_Quiz_Main_Activity.this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                Locale language = new Locale("es", "ES"); //TODO grab language from DB
+                textToSpeech.setLanguage(language);
+                //For first TTS played
+                if (status == TextToSpeech.SUCCESS) {
+                    playAudio();
+                }
+            }
+        });
+    }
 
 
+    public void playAudio() {
+        textToSpeech.speak(question.getText().toString(), TextToSpeech.QUEUE_ADD, null);
+    }
 }

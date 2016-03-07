@@ -23,7 +23,6 @@ public class Audio_Quiz_Statistics_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_audio_quiz_statistics);
 
         // Get the message from the intent
