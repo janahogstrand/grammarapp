@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.Alphabet;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.DaysOfTheWeek;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Festivals;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.ListViewActivity;
@@ -192,7 +193,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         //Load dialog with adapter
 
         switch (currentItem.name){
-            case "El Alfabeto": intent = new Intent(context, ListViewActivity.class);
+            case "El Alfabeto": intent = new Intent(context, Alphabet.class);
                 break;
             case "Los Numeros": intent = new Intent(context, ListViewActivity.class);
                 break;
