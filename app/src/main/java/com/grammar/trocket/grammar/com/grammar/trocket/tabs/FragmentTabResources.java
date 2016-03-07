@@ -45,12 +45,13 @@ public class FragmentTabResources extends Fragment {
      **/
     private void initializeData() {
         categories = new ArrayList<>();
-        categories.add(new Category("Times", "Learn to tell the time", R.drawable.ic_menu_send, true, true));
-        categories.add(new Category("Festivals", "Learn about all the festivals", R.drawable.ic_menu_slideshow, true, true));
-        categories.add(new Category("Festivals", "Learn the festivals", R.drawable.ic_menu_gallery, false, true));
-        categories.add(new Category("Calendar", "Learn how to read a calendar", R.drawable.ic_menu_camera, true, true));
-        categories.add(new Category("Directions", "Learn to ask for directons", R.drawable.ic_menu_send, false, true));
-        categories.add(new Category("Food & Drink", "Learn to ask for food and drinks", R.drawable.ic_menu_gallery, true, true));
+        categories.add(new Category("El Alfabeto", "Learn the alphabet", R.drawable.ic_menu_send, true, true));
+        categories.add(new Category("Los Numeros", "Learn the numbers", R.drawable.ic_menu_send, true, true));
+        categories.add(new Category("Los Dias", "Learn the days of the week", R.drawable.ic_menu_send, true, true));
+        categories.add(new Category("El Calendario", "Learn how to read a calendar", R.drawable.ic_menu_send, true, true));
+        categories.add(new Category("Festividades", "Learn about festivals", R.drawable.ic_menu_send, true, true));
+        categories.add(new Category("Estaciones y Meses", "Learn about the seasons", R.drawable.ic_menu_send, true, true));
+        categories.add(new Category("La Hora", "Learn to tell the time", R.drawable.ic_menu_send, true, true));
     }
 
     /**

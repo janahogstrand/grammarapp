@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Festivals;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.ListViewActivity;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Times;
@@ -86,6 +87,34 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
                 Context context = view.getContext();
                 selectIntent(context);
 
+                if (currentItem.hasDialect && currentItem.isResource) {
+                    //TODO make this adapter get information from database
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                            view.getContext(),
+                            android.R.layout.select_dialog_singlechoice);
+
+                    arrayAdapter.add("Spanish");
+                    arrayAdapter.add("Mexican");
+
+
+                    DialectDialog dialectDialog = new DialectDialog(context, arrayAdapter, intent);
+
+                }
+//                else {
+//                   // context.startActivity(intent);
+//                    intent.putExtra(DialectDialog.DIALECT_INFO, MainMenu.MainLanguage);
+//                    context.startActivity(intent);
+//                }
+
+            }
+        });
+
+        observe = (Button) view.findViewById(R.id.observe);
+        observe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                selectIntent(context);
                 if (currentItem.hasDialect) {
                     //TODO make this adapter get information from database
                     ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
@@ -99,22 +128,66 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
                     DialectDialog dialectDialog = new DialectDialog(context, arrayAdapter, intent);
 
                 } else {
+                    intent.putExtra(DialectDialog.DIALECT_INFO, MainMenu.MainLanguage);
                     context.startActivity(intent);
                 }
-
             }
         });
 
-        Button observe = (Button) view.findViewById(R.id.observe);
-        observe.setOnClickListener(new View.OnClickListener() {
+        reflect = (Button) view.findViewById(R.id.reflect);
+        reflect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Times times = new Times();
-                Intent times = new Intent(v.getContext(), Times.class);
-                v.getContext().startActivity(times);
+                Context context = v.getContext();
+                selectIntent(context);
+                if (currentItem.hasDialect) {
+                    //TODO make this adapter get information from database
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                            view.getContext(),
+                            android.R.layout.select_dialog_singlechoice);
+
+                    arrayAdapter.add("Spanish");
+                    arrayAdapter.add("Mexican");
+
+
+                    DialectDialog dialectDialog = new DialectDialog(context, arrayAdapter, intent);
+
+                } else {
+                    intent.putExtra(DialectDialog.DIALECT_INFO, MainMenu.MainLanguage);
+                    context.startActivity(intent);
+                }
+            }
+        });
+
+        experiment = (Button) view.findViewById(R.id.experiment);
+        experiment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                selectIntent(context);
+                if (currentItem.hasDialect) {
+                    //TODO make this adapter get information from database
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                            view.getContext(),
+                            android.R.layout.select_dialog_singlechoice);
+
+                    arrayAdapter.add("Spanish");
+                    arrayAdapter.add("Mexican");
+
+
+                    DialectDialog dialectDialog = new DialectDialog(context, arrayAdapter, intent);
+
+                } else {
+                    intent.putExtra(DialectDialog.DIALECT_INFO, MainMenu.MainLanguage);
+                    context.startActivity(intent);
+                }
             }
         });
     }
+
+
+
+
 
 
     // TODO Adjust code below according to the database
@@ -127,6 +200,8 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             intent = new Intent(context, Festivals.class);
         }else if(currentItem.name.equals("Calendar"))
         {
+            intent = new Intent(context, ListViewActivity.class);
+        } else {
             intent = new Intent(context, ListViewActivity.class);
         }
     }

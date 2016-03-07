@@ -46,19 +46,14 @@ public class FragmentTabExercises extends Fragment {
     private void initializeData() {
         categories = new ArrayList<>();
         categories.add(new Category("Greetings", "Learn basic greetings!", R.drawable.ic_menu_share, true));
-        categories.add(new Category("Directions", "Learn you're way round", R.drawable.ic_menu_send, true));
-        categories.add(new Category("Food & Drink", "Learn to order!", R.drawable.ic_menu_gallery, true));
-        categories.add(new Category("Greetings", "Super super long sentence as a test to see how long the sentences should be roughly (In case clinet want a really really " +
-                "long description)", R.drawable.ic_menu_share, true));
-        categories.add(new Category("Directions", "25 years old", R.drawable.ic_menu_send, true));
-        categories.add(new Category("Food & Drink", "35 years old", R.drawable.ic_menu_gallery, true));
-        categories.add(new Category("Greetings", "Learn basic greetings!", R.drawable.ic_menu_share, true));
-        categories.add(new Category("Directions", "Learn you're way round", R.drawable.ic_menu_send, true));
-        categories.add(new Category("Food & Drink", "Learn to order!", R.drawable.ic_menu_gallery, true));
-        categories.add(new Category("Greetings", "Super super long sentence as a test to see how long the sentences should be roughly (In case clinet want a really really " +
-                "long description)", R.drawable.ic_menu_share, true));
-        categories.add(new Category("Directions", "25 years old", R.drawable.ic_menu_send, true));
-        categories.add(new Category("Food & Drink", "35 years old", R.drawable.ic_menu_gallery, true));
+        categories.add(new Category("Checking in", "Learn to check in", R.drawable.ic_menu_share, true));
+        categories.add(new Category("Sightseeing", "Learn to order!", R.drawable.ic_menu_share, true));
+        categories.add(new Category("Directions", "Learn your way round", R.drawable.ic_menu_share, false));
+        categories.add(new Category("Eating", "Learn to ask for your favourite dishes!", R.drawable.ic_menu_share, false));
+        categories.add(new Category("Likes", "Talk about your likes", R.drawable.ic_menu_share, false));
+        categories.add(new Category("Planning", "Learn to plan", R.drawable.ic_menu_share, false));
+        categories.add(new Category("Shopping", "Learn about shopping", R.drawable.ic_menu_share, false));
+        categories.add(new Category("Dating", "Find love abroad!", R.drawable.ic_menu_share, false));
     }
 
     /**
