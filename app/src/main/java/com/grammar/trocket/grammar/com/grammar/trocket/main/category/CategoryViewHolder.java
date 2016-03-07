@@ -100,11 +100,6 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
                     DialectDialog dialectDialog = new DialectDialog(context, arrayAdapter, intent);
 
                 }
-//                else {
-//                   // context.startActivity(intent);
-//                    intent.putExtra(DialectDialog.DIALECT_INFO, MainMenu.MainLanguage);
-//                    context.startActivity(intent);
-//                }
 
             }
         });
@@ -193,17 +188,39 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
     // TODO Adjust code below according to the database
     public void selectIntent(Context context){
         //Load dialog with adapter
-        if(currentItem.name.equals("Times")){
-            intent = new Intent(context, Times.class);
-        }else if(currentItem.name.equals("Festivals"))
-        {
-            intent = new Intent(context, Festivals.class);
-        }else if(currentItem.name.equals("Calendar"))
-        {
-            intent = new Intent(context, ListViewActivity.class);
-        } else {
-            intent = new Intent(context, ListViewActivity.class);
+
+        switch (currentItem.name){
+            case "El Alfabeto": intent = new Intent(context, ListViewActivity.class);
+                break;
+            case "Los Numeros": intent = new Intent(context, ListViewActivity.class);
+                break;
+            case "Los Dias": intent = new Intent(context, ListViewActivity.class);
+                break;
+            case "El Calendario": intent = new Intent(context, ListViewActivity.class);
+                break;
+            case "Festividades": intent = new Intent(context, Festivals.class);
+                break;
+            case "Estaciones y Meses": intent = new Intent(context, ListViewActivity.class);
+                break;
+            case "La Hora": intent = new Intent(context, Times.class);
+                break;
+            default: intent = new Intent(context, ListViewActivity.class);
+
         }
+
+
+
+//        if(currentItem.name.equals("Times")){
+//            intent = new Intent(context, Times.class);
+//        }else if(currentItem.name.equals("Festivals"))
+//        {
+//            intent = new Intent(context, Festivals.class);
+//        }else if(currentItem.name.equals("Calendar"))
+//        {
+//            intent = new Intent(context, ListViewActivity.class);
+//        } else {
+//            intent = new Intent(context, ListViewActivity.class);
+//        }
     }
 
 
