@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".com.grammar.trocket.resources.ListViewActivity" />
-        <activity android:name=".com.grammar.trocket.resources.BigView" android:label="Item viewer"/>
+        <activity android:name=".com.grammar.trocket.resources.BigView" android:theme="@style/AppTheme.NoActionBar" android:label="Item viewer" />
         <activity android:name=".com.grammar.trocket.resources.Festivals" android:label="Festivals"/>
         <activity android:name=".com.grammar.trocket.resources.Times" android:label="Times"/>
 

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeItem;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeViewHolder;
 
@@ -25,7 +26,7 @@ import java.util.Locale;
  *
  * @see FestivalTimeViewHolder
  */
-public class BigView extends AppCompatActivity {
+public class BigView extends BaseActivityDrawer {
     ImageView centerImage;
     ImageView nextImage;
     ImageView prevImage;
@@ -46,7 +47,8 @@ public class BigView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_big_view);
+        setContentView(R.layout.bigview_main_activity);
+        super.onCreateDrawer();
         assignLanguage();
         //Get data
         Bundle data = getIntent().getExtras();
@@ -235,13 +237,16 @@ public class BigView extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         //Close the Text to Speech Library
-        if (player.isPlaying()) {
-            player.stop();
-            player.reset();
-            player.release();
+        if(player != null){
+            if (player.isPlaying()) {
+                player.stop();
+                player.reset();
+                player.release();
+                Log.d("Player realsed-", "Player Destroyed");
+            }
         }
 
-        if(textToSpeech != null) {
+        if (textToSpeech != null) {
             textToSpeech.stop();
             textToSpeech.shutdown();
             Log.d("-------------------", "TTS Destroyed");

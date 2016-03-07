@@ -32,7 +32,7 @@
                 android:layout_height="0dp"
                 android:layout_gravity="top"
                 android:layout_weight="6"
-                app:headerLayout="@layout/seasons_main_nav_header"/>
+                app:headerLayout="@layout/drawer_nav_header_main_menu"/>
 
             <android.support.design.widget.NavigationView
                 android:id="@+id/navigation_drawer_bottom"
