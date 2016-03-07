@@ -9,11 +9,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
 
 import java.util.Locale;
 
 
-public class DaysOfTheWeek extends Activity {
+public class DaysOfTheWeek extends BaseActivityDrawer {
 
     Button mondayBtn;
     Button tuesdayBtn;
@@ -33,7 +34,8 @@ public class DaysOfTheWeek extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.daysoftheweek_activity);
+        setContentView(R.layout.daysoftheweek_main_menu);
+        super.onCreateDrawer();
 
         mondayBtn = (Button) findViewById(R.id.mondayBtn);
         tuesdayBtn = (Button) findViewById(R.id.tuesdayBtn);
