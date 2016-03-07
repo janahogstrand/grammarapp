@@ -22,7 +22,8 @@
         android:background="#a32c2c"
         android:textColor="#ffffff"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="playAudio"/>
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -35,7 +36,8 @@
         android:background="#a32c2c"
         android:textColor="#ffffff"
         android:layout_below="@+id/option7"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="playAudio"/>
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -48,5 +50,6 @@
         android:background="#a32c2c"
         android:textColor="#ffffff"
         android:layout_below="@+id/option8"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="playAudio"/>
 </RelativeLayout>

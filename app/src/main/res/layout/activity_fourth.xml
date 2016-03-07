@@ -21,7 +21,8 @@
         android:background="#2a8fee"
         android:textColor="#fff"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="playAudio"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -33,7 +34,8 @@
         android:background="#2a8fee"
         android:textColor="#fff"
         android:layout_below="@+id/option10"
-        android:layout_alignStart="@+id/option10" />
+        android:layout_alignStart="@+id/option10"
+        android:onClick="playAudio"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -45,6 +47,7 @@
         android:background="#2a8fee"
         android:textColor="#fff"
         android:layout_below="@+id/option11"
-        android:layout_alignStart="@+id/option10" />
+        android:layout_alignStart="@+id/option10"
+        android:onClick="playAudio"/>
 </RelativeLayout>
 

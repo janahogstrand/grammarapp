@@ -2,27 +2,25 @@ package com.grammar.trocket.grammar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 public class MainMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    Button firstButton;
-    Button secButton;
-    Button thirdButton;
-    Button fourthButton;
+    Button springBtn;
+    Button summerBtn;
+    Button autumnBtn;
+    Button winterBtn;
+
 
     TextView pageTitle;
     TextView subTitle;
@@ -35,13 +33,6 @@ public class MainMenu extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        /**
-         * TextViews
-         * TextViews for pageTitle, subTitle and engSubTitle
-         * pageTitle and subTitle consists of multiple lines.
-         * The engSubTitle will be displayed in blue.
-         */
         pageTitle = (TextView) findViewById(R.id.pageTitle);
         pageTitle.setText("Las Estaciones y los Meses del Ano");
 
@@ -52,45 +43,7 @@ public class MainMenu extends AppCompatActivity
         engSubTitle.setText("Select each season and learn the\nnames of the months");
 
 
-        /**
-         *  Buttons
-         *  Buttons to direct respective seasons to their months
-         *  opening new intents
-         */
-        firstButton = (Button) findViewById(R.id.springBtn);
-        firstButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainMenu.this, FirstActivity.class));
-            }
-        });
-
-        secButton = (Button) findViewById(R.id.summerBtn);
-        secButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainMenu.this, SecondActivity.class));
-            }
-        });
-
-        thirdButton = (Button) findViewById(R.id.autumnBtn);
-        thirdButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainMenu.this, ThirdActivity.class));
-            }
-        });
-
-        fourthButton = (Button) findViewById(R.id.winterBtn);
-        fourthButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainMenu.this, FourthActivity.class));
-            }
-        });
-
-        assignText();
-
+        findAndAssignText();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -103,15 +56,20 @@ public class MainMenu extends AppCompatActivity
     }
 
     /**
-     * This method will assign texts to the four main buttons
-     * in the Main content.
+     * This method will find the buttons in the MainActivity by using their Ids
+     * and then assign texts to them.
      */
 
-    public void assignText() {
-        firstButton.setText("Primavera");
-        secButton.setText("Verano");
-        thirdButton.setText("Otono");
-        fourthButton.setText("Invierno");
+    public void findAndAssignText() {
+        springBtn = (Button) findViewById(R.id.springBtn);
+        summerBtn = (Button) findViewById(R.id.summerBtn);
+        autumnBtn = (Button) findViewById(R.id.autumnBtn);
+        winterBtn = (Button) findViewById(R.id.winterBtn);
+
+        springBtn.setText("Primavera");
+        summerBtn.setText("Verano");
+        autumnBtn.setText("Otono");
+        winterBtn.setText("Invierno");
     }
 
     @Override
@@ -149,4 +107,26 @@ public class MainMenu extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    /**
+     * This method moves the user to a new activity based on the button they
+     * have clicked.
+     * @param v
+     */
+    public void moveToNewActivity(View v){
+        String idAsString = v.getResources().getResourceName(v.getId());
+        if(idAsString.equals("com.grammar.trocket.grammar:id/springBtn")){
+            startActivity(new Intent(MainMenu.this, FirstActivity.class));
+        }
+        else if(idAsString.equals("com.grammar.trocket.grammar:id/summerBtn")){
+            startActivity(new Intent(MainMenu.this, SecondActivity.class));
+        }
+        else if(idAsString.equals("com.grammar.trocket.grammar:id/autumnBtn")){
+            startActivity(new Intent(MainMenu.this, ThirdActivity.class));
+        }
+        else{
+            startActivity(new Intent(MainMenu.this, FourthActivity.class));
+        }
+    }
+
 }
