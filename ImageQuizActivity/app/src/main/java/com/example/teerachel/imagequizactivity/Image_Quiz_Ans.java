@@ -16,22 +16,22 @@ public class Image_Quiz_Ans {
     public  String getCorrectAnswer(String Question) {
         String correctAnswer = "";
         if (Question.equals(quesList[0])) {
-            correctAnswer = "Tren" ;
+            correctAnswer = "train" ;
         }
         if (Question.equals(quesList[1])) {
-            correctAnswer = "Avion";
+            correctAnswer = "plane";
         }
         if (Question.equals(quesList[2])) {
-            correctAnswer = "Coche";
+            correctAnswer = "bus";
         }
         if (Question.equals(quesList[3])) {
-            correctAnswer = "Autobus";
+            correctAnswer = "car";
         }
         if (Question.equals(quesList[4])) {
-            correctAnswer = "Barco";
+            correctAnswer = "bike";
         }
         if (Question.equals(quesList[5])) {
-            correctAnswer = "Bicicleta";
+            correctAnswer = "ship";
         }
         return correctAnswer;
     }
@@ -51,52 +51,52 @@ public class Image_Quiz_Ans {
 
         String[] options = new String[6];
         if (Question.equals(quesList[0])) {
-            ans1 = "Tren";
-            ans2 = "Avion";
-            ans3 = "Coche";
-            ans4 = "Autobus";
-            ans5 = "Barco";
-            ans6 = "Bicicleta";
+            ans1 = "train";
+            ans2 = "plane";
+            ans3 = "bus";
+            ans4 = "car";
+            ans5 = "bike";
+            ans6 = "ship";
         }
         if (Question.equals(quesList[1])) {
-            ans1 = "Tren";
-            ans2 = "Avion";
-            ans3 = "Coche";
-            ans4 = "Autobus";
-            ans5 = "Barco";
-            ans6 = "Bicicleta";
+            ans1 = "train";
+            ans2 = "plane";
+            ans3 = "bus";
+            ans4 = "car";
+            ans5 = "bike";
+            ans6 = "ship";
         }
         if (Question.equals(quesList[2])) {
-            ans1 = "Tren";
-            ans2 = "Avion";
-            ans3 = "Coche";
-            ans4 = "Autobus";
-            ans5 = "Barco";
-            ans6 = "Bicicleta";
+            ans1 = "train";
+            ans2 = "plane";
+            ans3 = "bus";
+            ans4 = "car";
+            ans5 = "bike";
+            ans6 = "ship";
         }
         if (Question.equals(quesList[3])) {
-            ans1 = "Tren";
-            ans2 = "Avion";
-            ans3 = "Coche";
-            ans4 = "Autobus";
-            ans5 = "Barco";
-            ans6 = "Bicicleta";
+            ans1 = "train";
+            ans2 = "plane";
+            ans3 = "bus";
+            ans4 = "car";
+            ans5 = "bike";
+            ans6 = "ship";
         }
         if (Question.equals(quesList[4])) {
-            ans1 = "Tren";
-            ans2 = "Avion";
-            ans3 = "Coche";
-            ans4 = "Autobus";
-            ans5 = "Barco";
-            ans6 = "Bicicleta";
+            ans1 = "train";
+            ans2 = "plane";
+            ans3 = "bus";
+            ans4 = "car";
+            ans5 = "bike";
+            ans6 = "ship";
         }
         if (Question.equals(quesList[5])) {
-            ans1 = "Tren";
-            ans2 = "Avion";
-            ans3 = "Coche";
-            ans4 = "Autobus";
-            ans5 = "Barco";
-            ans6 = "Bicicleta";
+            ans1 = "train";
+            ans2 = "plane";
+            ans3 = "bus";
+            ans4 = "car";
+            ans5 = "bike";
+            ans6 = "ship";
         }
 
 

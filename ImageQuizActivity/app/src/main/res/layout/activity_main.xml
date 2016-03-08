@@ -34,7 +34,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="tren"
+            android:text="train"
             android:id="@+id/trainImage"
             android:background="@drawable/train"
             android:textSize="0px" />

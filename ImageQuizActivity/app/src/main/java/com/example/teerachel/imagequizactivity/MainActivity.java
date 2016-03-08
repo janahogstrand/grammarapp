@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,11 +15,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
 
     public TextView question;
     Button train;
-    ImageButton plane;
-    ImageButton bus;
-    ImageButton car;
-    ImageButton bike;
-    ImageButton ship;
+    Button plane;
+    Button bus;
+    Button car;
+    Button bike;
+    Button ship;
     public Image_Quiz_Ques questions = new Image_Quiz_Ques();
     public Image_Quiz_Ans answersList = new Image_Quiz_Ans();
     public String[] questionListArr;
@@ -43,15 +42,15 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         question = (TextView) findViewById(R.id.ques);
         train = (Button) findViewById(R.id.trainImage);
         train.setOnClickListener(this);
-        plane = (ImageButton) findViewById(R.id.planeImage);
+        plane = (Button) findViewById(R.id.planeImage);
         plane.setOnClickListener(this);
-        bus = (ImageButton) findViewById(R.id.busImage);
+        bus = (Button) findViewById(R.id.busImage);
         bus.setOnClickListener(this);
-        car = (ImageButton) findViewById(R.id.carImage);
+        car = (Button) findViewById(R.id.carImage);
         car.setOnClickListener(this);
-        bike = (ImageButton) findViewById(R.id.bikeImage);
+        bike = (Button) findViewById(R.id.bikeImage);
         bike.setOnClickListener(this);
-        ship = (ImageButton) findViewById(R.id.shipImage);
+        ship = (Button) findViewById(R.id.shipImage);
         ship.setOnClickListener(this);
 
         questionListArr = questions.createArray();
