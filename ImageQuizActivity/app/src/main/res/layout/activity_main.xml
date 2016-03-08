@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +8,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.teerachel.imagequizactivity.MainActivity"
-    android:background="@drawable/cloud">
+    android:background="@drawable/cloud"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,71 +21,95 @@
         android:textColor="#ffffff"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:paddingTop="50px" />
+        android:paddingTop="50px"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="40px" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="115dp"
+        android:layout_gravity="center_horizontal">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/trainImage"
+            android:src="@drawable/train"
+            android:background="#00595858"
+            android:paddingBottom="20px"
+            android:paddingLeft="50px"
+            android:layout_alignBottom="@+id/planeImage"
+            android:layout_alignParentStart="true" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/planeImage"
+            android:src="@drawable/aeroplane"
+            android:background="#00595858"
+            android:paddingBottom="20px"
+            android:layout_below="@+id/ques"
+            android:layout_alignStart="@+id/carImage"
+            android:paddingLeft="30px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/trainImage"
-        android:src="@drawable/train"
-        android:background="#00595858"
-        android:paddingBottom="20px"
-        android:paddingLeft="30px"
-        android:layout_alignBottom="@+id/planeImage"
-        android:layout_alignParentStart="true" />
+        android:layout_gravity="center_horizontal">
 
-    <ImageButton
-        android:layout_width="wrap_content"
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/busImage"
+            android:src="@drawable/bus"
+            android:background="#00595858"
+            android:paddingBottom="20px"
+            android:paddingLeft="50px"
+            android:layout_below="@+id/trainImage"
+            android:layout_alignParentStart="true" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/carImage"
+            android:src="@drawable/car"
+            android:background="#00595858"
+            android:layout_alignTop="@+id/busImage"
+            android:layout_alignParentEnd="true"
+            android:paddingBottom="20px"
+            android:paddingRight="30px"
+            android:paddingLeft="40px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/planeImage"
-        android:src="@drawable/aeroplane"
-        android:background="#00595858"
-        android:layout_marginTop="46dp"
-        android:paddingRight="30px"
-        android:paddingBottom="20px"
-        android:layout_below="@+id/ques"
-        android:layout_alignStart="@+id/carImage" />
+        android:layout_gravity="center_horizontal">
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/carImage"
-        android:src="@drawable/car"
-        android:background="#00595858"
-        android:layout_alignTop="@+id/busImage"
-        android:layout_alignParentEnd="true"
-        android:paddingBottom="20px"
-        android:paddingRight="30px" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bikeImage"
+            android:src="@drawable/cycle"
+            android:background="#00595858"
+            android:layout_below="@+id/busImage"
+            android:layout_alignParentStart="true"
+            android:paddingLeft="50px" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/busImage"
-        android:src="@drawable/bus"
-        android:background="#00595858"
-        android:paddingBottom="20px"
-        android:paddingLeft="30px"
-        android:layout_below="@+id/trainImage"
-        android:layout_alignParentStart="true" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/shipImage"
+            android:src="@drawable/ship"
+            android:background="#00595858"
+            android:layout_below="@+id/carImage"
+            android:layout_alignParentEnd="true"
+            android:paddingRight="30px"
+            android:paddingLeft="40px" />
+    </LinearLayout>
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/bikeImage"
-        android:src="@drawable/cycle"
-        android:background="#00595858"
-        android:layout_below="@+id/busImage"
-        android:layout_alignParentStart="true"
-        android:paddingLeft="30px" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/shipImage"
-        android:src="@drawable/ship"
-        android:background="#00595858"
-        android:layout_below="@+id/carImage"
-        android:layout_alignParentEnd="true"
-        android:paddingRight="30px" />
-
-</RelativeLayout>
+</LinearLayout>

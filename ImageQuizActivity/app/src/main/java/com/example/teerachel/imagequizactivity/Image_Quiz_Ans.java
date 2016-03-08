@@ -13,10 +13,10 @@ public class Image_Quiz_Ans {
      * by comparing the current question with the qusList array strings, if the current question
      * matches a question in the qusList array the matched question's answer is returned as string
      */
-    public String getCorrectAnswer(String Question) {
+    public  String getCorrectAnswer(String Question) {
         String correctAnswer = "";
         if (Question.equals(quesList[0])) {
-            correctAnswer = "Tren";
+            correctAnswer = "tren" ;
         }
         if (Question.equals(quesList[1])) {
             correctAnswer = "Avion";
