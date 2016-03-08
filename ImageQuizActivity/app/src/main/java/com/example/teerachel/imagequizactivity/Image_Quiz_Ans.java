@@ -16,7 +16,7 @@ public class Image_Quiz_Ans {
     public  String getCorrectAnswer(String Question) {
         String correctAnswer = "";
         if (Question.equals(quesList[0])) {
-            correctAnswer = "tren" ;
+            correctAnswer = "Tren" ;
         }
         if (Question.equals(quesList[1])) {
             correctAnswer = "Avion";

@@ -31,27 +31,25 @@
         android:layout_height="115dp"
         android:layout_gravity="center_horizontal">
 
-        <ImageButton
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Tren"
             android:id="@+id/trainImage"
-            android:src="@drawable/train"
-            android:background="#00595858"
-            android:paddingBottom="20px"
-            android:paddingLeft="50px"
-            android:layout_alignBottom="@+id/planeImage"
-            android:layout_alignParentStart="true" />
+            android:background="@drawable/train"
+            android:textSize="0px" />
 
-        <ImageButton
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/planeImage"
-            android:src="@drawable/aeroplane"
-            android:background="#00595858"
+            android:background="@drawable/aeroplane"
             android:paddingBottom="20px"
+            android:text="Plane"
             android:layout_below="@+id/ques"
             android:layout_alignStart="@+id/carImage"
-            android:paddingLeft="30px" />
+            android:paddingLeft="30px"
+            android:textSize="0px" />
     </LinearLayout>
 
     <LinearLayout

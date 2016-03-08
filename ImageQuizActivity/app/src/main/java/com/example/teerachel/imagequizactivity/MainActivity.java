@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,7 +15,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements OnClickListener{
 
     public TextView question;
-    ImageButton train;
+    Button train;
     ImageButton plane;
     ImageButton bus;
     ImageButton car;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         setContentView(R.layout.activity_main);
 
         question = (TextView) findViewById(R.id.ques);
-        train = (ImageButton) findViewById(R.id.trainImage);
+        train = (Button) findViewById(R.id.trainImage);
         train.setOnClickListener(this);
         plane = (ImageButton) findViewById(R.id.planeImage);
         plane.setOnClickListener(this);
@@ -101,15 +102,16 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
      * @param view
      */
     public void checkResult(View view) {
-        ImageButton pressedButton = (ImageButton) view;
+        Button pressedButton = (Button) view;
         if(correctAns.equals(pressedButton.toString())) {
             Log.d("correct", "correct");
-            pressedButton.setBackgroundResource(R.drawable.clear_background);
+//            pressedButton.setBackgroundResource(R.drawable.rounded_button_green);
             successCounter++;
+
         }
         else {
             Log.d("mistake", pressedButton.toString());
-            pressedButton.setBackgroundResource(R.drawable.clear_background);
+//            pressedButton.setBackgroundResource(R.drawable.rounded_button_red);
             mistakeCounter++;
         }
 
