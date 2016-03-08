@@ -44,13 +44,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         plane = (ImageButton) findViewById(R.id.planeImage);
         plane.setOnClickListener(this);
         bus = (ImageButton) findViewById(R.id.busImage);
-        //bus.setOnClickListener(this);
+        bus.setOnClickListener(this);
         car = (ImageButton) findViewById(R.id.carImage);
-        //car.setOnClickListener(this);
+        car.setOnClickListener(this);
         bike = (ImageButton) findViewById(R.id.bikeImage);
-        //bike.setOnClickListener(this);
+        bike.setOnClickListener(this);
         ship = (ImageButton) findViewById(R.id.shipImage);
-        //ship.setOnClickListener(this);
+        ship.setOnClickListener(this);
 
         questionListArr = questions.createArray();
         assignVariables();

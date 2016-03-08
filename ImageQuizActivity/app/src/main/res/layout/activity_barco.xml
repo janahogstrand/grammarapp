@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/trainImage"
             android:src="@drawable/train"
-            android:layout_above="@+id/imageButton28"
+            android:layout_above="@+id/busImage"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="39dp" />
 
@@ -33,13 +33,13 @@
             android:layout_height="wrap_content"
             android:id="@+id/carImage"
             android:src="@drawable/car"
-            android:layout_alignTop="@+id/imageButton28"
+            android:layout_alignTop="@+id/busImage"
             android:layout_alignParentEnd="true" />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageButton28"
+            android:id="@+id/busImage"
             android:src="@drawable/bus"
             android:layout_marginBottom="39dp"
             android:layout_above="@+id/bikeImage"

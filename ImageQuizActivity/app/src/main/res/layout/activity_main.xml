@@ -51,7 +51,7 @@
         android:id="@+id/carImage"
         android:src="@drawable/car"
         android:background="#00595858"
-        android:layout_alignTop="@+id/imageButton28"
+        android:layout_alignTop="@+id/busImage"
         android:layout_alignParentEnd="true"
         android:paddingBottom="20px"
         android:paddingRight="30px" />
@@ -59,7 +59,7 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton28"
+        android:id="@+id/busImage"
         android:src="@drawable/bus"
         android:background="#00595858"
         android:paddingBottom="20px"
@@ -73,7 +73,7 @@
         android:id="@+id/bikeImage"
         android:src="@drawable/cycle"
         android:background="#00595858"
-        android:layout_below="@+id/imageButton28"
+        android:layout_below="@+id/busImage"
         android:layout_alignParentStart="true"
         android:paddingLeft="30px" />
 
