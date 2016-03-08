@@ -34,7 +34,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tren"
+            android:text="tren"
             android:id="@+id/trainImage"
             android:background="@drawable/train"
             android:textSize="0px" />
@@ -45,7 +45,7 @@
             android:id="@+id/planeImage"
             android:background="@drawable/aeroplane"
             android:paddingBottom="20px"
-            android:text="Plane"
+            android:text="plane"
             android:layout_below="@+id/ques"
             android:layout_alignStart="@+id/carImage"
             android:paddingLeft="30px"
@@ -58,28 +58,30 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-        <ImageButton
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/busImage"
-            android:src="@drawable/bus"
-            android:background="#00595858"
+            android:background="@drawable/bus"
+            android:text="bus"
             android:paddingBottom="20px"
             android:paddingLeft="50px"
             android:layout_below="@+id/trainImage"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:textSize="0px" />
 
-        <ImageButton
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/carImage"
-            android:src="@drawable/car"
-            android:background="#00595858"
+            android:background="@drawable/car"
+            android:text="car"
             android:layout_alignTop="@+id/busImage"
             android:layout_alignParentEnd="true"
             android:paddingBottom="20px"
             android:paddingRight="30px"
-            android:paddingLeft="40px" />
+            android:paddingLeft="40px"
+            android:textSize="0px" />
     </LinearLayout>
 
     <LinearLayout
@@ -88,26 +90,28 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-        <ImageButton
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bikeImage"
-            android:src="@drawable/cycle"
-            android:background="#00595858"
+            android:background="@drawable/cycle"
+            android:text="bike"
             android:layout_below="@+id/busImage"
             android:layout_alignParentStart="true"
-            android:paddingLeft="50px" />
+            android:paddingLeft="50px"
+            android:textSize="0px" />
 
-        <ImageButton
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/shipImage"
-            android:src="@drawable/ship"
-            android:background="#00595858"
+            android:background="@drawable/ship"
+            android:text="ship"
             android:layout_below="@+id/carImage"
             android:layout_alignParentEnd="true"
             android:paddingRight="30px"
-            android:paddingLeft="40px" />
+            android:paddingLeft="40px"
+            android:textSize="0px" />
     </LinearLayout>
 
 </LinearLayout>
