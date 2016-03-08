@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,45 +9,46 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.grammar.trocket.grammar.com.grammar.trocket.resources.FourthActivity"
     android:background="@drawable/spring"
-    android:scaleType="fitXY">
+    android:scaleType="fitXY"
+    android:orientation="vertical"
+    android:gravity="center_vertical|center_horizontal">
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Text"
         android:id="@+id/option10"
-        android:layout_marginTop="106dp"
         android:minWidth="400px"
         android:background="#2a8fee"
         android:textColor="#fff"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:onClick="playAudio"/>
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="100px" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Text"
         android:id="@+id/option11"
-        android:layout_marginTop="36dp"
         android:minWidth="400px"
         android:background="#2a8fee"
         android:textColor="#fff"
-        android:layout_below="@+id/option10"
-        android:layout_alignStart="@+id/option10"
         android:onClick="playAudio"/>
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="100px" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Text"
         android:id="@+id/option12"
-        android:layout_marginTop="33dp"
         android:minWidth="400px"
         android:background="#2a8fee"
         android:textColor="#fff"
-        android:layout_below="@+id/option11"
-        android:layout_alignStart="@+id/option10"
         android:onClick="playAudio"/>
-</RelativeLayout>
+</LinearLayout>
 
