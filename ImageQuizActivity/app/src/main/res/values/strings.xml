@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ImageQuizActivity</string>
+    <string name="tren">1. Tren</string>
+    <string name="avion">2. Avión</string>
+    <string name="coche">3. Coche</string>
+    <string name="autobus">4. Autobús</string>
+    <string name="barco">5. Barco</string>
+    <string name="bicicleta">6. Bicicleta</string>
+
+</resources>
