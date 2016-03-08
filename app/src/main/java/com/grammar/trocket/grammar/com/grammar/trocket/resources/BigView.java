@@ -242,7 +242,7 @@ public class BigView extends BaseActivityDrawer {
                 player.stop();
                 player.reset();
                 player.release();
-                Log.d("Player realsed-", "Player Destroyed");
+                Log.d("Player released ", "Player Destroyed");
             }
         }
 

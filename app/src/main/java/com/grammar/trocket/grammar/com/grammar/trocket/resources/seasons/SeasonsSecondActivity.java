@@ -75,6 +75,7 @@ public class SeasonsSecondActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
+        this.finish();
         //Close the Text to Speech Library
         if(textToSpeech != null) {
             textToSpeech.stop();

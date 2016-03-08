@@ -76,6 +76,7 @@ public class SeasonsFourthActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
+        this.finish();
         //Close the Text to Speech Library
         if(textToSpeech != null) {
             textToSpeech.stop();
@@ -83,6 +84,7 @@ public class SeasonsFourthActivity extends AppCompatActivity {
             Log.d("-------------------", "TTS Destroyed");
         }
         super.onDestroy();
+
     }
 
 }

@@ -117,6 +117,20 @@ public class ListViewActivity extends Activity {
      */
     @Override
     protected void onDestroy() {
+        this.finish();
+
+        for( MediaPlayer mediaPlayer : mediaPlayers ){
+            if (mediaPlayer != null) {
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                    mediaPlayer.release();
+                    Log.d("mediaPlayer released ", " Player Destroyed");
+                }
+            }
+        }
+
+
         //Close the Text to Speech Library
         if(textToSpeech != null) {
             textToSpeech.stop();
