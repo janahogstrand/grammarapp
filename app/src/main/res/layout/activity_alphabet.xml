@@ -429,8 +429,7 @@
             android:textColor="#ffffff"
             android:shadowColor="#090000"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="0dp" />
+            android:layout_marginRight="5dp" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -442,10 +441,8 @@
             android:layout_toStartOf="@+id/btnT"
             android:textColor="#ffffff"
             android:shadowColor="#090000"
-            android:layout_marginTop="8dp"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginRight="5dp" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -471,9 +468,7 @@
             android:textColor="#ffffff"
             android:shadowColor="#090000"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="8dp" />
+            android:layout_marginRight="5dp" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -486,10 +481,8 @@
             android:layout_alignEnd="@+id/btnV"
             android:textColor="#ffffff"
             android:shadowColor="#090000"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
 
     </LinearLayout>
 
