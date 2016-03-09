@@ -7,12 +7,10 @@ import android.support.v7.app.AlertDialog;
 import android.widget.ArrayAdapter;
 
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.quiz.Quiz;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.quiz.QuizType;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Alphabet;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Festivals;
-import com.grammar.trocket.grammar.com.grammar.trocket.resources.ListViewActivity;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Times;
-import com.grammar.trocket.grammar.com.grammar.trocket.resources.seasons.SeasonsMain;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.text_quiz.TextQuizMainActivity;
 
 import java.util.ArrayList;
 
@@ -63,7 +61,7 @@ public class QuizDialog extends AlertDialog.Builder {
                     public void onClick(DialogInterface dialog, int position) {
 
                         switch (quizList.get(position).getQuizType()) {
-                            case NORMALQUIZ: intent = new Intent(context, SeasonsMain.class);
+                            case TEXTQUIZ: intent = new Intent(context, TextQuizMainActivity.class);
                                 break;
                             case MULTIPLEQUIZ:  intent = new Intent(context, Alphabet.class);
                                 break;

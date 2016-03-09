@@ -176,17 +176,17 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
                     ArrayList<Quiz> quizList = new ArrayList<Quiz>();
                     if(currentItem.name == "Sightseeing" ){
-                        quizList.add(new Quiz("Sightseeing quiz 1", QuizType.NORMALQUIZ));
+                        quizList.add(new Quiz("Sightseeing quiz 1", QuizType.TEXTQUIZ));
                         quizList.add(new Quiz("Sightseeing quiz 2", QuizType.PICTUREQUIZ));
                         quizList.add(new Quiz("Sightseeing quiz 3", QuizType.SOUNDQUIZ));
-                        quizList.add(new Quiz("Sightseeing quiz 4", QuizType.NORMALQUIZ));
+                        quizList.add(new Quiz("Sightseeing quiz 4", QuizType.TEXTQUIZ));
                         quizList.add(new Quiz("Sightseeing quiz 5", QuizType.MULTIPLEQUIZ));
                     }
                     else {
-                        quizList.add(new Quiz("Imperativo 1", QuizType.NORMALQUIZ));
+                        quizList.add(new Quiz("Imperativo 1", QuizType.TEXTQUIZ));
                         quizList.add(new Quiz("Imperativo 2", QuizType.PICTUREQUIZ));
                         quizList.add(new Quiz("Tu o Usted", QuizType.SOUNDQUIZ));
-                        quizList.add(new Quiz("Vocabulario", QuizType.NORMALQUIZ));
+                        quizList.add(new Quiz("Vocabulario", QuizType.TEXTQUIZ));
                         quizList.add(new Quiz("Comprension Auditiva", QuizType.MULTIPLEQUIZ));
                     }
 
