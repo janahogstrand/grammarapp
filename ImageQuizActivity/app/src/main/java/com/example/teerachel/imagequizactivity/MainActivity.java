@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     public int mistakeCounter = 0;
     public int questionNumber = 0;
 
-    public final static String EXTRA_MESSAGE = "hello";
-    public final static String EXTRA_MESSAGE2 = "hello2";
+    public final static String EXTRA_MESSAGE = "com.example.teerachel.imagequizactivity.message";
+    public final static String EXTRA_MESSAGE2 = "com.example.teerachel.imagequizactivity.message2";
 
 
     @Override
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
      */
     public void checkResult(View view) {
         Button pressedButton = (Button) view;
-        if(correctAns.equals(pressedButton.toString())) {
+        if(correctAns.equals(pressedButton.getText().toString())) {
             Log.d("correct", "correct");
 //            pressedButton.setBackgroundResource(R.drawable.rounded_button_green);
             successCounter++;
