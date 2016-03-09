@@ -12,9 +12,7 @@ import android.widget.TextView;
 
 import java.util.Locale;
 import android.os.Handler;
-
 import com.grammar.trocket.grammar.R;
-import com.grammar.trocket.grammar.com.grammar.trocket.audioQuiz.Audio_Quiz_Statistics_Activity;
 
 
 /**
@@ -40,6 +38,7 @@ public class Audio_Quiz_Main_Activity extends AppCompatActivity{
     public int mistakeCounter = 0;
     public int questionNumber = 0;
     TextToSpeech textToSpeech;
+    Locale language;
     public final static String EXTRA_MESSAGE = "com.grammar.trocket.grammar.com.grammar.trocket.audioQuiz.MESSAGE";
     public final static String EXTRA_MESSAGE2 = "com.grammar.trocket.grammar.com.grammar.trocket.audioQuiz.MESSAGE2";
 
@@ -59,7 +58,7 @@ public class Audio_Quiz_Main_Activity extends AppCompatActivity{
         questionsListArray = questionsList.createArray();
         assignVariables();
         assignTextView();
-        initalise();
+        assignLanguage();
     }
 
     /**
@@ -176,22 +175,51 @@ public class Audio_Quiz_Main_Activity extends AppCompatActivity{
         }
     }
 
-    public void initalise() {
+    /**
+     * This method assigns a language and a dialect to a variable according to the
+     * language the user has chosen and then assigns the textToSpeech object with
+     * the selected language. And then it call the playAudio() method.
+     */
+    public void assignLanguage() {
+        language = new Locale("es", "ES");
         textToSpeech = new TextToSpeech(Audio_Quiz_Main_Activity.this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
-                Locale language = new Locale("es", "ES"); //TODO grab language from DB
                 textToSpeech.setLanguage(language);
-                //For first TTS played
-                if (status == TextToSpeech.SUCCESS) {
-                    playAudio();
-                }
+                playAudio();
             }
         });
     }
 
 
-    public void playAudio() {
+    public void btnClicked(View v) {
+        playAudio();
+    }
+
+
+    public void playAudio(){
+        if(textToSpeech != null) {
+            textToSpeech.stop();
+        }
         textToSpeech.speak(question.getText().toString(), TextToSpeech.QUEUE_ADD, null);
     }
+
+
+    /**
+     * This method is called whenever an activity is closed or destroyed.
+     * This method stops the textToSpeech object from running and
+     * then destroys it inorder for it not to leak information.
+     */
+    @Override
+    protected void onDestroy() {
+        this.finish();
+        //Close the Text to Speech Library
+        if(textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+            Log.d("-------------------", "TTS Destroyed");
+        }
+        super.onDestroy();
+    }
+
 }
