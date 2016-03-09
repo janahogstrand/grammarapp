@@ -1,5 +1,6 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.resources;
 
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.os.Bundle;
 import android.view.View;
@@ -11,11 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ListViewActivity extends Activity {
+public class ListViewActivity extends BaseActivityDrawer {
 
 
     Locale language;
@@ -30,7 +32,8 @@ public class ListViewActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_view_activity);
+        setContentView(R.layout.list_view_main_activity);
+        super.onCreateDrawer();
 
         listView = (ListView) findViewById(R.id.listView);
         linerLayout = (LinearLayout)findViewById(R.id.linerLayout);
