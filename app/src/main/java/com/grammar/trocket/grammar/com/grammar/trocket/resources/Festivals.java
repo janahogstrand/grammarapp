@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeAdapter;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeItem;
 import com.grammar.trocket.grammar.R;
@@ -27,14 +28,16 @@ import java.util.Locale;
  *
  * @see BigView
  */
-public class Festivals extends AppCompatActivity {
+public class Festivals extends BaseActivityDrawer {
     private List<FestivalTimeItem> festData;
     String dialect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_festivalstime);
+        setContentView(R.layout.activity_festivalstime_main);
+        onCreateDrawer();
+
         getDialect();
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
 
