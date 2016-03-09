@@ -16,6 +16,35 @@ import android.widget.Button;
 public class MainMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public Button btnA;
+    public Button btnB;
+    public Button btnChe; public Button btnc;
+    public Button btnD;
+    public Button btnE;
+    public Button btnF;
+    public Button btnG;
+    public Button btnH;
+    public Button btnI;
+    public Button btnJ;
+    public Button btnK;
+    public Button btnL; public Button btnLL;
+    public Button btnM;
+    public Button btnN;  public Button btnn;
+    public Button btnO;
+    public Button btnP;
+    public Button btnQ;
+    public Button btnR;
+    public Button btnS;
+    public Button btnT;
+    public Button btnU;
+    public Button btnV;
+    public Button btnW;
+    public Button btnX;
+    public Button btnY;
+    public Button btnZ;
+    public Button btninfo;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,5 +132,42 @@ public class MainMenu extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public void assignTextView(){
+
+        btnA.setText("A a");
+        btnB.setText("B b");
+        btnChe.setText("C c");
+        btnc.setText("C Che");
+        btnD.setText("D d");
+        btnE.setText("E e");
+        btnF.setText("F f");
+        btnG.setText("G g");
+        btnH.setText("H h");
+        btnI.setText("I i");
+        btnJ.setText("J j");
+        btnK.setText("K k");
+        btnL.setText("L l");
+        btnLL.setText("L ll");
+
+       btnM.setText("M m");
+        btnN.setText("N n");
+        btnn.setText("Nn o");
+        btnO.setText("O o");
+        btnP.setText("btnP");
+        btnQ.setText("btnQ");
+        btnR.setText("btnR");
+        btnS.setText("btnS");
+        btnT.setText("btnT");
+        btnU.setText("btnU");
+        btnV.setText("btnV");
+        btnW.setText("btnW");
+        btnX.setText("btnX");
+        btnY.setText("btnY");
+        btnZ.setText("btnZ");
+        btninfo.setText("btnInfo");
+
+
+
     }
 }
