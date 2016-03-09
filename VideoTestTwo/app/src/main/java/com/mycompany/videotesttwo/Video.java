@@ -2,7 +2,6 @@ package com.mycompany.videotesttwo;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -20,7 +19,7 @@ public class Video extends YouTubeBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video);
+        setContentView(R.layout.video_activity);
 
         // get video address from previous activity
         Intent intent = getIntent();
