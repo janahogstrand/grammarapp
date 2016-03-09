@@ -3,31 +3,32 @@ package com.grammar.trocket.grammar;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import java.util.Locale;
 
-public class FourthActivity extends AppCompatActivity {
+public class SeasonsFirstActivity extends AppCompatActivity {
 
-
-    Button blueOne;
-    Button blueTwo;
-    Button blueThree;
+    Button pinkOne;
+    Button pinkTwo;
+    Button pinkThree;
     Locale language;
     TextToSpeech textToSpeech;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fourth);
+        setContentView(R.layout.activity_seasons_first);
 
-        blueOne = (Button) findViewById(R.id.option10);
-        blueTwo = (Button) findViewById(R.id.option11);
-        blueThree = (Button) findViewById(R.id.option12);
+        pinkOne = (Button) findViewById(R.id.option1);
+        pinkTwo = (Button) findViewById(R.id.option2);
+        pinkThree = (Button) findViewById(R.id.option3);
 
         assignText();
         assignLanguage();
+
     }
 
     /**
@@ -35,9 +36,9 @@ public class FourthActivity extends AppCompatActivity {
      * in the Main content.
      */
     public void assignText() {
-        blueOne.setText("diciembre");
-        blueTwo.setText("enero");
-        blueThree.setText("febrero");
+        pinkOne.setText("marzo");
+        pinkTwo.setText("abril");
+        pinkThree.setText("mayo");
     }
 
     /**
@@ -47,7 +48,7 @@ public class FourthActivity extends AppCompatActivity {
      */
     public void assignLanguage(){
         language = new Locale("es", "ES");
-        textToSpeech=new TextToSpeech(FourthActivity.this, new TextToSpeech.OnInitListener() {
+        textToSpeech=new TextToSpeech(SeasonsFirstActivity.this, new TextToSpeech.OnInitListener() {
             @Override public void onInit(int status) {
                 textToSpeech.setLanguage(language);
             }
@@ -66,4 +67,21 @@ public class FourthActivity extends AppCompatActivity {
         textToSpeech.speak(viewTextAsString, TextToSpeech.QUEUE_FLUSH, null);
     }
 
+    /**
+     * This method is called whenever an activity is closed or destroyed.
+     * This method stops the textToSpeech object from running and
+     * then destroys it inorder for it not to leak information.
+     */
+    @Override
+    protected void onDestroy() {
+        this.finish();
+        //Close the Text to Speech Library
+        if(textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+            Log.d("-------------------", "TTS Destroyed");
+        }
+        super.onDestroy();
+    }
 }
+

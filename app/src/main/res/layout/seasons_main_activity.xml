@@ -10,7 +10,7 @@
     tools:openDrawer="start">
 
     <include
-        layout="@layout/main_menu_app_bar"
+        layout="@layout/seasons_main_app_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -32,7 +32,7 @@
                 android:layout_height="0dp"
                 android:layout_gravity="top"
                 android:layout_weight="6"
-                app:headerLayout="@layout/main_menu_nav_header"/>
+                app:headerLayout="@layout/drawer_nav_header_main_menu"/>
 
             <android.support.design.widget.NavigationView
                 android:id="@+id/navigation_drawer_bottom"

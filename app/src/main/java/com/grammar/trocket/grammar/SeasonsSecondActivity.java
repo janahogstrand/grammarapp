@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import java.util.Locale;
 
-public class SecondActivity extends AppCompatActivity {
+public class SeasonsSecondActivity extends AppCompatActivity {
 
     Button OrgOne;
     Button OrgTwo;
@@ -19,7 +19,7 @@ public class SecondActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.activity_seasons_second);
 
         OrgOne = (Button) findViewById(R.id.option4);
         OrgTwo = (Button) findViewById(R.id.option5);
@@ -46,7 +46,7 @@ public class SecondActivity extends AppCompatActivity {
      */
     public void assignLanguage(){
         language = new Locale("es", "ES");
-        textToSpeech=new TextToSpeech(SecondActivity.this, new TextToSpeech.OnInitListener() {
+        textToSpeech=new TextToSpeech(SeasonsSecondActivity.this, new TextToSpeech.OnInitListener() {
             @Override public void onInit(int status) {
                 textToSpeech.setLanguage(language);
             }
@@ -64,5 +64,6 @@ public class SecondActivity extends AppCompatActivity {
         String viewTextAsString = clickedButton.getText().toString();
         textToSpeech.speak(viewTextAsString, TextToSpeech.QUEUE_FLUSH, null);
     }
+
 
 }

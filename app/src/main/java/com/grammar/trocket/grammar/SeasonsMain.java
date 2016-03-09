@@ -1,20 +1,18 @@
 package com.grammar.trocket.grammar;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
 import android.view.View;
 import android.widget.Button;
-import android.view.MenuItem;
 import android.widget.TextView;
+import android.os.Bundle;
+import android.content.Intent;
+import android.support.v7.widget.Toolbar;
+import android.support.v4.widget.DrawerLayout;
+import android.support.design.widget.NavigationView;
+import android.support.v7.app.ActionBarDrawerToggle;
 
-public class MainMenu extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+
+public class SeasonsMain extends BaseActivityDrawer {
 
     Button springBtn;
     Button summerBtn;
@@ -29,7 +27,7 @@ public class MainMenu extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_menu_activity);
+        setContentView(R.layout.seasons_main_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -72,41 +70,6 @@ public class MainMenu extends AppCompatActivity
         winterBtn.setText("Invierno");
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 
     /**
      * This method moves the user to a new activity based on the button they
@@ -116,16 +79,16 @@ public class MainMenu extends AppCompatActivity
     public void moveToNewActivity(View v){
         String idAsString = v.getResources().getResourceName(v.getId());
         if(idAsString.equals("com.grammar.trocket.grammar:id/springBtn")){
-            startActivity(new Intent(MainMenu.this, FirstActivity.class));
+            startActivity(new Intent(SeasonsMain.this, SeasonsFirstActivity.class));
         }
         else if(idAsString.equals("com.grammar.trocket.grammar:id/summerBtn")){
-            startActivity(new Intent(MainMenu.this, SecondActivity.class));
+            startActivity(new Intent(SeasonsMain.this, SeasonsSecondActivity.class));
         }
         else if(idAsString.equals("com.grammar.trocket.grammar:id/autumnBtn")){
-            startActivity(new Intent(MainMenu.this, ThirdActivity.class));
+            startActivity(new Intent(SeasonsMain.this, SeasonsThirdActivity.class));
         }
         else{
-            startActivity(new Intent(MainMenu.this, FourthActivity.class));
+            startActivity(new Intent(SeasonsMain.this, SeasonsFourthActivity.class));
         }
     }
 

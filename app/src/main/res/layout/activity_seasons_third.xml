@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,49 +7,56 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.grammar.trocket.grammar.FirstActivity"
-    android:background="@drawable/spring"
-    android:scaleType="fitXY">
+    tools:context="com.grammar.trocket.grammar.com.grammar.trocket.resources.ThirdActivity"
+    android:background="@drawable/summer"
+    android:scaleType="fitXY"
+    android:orientation="vertical"
+    android:gravity="center_vertical|center_horizontal">
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="marzo"
-        android:id="@+id/option1"
+        android:text="Text"
+        android:id="@+id/option7"
+        android:minWidth="400px"
+        android:background="#a32c2c"
+        android:textColor="#ffffff"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="118dp"
-        android:background="#eb4463"
-        android:minWidth="400px"
-        android:textColor="#ffffff"
         android:onClick="playAudio"/>
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="100px" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="abril"
-        android:id="@+id/option2"
-        android:layout_marginTop="40dp"
-        android:background="#eb4463"
+        android:text="Text"
+        android:id="@+id/option8"
         android:minWidth="400px"
+        android:background="#a32c2c"
         android:textColor="#ffffff"
-        android:layout_below="@+id/option1"
+        android:layout_below="@+id/option7"
         android:layout_centerHorizontal="true"
         android:onClick="playAudio"/>
 
+    <Space
+        android:layout_width="20px"
+        android:layout_height="100px" />
+
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="mayo"
-        android:id="@+id/option3"
-        android:layout_marginTop="40dp"
-        android:background="#eb4463"
+        android:text="Text"
+        android:id="@+id/option9"
         android:minWidth="400px"
+        android:background="#a32c2c"
         android:textColor="#ffffff"
-        android:layout_below="@+id/option2"
-        android:layout_alignStart="@+id/option2"
+        android:layout_below="@+id/option8"
+        android:layout_centerHorizontal="true"
         android:onClick="playAudio"/>
-</RelativeLayout>
+</LinearLayout>
