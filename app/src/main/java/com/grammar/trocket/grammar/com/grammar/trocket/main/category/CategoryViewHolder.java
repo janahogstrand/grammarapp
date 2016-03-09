@@ -24,9 +24,7 @@ import com.grammar.trocket.grammar.com.grammar.trocket.resources.Times;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.seasons.SeasonsMain;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.PriorityQueue;
 
 /**
  * Created by jamiemoreland on 24/02/16.
@@ -178,14 +176,14 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
                     if(currentItem.name == "Sightseeing" ){
                         quizList.add(new Quiz("Sightseeing quiz 1", QuizType.TEXTQUIZ));
                         quizList.add(new Quiz("Sightseeing quiz 2", QuizType.PICTUREQUIZ));
-                        quizList.add(new Quiz("Sightseeing quiz 3", QuizType.SOUNDQUIZ));
+                        quizList.add(new Quiz("Sightseeing quiz 3", QuizType.AUDIOQUIZ));
                         quizList.add(new Quiz("Sightseeing quiz 4", QuizType.TEXTQUIZ));
                         quizList.add(new Quiz("Sightseeing quiz 5", QuizType.MULTIPLEQUIZ));
                     }
                     else {
                         quizList.add(new Quiz("Imperativo 1", QuizType.TEXTQUIZ));
                         quizList.add(new Quiz("Imperativo 2", QuizType.PICTUREQUIZ));
-                        quizList.add(new Quiz("Tu o Usted", QuizType.SOUNDQUIZ));
+                        quizList.add(new Quiz("Tu o Usted", QuizType.AUDIOQUIZ));
                         quizList.add(new Quiz("Vocabulario", QuizType.TEXTQUIZ));
                         quizList.add(new Quiz("Comprension Auditiva", QuizType.MULTIPLEQUIZ));
                     }

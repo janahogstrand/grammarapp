@@ -10,6 +10,7 @@ import com.grammar.trocket.grammar.com.grammar.trocket.exercises.quiz.Quiz;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Alphabet;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Festivals;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Times;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.audio_quiz.AudioQuizMainActivity;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.text_quiz.TextQuizMainActivity;
 
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class QuizDialog extends AlertDialog.Builder {
                                 break;
                             case MULTIPLEQUIZ:  intent = new Intent(context, Alphabet.class);
                                 break;
-                            case SOUNDQUIZ:  intent = new Intent(context, Festivals.class);
+                            case AUDIOQUIZ:  intent = new Intent(context, AudioQuizMainActivity.class);
                                 break;
                             case PICTUREQUIZ:  intent = new Intent(context, Times.class);
                         }
