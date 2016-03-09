@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 public class DialectDialog extends AlertDialog.Builder {
 
     public final static String DIALECT_INFO = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE";
+    public final static String CALLER_INFO = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE2";
 
     Context context;
     Intent intent;
