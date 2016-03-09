@@ -13,9 +13,10 @@ import android.widget.TextView;
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.QuizDialog;
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.VideoObserveDialog;
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.VideoReflectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.quiz.Quiz;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.quiz.QuizType;
-import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Alphabet;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.DaysOfTheWeek;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Festivals;
@@ -117,23 +118,18 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
-                selectIntent(context);
-                if (currentItem.hasDialect) {
-                    //TODO make this adapter get information from database
-                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                            view.getContext(),
-                            android.R.layout.select_dialog_singlechoice);
+                String with = " with transcript";
+                String without = " without transcript";
+                //TODO make this adapter get information from database
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                        view.getContext(),
+                        android.R.layout.select_dialog_singlechoice);
+                //TODO make DB get correct video
+                arrayAdapter.add("Video 1" + with);
+                arrayAdapter.add("Video 1" + without);
 
-                    arrayAdapter.add("Spanish");
-                    arrayAdapter.add("Mexican");
+                VideoObserveDialog observeDialog = new VideoObserveDialog(context, arrayAdapter);
 
-
-                    DialectDialog dialectDialog = new DialectDialog(context, arrayAdapter, intent);
-
-                } else {
-                    intent.putExtra(DialectDialog.DIALECT_INFO, MainMenu.MainLanguage);
-                    context.startActivity(intent);
-                }
             }
         });
 
@@ -142,23 +138,20 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
-                selectIntent(context);
-                if (currentItem.hasDialect) {
-                    //TODO make this adapter get information from database
-                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                            view.getContext(),
-                            android.R.layout.select_dialog_singlechoice);
 
-                    arrayAdapter.add("Spanish");
-                    arrayAdapter.add("Mexican");
+                //TODO make this adapter get information from database
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                        view.getContext(),
+                        android.R.layout.select_dialog_singlechoice);
+                //TODO make DB get correct video
+                arrayAdapter.add("Video 1");
+                arrayAdapter.add("Video 2" );
+                arrayAdapter.add("Video 3");
+                arrayAdapter.add("Video 4" );
+                arrayAdapter.add("Video 5");
+                arrayAdapter.add("Video 6" );
 
-
-                    DialectDialog dialectDialog = new DialectDialog(context, arrayAdapter, intent);
-
-                } else {
-                    intent.putExtra(DialectDialog.DIALECT_INFO, MainMenu.MainLanguage);
-                    context.startActivity(intent);
-                }
+                VideoReflectDialog reflectDialog = new VideoReflectDialog(context, arrayAdapter);
             }
         });
 

@@ -7,9 +7,6 @@ import android.support.v7.app.AlertDialog;
 import android.widget.ArrayAdapter;
 
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.quiz.Quiz;
-import com.grammar.trocket.grammar.com.grammar.trocket.resources.Alphabet;
-import com.grammar.trocket.grammar.com.grammar.trocket.resources.Times;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.quiz.audio_quiz.AudioQuizMainActivity;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.quiz.text_quiz.TextQuizMainActivity;
 
 import java.util.ArrayList;
@@ -17,20 +14,18 @@ import java.util.ArrayList;
 /**
  * Created by jamiemoreland on 09/03/16.
  */
-public class QuizDialog extends AlertDialog.Builder {
+public class VideoObserveDialog extends AlertDialog.Builder {
 
     public final static String QUIZ_INFO = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE";
 
     Context context;
     Intent intent;
-    ArrayList<Quiz> quizList;
 
 
-    public QuizDialog(Context context, final ArrayAdapter<String> quizOptions, ArrayList<Quiz> quizList) {
+    public VideoObserveDialog(Context context, final ArrayAdapter<String> observeOptions) {
         super(context);
         this.context = context;
-        this.quizList = quizList;
-        addListContent(context, quizOptions);
+        addListContent(context, observeOptions);
     }
 
     /**
@@ -38,10 +33,10 @@ public class QuizDialog extends AlertDialog.Builder {
      * Adds information to dialog
      *
      * @param context        context to run on
-     * @param quizOptions List of possible quiz
+     * @param observeOptions If it is transcription
      **/
-    public void addListContent(final Context context, final ArrayAdapter<String> quizOptions) {
-        this.setTitle("Select a quiz");
+    public void addListContent(final Context context, final ArrayAdapter<String> observeOptions) {
+        this.setTitle("Select a video");
 
         //Set button
         this.setNegativeButton(
@@ -55,24 +50,16 @@ public class QuizDialog extends AlertDialog.Builder {
 
         //New dialog once finished
         this.setAdapter(
-                quizOptions,
+                observeOptions,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int position) {
 
-                        switch (quizList.get(position).getQuizType()) {
-                            case TEXTQUIZ: intent = new Intent(context, TextQuizMainActivity.class);
-                                break;
-                            case MULTIPLEQUIZ:  intent = new Intent(context, Alphabet.class);
-                                break;
-                            case AUDIOQUIZ:  intent = new Intent(context, AudioQuizMainActivity.class);
-                                break;
-                            case PICTUREQUIZ:  intent = new Intent(context, Times.class);
+                        if (position == 0) {
+                          //  intent = new Intent(context, Video.class);
+                        } else {
+                           // intent = new Intent(context, Video.class);
                         }
-
-//                        String selectedDialect = quizOptions.getItem(position);
-//                        intent.putExtra(QUIZ_INFO, selectedDialect);
-
 
                         context.startActivity(intent);
                     }

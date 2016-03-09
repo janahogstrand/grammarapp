@@ -1,14 +1,16 @@
-package com.grammar.trocket.grammar.com.grammar.trocket.resources.text_quiz;
+package com.grammar.trocket.grammar.com.grammar.trocket.exercises.quiz.audio_quiz;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Window;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
 
-public class TextQuizStatisticsActivity extends Activity {
+/**
+ * Created by Sam on 06/03/2016.
+ */
+public class AudioQuizStatisticsActivity extends AppCompatActivity {
 
     public TextView successCounter;
     public TextView mistakeCounter;
@@ -19,13 +21,12 @@ public class TextQuizStatisticsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.text_quiz_statistics_activity);
+        setContentView(R.layout.audio_quiz_statistics);
 
         // Get the message from the intent
         Intent intent = getIntent();
-        message = intent.getStringExtra(TextQuizMainActivity.EXTRA_MESSAGE);
-        message2 = intent.getStringExtra(TextQuizMainActivity.EXTRA_MESSAGE2);
+        message = intent.getStringExtra(AudioQuizMainActivity.EXTRA_MESSAGE);
+        message2 = intent.getStringExtra(AudioQuizMainActivity.EXTRA_MESSAGE2);
 
         successCounter = (TextView) findViewById(R.id.successCounter);
         mistakeCounter = (TextView) findViewById(R.id.mistakeCounter);
@@ -41,7 +42,7 @@ public class TextQuizStatisticsActivity extends Activity {
 
     /**
      * Initializes the comment with message that changes according t0 the
-     * message received from the TextQuizMainActivity class.
+     * message received from the Quiz_Main_Activity class.
      */
     public void initializeComment(){
         if(Integer.parseInt(message)>= 5){

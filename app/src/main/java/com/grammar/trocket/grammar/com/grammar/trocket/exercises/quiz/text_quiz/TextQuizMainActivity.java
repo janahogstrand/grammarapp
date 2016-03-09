@@ -1,24 +1,18 @@
-package com.grammar.trocket.grammar.com.grammar.trocket.resources.audio_quiz;
+package com.grammar.trocket.grammar.com.grammar.trocket.exercises.quiz.text_quiz;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.speech.tts.TextToSpeech;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
 
-import java.util.Locale;
-
-
-/**
- * Created by Sam on 06/03/2016.
- */
-public class AudioQuizMainActivity extends AppCompatActivity {
+public class TextQuizMainActivity extends Activity {
 
     public TextView question;
     public Button answerOption1;
@@ -27,9 +21,8 @@ public class AudioQuizMainActivity extends AppCompatActivity {
     public Button answerOption4;
     public Button answerOption5;
     public Button answerOption6;
-    public boolean isSpanishDialect;
-    public AudioQuizQuestionsList questionsList;
-    public AudioQuizAnswerList answersList;
+    public TextQuizQuestionsList questionsList;
+    public TextQuizAnswersList answersList;
     public String[] questionsListArray;
     public String correctAnswer;
     public String currentQuestion;
@@ -37,16 +30,16 @@ public class AudioQuizMainActivity extends AppCompatActivity {
     public int successCounter = 0;
     public int mistakeCounter = 0;
     public int questionNumber = 0;
-    TextToSpeech textToSpeech;
-    Locale language;
-    public final static String EXTRA_MESSAGE = "com.grammar.trocket.grammar.com.grammar.trocket.audioQuiz.MESSAGE";
-    public final static String EXTRA_MESSAGE2 = "com.grammar.trocket.grammar.com.grammar.trocket.audioQuiz.MESSAGE2";
+
+    public final static String EXTRA_MESSAGE = "com.firasaltayeb.quizbutton.MESSAGE";
+    public final static String EXTRA_MESSAGE2 = "com.firasaltayeb.quizbutton.MESSAGE2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.audio_quiz_main);
-        isSpanishDialect = true; //THIS NEEDS TO BE CHANGED!!
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.text_quiz_main_activity);
+
         question = (TextView) findViewById(R.id.question);
         answerOption1 = (Button) findViewById(R.id.answerOption1);
         answerOption2 = (Button) findViewById(R.id.answerOption2);
@@ -55,12 +48,11 @@ public class AudioQuizMainActivity extends AppCompatActivity {
         answerOption5 = (Button) findViewById(R.id.answerOption5);
         answerOption6 = (Button) findViewById(R.id.answerOption6);
 
-        questionsList = new AudioQuizQuestionsList();
-        answersList = new AudioQuizAnswerList();
+        questionsList = new TextQuizQuestionsList();
+        answersList = new TextQuizAnswersList();
         questionsListArray = questionsList.createArray();
         assignVariables();
         assignTextView();
-        assignLanguage();
     }
 
     /**
@@ -72,7 +64,6 @@ public class AudioQuizMainActivity extends AppCompatActivity {
         currentQuestion = questionsListArray[questionNumber];
         answerOptionArray = answersList.getAnswerOptions(currentQuestion);
         correctAnswer = answersList.getCorrectAnswer(currentQuestion);
-
     }
 
     /**
@@ -101,7 +92,6 @@ public class AudioQuizMainActivity extends AppCompatActivity {
      */
     public void checkResult(View view) {
         Button pressedButton = (Button) view;
-        Log.d("Answer Given:", pressedButton.getText().toString());
         if(correctAnswer.equals(pressedButton.getText().toString())) {
             Log.d("correct", "correct");
             pressedButton.setBackgroundResource(R.drawable.rounded_button_green);
@@ -156,72 +146,21 @@ public class AudioQuizMainActivity extends AppCompatActivity {
      */
     public void checkQuestionNumber(){
         if(questionNumber == 10){
-
-            Intent intent = new Intent(this, AudioQuizStatisticsActivity.class);
+            Intent intent = new Intent(this, TextQuizStatisticsActivity.class);
             intent.putExtra(EXTRA_MESSAGE, ""+successCounter);
             intent.putExtra(EXTRA_MESSAGE2, ""+mistakeCounter);
             startActivity(intent);
         }
         else {
+            // Execute run() after 2 seconds have passed
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
                     assignVariables();
                     assignTextView();
                     restoreColor();
-                    playAudio();
                 }
             }, 1000);
-
-
         }
     }
-
-    /**
-     * This method assigns a language and a dialect to a variable according to the
-     * language the user has chosen and then assigns the textToSpeech object with
-     * the selected language. And then it call the playAudio() method.
-     */
-    public void assignLanguage() {
-        language = new Locale("es", "ES");
-        textToSpeech = new TextToSpeech(AudioQuizMainActivity.this, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                textToSpeech.setLanguage(language);
-                playAudio();
-            }
-        });
-    }
-
-
-    public void btnClicked(View v) {
-        playAudio();
-    }
-
-
-    public void playAudio(){
-        if(textToSpeech != null) {
-            textToSpeech.stop();
-        }
-        textToSpeech.speak(question.getText().toString(), TextToSpeech.QUEUE_ADD, null);
-    }
-
-
-    /**
-     * This method is called whenever an activity is closed or destroyed.
-     * This method stops the textToSpeech object from running and
-     * then destroys it inorder for it not to leak information.
-     */
-    @Override
-    protected void onDestroy() {
-        this.finish();
-        //Close the Text to Speech Library
-        if(textToSpeech != null) {
-            textToSpeech.stop();
-            textToSpeech.shutdown();
-            Log.d("-------------------", "TTS Destroyed");
-        }
-        super.onDestroy();
-    }
-
 }

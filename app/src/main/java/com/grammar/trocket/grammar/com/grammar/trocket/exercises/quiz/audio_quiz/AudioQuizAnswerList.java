@@ -1,11 +1,11 @@
-package com.grammar.trocket.grammar.com.grammar.trocket.resources.text_quiz;
+package com.grammar.trocket.grammar.com.grammar.trocket.exercises.quiz.audio_quiz;
 
 /**
- * Created by firasAltayeb on 15/02/2016.
+ * Created by Sam on 06/03/2016.
  */
-public class TextQuizAnswersList {
-    TextQuizQuestionsList qusListClass = new TextQuizQuestionsList();
-    String[] qusList = qusListClass.createArray();
+public class AudioQuizAnswerList {
+    AudioQuizQuestionsList audioQuestionListClass = new AudioQuizQuestionsList();
+    String[] qusList = audioQuestionListClass.createArray();
 
     /**
      The getCorrectAnswer method returns the current question's correct answer
@@ -14,37 +14,37 @@ public class TextQuizAnswersList {
     public String getCorrectAnswer(String Question){
         String correctAnswer = "";
         if (Question.equals(qusList[0])){
-            correctAnswer = "Foot-and-mouth";
+            correctAnswer = "Cat";
         }
         if (Question.equals(qusList[1])){
-            correctAnswer = "Anaconda";
+            correctAnswer = "Dog";
         }
         if (Question.equals(qusList[2])){
-            correctAnswer = "Frogmen";
+            correctAnswer = "Fish";
         }
         if (Question.equals(qusList[3])){
-            correctAnswer = "Cup of tea";
+            correctAnswer = "Guinea Pig";
         }
         if (Question.equals(qusList[4])){
-            correctAnswer = "Almost certain";
+            correctAnswer = "Hippo";
         }
         if (Question.equals(qusList[5])){
-            correctAnswer = "Burrowing";
+            correctAnswer = "Horse";
         }
         if (Question.equals(qusList[6])){
-            correctAnswer = "Dashboard";
+            correctAnswer = "Mouse";
         }
         if (Question.equals(qusList[7])){
-            correctAnswer = "Crash helmet";
+            correctAnswer = "Pig";
         }
         if (Question.equals(qusList[8])){
-            correctAnswer = "On the rocks";
+            correctAnswer = "Shark";
         }
         if (Question.equals(qusList[9])){
-            correctAnswer = "Weir";
+            correctAnswer = "Tiger";
         }
         if (Question.equals(qusList[10])){
-            correctAnswer = "Puppy love";
+            correctAnswer = "Turtle";
         }
         return correctAnswer;
 
@@ -67,20 +67,20 @@ public class TextQuizAnswersList {
             ans1 = "Hand-and-foot";
             ans2 = "Foot-in-mouth";
             ans3 = "Hand-to-mouth";
-            ans4 = "Foot-and-mouth";
+            ans4 = "Cat";
             ans5 = "mouth-and-mouth";
             ans6 = "Foot-and-Foot";
         }
         if (Question.equals(qusList[1])){
             ans1 = "Andalucia";
-            ans2 = "Anaconda";
+            ans2 = "Dog";
             ans3 = "Andypandy";
             ans4 = "Annerobinson";
             ans5 = "robinson";
             ans6 = "Anne";
         }
         if (Question.equals(qusList[2])){
-            ans1 = "Frogmen";
+            ans1 = "Fish";
             ans2 = "Newtmen";
             ans3 = "Protos";
             ans4 = "Lamborghini";
@@ -89,14 +89,14 @@ public class TextQuizAnswersList {
         }
         if (Question.equals(qusList[3])){
             ans1 = "Policeman";
-            ans2 = "Cup of tea";
+            ans2 = "Guinea Pig";
             ans3 = "2p coin";
             ans4 = "Smoked herring";
             ans5 = "herring";
             ans6 = "Smoked";
         }
         if (Question.equals(qusList[4])){
-            ans1 = "Almost certain";
+            ans1 = "Hippo";
             ans2 = "Newly bought";
             ans3 = "Freshly cooked";
             ans4 = "Recently stolen";
@@ -104,7 +104,7 @@ public class TextQuizAnswersList {
             ans6 = "duck";
         }
         if (Question.equals(qusList[5])){
-            ans1 = "Burrowing";
+            ans1 = "Horse";
             ans2 = "Climbing";
             ans3 = "Swimming";
             ans4 = "Flying";
@@ -114,14 +114,14 @@ public class TextQuizAnswersList {
         if (Question.equals(qusList[6])){
             ans1 = "Chargeboard";
             ans2 = "Sprintboard";
-            ans3 = "Dashboard";
+            ans3 = "Mouse";
             ans4 = "Jogboard";
             ans5 = "Jamie";
             ans6 = "Ran";
         }
         if (Question.equals(qusList[7])){
             ans1 = "Bash helmet";
-            ans2 = "Crash helmet";
+            ans2 = "Pig";
             ans3 = "Mash helmet";
             ans4 = "Flash helmet";
             ans5 = "Sam";
@@ -129,7 +129,7 @@ public class TextQuizAnswersList {
         }
         if (Question.equals(qusList[8])){
             ans1 = "Shingled";
-            ans2 = "On the rocks";
+            ans2 = "Shark";
             ans3 = "Pebbledashed";
             ans4 = "Stoned";
             ans5 = "Shriti";
@@ -139,12 +139,12 @@ public class TextQuizAnswersList {
             ans1 = "Seer";
             ans2 = "Rear";
             ans3 = "Fear";
-            ans4 = "Weir";
+            ans4 = "Tiger";
             ans5 = "king";
             ans6 = "boss";
         }
         if (Question.equals(qusList[10])){
-            ans1 = "Puppy love";
+            ans1 = "Turtle";
             ans2 = "Kitten love";
             ans3 = "Bunny love";
             ans4 = "Piggy love";
