@@ -3,7 +3,7 @@ package com.grammar.trocket.grammar.com.grammar.trocket.audioQuiz;
 /**
  * Created by Sam on 06/03/2016.
  */
-public class Audio_Quiz_Questions_List {
+public class AudioQuizQuestionsList {
 
     /**
      * creates the words for the audio player

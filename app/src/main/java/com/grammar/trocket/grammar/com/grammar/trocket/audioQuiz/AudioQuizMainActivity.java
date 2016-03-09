@@ -18,7 +18,7 @@ import com.grammar.trocket.grammar.R;
 /**
  * Created by Sam on 06/03/2016.
  */
-public class Audio_Quiz_Main_Activity extends AppCompatActivity{
+public class AudioQuizMainActivity extends AppCompatActivity{
 
     public TextView question;
     public Button answerOption1;
@@ -28,8 +28,8 @@ public class Audio_Quiz_Main_Activity extends AppCompatActivity{
     public Button answerOption5;
     public Button answerOption6;
     public boolean isSpanishDialect;
-    public Audio_Quiz_Questions_List questionsList = new Audio_Quiz_Questions_List();
-    public Audio_Quiz_Answer_List answersList = new Audio_Quiz_Answer_List();
+    public AudioQuizQuestionsList questionsList = new AudioQuizQuestionsList();
+    public AudioQuizAnswerList answersList = new AudioQuizAnswerList();
     public String[] questionsListArray;
     public String correctAnswer;
     public String currentQuestion;
@@ -45,7 +45,7 @@ public class Audio_Quiz_Main_Activity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_audio_quiz_main);
+        setContentView(R.layout.audio_quiz_main);
         isSpanishDialect = true; //THIS NEEDS TO BE CHANGED!!
         question = (TextView) findViewById(R.id.question);
         answerOption1 = (Button) findViewById(R.id.answerOption1);
@@ -155,7 +155,7 @@ public class Audio_Quiz_Main_Activity extends AppCompatActivity{
     public void checkQuestionNumber(){
         if(questionNumber == 10){
 
-            Intent intent = new Intent(this, Audio_Quiz_Statistics_Activity.class);
+            Intent intent = new Intent(this, AudioQuizStatisticsActivity.class);
             intent.putExtra(EXTRA_MESSAGE, ""+successCounter);
             intent.putExtra(EXTRA_MESSAGE2, ""+mistakeCounter);
             startActivity(intent);
@@ -182,7 +182,7 @@ public class Audio_Quiz_Main_Activity extends AppCompatActivity{
      */
     public void assignLanguage() {
         language = new Locale("es", "ES");
-        textToSpeech = new TextToSpeech(Audio_Quiz_Main_Activity.this, new TextToSpeech.OnInitListener() {
+        textToSpeech = new TextToSpeech(AudioQuizMainActivity.this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
                 textToSpeech.setLanguage(language);

@@ -1,10 +1,8 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.audioQuiz;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Window;
 import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
@@ -12,7 +10,7 @@ import com.grammar.trocket.grammar.R;
 /**
  * Created by Sam on 06/03/2016.
  */
-public class Audio_Quiz_Statistics_Activity extends AppCompatActivity {
+public class AudioQuizStatisticsActivity extends AppCompatActivity {
 
     public TextView successCounter;
     public TextView mistakeCounter;
@@ -23,12 +21,12 @@ public class Audio_Quiz_Statistics_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_audio_quiz_statistics);
+        setContentView(R.layout.audio_quiz_statistics);
 
         // Get the message from the intent
         Intent intent = getIntent();
-        message = intent.getStringExtra(Audio_Quiz_Main_Activity.EXTRA_MESSAGE);
-        message2 = intent.getStringExtra(Audio_Quiz_Main_Activity.EXTRA_MESSAGE2);
+        message = intent.getStringExtra(AudioQuizMainActivity.EXTRA_MESSAGE);
+        message2 = intent.getStringExtra(AudioQuizMainActivity.EXTRA_MESSAGE2);
 
         successCounter = (TextView) findViewById(R.id.successCounter);
         mistakeCounter = (TextView) findViewById(R.id.mistakeCounter);
