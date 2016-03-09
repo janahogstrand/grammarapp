@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.QuizDialog;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.quiz.Quiz;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.quiz.QuizType;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Alphabet;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.DaysOfTheWeek;
@@ -20,7 +23,10 @@ import com.grammar.trocket.grammar.com.grammar.trocket.resources.ListViewActivit
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Times;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.seasons.SeasonsMain;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.PriorityQueue;
 
 /**
  * Created by jamiemoreland on 24/02/16.
@@ -163,23 +169,33 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
-                selectIntent(context);
-                if (currentItem.hasDialect) {
                     //TODO make this adapter get information from database
                     ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                             view.getContext(),
                             android.R.layout.select_dialog_singlechoice);
 
-                    arrayAdapter.add("Spanish");
-                    arrayAdapter.add("Mexican");
+                    ArrayList<Quiz> quizList = new ArrayList<Quiz>();
+                    if(currentItem.name == "Sightseeing" ){
+                        quizList.add(new Quiz("Sightseeing quiz 1", QuizType.NORMALQUIZ));
+                        quizList.add(new Quiz("Sightseeing quiz 2", QuizType.PICTUREQUIZ));
+                        quizList.add(new Quiz("Sightseeing quiz 3", QuizType.SOUNDQUIZ));
+                        quizList.add(new Quiz("Sightseeing quiz 4", QuizType.NORMALQUIZ));
+                        quizList.add(new Quiz("Sightseeing quiz 5", QuizType.MULTIPLEQUIZ));
+                    }
+                    else {
+                        quizList.add(new Quiz("Imperativo 1", QuizType.NORMALQUIZ));
+                        quizList.add(new Quiz("Imperativo 2", QuizType.PICTUREQUIZ));
+                        quizList.add(new Quiz("Tu o Usted", QuizType.SOUNDQUIZ));
+                        quizList.add(new Quiz("Vocabulario", QuizType.NORMALQUIZ));
+                        quizList.add(new Quiz("Comprension Auditiva", QuizType.MULTIPLEQUIZ));
+                    }
 
 
-                    DialectDialog dialectDialog = new DialectDialog(context, arrayAdapter, intent);
+                    for(Quiz q: quizList){
+                        arrayAdapter.add(q.getName());
+                    }
 
-                } else {
-                    intent.putExtra(DialectDialog.DIALECT_INFO, MainMenu.MainLanguage);
-                    context.startActivity(intent);
-                }
+                    QuizDialog quizDialog = new QuizDialog(context, arrayAdapter, quizList);
             }
         });
     }
