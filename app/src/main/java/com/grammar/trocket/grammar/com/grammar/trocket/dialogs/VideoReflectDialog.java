@@ -6,16 +6,14 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.widget.ArrayAdapter;
 
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.quiz.Quiz;
-
-import java.util.ArrayList;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises_quiz.Video;
 
 /**
  * Created by jamiemoreland on 09/03/16.
  */
 public class VideoReflectDialog extends AlertDialog.Builder {
 
-    public final static String QUIZ_INFO = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE";
+    public final static String VIDEO_ADDRESS = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE2";
 
     Context context;
     Intent intent;
@@ -55,7 +53,11 @@ public class VideoReflectDialog extends AlertDialog.Builder {
                     public void onClick(DialogInterface dialog, int position) {
 
                         //intent = new Intent(context, Video.class);
+                        // start new youtube activity and pass the video address to it
 
+                        intent = new Intent(context, Video.class);
+                        String address = "qyXTgqJtoGM";
+                        intent.putExtra(VIDEO_ADDRESS, address);
                         context.startActivity(intent);
                     }
                 });

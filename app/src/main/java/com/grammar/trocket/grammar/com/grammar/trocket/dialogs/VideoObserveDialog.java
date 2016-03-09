@@ -6,20 +6,18 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.widget.ArrayAdapter;
 
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.quiz.Quiz;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.quiz.text_quiz.TextQuizMainActivity;
-
-import java.util.ArrayList;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises_quiz.Video;
 
 /**
  * Created by jamiemoreland on 09/03/16.
  */
 public class VideoObserveDialog extends AlertDialog.Builder {
 
-    public final static String QUIZ_INFO = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE";
+    public final static String VIDEO_ADDRESS2 = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE2";
 
     Context context;
     Intent intent;
+    String address;
 
 
     public VideoObserveDialog(Context context, final ArrayAdapter<String> observeOptions) {
@@ -56,10 +54,13 @@ public class VideoObserveDialog extends AlertDialog.Builder {
                     public void onClick(DialogInterface dialog, int position) {
 
                         if (position == 0) {
-                          //  intent = new Intent(context, Video.class);
+                             address = "qyXTgqJtoGM";
                         } else {
-                           // intent = new Intent(context, Video.class);
+                             address = "j25tkxg5Vws";
                         }
+
+                        intent = new Intent(context, Video.class);
+                        intent.putExtra(VIDEO_ADDRESS2, address);
 
                         context.startActivity(intent);
                     }
