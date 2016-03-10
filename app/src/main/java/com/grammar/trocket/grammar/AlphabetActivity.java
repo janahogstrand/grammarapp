@@ -27,7 +27,7 @@ public class AlphabetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alphabet);
+        setContentView(R.layout.alphabet_activity);
 
         /**
          * Buttons assigned to their respective ids
