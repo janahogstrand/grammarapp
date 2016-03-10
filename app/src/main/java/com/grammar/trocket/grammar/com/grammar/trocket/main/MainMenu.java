@@ -14,6 +14,7 @@ import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabResources
 
 public class MainMenu extends BaseActivityDrawer {
 
+    //TODO Shared prefs
     public final static String MainLanguage = "Spanish";
 
     /**
@@ -39,10 +40,6 @@ public class MainMenu extends BaseActivityDrawer {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         super.onCreateDrawer();
-//
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
