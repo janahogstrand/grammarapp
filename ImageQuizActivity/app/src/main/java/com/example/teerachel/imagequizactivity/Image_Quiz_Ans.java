@@ -22,16 +22,16 @@ public class Image_Quiz_Ans {
             correctAnswer = "plane";
         }
         if (Question.equals(quesList[2])) {
-            correctAnswer = "bus";
-        }
-        if (Question.equals(quesList[3])) {
             correctAnswer = "car";
         }
+        if (Question.equals(quesList[3])) {
+            correctAnswer = "bus";
+        }
         if (Question.equals(quesList[4])) {
-            correctAnswer = "bike";
+            correctAnswer = "ship";
         }
         if (Question.equals(quesList[5])) {
-            correctAnswer = "ship";
+            correctAnswer = "bike";
         }
         return correctAnswer;
     }

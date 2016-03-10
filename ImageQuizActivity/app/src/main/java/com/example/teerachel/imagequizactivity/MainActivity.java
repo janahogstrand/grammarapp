@@ -42,16 +42,22 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         question = (TextView) findViewById(R.id.ques);
         train = (Button) findViewById(R.id.trainImage);
         train.setOnClickListener(this);
+        train.setText("train");
         plane = (Button) findViewById(R.id.planeImage);
         plane.setOnClickListener(this);
+        plane.setText("plane");
         bus = (Button) findViewById(R.id.busImage);
         bus.setOnClickListener(this);
+        bus.setText("bus");
         car = (Button) findViewById(R.id.carImage);
         car.setOnClickListener(this);
+        car.setText("car");
         bike = (Button) findViewById(R.id.bikeImage);
         bike.setOnClickListener(this);
+        bike.setText("bike");
         ship = (Button) findViewById(R.id.shipImage);
         ship.setOnClickListener(this);
+        ship.setText("ship");
 
         questionListArr = questions.createArray();
         assignVariables();
@@ -106,12 +112,16 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             Log.d("correct", "correct");
 //            pressedButton.setBackgroundResource(R.drawable.rounded_button_green);
             successCounter++;
+            Toast.makeText(MainActivity.this,
+                    "You're correct!", Toast.LENGTH_LONG).show();
 
         }
         else {
             Log.d("mistake", pressedButton.toString());
 //            pressedButton.setBackgroundResource(R.drawable.rounded_button_red);
             mistakeCounter++;
+            Toast.makeText(MainActivity.this,
+                    "Sorry, try again :(", Toast.LENGTH_LONG).show();
         }
 
         questionNumber++;
@@ -146,7 +156,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     @Override
     public void onClick(View v) {
         checkResult(v);
-        Toast.makeText(MainActivity.this,
-                "Your Message", Toast.LENGTH_LONG).show();
+
     }
 }
