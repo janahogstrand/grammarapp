@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     public int successCounter = 0;
     public int mistakeCounter = 0;
     public int questionNumber = 0;
-
     public final static String EXTRA_MESSAGE = "com.example.teerachel.imagequizactivity.message";
     public final static String EXTRA_MESSAGE2 = "com.example.teerachel.imagequizactivity.message2";
 
@@ -95,21 +94,34 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
      * @param view
      */
     public void checkResult(View view) {
-        Button pressedButton = (Button) view;
+        final Button pressedButton = (Button) view;
         if(correctAns.equals(pressedButton.getText().toString())) {
             Log.d("correct", "correct");
             successCounter++;
             Toast.makeText(MainActivity.this,
                     "You're correct!", Toast.LENGTH_LONG).show();
-
+            pressedButton.getBackground().mutate().setAlpha(128);
+            pressedButton.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    pressedButton.getBackground().setAlpha(255);
+                }
+            }, 1000);
         }
         else {
             Log.d("mistake", pressedButton.toString());
             mistakeCounter++;
             Toast.makeText(MainActivity.this,
                     "Sorry, try again :(", Toast.LENGTH_LONG).show();
-        }
+            pressedButton.getBackground().mutate().setAlpha(128);
+            pressedButton.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    pressedButton.getBackground().setAlpha(255);
+                }
+            }, 1000);
 
+        }
         questionNumber++;
         checkQuestionNumber();
     }
