@@ -59,9 +59,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         ship.setOnClickListener(this);
         ship.setText("ship");
 
-        questionListArr = questions.createArray();
+         questionListArr = questions.createArray();
         assignVariables();
         assignTextView();
+
     }
 
     /**

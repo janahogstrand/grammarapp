@@ -63,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton23"
-        android:src="@drawable/cycle"
+        android:src="@drawable/bikeclick"
         android:layout_marginBottom="47dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
