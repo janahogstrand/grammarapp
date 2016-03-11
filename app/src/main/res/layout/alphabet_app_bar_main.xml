@@ -36,7 +36,8 @@
         tools:showIn="@layout/alphabet_app_bar_main"
         tools:context=".Alphabet"
         android:orientation="vertical"
-        android:background="#c4d3d8">
+        android:background="#c4d3d8"
+        android:gravity="center_horizontal">
 
         <ImageView
             android:layout_width="match_parent"
@@ -52,7 +53,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
 
             <Button
                 style="?android:attr/buttonStyleSmall"
@@ -129,7 +131,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
 
             <Button
                 style="?android:attr/buttonStyleSmall"
@@ -208,7 +211,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
 
             <Button
                 style="?android:attr/buttonStyleSmall"
@@ -284,7 +288,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
 
             <Button
                 style="?android:attr/buttonStyleSmall"
@@ -360,7 +365,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
 
             <Button
                 style="?android:attr/buttonStyleSmall"
@@ -437,7 +443,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
 
             <Button
                 style="?android:attr/buttonStyleSmall"
