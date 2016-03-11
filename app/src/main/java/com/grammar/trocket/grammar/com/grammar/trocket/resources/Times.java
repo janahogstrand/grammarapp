@@ -61,30 +61,11 @@ public class Times extends BaseActivityDrawer {
      **/
     private List<FestivalTimeItem> getData() {
         timeData = new ArrayList<FestivalTimeItem>();
-        timeData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder, dialect));
-        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
-        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
-        timeData.add(new FestivalTimeItem("Es Test", "The Test", R.drawable.placeholder,dialect));
-        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
-        timeData.add(new FestivalTimeItem("uber festival", "Wow much festival", R.drawable.placeholder3, dialect));
-        timeData.add(new FestivalTimeItem("im trapped in a text view", "much test", R.drawable.placeholder, dialect));
-        timeData.add(new FestivalTimeItem("Es Test", "The Brits", R.drawable.placeholder2, dialect));
-        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
-        timeData.add(new FestivalTimeItem("Es Test", "The Box", R.drawable.placeholder, dialect));
-        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
-        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
-        timeData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder, dialect));
-        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
-        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
-        timeData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder, dialect));
-        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
-        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
-        timeData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder, dialect));
-        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
-        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
-        timeData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder, dialect));
-        timeData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
-        timeData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
+        timeData.add(new FestivalTimeItem("Son las doce en punto", "",android.R.drawable.ic_lock_idle_alarm, dialect));
+        timeData.add(new FestivalTimeItem("Son las doce y cinco", "",android.R.drawable.ic_lock_idle_alarm, dialect));
+        timeData.add(new FestivalTimeItem("Son las doce y cuarto", "",android.R.drawable.ic_lock_idle_alarm, dialect));
+        timeData.add(new FestivalTimeItem("Son las doce y media", "",android.R.drawable.ic_lock_idle_alarm, dialect));
+        timeData.add(new FestivalTimeItem("Es la una menos cuarto", "",android.R.drawable.ic_lock_idle_alarm, dialect));
 
         return timeData;
     }
