@@ -27,6 +27,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:paddingTop="40dp"
         android:id="@+id/linear_image_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,8 +38,8 @@
         <!-- TODO change hardcoded 290dp to dimen value-->
     <com.grammar.trocket.grammar.com.grammar.trocket.customviews.SquareImageView
         android:id="@+id/centerImage"
-        android:layout_width="290dp"
-        android:layout_height="290dp"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
         android:layout_gravity="center_horizontal"
         android:scaleType="centerCrop"
         android:src="@drawable/placeholder2" />

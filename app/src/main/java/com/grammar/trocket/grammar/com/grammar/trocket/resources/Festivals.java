@@ -63,30 +63,11 @@ public class Festivals extends BaseActivityDrawer {
      **/
     private List<FestivalTimeItem> getData() {
         festData = new ArrayList<FestivalTimeItem>();
-        festData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder, dialect));
-        festData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
-        festData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
-        festData.add(new FestivalTimeItem("Es Test", "The Test", R.drawable.placeholder,dialect));
-        festData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
-        festData.add(new FestivalTimeItem("uber festival", "Wow much festival", R.drawable.placeholder3, dialect));
-        festData.add(new FestivalTimeItem("im trapped in a text view", "much test", R.drawable.placeholder, dialect));
-        festData.add(new FestivalTimeItem("Es Test", "The Brits", R.drawable.placeholder2, dialect));
-        festData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
-        festData.add(new FestivalTimeItem("Es Test", "The Box", R.drawable.placeholder, dialect));
-        festData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
-        festData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
-        festData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder, dialect));
-        festData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
-        festData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
-        festData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder, dialect));
-        festData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
-        festData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
-        festData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder, dialect));
-        festData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
-        festData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
-        festData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder, dialect));
-        festData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2, dialect));
-        festData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3, dialect));
+     //   festData.add(new FestivalTimeItem("Uno de enero - Ano nuevo", "New Year's day", R.drawable.festivals3, dialect));
+        festData.add(new FestivalTimeItem("Uno de noviembre - Dia de Todos los Santos", "All Saints Day", R.drawable.festivals0, dialect));
+        festData.add(new FestivalTimeItem("12 de octubre", "Columbus Day", R.drawable.festivals1, dialect));
+        festData.add(new FestivalTimeItem("marzo o abril, semana santa", "Easter (March or April)", R.drawable.festivals2, dialect));
+
 
         return festData;
     }

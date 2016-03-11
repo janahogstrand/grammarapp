@@ -13,8 +13,8 @@
         android:id="@+id/cv">
 
     <com.grammar.trocket.grammar.com.grammar.trocket.customviews.SquareImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/fest_time_icons"
+        android:layout_height="@dimen/fest_time_icons"
         android:scaleType="centerCrop"
         android:id="@+id/festival_picture"
         android:layout_gravity="center_vertical"
