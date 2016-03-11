@@ -91,6 +91,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
      * If the answer is incorrect the mistake counter increase by one.
      * After that the question counter is increased thus moving the player to the
      * second question, and the checkQuestionNumber() method is called.
+     * The buttons also changes opacity onClick to indicate that the
+     * button is clicked for user's purposes.
      * @param view
      */
     public void checkResult(View view) {
