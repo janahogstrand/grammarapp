@@ -83,19 +83,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         question.setText(currentQuestion);
     }
 
-    /**
-     * disables all the buttons to prevent the users to click a
-     * second button while handler is pausing.
-     */
-//    public void disableButtons(){
-//        train.setClickable(false);
-//        plane.setClickable(false);
-//        bus.setClickable(false);
-//        answerOption4.setClickable(false);
-//        answerOption5.setClickable(false);
-//        answerOption6.setClickable(false);
-//    }
-
 
     /**
      * Checks whether the clicked button's text match the
@@ -110,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         Button pressedButton = (Button) view;
         if(correctAns.equals(pressedButton.getText().toString())) {
             Log.d("correct", "correct");
-//            pressedButton.setBackgroundResource(R.drawable.rounded_button_green);
             successCounter++;
             Toast.makeText(MainActivity.this,
                     "You're correct!", Toast.LENGTH_LONG).show();
@@ -118,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         }
         else {
             Log.d("mistake", pressedButton.toString());
-//            pressedButton.setBackgroundResource(R.drawable.rounded_button_red);
             mistakeCounter++;
             Toast.makeText(MainActivity.this,
                     "Sorry, try again :(", Toast.LENGTH_LONG).show();
