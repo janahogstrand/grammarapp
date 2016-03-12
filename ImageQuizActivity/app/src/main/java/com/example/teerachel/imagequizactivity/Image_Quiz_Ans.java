@@ -7,6 +7,16 @@ public class Image_Quiz_Ans {
 
     Image_Quiz_Ques quesClass = new Image_Quiz_Ques();
     String[] quesList = quesClass.createArray();
+    MainActivity mainActivity = new MainActivity();
+
+
+//    List<Integer> images = new ArrayList<Integer>();
+//    images.add(bus);
+//    images.add(car);
+//    images.add(bike);
+//    images.add(ship);
+//    Collections.shuffle(images);
+
 
     /**
      * The getCorrectAnswer method returns the current question's correct answer
@@ -41,6 +51,7 @@ public class Image_Quiz_Ans {
      * by comparing the current question with the qusList array strings, if the current question
      * matches a question in the qusList array the matched question's option is returned as an array
      */
+
     public String[] getAnswerOptions(String Question) {
         String ans1 = "";
         String ans2 = "";

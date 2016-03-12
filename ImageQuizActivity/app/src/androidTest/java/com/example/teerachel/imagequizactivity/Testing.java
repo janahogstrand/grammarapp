@@ -4,21 +4,27 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.TextView;
 
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+
 /**
  * Created by teerachel on 10/03/2016.
  */
-public class Testing  extends ActivityInstrumentationTestCase2<MainActivity>{
+public class Testing  extends ActivityInstrumentationTestCase2<MainActivity> {
 
     MainActivity mActivity;
-    private Button train;
-    private int successCounter;
+    private int successCounter = 0;
+    public String correctAns;
 
-    public Testing(){
+    public Testing() {
         super(MainActivity.class);
     }
 
     @Override
-    protected void setUp() throws Exception{
+    protected void setUp() throws Exception {
         super.setUp();
         setActivityInitialTouchMode(true);
 
@@ -27,12 +33,12 @@ public class Testing  extends ActivityInstrumentationTestCase2<MainActivity>{
 
     }
 
-    public void testTextViewNotNull(){
+    public void testTextViewNotNull() {
         TextView question = (TextView) mActivity.findViewById(R.id.ques);
         assertNotNull(question);
     }
 
-    public void testButtonsNotNull(){
+    public void testButtonsNotNull() {
         Button train = (Button) mActivity.findViewById(R.id.trainImage);
         assertNotNull(train);
         Button plane = (Button) mActivity.findViewById(R.id.planeImage);
@@ -47,18 +53,11 @@ public class Testing  extends ActivityInstrumentationTestCase2<MainActivity>{
         assertNotNull(ship);
     }
 
-//    public void testButtonClick(){
-//        mActivity.runOnUiThread(
-//                new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        train.performClick();
-//                        successCounter++;
-//                        assertEquals(successCounter, MainActivity.class);
-//                    }
-//                }
-//        );
-//    }
-
-
+    /**
+     * This tests the button clicked
+     */
+    public void testClickActionModeItem(){
+        onView(withId(R.id.trainImage)).perform(click());
+        onView(withId(R.id.trainImage)).check(matches(withText("train")));
+    }
 }

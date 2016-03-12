@@ -29,52 +29,57 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="115dp"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/topLayer">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="train"
             android:id="@+id/trainImage"
-            android:background="@drawable/ttrainclick"
             android:textSize="0px" />
+
+        <!--android:background="@drawable/ttrainclick"-->
+
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/planeImage"
-            android:background="@drawable/aeroclick"
             android:paddingBottom="20px"
             android:text="plane"
             android:layout_below="@+id/ques"
             android:layout_alignStart="@+id/carImage"
             android:paddingLeft="30px"
             android:textSize="0px" />
+        <!--             android:background="@drawable/aeroclick"
+-->
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/midLayer">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/busImage"
-            android:background="@drawable/autobusclick"
             android:text="bus"
             android:paddingBottom="20px"
             android:paddingLeft="50px"
             android:layout_below="@+id/trainImage"
             android:layout_alignParentStart="true"
             android:textSize="0px" />
+        <!--android:background="@drawable/autobusclick"-->
+
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/carImage"
-            android:background="@drawable/carclick"
             android:text="car"
             android:layout_alignTop="@+id/busImage"
             android:layout_alignParentEnd="true"
@@ -82,36 +87,41 @@
             android:paddingRight="30px"
             android:paddingLeft="40px"
             android:textSize="0px" />
+        <!--android:background="@drawable/carclick"-->
+
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/bottomLayer">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bikeImage"
-            android:background="@drawable/bikeclick"
             android:text="bike"
             android:layout_below="@+id/busImage"
             android:layout_alignParentStart="true"
             android:paddingLeft="50px"
             android:textSize="0px" />
+        <!--android:background="@drawable/bikeclick"-->
+
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/shipImage"
-            android:background="@drawable/clickshhip"
             android:text="ship"
             android:layout_below="@+id/carImage"
             android:layout_alignParentEnd="true"
             android:paddingRight="30px"
             android:paddingLeft="40px"
             android:textSize="0px" />
+        <!--android:background="@drawable/clickshhip"-->
+
     </LinearLayout>
 
 </LinearLayout>

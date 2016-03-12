@@ -14,12 +14,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements OnClickListener{
 
     public TextView question;
-    Button train;
-    Button plane;
-    Button bus;
-    Button car;
-    Button bike;
-    Button ship;
+    public Button train, plane, bus, car, bike, ship;
     public Image_Quiz_Ques questions = new Image_Quiz_Ques();
     public Image_Quiz_Ans answersList = new Image_Quiz_Ans();
     public String[] questionListArr;
@@ -40,29 +35,41 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
 
         question = (TextView) findViewById(R.id.ques);
         train = (Button) findViewById(R.id.trainImage);
+        train.setBackground(getDrawable(R.drawable.train));
         train.setOnClickListener(this);
         train.setText("train");
+
         plane = (Button) findViewById(R.id.planeImage);
+        plane.setBackground(getDrawable(R.drawable.aeroplane));
         plane.setOnClickListener(this);
         plane.setText("plane");
+
         bus = (Button) findViewById(R.id.busImage);
+        bus.setBackground(getDrawable(R.drawable.bus));
         bus.setOnClickListener(this);
         bus.setText("bus");
+
         car = (Button) findViewById(R.id.carImage);
+        car.setBackground(getDrawable(R.drawable.car));
         car.setOnClickListener(this);
         car.setText("car");
+
         bike = (Button) findViewById(R.id.bikeImage);
+        bike.setBackground(getDrawable(R.drawable.airportseat));
         bike.setOnClickListener(this);
         bike.setText("bike");
+
         ship = (Button) findViewById(R.id.shipImage);
+        ship.setBackground(getDrawable(R.drawable.ship));
         ship.setOnClickListener(this);
         ship.setText("ship");
 
-         questionListArr = questions.createArray();
+        questionListArr = questions.createArray();
         assignVariables();
         assignTextView();
 
     }
+
 
     /**
      * CurrentQuestion is assigned a question questions list based on the questionNumber.
