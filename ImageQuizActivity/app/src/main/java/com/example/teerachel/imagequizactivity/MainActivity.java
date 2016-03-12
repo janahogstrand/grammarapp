@@ -14,7 +14,12 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements OnClickListener{
 
     public TextView question;
-    public Button train, plane, bus, car, bike, ship;
+    Button train;
+    Button plane;
+    Button bus;
+    Button car;
+    Button bike;
+    Button ship;
     public Image_Quiz_Ques questions = new Image_Quiz_Ques();
     public Image_Quiz_Ans answersList = new Image_Quiz_Ans();
     public String[] questionListArr;

@@ -7,8 +7,6 @@ public class Image_Quiz_Ans {
 
     Image_Quiz_Ques quesClass = new Image_Quiz_Ques();
     String[] quesList = quesClass.createArray();
-    MainActivity mainActivity = new MainActivity();
-
 
 //    List<Integer> images = new ArrayList<Integer>();
 //    images.add(bus);
