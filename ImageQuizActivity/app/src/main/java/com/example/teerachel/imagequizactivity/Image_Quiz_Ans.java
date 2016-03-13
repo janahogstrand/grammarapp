@@ -1,5 +1,7 @@
 package com.example.teerachel.imagequizactivity;
 
+import android.widget.Button;
+
 /**
  * Created by teerachel on 07/03/2016.
  */
@@ -50,62 +52,62 @@ public class Image_Quiz_Ans {
      * matches a question in the qusList array the matched question's option is returned as an array
      */
 
-    public String[] getAnswerOptions(String Question) {
-        String ans1 = "";
-        String ans2 = "";
-        String ans3 = "";
-        String ans4 = "";
-        String ans5 = "";
-        String ans6 = "";
+    public Button[] getAnswerOptions(String Question) {
+        Button ans1 = null;
+        Button ans2 = null;
+        Button ans3 = null;
+        Button ans4 = null;
+        Button ans5 = null;
+        Button ans6 = null;
 
-        String[] options = new String[6];
+        Button[] options = new Button[6];
         if (Question.equals(quesList[0])) {
-            ans1 = "train";
-            ans2 = "plane";
-            ans3 = "bus";
-            ans4 = "car";
-            ans5 = "bike";
-            ans6 = "ship";
+            ans1 = MainActivity.getInstance().train;
+            ans2 = MainActivity.getInstance().plane;
+            ans3 = MainActivity.getInstance().bus;
+            ans4 = MainActivity.getInstance().car;
+            ans5 = MainActivity.getInstance().bike;
+            ans6 = MainActivity.getInstance().ship;
         }
         if (Question.equals(quesList[1])) {
-            ans1 = "train";
-            ans2 = "plane";
-            ans3 = "bus";
-            ans4 = "car";
-            ans5 = "bike";
-            ans6 = "ship";
+            ans1 = MainActivity.getInstance().ship;
+            ans2 = MainActivity.getInstance().bus;
+            ans3 = MainActivity.getInstance().plane;
+            ans4 = MainActivity.getInstance().bike;
+            ans5 = MainActivity.getInstance().car;
+            ans6 = MainActivity.getInstance().train;
         }
         if (Question.equals(quesList[2])) {
-            ans1 = "train";
-            ans2 = "plane";
-            ans3 = "bus";
-            ans4 = "car";
-            ans5 = "bike";
-            ans6 = "ship";
+//            ans1 = "train";
+//            ans2 = "plane";
+//            ans3 = "bus";
+//            ans4 = "car";
+//            ans5 = "bike";
+//            ans6 = "ship";
         }
         if (Question.equals(quesList[3])) {
-            ans1 = "train";
-            ans2 = "plane";
-            ans3 = "bus";
-            ans4 = "car";
-            ans5 = "bike";
-            ans6 = "ship";
+//            ans1 = "train";
+//            ans2 = "plane";
+//            ans3 = "bus";
+//            ans4 = "car";
+//            ans5 = "bike";
+//            ans6 = "ship";
         }
         if (Question.equals(quesList[4])) {
-            ans1 = "train";
-            ans2 = "plane";
-            ans3 = "bus";
-            ans4 = "car";
-            ans5 = "bike";
-            ans6 = "ship";
+//            ans1 = "train";
+//            ans2 = "plane";
+//            ans3 = "bus";
+//            ans4 = "car";
+//            ans5 = "bike";
+//            ans6 = "ship";
         }
         if (Question.equals(quesList[5])) {
-            ans1 = "train";
-            ans2 = "plane";
-            ans3 = "bus";
-            ans4 = "car";
-            ans5 = "bike";
-            ans6 = "ship";
+//            ans1 = "train";
+//            ans2 = "plane";
+//            ans3 = "bus";
+//            ans4 = "car";
+//            ans5 = "bike";
+//            ans6 = "ship";
         }
 
 
@@ -118,4 +120,5 @@ public class Image_Quiz_Ans {
 
         return options;
     }
+
 }

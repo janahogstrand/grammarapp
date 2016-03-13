@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class MainActivity extends AppCompatActivity implements OnClickListener{
 
     public TextView question;
@@ -24,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     public Image_Quiz_Ans answersList = new Image_Quiz_Ans();
     public String[] questionListArr;
     public String correctAns;
-    public String[] answerOptionsArr;
+    public Button[] answerOptionsArr;
     public String currentQuestion;
     public int successCounter = 0;
     public int mistakeCounter = 0;
@@ -32,48 +35,63 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     public final static String EXTRA_MESSAGE = "com.example.teerachel.imagequizactivity.message";
     public final static String EXTRA_MESSAGE2 = "com.example.teerachel.imagequizactivity.message2";
 
+    ArrayList<Integer> obj = new ArrayList<>();
+
+    private static MainActivity instance;
+    public static MainActivity getInstance(){
+        return instance;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        instance = this;
 
         question = (TextView) findViewById(R.id.ques);
-        train = (Button) findViewById(R.id.trainImage);
-        train.setBackground(getDrawable(R.drawable.train));
-        train.setOnClickListener(this);
-        train.setText("train");
 
-        plane = (Button) findViewById(R.id.planeImage);
-        plane.setBackground(getDrawable(R.drawable.aeroplane));
-        plane.setOnClickListener(this);
-        plane.setText("plane");
+        obj.add(R.id.trainImage);
+        obj.add(R.id.planeImage);
+        obj.add(R.id.bikeImage);
+        obj.add(R.id.carImage);
+        obj.add(R.id.busImage);
+        obj.add(R.id.shipImage);
+        Collections.shuffle(obj);
 
-        bus = (Button) findViewById(R.id.busImage);
-        bus.setBackground(getDrawable(R.drawable.bus));
-        bus.setOnClickListener(this);
-        bus.setText("bus");
+            train = (Button) findViewById(obj.get(0));
+            train.setBackground(getDrawable(R.drawable.train));
+            train.setOnClickListener(this);
+            train.setText("train");
 
-        car = (Button) findViewById(R.id.carImage);
-        car.setBackground(getDrawable(R.drawable.car));
-        car.setOnClickListener(this);
-        car.setText("car");
+            plane = (Button) findViewById(obj.get(1));
+            plane.setBackground(getDrawable(R.drawable.aeroplane));
+            plane.setOnClickListener(this);
+            plane.setText("plane");
 
-        bike = (Button) findViewById(R.id.bikeImage);
-        bike.setBackground(getDrawable(R.drawable.airportseat));
-        bike.setOnClickListener(this);
-        bike.setText("bike");
+            bus = (Button) findViewById(obj.get(2));
+            bus.setBackground(getDrawable(R.drawable.bus));
+            bus.setOnClickListener(this);
+            bus.setText("bus");
 
-        ship = (Button) findViewById(R.id.shipImage);
-        ship.setBackground(getDrawable(R.drawable.ship));
-        ship.setOnClickListener(this);
-        ship.setText("ship");
+            car = (Button) findViewById(obj.get(3));
+            car.setBackground(getDrawable(R.drawable.car));
+            car.setOnClickListener(this);
+            car.setText("car");
 
-        questionListArr = questions.createArray();
-        assignVariables();
-        assignTextView();
+            bike = (Button) findViewById(obj.get(4));
+            bike.setBackground(getDrawable(R.drawable.airportseat));
+            bike.setOnClickListener(this);
+            bike.setText("bike");
 
-    }
+            ship = (Button) findViewById(obj.get(5));
+            ship.setBackground(getDrawable(R.drawable.ship));
+            ship.setOnClickListener(this);
+            ship.setText("ship");
+
+            questionListArr = questions.createArray();
+            assignVariables();
+            assignTextView();
+        }
 
 
     /**
@@ -168,6 +186,5 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     @Override
     public void onClick(View v) {
         checkResult(v);
-
     }
 }
