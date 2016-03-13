@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             car.setText("car");
 
             bike = (Button) findViewById(obj.get(4));
-            bike.setBackground(getDrawable(R.drawable.airportseat));
+            bike.setBackground(getDrawable(R.drawable.cycle));
             bike.setOnClickListener(this);
             bike.setText("bike");
 
