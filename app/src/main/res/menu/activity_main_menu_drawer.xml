@@ -3,7 +3,7 @@
     <group android:checkableBehavior="single"
            android:id="@+id/sidebar_menu">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_add_module"
             android:icon="@drawable/ic_menu_send"
             android:title="Add new module" />
         <item

@@ -8,11 +8,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.VoiceRecording;
 
 /**
  * Created by jamiemoreland on 07/03/16.
  */
 public class BaseActivityDrawer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    VoiceRecording v = new VoiceRecording();
+    Boolean isRecording = false;
 
     protected void onCreateDrawer() {
         //super.onCreate(savedInstanceState);
@@ -23,6 +26,7 @@ public class BaseActivityDrawer extends AppCompatActivity implements NavigationV
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        v.assignVariables(getApplicationContext());
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -49,13 +53,34 @@ public class BaseActivityDrawer extends AppCompatActivity implements NavigationV
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_add_module) {
+            closeDrawer();
             // Handle the camera action
         }
+        if (id == R.id.nav_credits)
+        {
+            closeDrawer();
+        }
+        if (id == R.id.nav_glossary)
+        {
+            closeDrawer();
+        }
+        /*if (id == R.id.nav_record_audio)
+        {
+            v.recordAudio();
+                isRecording = true;
+                item.setTitle("Stop Recording");
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+
+        }
+        */
         return true;
+    }
+
+    public void closeDrawer()
+    {
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout.closeDrawer(GravityCompat.START);
     }
 
 }
