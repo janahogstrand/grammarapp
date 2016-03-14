@@ -2,6 +2,7 @@ package com.grammar.trocket.grammar.com.grammar.trocket.resources;
 
 import android.content.Context;
 import android.media.AudioRecord;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Environment;
 
@@ -12,8 +13,20 @@ import java.io.IOException;
  * Created by Sam on 14/03/2016.
  */
 public class VoiceRecording {
-    MediaRecorder audioRecorder = new MediaRecorder();
+    private MediaRecorder audioRecorder;
+    private static final String LOG_TAG="AudioRecordTest";
+    private static String mFileName;
+    private MediaPlayer mPlayer;
 
+    public void OnRecord(boolean start, Context context){
+        if(start){
+            startRecording(context);
+        }
+        else{
+            stopRecording();
+        }
+
+    }
 
     /*
     This method is used to assign the variables for the audio recorder and player
@@ -24,42 +37,39 @@ public class VoiceRecording {
     setOutputFile - Sets the path for the file (Which is the cache)
     Catch any expecptions for debugging.
      */
-    public void assignVariables(Context context)
+    private void startRecording(Context context)
     {
+            File externalRoot = context.getCacheDir();
+            File tempDir = new File(externalRoot, ".audioTemp");
+            mFileName = tempDir.getAbsolutePath();
 
-        try
-        {
-            File cache = context.getCacheDir();
-            File tempDir = new File(cache, ".audioTemp");
-            String path = tempDir.getAbsolutePath();
-
-
-
-
-            audioRecorder.reset();
-            audioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            audioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-            audioRecorder.setOutputFile(path);
-            audioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-
-
-        }catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void recordAudio()
-    {
+        audioRecorder = new MediaRecorder();
+        audioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        audioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        audioRecorder.setOutputFile(mFileName);
+        audioRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
         try {
             audioRecorder.prepare();
             audioRecorder.start();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void stopRecording() {
+    /*
+        .stop() stops the recording
+        .release() release the mic from the app (without this, the app will take control of the mic constantly and causes errors within this app and others)
+        . = null; Clears the audio recorder
+     */
+    private void stopRecording() {
+        System.out.println("Attempting to stop recording");
+        try {
+            audioRecorder.stop();
+            audioRecorder.release();
+            audioRecorder = null;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

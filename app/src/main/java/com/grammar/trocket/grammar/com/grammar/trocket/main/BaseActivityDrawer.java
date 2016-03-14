@@ -14,8 +14,8 @@ import com.grammar.trocket.grammar.com.grammar.trocket.resources.VoiceRecording;
  * Created by jamiemoreland on 07/03/16.
  */
 public class BaseActivityDrawer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    VoiceRecording v = new VoiceRecording();
-    Boolean isRecording = false;
+    private VoiceRecording v = new VoiceRecording();
+    private boolean startRecording = true;
 
     protected void onCreateDrawer() {
         //super.onCreate(savedInstanceState);
@@ -26,7 +26,6 @@ public class BaseActivityDrawer extends AppCompatActivity implements NavigationV
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-        v.assignVariables(getApplicationContext());
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -52,7 +51,6 @@ public class BaseActivityDrawer extends AppCompatActivity implements NavigationV
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.nav_add_module) {
             closeDrawer();
             // Handle the camera action
@@ -65,15 +63,25 @@ public class BaseActivityDrawer extends AppCompatActivity implements NavigationV
         {
             closeDrawer();
         }
-        /*if (id == R.id.nav_record_audio)
+        if (id == R.id.nav_record_audio)
         {
-            v.recordAudio();
-                isRecording = true;
+            if(startRecording)
+            {
+                v.OnRecord(true, this.getApplicationContext());
                 item.setTitle("Stop Recording");
+                startRecording = false;
+            }
+            else
+            {
+                v.OnRecord(false, this.getApplicationContext());
+                item.setTitle("Record Audio");
+                startRecording = true;
+            }
+
 
 
         }
-        */
+
         return true;
     }
 
