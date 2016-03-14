@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity{
                 public void run() {
                     pressedButton.getBackground().setAlpha(255);
                 }
-            }, 1000);
+            }, 100);
 
         }
         else {
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity{
                 public void run() {
                     pressedButton.getBackground().setAlpha(255);
                 }
-            }, 1000);
+            }, 100);
 
         }
         questionNumber++;
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity{
                 public void run() {
                     assignTextView();
                 }
-            }, 1000);
+            }, 100);
         }
     }
 
