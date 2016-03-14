@@ -61,7 +61,6 @@ public class VoiceRecording {
         . = null; Clears the audio recorder
      */
     private void stopRecording() {
-        System.out.println("Attempting to stop recording");
         try {
             audioRecorder.stop();
             audioRecorder.release();
