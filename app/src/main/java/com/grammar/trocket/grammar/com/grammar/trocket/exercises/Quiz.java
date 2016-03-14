@@ -1,4 +1,4 @@
-package com.grammar.trocket.grammar.com.grammar.trocket.exercises_quiz;
+package com.grammar.trocket.grammar.com.grammar.trocket.exercises;
 
 /**
  * Created by jamiemoreland on 09/03/16.

@@ -1,4 +1,4 @@
-package com.grammar.trocket.grammar.com.grammar.trocket.exercises_quiz.audio_quiz;
+package com.grammar.trocket.grammar.com.grammar.trocket.exercises.image_quiz;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,10 +7,7 @@ import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
 
-/**
- * Created by Sam on 06/03/2016.
- */
-public class AudioQuizStatisticsActivity extends AppCompatActivity {
+public class Image_Quiz_Statistics extends AppCompatActivity {
 
     public TextView successCounter;
     public TextView mistakeCounter;
@@ -21,12 +18,12 @@ public class AudioQuizStatisticsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.audio_quiz_statistics);
+        setContentView(R.layout.image_quiz_statistics);
 
         // Get the message from the intent
         Intent intent = getIntent();
-        message = intent.getStringExtra(AudioQuizMainActivity.EXTRA_MESSAGE);
-        message2 = intent.getStringExtra(AudioQuizMainActivity.EXTRA_MESSAGE2);
+        message = intent.getStringExtra(Image_Quiz_Main.EXTRA_MESSAGE);
+        message2 = intent.getStringExtra(Image_Quiz_Main.EXTRA_MESSAGE2);
 
         successCounter = (TextView) findViewById(R.id.successCounter);
         mistakeCounter = (TextView) findViewById(R.id.mistakeCounter);

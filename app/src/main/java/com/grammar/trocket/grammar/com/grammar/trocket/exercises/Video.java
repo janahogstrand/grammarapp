@@ -1,4 +1,4 @@
-package com.grammar.trocket.grammar.com.grammar.trocket.exercises_quiz;
+package com.grammar.trocket.grammar.com.grammar.trocket.exercises;
 
 import android.content.Context;
 import android.content.Intent;

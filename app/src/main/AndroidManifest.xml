@@ -39,12 +39,18 @@
         <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsSecondActivity" android:label="SeasonsSecondActivity"/>
         <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsThirdActivity" android:label="SeasonsThirdActivity"/>
         <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsFourthActivity" android:label="SeasonsFourthActivity"/>
-        <activity android:name=".com.grammar.trocket.exercises_quiz.text_quiz.TextQuizMainActivity" android:label="TextQuizMainActivity"/>
-        <activity android:name=".com.grammar.trocket.exercises_quiz.text_quiz.TextQuizStatisticsActivity" android:label="TextQuizStatisticsActivity"/>
-        <activity android:name=".com.grammar.trocket.exercises_quiz.audio_quiz.AudioQuizMainActivity" android:label="TextQuizStatisticsActivity"/>
-        <activity android:name=".com.grammar.trocket.exercises_quiz.Video" android:label="Video"/>
-        <activity android:name=".com.grammar.trocket.exercises_quiz.audio_quiz.AudioQuizStatisticsActivity" android:label="TextQuizStatisticsActivity"/>
+        <activity android:name=".com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity" android:label="TextQuizMainActivity"/>
+        <activity android:name=".com.grammar.trocket.exercises.text_quiz.TextQuizStatisticsActivity" android:label="TextQuizStatisticsActivity"/>
+        <activity android:name=".com.grammar.trocket.exercises.audio_quiz.AudioQuizMainActivity" android:label="TextQuizStatisticsActivity"/>
+        <activity android:name=".com.grammar.trocket.exercises.Video" android:label="Video"/>
+        <activity android:name=".com.grammar.trocket.exercises.audio_quiz.AudioQuizStatisticsActivity" android:label="TextQuizStatisticsActivity"/>
         <activity android:name=".com.grammar.trocket.resources.DaysOfTheWeek" android:theme="@style/AppTheme.NoActionBar" android:label="DaysOfTheWeek"/>
+
+        <activity android:name=".com.grammar.trocket.exercises.image_quiz.Image_Quiz_Main"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="Image_Quiz_Main"
+            />
+        <activity android:name=".com.grammar.trocket.exercises.image_quiz.Image_Quiz_Statistics" android:label="Image_Quiz_Stats"/>
     </application>
 
 </manifest>

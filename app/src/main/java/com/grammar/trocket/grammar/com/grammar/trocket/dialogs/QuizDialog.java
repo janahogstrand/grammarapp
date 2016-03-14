@@ -6,11 +6,11 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.widget.ArrayAdapter;
 
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises_quiz.Quiz;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Quiz;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.image_quiz.Image_Quiz_Main;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Alphabet;
-import com.grammar.trocket.grammar.com.grammar.trocket.resources.Times;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises_quiz.audio_quiz.AudioQuizMainActivity;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises_quiz.text_quiz.TextQuizMainActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.audio_quiz.AudioQuizMainActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity;
 
 import java.util.ArrayList;
 
@@ -67,7 +67,7 @@ public class QuizDialog extends AlertDialog.Builder {
                                 break;
                             case AUDIOQUIZ:  intent = new Intent(context, AudioQuizMainActivity.class);
                                 break;
-                            case PICTUREQUIZ:  intent = new Intent(context, Times.class);
+                            case PICTUREQUIZ:  intent = new Intent(context, Image_Quiz_Main.class);
                         }
 
 //                        String selectedDialect = quizOptions.getItem(position);

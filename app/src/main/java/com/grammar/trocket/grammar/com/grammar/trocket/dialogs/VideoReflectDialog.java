@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.widget.ArrayAdapter;
 
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises_quiz.Video;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Video;
 
 /**
  * Created by jamiemoreland on 09/03/16.
