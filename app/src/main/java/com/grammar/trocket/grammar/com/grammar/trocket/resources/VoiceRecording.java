@@ -1,13 +1,10 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.resources;
 
 import android.content.Context;
-import android.media.AudioRecord;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-import android.os.Environment;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by Sam on 14/03/2016.
@@ -18,6 +15,10 @@ public class VoiceRecording {
     private static String mFileName;
     private MediaPlayer mPlayer;
 
+
+    /*
+    If the onRecord method is called with true, it starts the recording, if it's called with false then it stops the recording.
+     */
     public void OnRecord(boolean start, Context context){
         if(start){
             startRecording(context);
@@ -27,7 +28,6 @@ public class VoiceRecording {
         }
 
     }
-
     /*
     This method is used to assign the variables for the audio recorder and player
     path is used to store the file in the cache, so it's not stored permenantly, and is removed if ram is low.
@@ -39,9 +39,9 @@ public class VoiceRecording {
      */
     private void startRecording(Context context)
     {
-            File externalRoot = context.getCacheDir();
-            File tempDir = new File(externalRoot, ".audioTemp");
-            mFileName = tempDir.getAbsolutePath();
+        File externalRoot = context.getCacheDir();
+        File tempDir = new File(externalRoot, ".audioTemp");
+        mFileName = tempDir.getAbsolutePath();
 
         audioRecorder = new MediaRecorder();
         audioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -55,7 +55,6 @@ public class VoiceRecording {
             e.printStackTrace();
         }
     }
-
     /*
         .stop() stops the recording
         .release() release the mic from the app (without this, the app will take control of the mic constantly and causes errors within this app and others)
@@ -72,4 +71,37 @@ public class VoiceRecording {
             e.printStackTrace();
         }
     }
+
+    /*
+    Creates new media player, gets the file location from the recording
+    plays the recording
+     */
+    private void startPlaying() {
+        mPlayer = new MediaPlayer();
+        try{
+            mPlayer.setDataSource(mFileName);
+            mPlayer.prepare();
+            mPlayer.start();
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    private void stopPlaying() {
+        mPlayer.release();
+        mPlayer = null;
+    }
+    public void onPlay(boolean start) {
+
+        if(start){
+            startPlaying();
+        }
+        else
+        {
+            stopPlaying();
+        }
+    }
+
+
 }

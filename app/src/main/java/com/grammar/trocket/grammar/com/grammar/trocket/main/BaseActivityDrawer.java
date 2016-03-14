@@ -14,8 +14,10 @@ import com.grammar.trocket.grammar.com.grammar.trocket.resources.VoiceRecording;
  * Created by jamiemoreland on 07/03/16.
  */
 public class BaseActivityDrawer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    //Voice Recorder Variables
     private VoiceRecording v = new VoiceRecording();
     private boolean startRecording = true;
+    private boolean startPlaying = true;
 
     protected void onCreateDrawer() {
         //super.onCreate(savedInstanceState);
@@ -55,14 +57,17 @@ public class BaseActivityDrawer extends AppCompatActivity implements NavigationV
             closeDrawer();
             // Handle the camera action
         }
+
         if (id == R.id.nav_credits)
         {
             closeDrawer();
         }
+
         if (id == R.id.nav_glossary)
         {
             closeDrawer();
         }
+
         if (id == R.id.nav_record_audio)
         {
             if(startRecording)
@@ -77,9 +82,22 @@ public class BaseActivityDrawer extends AppCompatActivity implements NavigationV
                 item.setTitle("Record Audio");
                 startRecording = true;
             }
+        }
 
-
-
+        if(id == R.id.nav_play_audio)
+        {
+            if(startPlaying)
+            {
+                v.onPlay(true);
+               item.setTitle("Stop Playing");
+                startPlaying = false;
+            }
+            else
+            {
+                v.onPlay(false);
+                item.setTitle("Play Recording");
+                startPlaying = true;
+            }
         }
 
         return true;
