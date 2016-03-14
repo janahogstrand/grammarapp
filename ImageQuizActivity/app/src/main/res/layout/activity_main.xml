@@ -16,78 +16,35 @@
         android:layout_height="wrap_content"
         android:text="Text"
         android:textSize="60px"
-        android:id="@+id/ques"
+        android:id="@+id/questionBtn"
         android:background="#00595858"
         android:textColor="#ffffff"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="50px"
         android:layout_gravity="center_horizontal"
-        android:paddingBottom="40px" />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="115dp"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/topLayer">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="train"
-            android:id="@+id/trainImage"
-            android:textSize="0px" />
-
-        <!--android:background="@drawable/ttrainclick"-->
-
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/planeImage"
-            android:paddingBottom="20px"
-            android:text="plane"
-            android:layout_below="@+id/ques"
-            android:layout_alignStart="@+id/carImage"
-            android:paddingLeft="30px"
-            android:textSize="0px" />
-        <!--             android:background="@drawable/aeroclick"
--->
-    </LinearLayout>
+        android:layout_weight="0.7" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/midLayer">
+        android:id="@+id/topLayer"
+        android:layout_weight="0.7">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/busImage"
-            android:text="bus"
-            android:paddingBottom="20px"
-            android:paddingLeft="50px"
-            android:layout_below="@+id/trainImage"
-            android:layout_alignParentStart="true"
-            android:textSize="0px" />
-        <!--android:background="@drawable/autobusclick"-->
+            android:id="@+id/firstBtn"
+            android:onClick="checkResult"/>
 
+        <Space
+            android:layout_width="60dp"
+            android:layout_height="match_parent" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/carImage"
-            android:text="car"
-            android:layout_alignTop="@+id/busImage"
-            android:layout_alignParentEnd="true"
-            android:paddingBottom="20px"
-            android:paddingRight="30px"
-            android:paddingLeft="40px"
-            android:textSize="0px" />
-        <!--android:background="@drawable/carclick"-->
+            android:id="@+id/secondBtn"
+            android:onClick="checkResult"/>
 
     </LinearLayout>
 
@@ -96,31 +53,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/bottomLayer">
+        android:id="@+id/midLayer"
+        android:layout_weight="0.7">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/bikeImage"
-            android:text="bike"
-            android:layout_below="@+id/busImage"
-            android:layout_alignParentStart="true"
-            android:paddingLeft="50px"
-            android:textSize="0px" />
-        <!--android:background="@drawable/bikeclick"-->
+            android:id="@+id/thirdBtn"
+            android:onClick="checkResult"/>
 
+        <Space
+            android:layout_width="60dp"
+            android:layout_height="match_parent" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/shipImage"
-            android:text="ship"
-            android:layout_below="@+id/carImage"
-            android:layout_alignParentEnd="true"
-            android:paddingRight="30px"
-            android:paddingLeft="40px"
-            android:textSize="0px" />
-        <!--android:background="@drawable/clickshhip"-->
+            android:id="@+id/fourthBtn"
+            android:onClick="checkResult"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/bottomLayer"
+        android:layout_weight="0.7">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fifthBtn"
+            android:onClick="checkResult"/>
+
+        <Space
+            android:layout_width="60dp"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sixthBtn"
+            android:onClick="checkResult"/>
 
     </LinearLayout>
 

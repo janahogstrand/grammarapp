@@ -46,18 +46,18 @@ public class Testing  extends ActivityInstrumentationTestCase2<MainActivity> {
     }
 
     public void testTextViewNotNull() {
-        TextView question = (TextView) mActivity.findViewById(R.id.ques);
+        TextView question = (TextView) mActivity.findViewById(R.id.questionBtn);
         assertNotNull(question);
     }
 
     public void testButtonsNotNull() {
-        Button train = (Button) mActivity.findViewById(R.id.trainImage);
+        Button train = (Button) mActivity.findViewById(R.id.firstBtn);
         assertNotNull(train);
         Button plane = (Button) mActivity.findViewById(R.id.planeImage);
         assertNotNull(plane);
-        Button bus = (Button) mActivity.findViewById(R.id.busImage);
+        Button bus = (Button) mActivity.findViewById(R.id.thirdBtn);
         assertNotNull(bus);
-        Button car = (Button) mActivity.findViewById(R.id.carImage);
+        Button car = (Button) mActivity.findViewById(R.id.fourthBtn);
         assertNotNull(car);
         Button bike = (Button) mActivity.findViewById(R.id.bikeImage);
         assertNotNull(bike);
@@ -69,14 +69,14 @@ public class Testing  extends ActivityInstrumentationTestCase2<MainActivity> {
      * This tests the button clicked
      */
     public void testClickActionModeItem() {
-        onView(withId(R.id.trainImage)).perform(click());
-        onView(withId(R.id.trainImage)).check(matches(withText("train")));
+        onView(withId(R.id.firstBtn)).perform(click());
+        onView(withId(R.id.firstBtn)).check(matches(withText("train")));
 
 
     }
 
     public void testEspresso() {
-        onView(withId(R.id.ques))
+        onView(withId(R.id.questionBtn))
                 .check(matches(allOf(withText(not(startsWith("Tren"))), withText(containsString("1.")))));
 
     }
