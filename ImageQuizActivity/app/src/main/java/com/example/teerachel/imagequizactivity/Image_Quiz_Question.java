@@ -3,7 +3,7 @@ package com.example.teerachel.imagequizactivity;
 /**
  * Created by teerachel on 07/03/2016.
  */
-public class Image_Quiz_Ques {
+public class Image_Quiz_Question {
 
     /**
      * Creates an array with size 10 slots and then assigns the slots with questions for the game as strings.

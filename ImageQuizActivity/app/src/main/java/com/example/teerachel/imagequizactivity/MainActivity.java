@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,8 +20,9 @@ public class MainActivity extends AppCompatActivity{
     public Button fifthButton;
     public Button sixthButton;
     public TextView question;
-    public Image_Quiz_Ques questions;
-    ArrayList<Integer> drawableList;
+    public Image_Quiz_Question questions;
+    public Image_Quiz_Answers answers;
+    public ArrayList<Integer> drawableList;
     public String[] questionList;
     public String correctAns;
     public String currentQuestion;
@@ -38,13 +38,8 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-//            train = (Button) findViewById(obj.get(0));
-//            train.setBackground(getDrawable(R.drawable.train));
-//            train.setOnClickListener(this);
-//            train.setText("train");
-
-        questions = new Image_Quiz_Ques();
+        questions = new Image_Quiz_Question();
+        answers = new Image_Quiz_Answers();
         drawableList = new ArrayList<>();
         questionList = questions.createArray();
 
@@ -59,7 +54,11 @@ public class MainActivity extends AppCompatActivity{
         drawableList.add(R.drawable.airportseat);
         drawableList.add(R.drawable.bankcard);
         drawableList.add(R.drawable.bed);
+        drawableList.add(R.drawable.boarding);
+        drawableList.add(R.drawable.building);
+        drawableList.add(R.drawable.bus);
         drawableList.add(R.drawable.car);
+        drawableList.add(R.drawable.cycle);
         drawableList.add(R.drawable.train);
         drawableList.add(R.drawable.holiday);
         drawableList.add(R.drawable.phone);
@@ -84,13 +83,33 @@ public class MainActivity extends AppCompatActivity{
      * */
     public void assignTextView(){
         currentQuestion = questionList[questionNumber];
+        correctAns = answers.getCorrectAnswer(currentQuestion);
         question.setText(currentQuestion);
-        firstButton.setBackground(getDrawable(drawableList.get(0)));
-        secondButton.setBackground(getDrawable(drawableList.get(1)));
-        thirdButton.setBackground(getDrawable(drawableList.get(2)));
-        fourthButton.setBackground(getDrawable(drawableList.get(3)));
-        fifthButton.setBackground(getDrawable(drawableList.get(4)));
-        sixthButton.setBackground(getDrawable(drawableList.get(5)));
+
+        if(questionNumber == 0 ){
+            firstButton.setBackground(getDrawable(drawableList.get(0)));
+            secondButton.setBackground(getDrawable(drawableList.get(1)));
+            thirdButton.setBackground(getDrawable(drawableList.get(2)));
+            fourthButton.setBackground(getDrawable(drawableList.get(3)));
+            fifthButton.setBackground(getDrawable(drawableList.get(4)));
+            sixthButton.setBackground(getDrawable(drawableList.get(5)));
+        }
+        else {
+            firstButton.setBackground(getDrawable(drawableList.get(6)));
+            secondButton.setBackground(getDrawable(drawableList.get(7)));
+            thirdButton.setBackground(getDrawable(drawableList.get(8)));
+            fourthButton.setBackground(getDrawable(drawableList.get(9)));
+            fifthButton.setBackground(getDrawable(drawableList.get(10)));
+            sixthButton.setBackground(getDrawable(drawableList.get(11)));
+        }
+
+        firstButton.setText("aeroplane");
+        secondButton.setText("airportseat");
+        thirdButton.setText("bankcard");
+        fourthButton.setText("bed");
+        fifthButton.setText("car");
+        sixthButton.setText("train");
+
     }
 
 
@@ -108,7 +127,6 @@ public class MainActivity extends AppCompatActivity{
     public void checkResult(View view) {
         final Button pressedButton = (Button) view;
         if(correctAns.equals(pressedButton.getText().toString())) {
-            Log.d("correct", "correct");
             successCounter++;
             Toast.makeText(MainActivity.this,
                     "You're correct!", Toast.LENGTH_LONG).show();

@@ -34,7 +34,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/firstBtn"
-            android:onClick="checkResult"/>
+            android:onClick="checkResult"
+            android:textSize="0px"/>
 
         <Space
             android:layout_width="60dp"
@@ -44,7 +45,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/secondBtn"
-            android:onClick="checkResult"/>
+            android:onClick="checkResult"
+            android:textSize="0px" />
 
     </LinearLayout>
 
@@ -60,7 +62,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/thirdBtn"
-            android:onClick="checkResult"/>
+            android:onClick="checkResult"
+            android:textSize="0px"/>
 
         <Space
             android:layout_width="60dp"
@@ -70,7 +73,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/fourthBtn"
-            android:onClick="checkResult"/>
+            android:onClick="checkResult"
+            android:textSize="0px"/>
 
     </LinearLayout>
 
@@ -86,7 +90,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/fifthBtn"
-            android:onClick="checkResult"/>
+            android:onClick="checkResult"
+            android:textSize="0px"/>
 
         <Space
             android:layout_width="60dp"
@@ -96,7 +101,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/sixthBtn"
-            android:onClick="checkResult"/>
+            android:onClick="checkResult"
+            android:textSize="0px" />
 
     </LinearLayout>
 

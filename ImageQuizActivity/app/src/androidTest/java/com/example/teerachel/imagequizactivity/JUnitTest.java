@@ -9,7 +9,7 @@ public class JUnitTest extends TestCase{
 
     MainActivity mainActivity;
     Image_Quiz_Ans imageans;
-    Image_Quiz_Ques imageques;
+    Image_Quiz_Question imageques;
     Image_Quiz_Stats imagestats;
 
     @Override
@@ -17,7 +17,7 @@ public class JUnitTest extends TestCase{
         super.setUp();
         mainActivity = new MainActivity();
         imageans = new Image_Quiz_Ans();
-        imageques = new Image_Quiz_Ques();
+        imageques = new Image_Quiz_Question();
         imagestats = new Image_Quiz_Stats();
     }
 
