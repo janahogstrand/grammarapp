@@ -10,18 +10,27 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.startsWith;
+
+
 /**
  * Created by teerachel on 10/03/2016.
  */
 public class Testing  extends ActivityInstrumentationTestCase2<MainActivity> {
 
     MainActivity mActivity;
+    Image_Quiz_Ques Ques;
     private int successCounter = 0;
     public String correctAns;
 
     public Testing() {
         super(MainActivity.class);
+        // super(Image_Quiz_Ques.class);
     }
+
 
     @Override
     protected void setUp() throws Exception {
@@ -29,7 +38,10 @@ public class Testing  extends ActivityInstrumentationTestCase2<MainActivity> {
         setActivityInitialTouchMode(true);
 
         mActivity = getActivity();
+
+
         assertNotNull(mActivity);
+
 
     }
 
@@ -56,8 +68,16 @@ public class Testing  extends ActivityInstrumentationTestCase2<MainActivity> {
     /**
      * This tests the button clicked
      */
-    public void testClickActionModeItem(){
+    public void testClickActionModeItem() {
         onView(withId(R.id.trainImage)).perform(click());
         onView(withId(R.id.trainImage)).check(matches(withText("train")));
+
+
+    }
+
+    public void testEspresso() {
+        onView(withId(R.id.ques))
+                .check(matches(allOf(withText(not(startsWith("Tren"))), withText(containsString("1.")))));
+
     }
 }
