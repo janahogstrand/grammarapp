@@ -64,9 +64,9 @@ public class Festivals extends BaseActivityDrawer {
     private List<FestivalTimeItem> getData() {
         festData = new ArrayList<FestivalTimeItem>();
      //   festData.add(new FestivalTimeItem("Uno de enero - Ano nuevo", "New Year's day", R.drawable.festivals3, dialect));
-        festData.add(new FestivalTimeItem("Uno de noviembre - Dia de Todos los Santos", "All Saints Day", R.drawable.festivals0, dialect));
-        festData.add(new FestivalTimeItem("12 de octubre", "Columbus Day", R.drawable.festivals1, dialect));
-        festData.add(new FestivalTimeItem("marzo o abril, semana santa", "Easter (March or April)", R.drawable.festivals2, dialect));
+        festData.add(new FestivalTimeItem("Uno de noviembre - Dia de Todos los Santos", "All Saints Day", "https://www.dropbox.com/s/5zmf04aoj3hr8ml/festivals0?raw=1", dialect));
+        festData.add(new FestivalTimeItem("12 de octubre", "Columbus Day","https://www.dropbox.com/s/5zmf04aoj3hr8ml/festivals1.png?raw=1", dialect));
+        festData.add(new FestivalTimeItem("marzo o abril, semana santa", "Easter (March or April)", "https://www.dropbox.com/s/5zmf04aoj3hr8ml/festivals2.png?raw=1", dialect));
 
 
         return festData;

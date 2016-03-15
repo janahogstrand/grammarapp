@@ -15,7 +15,7 @@ public class FestivalTimeItem implements Parcelable {
 
     String spanishName;
     String englishName;
-    int picture;
+    String picture;
     String dialect;
 
     /**
@@ -24,7 +24,7 @@ public class FestivalTimeItem implements Parcelable {
      * @param picture     Picture of festival
      * @param dialect     Dialect of phrase
      **/
-    public FestivalTimeItem(String spanishName, String englishName, int picture, String dialect) {
+    public FestivalTimeItem(String spanishName, String englishName, String picture, String dialect) {
         this.spanishName = spanishName;
         this.englishName = englishName;
         this.picture = picture;
@@ -51,7 +51,7 @@ public class FestivalTimeItem implements Parcelable {
     /**
      * Gets int of photo
      * **/
-    public int getPhoto() {
+    public String getPhoto() {
         return picture;
     }
     /**
@@ -65,7 +65,7 @@ public class FestivalTimeItem implements Parcelable {
         in.readStringArray(data);
         this.spanishName = data[0];
         this.englishName = data[1];
-        this.picture = Integer.parseInt(data[2]);
+        this.picture = data[2];
         this.dialect = data[3];
     }
 
