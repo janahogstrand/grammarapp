@@ -14,22 +14,22 @@ public class Image_Quiz_Answers {
     public String getCorrectAnswer(String Question){
         String correctAnswer = "";
         if (Question.equals(qusList[0])){
-            correctAnswer = "aeroplane";
+            correctAnswer = "thirdView";
         }
         if (Question.equals(qusList[1])){
-            correctAnswer = "airportseat";
+            correctAnswer = "firstView";
         }
         if (Question.equals(qusList[2])){
-            correctAnswer = "bankcard";
+            correctAnswer = "secondView";
         }
         if (Question.equals(qusList[3])){
-            correctAnswer = "bed";
+            correctAnswer = "fourthView";
         }
         if (Question.equals(qusList[4])){
-            correctAnswer = "car";
+            correctAnswer = "sixthView";
         }
         if (Question.equals(qusList[5])){
-            correctAnswer = "train";
+            correctAnswer = "fifthView";
         }
         return correctAnswer;
     }

@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".Image_Quiz_Main"
+    tools:context="com.example.teerachel.imagequizactivity.Image_Quiz_Main"
     android:orientation="vertical">
 
     <TextView
@@ -26,25 +26,26 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:id="@+id/topLayer"
-        android:layout_weight="0.7">
+        android:layout_weight="0.7"
+        android:weightSum=".9">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/firstBtn"
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/firstView"
             android:onClick="checkResult"
-            android:textSize="0px"/>
+            android:tag="firstView" />
 
         <Space
             android:layout_width="60dp"
             android:layout_height="match_parent" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/secondBtn"
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/secondView"
             android:onClick="checkResult"
-            android:textSize="0px" />
+            android:tag="secondView"/>
 
     </LinearLayout>
 
@@ -56,23 +57,23 @@
         android:id="@+id/midLayer"
         android:layout_weight="0.7">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/thirdBtn"
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/thirdView"
             android:onClick="checkResult"
-            android:textSize="0px"/>
+            android:tag="thirdView"/>
 
         <Space
             android:layout_width="60dp"
             android:layout_height="match_parent" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/fourthBtn"
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/fourthView"
             android:onClick="checkResult"
-            android:textSize="0px"/>
+            android:tag="fourthView"/>
 
     </LinearLayout>
 
@@ -84,23 +85,23 @@
         android:id="@+id/bottomLayer"
         android:layout_weight="0.7">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/fifthBtn"
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/fifthView"
             android:onClick="checkResult"
-            android:textSize="0px"/>
+            android:tag="fifthView"/>
 
         <Space
             android:layout_width="60dp"
             android:layout_height="match_parent" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/sixthBtn"
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/sixthView"
             android:onClick="checkResult"
-            android:textSize="0px" />
+            android:tag="sixthView"/>
 
     </LinearLayout>
 

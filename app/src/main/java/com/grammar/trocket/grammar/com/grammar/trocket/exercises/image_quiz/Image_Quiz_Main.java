@@ -1,36 +1,42 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.exercises.image_quiz;
 
-import android.content.Intent;
+import android.util.Log;
+import android.view.View;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Intent;
+import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.grammar.trocket.grammar.R;
+import com.squareup.picasso.Picasso;
+import android.support.v7.app.AppCompatActivity;
 
-import java.util.ArrayList;
 
-public class Image_Quiz_Main extends AppCompatActivity {
+public class Image_Quiz_Main extends AppCompatActivity{
 
-    public Button firstButton;
-    public Button secondButton;
-    public Button thirdButton;
-    public Button fourthButton;
-    public Button fifthButton;
-    public Button sixthButton;
+    public ImageView firstView;
+    public ImageView secondView;
+    public ImageView thirdView;
+    public ImageView fourthView;
+    public ImageView fifthView;
+    public ImageView sixthView;
     public TextView question;
     public Image_Quiz_Question questions;
     public Image_Quiz_Answers answers;
-    public ArrayList<Integer> drawableList;
     public String[] questionList;
     public String correctAns;
     public String currentQuestion;
     public int successCounter = 0;
     public int mistakeCounter = 0;
     public int questionNumber = 0;
+    public String imageAddress1;
+    public String imageAddress2;
+    public String imageAddress3;
+    public String imageAddress4;
+    public String imageAddress5;
+    public String imageAddress6;
     public final static String EXTRA_MESSAGE = "com.example.teerachel.imagequizactivity.message";
     public final static String EXTRA_MESSAGE2 = "com.example.teerachel.imagequizactivity.message2";
 
@@ -42,40 +48,42 @@ public class Image_Quiz_Main extends AppCompatActivity {
 
         questions = new Image_Quiz_Question();
         answers = new Image_Quiz_Answers();
-        drawableList = new ArrayList<>();
         questionList = questions.createArray();
 
-        findDrawables();
+
+        findAndAdjustAddresses();
         findViewByIds();
-        assignTextView();
+        assignViews();
+        setImages();
 
     }
 
-    public void findDrawables(){
-        drawableList.add(R.drawable.aeroplane);
-        drawableList.add(R.drawable.airportseat);
-        drawableList.add(R.drawable.bankcard);
-        drawableList.add(R.drawable.bed);
-        drawableList.add(R.drawable.boarding);
-        drawableList.add(R.drawable.building);
-        drawableList.add(R.drawable.bus);
-        drawableList.add(R.drawable.car);
-        drawableList.add(R.drawable.cycle);
-        drawableList.add(R.drawable.train);
-        drawableList.add(R.drawable.holiday);
-        drawableList.add(R.drawable.phone);
-        drawableList.add(R.drawable.reserved);
-        drawableList.add(R.drawable.restaurant);
+    public void findAndAdjustAddresses(){
+        imageAddress1 = "https://www.dropbox.com/s/na7kxqo36le8elu/aeroplane.png?dl=0";
+        imageAddress2 = "https://www.dropbox.com/s/dnc4e8jppzlmw72/car.png?dl=0";
+        imageAddress3 = "https://www.dropbox.com/s/6om2t6p7zmcyk65/train.png?dl=0";
+        imageAddress4 = "https://www.dropbox.com/s/sriywah61eygdnb/bus.png?dl=0";
+        imageAddress5 = "https://www.dropbox.com/s/qu3njgt1nbetw5j/cycle.png?dl=0";
+        imageAddress6 = "https://www.dropbox.com/s/dywmen629grh3wm/ship.png?dl=0";
+
+        imageAddress1 = imageAddress1.substring(0, imageAddress1.length()-4) + "raw=1";
+        imageAddress2 = imageAddress2.substring(0, imageAddress2.length()-4) + "raw=1";
+        imageAddress3 = imageAddress3.substring(0, imageAddress3.length()-4) + "raw=1";
+        imageAddress4 = imageAddress4.substring(0, imageAddress4.length()-4) + "raw=1";
+        imageAddress5 = imageAddress5.substring(0, imageAddress5.length()-4) + "raw=1";
+        imageAddress6 = imageAddress6.substring(0, imageAddress6.length()-4) + "raw=1";
+
     }
 
     public void findViewByIds(){
         question = (TextView) findViewById(R.id.questionBtn);
-        firstButton = (Button) findViewById(R.id.firstBtn);
-        secondButton = (Button) findViewById(R.id.secondBtn);
-        thirdButton = (Button) findViewById(R.id.thirdBtn);
-        fourthButton = (Button) findViewById(R.id.fourthBtn);
-        fifthButton = (Button) findViewById(R.id.fifthBtn);
-        sixthButton = (Button) findViewById(R.id.sixthBtn);
+
+        firstView = (ImageView) findViewById(R.id.firstView);
+        secondView = (ImageView) findViewById(R.id.secondView);
+        thirdView = (ImageView) findViewById(R.id.thirdView);
+        fourthView = (ImageView) findViewById(R.id.fourthView);
+        fifthView = (ImageView) findViewById(R.id.fifthView);
+        sixthView = (ImageView) findViewById(R.id.sixthView);
     }
 
 
@@ -83,35 +91,31 @@ public class Image_Quiz_Main extends AppCompatActivity {
      * The TextView is assigned the current question and the each of the button
      * are assigned an answer option for the current question.
      * */
-    public void assignTextView(){
+    public void assignViews(){
         currentQuestion = questionList[questionNumber];
         correctAns = answers.getCorrectAnswer(currentQuestion);
         question.setText(currentQuestion);
+    }
 
-        if(questionNumber == 0 ){
-            firstButton.setBackground(getDrawable(drawableList.get(0)));
-            secondButton.setBackground(getDrawable(drawableList.get(1)));
-            thirdButton.setBackground(getDrawable(drawableList.get(2)));
-            fourthButton.setBackground(getDrawable(drawableList.get(3)));
-            fifthButton.setBackground(getDrawable(drawableList.get(4)));
-            sixthButton.setBackground(getDrawable(drawableList.get(5)));
-        }
-        else {
-            firstButton.setBackground(getDrawable(drawableList.get(6)));
-            secondButton.setBackground(getDrawable(drawableList.get(7)));
-            thirdButton.setBackground(getDrawable(drawableList.get(8)));
-            fourthButton.setBackground(getDrawable(drawableList.get(9)));
-            fifthButton.setBackground(getDrawable(drawableList.get(10)));
-            sixthButton.setBackground(getDrawable(drawableList.get(11)));
-        }
 
-        firstButton.setText("aeroplane");
-        secondButton.setText("airportseat");
-        thirdButton.setText("bankcard");
-        fourthButton.setText("bed");
-        fifthButton.setText("car");
-        sixthButton.setText("train");
+    public void setImages(){
+        Picasso.with(firstView.getContext()).load(imageAddress1).placeholder(R.drawable.loading_animation)
+                .error(android.R.drawable.stat_notify_error).into(firstView);
 
+        Picasso.with(secondView.getContext()).load(imageAddress2).placeholder(R.drawable.loading_animation)
+                .error(android.R.drawable.stat_notify_error).into(secondView);
+
+        Picasso.with(thirdView.getContext()).load(imageAddress3).placeholder(R.drawable.loading_animation)
+                .error(android.R.drawable.stat_notify_error).into(thirdView);
+
+        Picasso.with(fourthView.getContext()).load(imageAddress4).placeholder(R.drawable.loading_animation)
+                .error(android.R.drawable.stat_notify_error).into(fourthView);
+
+        Picasso.with(fifthView.getContext()).load(imageAddress5).placeholder(R.drawable.loading_animation)
+                .error(android.R.drawable.stat_notify_error).into(fifthView);
+
+        Picasso.with(sixthView.getContext()).load(imageAddress6).placeholder(R.drawable.loading_animation)
+                .error(android.R.drawable.stat_notify_error).into(sixthView);
     }
 
 
@@ -126,36 +130,20 @@ public class Image_Quiz_Main extends AppCompatActivity {
      * button is clicked for user's purposes.
      * @param view
      */
-    public void checkResult(View view) {
-        final Button pressedButton = (Button) view;
-        if(correctAns.equals(pressedButton.getText().toString())) {
+    public void checkResult(final View view) {
+
+        if(correctAns.equals(view.getTag().toString())) {
             successCounter++;
             Toast.makeText(Image_Quiz_Main.this,
                     "You're correct!", Toast.LENGTH_LONG).show();
-
-            pressedButton.getBackground().mutate().setAlpha(128);
-            pressedButton.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    pressedButton.getBackground().setAlpha(255);
-                }
-            }, 500);
-
         }
         else {
             mistakeCounter++;
             Toast.makeText(Image_Quiz_Main.this,
-                    "Sorry, try again :(", Toast.LENGTH_SHORT).show();
-
-            pressedButton.getBackground().mutate().setAlpha(128);
-            pressedButton.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    pressedButton.getBackground().setAlpha(255);
-                }
-            }, 500);
-
+                    "Sorry, try again :(", Toast.LENGTH_LONG).show();
         }
+
+        Log.d("pressedView", view.getTag().toString() );
         questionNumber++;
         checkQuestionNumber();
     }
@@ -179,9 +167,9 @@ public class Image_Quiz_Main extends AppCompatActivity {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    assignTextView();
+                    assignViews();
                 }
-            }, 500);
+            }, 1000);
         }
     }
 
