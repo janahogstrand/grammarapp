@@ -23,9 +23,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /* IMPORTANT
+
+        - internet permissions must be enabled
+        - forced landscape is in manifest - android:screenOrientation="landscape"
+        - xml sets view to match parent in height and width for full screen
+
+         */
+
+        // set up video player
         videoView = (VideoView) findViewById(R.id.videoView);
+        // get uri from address
         Uri uri = Uri.parse(address);
+        // add playback functionality
         videoView.setMediaController(new MediaController(this));
+        // play video
         videoView.setVideoURI(uri);
         videoView.start();
 
