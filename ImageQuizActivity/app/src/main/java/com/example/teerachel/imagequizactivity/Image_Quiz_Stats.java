@@ -20,8 +20,8 @@ public class Image_Quiz_Stats extends AppCompatActivity {
 
         // Get the message from the intent
         Intent intent = getIntent();
-        message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-        message2 = intent.getStringExtra(MainActivity.EXTRA_MESSAGE2);
+        message = intent.getStringExtra(Image_Quiz_Main.EXTRA_MESSAGE);
+        message2 = intent.getStringExtra(Image_Quiz_Main.EXTRA_MESSAGE2);
 
         successCounter = (TextView) findViewById(R.id.successCounter);
         mistakeCounter = (TextView) findViewById(R.id.mistakeCounter);
