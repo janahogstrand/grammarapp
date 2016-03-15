@@ -20,19 +20,15 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
             android:id="@+id/successCounter"
+            android:background="@drawable/rounded_button_green"
             android:layout_gravity="center_horizontal"
             android:textColor="#ffffff"
             android:layout_weight="2"
             android:gravity="center"/>
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/bufferSpaceIGNORE2"
-            android:layout_gravity="center_horizontal"
-            android:textColor="#ffffff"
-            android:layout_weight="2"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
 
         <TextView
             android:layout_width="fill_parent"
@@ -40,24 +36,21 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
             android:id="@+id/mistakeCounter"
+            android:background="@drawable/rounded_button_red"
             android:layout_gravity="center_horizontal"
             android:textColor="#ffffff"
             android:layout_weight="2"
             android:gravity="center"/>
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/bufferSpaceIGNORE"
-            android:layout_gravity="center_horizontal"
-            android:textColor="#ffffff"
-            android:layout_weight="2"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
+            android:background="@drawable/rounded_button_primary"
             android:text="Large Text"
             android:id="@+id/comment"
             android:layout_gravity="center_horizontal"
