@@ -63,12 +63,42 @@ public class Festivals extends BaseActivityDrawer {
      **/
     private List<FestivalTimeItem> getData() {
         festData = new ArrayList<FestivalTimeItem>();
-     //   festData.add(new FestivalTimeItem("Uno de enero - Ano nuevo", "New Year's day", R.drawable.festivals3, dialect));
-        festData.add(new FestivalTimeItem("Uno de noviembre - Dia de Todos los Santos", "All Saints Day", "https://www.dropbox.com/s/5zmf04aoj3hr8ml/festivals0?raw=1", dialect));
-        festData.add(new FestivalTimeItem("12 de octubre", "Columbus Day","https://www.dropbox.com/s/5zmf04aoj3hr8ml/festivals1.png?raw=1", dialect));
-        festData.add(new FestivalTimeItem("marzo o abril, semana santa", "Easter (March or April)", "https://www.dropbox.com/s/5zmf04aoj3hr8ml/festivals2.png?raw=1", dialect));
 
+        festData.add(new FestivalTimeItem("Uno de noviembre - Dia de Todos los Santos", "All Saints Day", fixString("https://www.dropbox.com/s/60o0jnj9ynmei8w/festivals0.png?raw=") , dialect));
+        festData.add(new FestivalTimeItem("12 de octubre", "Columbus Day",fixString("https://www.dropbox.com/s/idh6b3ngfzpf1no/festivals1.png?ra=1"), dialect));
+        festData.add(new FestivalTimeItem("marzo o abril, semana santa", "Easter (March or April)", fixString("https://www.dropbox.com/s/rs97sn34kjr7h6e/festivals2.png?raw="), dialect));
+        festData.add(new FestivalTimeItem("Uno de noviembre - Dia de Todos los Santos", "All Saints Day", fixString("https://www.dropbox.com/s/60o0jnj9ynmei8w/festivals0.png?raw=") , dialect));
+        festData.add(new FestivalTimeItem("12 de octubre", "Columbus Day",fixString("https://www.dropbox.com/s/idh6b3ngfzpf1no/festivals1.png?rw=1"), dialect));
+        festData.add(new FestivalTimeItem("marzo o abril, semana santa", "Easter (March or April)", fixString("https://www.dropbox.com/s/rs97sn34kjr7h6e/festivals2.png?raw="), dialect));
+        festData.add(new FestivalTimeItem("Uno de noviembre - Dia de Todos los Santos", "All Saints Day", fixString("https://www.dropbox.com/s/60o0jnj9ynmei8w/festivals0.png?raw=") , dialect));
+        festData.add(new FestivalTimeItem("12 de octubre", "Columbus Day",fixString("https://www.dropbox.com/s/idh6b3ngfzpf1no/festivals1.png?aw=1"), dialect));
+        festData.add(new FestivalTimeItem("marzo o abril, semana santa", "Easter (March or April)", fixString("https://www.dropbox.com/s/rs97sn34kjr7h6e/festivals2.png?raw="), dialect));
+        festData.add(new FestivalTimeItem("Uno de noviembre - Dia de Todos los Santos", "All Saints Day", fixString("https://www.dropbox.com/s/60o0jnj9ynmei8w/festivals0.png?raw=") , dialect));
+        festData.add(new FestivalTimeItem("12 de octubre", "Columbus Day",fixString("https://www.dropbox.com/s/idh6b3ngfzpf1no/festivals1.png?ra=1"), dialect));
+        festData.add(new FestivalTimeItem("marzo o abril, semana santa", "Easter (March or April)", fixString("https://www.dropbox.com/s/rs97sn34kjr7h6e/festivals2.png?raw="), dialect));
+        festData.add(new FestivalTimeItem("Uno de noviembre - Dia de Todos los Santos", "All Saints Day", fixString("https://www.dropbox.com/s/60o0jnj9ynmei8w/festivals0.png?raw=") , dialect));
+        festData.add(new FestivalTimeItem("12 de octubre", "Columbus Day",fixString("https://www.dropbox.com/s/idh6b3ngfzpf1no/festivals1.png?ra=1"), dialect));
+        festData.add(new FestivalTimeItem("marzo o abril, semana santa", "Easter (March or April)", fixString("https://www.dropbox.com/s/rs97sn34kjr7h6e/festivals2.png?raw="), dialect));
+        festData.add(new FestivalTimeItem("Uno de noviembre - Dia de Todos los Santos", "All Saints Day", fixString("https://www.dropbox.com/s/60o0jnj9ynmei8w/festivals0.png?raw=") , dialect));
+        festData.add(new FestivalTimeItem("12 de octubre", "Columbus Day",fixString("https://www.dropbox.com/s/idh6b3ngfzpf1no/festivals1.png?rw=1"), dialect));
+        festData.add(new FestivalTimeItem("marzo o abril, semana santa", "Easter (March or April)", fixString("https://www.dropbox.com/s/rs97sn34kjr7h6e/festivals2.png?raw="), dialect));
+        festData.add(new FestivalTimeItem("Uno de noviembre - Dia de Todos los Santos", "All Saints Day", fixString("https://www.dropbox.com/s/60o0jnj9ynmei8w/festivals0.png?raw=") , dialect));
+        festData.add(new FestivalTimeItem("12 de octubre", "Columbus Day",fixString("https://www.dropbox.com/s/idh6b3ngfzpf1no/festivals1.png?aw=1"), dialect));
+        festData.add(new FestivalTimeItem("marzo o abril, semana santa", "Easter (March or April)", fixString("https://www.dropbox.com/s/rs97sn34kjr7h6e/festivals2.png?raw="), dialect));
+        festData.add(new FestivalTimeItem("Uno de noviembre - Dia de Todos los Santos", "All Saints Day", fixString("https://www.dropbox.com/s/60o0jnj9ynmei8w/festivals0.png?raw=") , dialect));
+        festData.add(new FestivalTimeItem("12 de octubre", "Columbus Day",fixString("https://www.dropbox.com/s/idh6b3ngfzpf1no/festivals1.png?ra=1"), dialect));
+        festData.add(new FestivalTimeItem("marzo o abril, semana santa", "Easter (March or April)", fixString("https://www.dropbox.com/s/rs97sn34kjr7h6e/festivals2.png?raw="), dialect));
 
         return festData;
     }
+
+    /**
+     * Makes String correct format
+     * To be used when making new FestivalTimeItem for url
+     * */
+    private String fixString(String imageAddress){
+        imageAddress = imageAddress.substring(0, imageAddress.length()-4) + "raw=1";
+        return imageAddress;
+    }
+
 }

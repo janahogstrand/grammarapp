@@ -1,11 +1,14 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.grammar.trocket.grammar.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -46,7 +49,14 @@ public class FestivalTimeAdapter extends RecyclerView.Adapter<FestivalTimeViewHo
      **/
     @Override
     public void onBindViewHolder(FestivalTimeViewHolder holder, int position) {
-        holder.festivalPicture.setImageResource(festivalData.get(position).getPhoto());
+        //holder.festivalPicture.setImageResource();
+        ImageView image =  holder.festivalPicture;
+        Context context = image.getContext();
+        Picasso.with(context)
+                .load(festivalData.get(position).getPhoto())
+                .error(android.R.drawable.stat_notify_error)
+                .placeholder(R.drawable.loading_animation)
+                .into(holder.festivalPicture);
     }
 
     /**

@@ -1,6 +1,8 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.resources;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -15,7 +17,9 @@ import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeItem;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeViewHolder;
+import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -143,12 +147,15 @@ public class BigView extends BaseActivityDrawer {
     private void assignAssets(int newIndex) {
         index = newIndex;
         current = dataFest.get(index);
-        centerImage.setImageResource(current.getPhoto());
+        //centerImage.setImageResource(current.getPhoto());
+        setPicture(current, centerImage);
+
         nameEnglish.setText(current.getEnglishName());
         nameSpanish.setText(current.getSpanishName());
         try {
             next = dataFest.get(index + 1);
-            nextImage.setImageResource(next.getPhoto());
+            setPicture(next, nextImage);
+            //nextImage.setImageResource(next.getPhoto());
             nextImage.setVisibility(View.VISIBLE);
             nextText.setVisibility(View.VISIBLE);
         } catch (IndexOutOfBoundsException e) {
@@ -157,7 +164,7 @@ public class BigView extends BaseActivityDrawer {
         }
         try {
             prev = dataFest.get(index - 1);
-            prevImage.setImageResource(prev.getPhoto());
+            setPicture(prev, prevImage);
             prevImage.setVisibility(View.VISIBLE);
             prevText.setVisibility(View.VISIBLE);
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -192,8 +199,9 @@ public class BigView extends BaseActivityDrawer {
         stopAllSound();
 
         switch (text) {
-            case "Es Brits":
-                player = MediaPlayer.create(BigView.this, R.raw.placeholderaudio1);
+            case "Son las doce en punto":
+                //player = MediaPlayer.create(BigView.this, R.raw.placeholderaudio1);
+                setAudio(fixString("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw="));
                 break;
             case "El Indianas":
                 player = MediaPlayer.create(BigView.this, R.raw.placeholderaudio2);
@@ -227,6 +235,39 @@ public class BigView extends BaseActivityDrawer {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void setPicture(FestivalTimeItem item ,ImageView image){
+        Context context = image.getContext();
+        Picasso.with(context).load(item.getPhoto())
+                .error(android.R.drawable.stat_sys_warning)
+                .placeholder(R.drawable.loading_animation)
+                .into(image);
+    }
+
+    private void setAudio(String address){
+        // to get dropbox address, take sharing url, and replace dl=0 with raw=1
+        //String address = "https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1";
+
+        // create media player, set source, and start playing
+        player = new MediaPlayer();
+        try {
+            player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            player.setDataSource(address);
+            player.prepare();
+            player.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Makes String correct format
+     * To be used when making new FestivalTimeItem for url
+     * */
+    private String fixString(String imageAddress){
+        imageAddress = imageAddress.substring(0, imageAddress.length()-4) + "raw=1";
+        return imageAddress;
     }
 
     /**

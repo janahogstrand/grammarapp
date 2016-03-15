@@ -61,12 +61,22 @@ public class Times extends BaseActivityDrawer {
      **/
     private List<FestivalTimeItem> getData() {
         timeData = new ArrayList<FestivalTimeItem>();
-        timeData.add(new FestivalTimeItem("Son las doce en punto", "",android.R.drawable.ic_lock_idle_alarm, dialect));
-        timeData.add(new FestivalTimeItem("Son las doce y cinco", "",android.R.drawable.ic_lock_idle_alarm, dialect));
-        timeData.add(new FestivalTimeItem("Son las doce y cuarto", "",android.R.drawable.ic_lock_idle_alarm, dialect));
-        timeData.add(new FestivalTimeItem("Son las doce y media", "",android.R.drawable.ic_lock_idle_alarm, dialect));
-        timeData.add(new FestivalTimeItem("Es la una menos cuarto", "",android.R.drawable.ic_lock_idle_alarm, dialect));
+        timeData.add(new FestivalTimeItem("Son las doce en punto", "",fixString("https://www.dropbox.com/s/htma0lwlcjcmzjm/time.png?dl=0"), dialect));
+        timeData.add(new FestivalTimeItem("Son las doce y cinco", "",fixString("https://www.dropbox.com/s/htma0lwlcjcmzjm/time.png?dl=0"), dialect));
+        timeData.add(new FestivalTimeItem("Son las doce y cuarto", "",fixString("https://www.dropbox.com/s/htma0lwlcjcmzjm/time.png?dl=0"), dialect));
+        timeData.add(new FestivalTimeItem("Son las doce y media", "",fixString("https://www.dropbox.com/s/htma0lwlcjcmzjm/time.png?dl=0"), dialect));
+        timeData.add(new FestivalTimeItem("Es la una menos cuarto", "",fixString("https://www.dropbox.com/s/htma0lwlcjcmzjm/time.png?dl=0"), dialect));
 
         return timeData;
     }
+
+    /**
+     * Makes String correct format
+     * To be used when making new FestivalTimeItem for url
+     * */
+    private String fixString(String imageAddress){
+        imageAddress = imageAddress.substring(0, imageAddress.length()-4) + "raw=1";
+        return imageAddress;
+    }
+
 }
