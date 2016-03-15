@@ -1,5 +1,7 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.resources.seasons;
 
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import android.widget.Button;
 
 import com.grammar.trocket.grammar.R;
 
+import java.io.IOException;
 import java.util.Locale;
 
 public class SeasonsFourthActivity extends AppCompatActivity {
@@ -19,6 +22,7 @@ public class SeasonsFourthActivity extends AppCompatActivity {
     Button blueThree;
     Locale language;
     TextToSpeech textToSpeech;
+    MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +67,70 @@ public class SeasonsFourthActivity extends AppCompatActivity {
      * This method runs textToSpeech object's speak()
      * method which plays the clicked button's text.
      */
+    //TODO Make database interact with this
     public void playAudio(View v){
         Button clickedButton = (Button) v;
-        String viewTextAsString = clickedButton.getText().toString();
-        textToSpeech.speak(viewTextAsString, TextToSpeech.QUEUE_FLUSH, null);
+
+        try {
+            stopAllSound();
+            switch (clickedButton.getText().toString()) {
+                case "diciembre":
+                    //player = MediaPlayer.create(BigView.this, R.raw.placeholderaudio1);
+                    setAudio("https://dl.dropboxusercontent.com/1/view/55452sookpv6m84/uploads/tap_item/audio/1/Evil_Laugh_1-Timothy-64737261.mp3");
+                    break;
+                case "enero":
+                    setAudio("https://dl.dropboxusercontent.com/1/view/55452sookpv6m84/uploads/tap_item/audio/1/Evil_Laugh_1-Timothy-64737261.mp3");
+                    break;
+                case "febrero":
+                    setAudio("https://dl.dropboxusercontent.com/1/view/55452sookpv6m84/uploads/tap_item/audio/1/Evil_Laugh_1-Timothy-64737261.mp3");
+                    break;
+                default:
+                    player = null;
+            }
+        } catch (Exception e) {
+            String viewTextAsString = clickedButton.getText().toString();
+            textToSpeech.speak(viewTextAsString, TextToSpeech.QUEUE_FLUSH, null);
+        }
+
+
+    }
+
+    /**
+     * Stops all current sound
+     * If text to speech is running this will stop
+     * If media player is running this will stop
+     **/
+    private void stopAllSound() {
+        try {
+            if (textToSpeech.isSpeaking()) {
+                textToSpeech.stop();
+            }
+            if (player != null) {
+                if (player.isPlaying()) {
+                    player.stop();
+                    player.reset();
+                    player.release();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Plays audio for a given address
+     * @param address Address of audio URL
+     * **/
+    private void setAudio(String address){
+        player = new MediaPlayer();
+        try {
+            player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            player.setDataSource(address);
+            player.prepare();
+            player.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -77,6 +141,17 @@ public class SeasonsFourthActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         this.finish();
+
+        //Close the Text to Speech Library
+        if(player != null){
+            if (player.isPlaying()) {
+                player.stop();
+                player.reset();
+                player.release();
+                Log.d("Player released ", "Player Destroyed");
+            }
+        }
+
         //Close the Text to Speech Library
         if(textToSpeech != null) {
             textToSpeech.stop();
