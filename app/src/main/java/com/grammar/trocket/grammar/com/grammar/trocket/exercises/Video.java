@@ -1,28 +1,26 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.exercises;
 
-import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
-import com.google.android.youtube.player.YouTubeBaseActivity;
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerView;
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.VideoObserveDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.VideoReflectDialog;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
 
-public class Video extends YouTubeBaseActivity {
+public class Video extends BaseActivityDrawer {
 
-    private YouTubePlayerView player;
-    private YouTubePlayer.OnInitializedListener listener;
     private String address;
+    private VideoView videoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.video_activity);
+        setContentView(R.layout.video_activity_main);
+        super.onCreateDrawer();
 
         // get video address from previous activity
         Intent intent = getIntent();
@@ -33,32 +31,30 @@ public class Video extends YouTubeBaseActivity {
             address = intent.getStringExtra(VideoObserveDialog.VIDEO_ADDRESS2);
         }
 
-        // initialise player and listener
-        player = (YouTubePlayerView) findViewById(R.id.view);
-        listener = new YouTubePlayer.OnInitializedListener() {
-            @Override
-            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                // set fullscreen, load video address, and play video
-                youTubePlayer.setFullscreen(true);
-                youTubePlayer.loadVideo(address);
-                youTubePlayer.play();
-            }
+        /* IMPORTANT
+        - internet permissions must be enabled
+        - forced landscape is in manifest - android:screenOrientation="landscape"
+        - xml sets view to match parent in height and width for full screen
+         */
 
-            @Override
-            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-
-                // Toast to notify user in case of initialisation failure
-                Context context = getApplicationContext();
-                CharSequence message = "Initialisation failed";
-                int duration = Toast.LENGTH_LONG;
-
-                Toast toast = Toast.makeText(context, message, duration);
-                toast.show();
-            }
-        };
-
-        // actually initialise  player
-        player.initialize("AIzaSyCAJ0JmTuIlhQN68Zy44rzKbzJu5CKNEus",listener);
+        // set up video player
+        videoView = (VideoView) findViewById(R.id.videoView);
+        // get uri from address
+        Uri uri = Uri.parse(address);
+        // add playback functionality
+        videoView.setMediaController(new MediaController(this));
+        // play video
+        videoView.setVideoURI(uri);
+        videoView.start();
 
     }
+
 }
+
+
+
+
+
+
+
+

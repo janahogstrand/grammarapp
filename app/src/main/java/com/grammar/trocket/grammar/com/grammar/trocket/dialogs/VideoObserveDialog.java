@@ -54,9 +54,9 @@ public class VideoObserveDialog extends AlertDialog.Builder {
                     public void onClick(DialogInterface dialog, int position) {
 
                         if (position == 0) {
-                             address = "qyXTgqJtoGM";
+                             address = "https://dl.dropboxusercontent.com/1/view/6mdpypt5nxb3b7u/uploads/cluster_item/image/2/videoplaceholder.mp4";
                         } else {
-                             address = "j25tkxg5Vws";
+                             address = "https://dl.dropboxusercontent.com/1/view/6mdpypt5nxb3b7u/uploads/cluster_item/image/2/videoplaceholder.mp4";
                         }
 
                         intent = new Intent(context, Video.class);

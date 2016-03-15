@@ -42,7 +42,7 @@
         <activity android:name=".com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity" android:label="TextQuizMainActivity"/>
         <activity android:name=".com.grammar.trocket.exercises.text_quiz.TextQuizStatisticsActivity" android:label="TextQuizStatisticsActivity"/>
         <activity android:name=".com.grammar.trocket.exercises.audio_quiz.AudioQuizMainActivity" android:label="TextQuizStatisticsActivity"/>
-        <activity android:name=".com.grammar.trocket.exercises.Video" android:label="Video"/>
+        <activity android:name=".com.grammar.trocket.exercises.Video" android:label="Video"   android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="landscape"/>
         <activity android:name=".com.grammar.trocket.exercises.audio_quiz.AudioQuizStatisticsActivity" android:label="TextQuizStatisticsActivity"/>
         <activity android:name=".com.grammar.trocket.resources.DaysOfTheWeek" android:theme="@style/AppTheme.NoActionBar" android:label="DaysOfTheWeek"/>
 

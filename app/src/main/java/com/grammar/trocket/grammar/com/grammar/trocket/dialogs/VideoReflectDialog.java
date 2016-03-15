@@ -56,7 +56,7 @@ public class VideoReflectDialog extends AlertDialog.Builder {
                         // start new youtube activity and pass the video address to it
 
                         intent = new Intent(context, Video.class);
-                        String address = "qyXTgqJtoGM";
+                        String address = "https://dl.dropboxusercontent.com/1/view/6mdpypt5nxb3b7u/uploads/cluster_item/image/2/videoplaceholder.mp4";
                         intent.putExtra(VIDEO_ADDRESS, address);
                         context.startActivity(intent);
                     }
