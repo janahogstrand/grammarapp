@@ -1,13 +1,18 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.main;
 
+import android.app.Activity;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.database.DatabaseOperations;
 import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabDictionary;
 import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabExercises;
 import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabResources;
@@ -16,6 +21,8 @@ public class MainMenu extends BaseActivityDrawer {
 
     //TODO Shared prefs
     public final static String MainLanguage = "Spanish";
+    private static SQLiteDatabase myDatabase;
+    DatabaseOperations dbOps = new DatabaseOperations(MainMenu.this);
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -40,6 +47,11 @@ public class MainMenu extends BaseActivityDrawer {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         super.onCreateDrawer();
+//        getApplicationContext().deleteDatabase("GrammarCourses");
+        dbOps.DatabaseSetup();
+//        Cursor result = dbOps.queryDB("SELECT * FROM Course AS co JOIN Category AS ca ON co._id=ca.courseId WHERE co.name='Spanish'");
+        Cursor result = dbOps.selectDBTable("Course");
+        Log.i("Select Count", Integer.toString(result.getCount()));
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
