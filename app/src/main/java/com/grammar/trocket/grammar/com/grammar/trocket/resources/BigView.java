@@ -201,7 +201,7 @@ public class BigView extends BaseActivityDrawer {
         switch (text) {
             case "Son las doce en punto":
                 //player = MediaPlayer.create(BigView.this, R.raw.placeholderaudio1);
-                setAudio("https://dl.dropboxusercontent.com/1/view/55452sookpv6m84/uploads/tap_item/audio/1/Evil_Laugh_1-Timothy-64737261.mp3");
+                setAudio("https://dl.dropboxusercontent.com/1/view/uv2fi3wdiz978wj/uploads/tap_item/audio/1/Evil_Laugh_1-Timothy-64737261.mp3");
                 break;
             case "El Indianas":
                 player = MediaPlayer.create(BigView.this, R.raw.placeholderaudio2);
