@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
 import com.squareup.picasso.Picasso;
@@ -51,12 +52,18 @@ public class FestivalTimeAdapter extends RecyclerView.Adapter<FestivalTimeViewHo
     public void onBindViewHolder(FestivalTimeViewHolder holder, int position) {
         //holder.festivalPicture.setImageResource();
         ImageView image =  holder.festivalPicture;
+        TextView title = holder.title;
+        TextView desc = holder.description;
         Context context = image.getContext();
         Picasso.with(context)
                 .load(festivalData.get(position).getPhoto())
                 .error(android.R.drawable.stat_notify_error)
                 .placeholder(R.drawable.loading_animation)
                 .into(holder.festivalPicture);
+
+
+        title.setText(festivalData.get(position).getSpanishName());
+        desc.setText(festivalData.get(position).getEnglishName());
     }
 
     /**

@@ -48,7 +48,7 @@ public class MainMenu extends BaseActivityDrawer {
         setContentView(R.layout.activity_main_menu);
         super.onCreateDrawer();
 //        getApplicationContext().deleteDatabase("GrammarCourses");
-        dbOps.DatabaseSetup();
+        //dbOps.DatabaseSetup();
 //        Cursor result = dbOps.queryDB("SELECT * FROM Course AS co JOIN Category AS ca ON co._id=ca.courseId WHERE co.name='Spanish'");
         Cursor result = dbOps.selectDBTable("Course");
         Log.i("Select Count", Integer.toString(result.getCount()));

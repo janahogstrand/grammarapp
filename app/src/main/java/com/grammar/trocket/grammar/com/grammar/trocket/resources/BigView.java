@@ -83,7 +83,7 @@ public class BigView extends BaseActivityDrawer {
      * Inits views and init listener for TTS
      * Should only be called once at start of program
      **/
-    private void initViews() {
+    public void initViews() {
         centerImage = (ImageView) findViewById(R.id.centerImage);
         nextImage = (ImageView) findViewById(R.id.next);
         prevImage = (ImageView) findViewById(R.id.previous);
