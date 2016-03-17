@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
@@ -41,7 +42,7 @@ public class Festivals extends BaseActivityDrawer {
         getDialect();
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
 
-        GridLayoutManager glm = new GridLayoutManager(Festivals.this, 3);
+        LinearLayoutManager glm = new LinearLayoutManager(Festivals.this);
         rv.setLayoutManager(glm);
         rv.setHasFixedSize(true);
 

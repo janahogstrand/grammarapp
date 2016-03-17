@@ -22,7 +22,7 @@ public class DatabaseOperations {
         this.activity = activity;
     }
 
-    protected static SQLiteDatabase myDatabase;
+    private static SQLiteDatabase myDatabase;
     protected SQLiteStatement statement;
 
     public Boolean databaseExists() {
