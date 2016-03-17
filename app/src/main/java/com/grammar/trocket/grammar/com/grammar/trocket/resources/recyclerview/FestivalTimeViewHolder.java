@@ -75,10 +75,11 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
      **/
     private void playAudio() {
         String phrase = data.get(getAdapterPosition()).getSpanishName().toString();
+        stopAllSound();
         try {
             assignAudio(phrase);
-            //textToSpeech.speak(data.get(getAdapterPosition()).getSpanishName().toString(), TextToSpeech.QUEUE_FLUSH, null);
         } catch (Exception e) {
+            stopAllSound();
             textToSpeech.speak(phrase, TextToSpeech.QUEUE_FLUSH, null);
         }
     }
@@ -145,6 +146,31 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
             e.printStackTrace();
         }
     }
+//
+//    /**
+//     * This method is called whenever an activity is closed or destroyed.
+//     * This method stops the textToSpeech object from running and
+//     * then destroys it inorder for it not to leak information.
+//     */
+//    @Override
+//    protected void onDestroy() {
+//        //Close the Text to Speech Library
+//        if(player != null){
+//            if (player.isPlaying()) {
+//                player.stop();
+//                player.reset();
+//                player.release();
+//                Log.d("Player released ", "Player Destroyed");
+//            }
+//        }
+//
+//        if (textToSpeech != null) {
+//            textToSpeech.stop();
+//            textToSpeech.shutdown();
+//            Log.d("-------------------", "TTS Destroyed");
+//        }
+//        super.onDestroy();
+//    }
 
 }
 
