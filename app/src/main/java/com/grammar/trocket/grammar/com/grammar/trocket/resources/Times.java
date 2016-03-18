@@ -2,6 +2,7 @@ package com.grammar.trocket.grammar.com.grammar.trocket.resources;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.Fe
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by jamiemoreland on 27/02/16.
@@ -25,7 +27,6 @@ import java.util.List;
  * data can retrieved from the database and
  * views will then be inflated
  *
- * @see BigView
  */
 public class Times extends BaseActivityDrawer {
     private List<FestivalTimeItem> timeData;
@@ -38,6 +39,7 @@ public class Times extends BaseActivityDrawer {
         onCreateDrawer();
 
         getDialect();
+        initTTS();
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
@@ -79,6 +81,15 @@ public class Times extends BaseActivityDrawer {
     private String fixString(String imageAddress){
         imageAddress = imageAddress.substring(0, imageAddress.length()-4) + "raw=1";
         return imageAddress;
+    }
+
+    private void initTTS(){
+        FestivalTimeViewHolder.textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                FestivalTimeViewHolder.textToSpeech .setLanguage(new Locale("Es", "es"));
+            }
+        });
     }
 
     @Override

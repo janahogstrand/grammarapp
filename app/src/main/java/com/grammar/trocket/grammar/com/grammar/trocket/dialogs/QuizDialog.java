@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Quiz;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.image_quiz.Image_Quiz_Main;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.multiple_quiz.Multiple_Quiz_Main_Activity;
-import com.grammar.trocket.grammar.com.grammar.trocket.resources.Alphabet;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.audio_quiz.AudioQuizMainActivity;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity;
 

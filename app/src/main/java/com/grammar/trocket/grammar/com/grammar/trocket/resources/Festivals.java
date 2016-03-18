@@ -44,6 +44,7 @@ public class Festivals extends BaseActivityDrawer {
         onCreateDrawer();
 
         getDialect();
+        initTTS();
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
 
         LinearLayoutManager glm = new LinearLayoutManager(Festivals.this);
@@ -106,22 +107,15 @@ public class Festivals extends BaseActivityDrawer {
         return imageAddress;
     }
 
-    @Override
-    public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setTitle("Really Exit?")
-                .setMessage("Are you sure you want to exit?")
-                .setNegativeButton(android.R.string.no, null)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface arg0, int arg1) {
-//                        textToSpeech.stop();
-//                        FestivalTimeViewHolder.textToSpeech.shutdown();
-//                        Log.d("-------------------", "TTS Destroyed");
-                        Festivals.super.onBackPressed();
-                    }
-                }).create().show();
+    private void initTTS(){
+        FestivalTimeViewHolder.textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                FestivalTimeViewHolder.textToSpeech .setLanguage(new Locale("Es", "es"));
+            }
+        });
     }
+
 
     @Override
     protected void onDestroy() {

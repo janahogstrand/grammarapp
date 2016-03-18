@@ -53,7 +53,7 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
                 //Get context
                 stopAllSound();
                 Context context = v.getContext();
-                initTTS(context);
+                playAudio();
 
             }
 
@@ -62,19 +62,19 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
     }
 
 
-    private void initTTS(Context context) {
-        //stopAllSound();
-        textToSpeech = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                textToSpeech.setLanguage(language);
-                //For first TTS played
-                if (status == TextToSpeech.SUCCESS) {
-                    playAudio();
-                }
-            }
-        });
-    }
+//    private void initTTS(Context context) {
+//        //stopAllSound();
+//        textToSpeech = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
+//            @Override
+//            public void onInit(int status) {
+//                textToSpeech.setLanguage(language);
+//                //For first TTS played
+//                if (status == TextToSpeech.SUCCESS) {
+//                    playAudio();
+//                }
+//            }
+//        });
+//    }
 
     /**
      * Plays from audio file if not found
@@ -125,7 +125,6 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
     private void stopAllSound() {
         if (textToSpeech != null) {
             textToSpeech.stop();
-            textToSpeech.shutdown();
             Log.w("Player released", "TTS Shutdown");
         }
         if (player != null) {
