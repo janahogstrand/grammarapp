@@ -39,20 +39,21 @@
 
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
             android:text="Medium Text"
             android:id="@+id/pageTitle"
             android:textColor="#130707"
-            android:paddingTop="20px"
+            android:paddingTop="20dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_weight="0.8" />
+            android:layout_weight="0.8"
+            android:gravity="center_horizontal|top"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sub Title"
             android:id="@+id/subTitle"
@@ -61,10 +62,12 @@
             android:layout_below="@+id/pageTitle"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_weight="0.8" />
+            android:layout_weight="0.8"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:gravity="center_horizontal|top"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sub Title 2"
             android:id="@+id/engSubtitle"
@@ -74,14 +77,16 @@
             android:layout_below="@+id/subTitle"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_weight="0.8" />
+            android:layout_weight="0.8"
+            android:gravity="center_horizontal"/>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:layout_weight="0.8">
+            android:layout_weight="0.8"
+            android:weightSum="1">
 
             <Button
                 android:layout_width="wrap_content"
@@ -90,13 +95,15 @@
                 android:id="@+id/summerBtn"
                 android:textColor="#ffffff"
                 android:background="#fa941f"
-                android:minHeight="220px"
-                android:minWidth="270px"
-                android:onClick="moveToNewActivity"/>
+                android:minHeight="70sp"
+                android:minWidth="140sp"
+                android:onClick="moveToNewActivity"
+                android:layout_weight=".3"/>
 
             <Space
-                android:layout_width="70px"
-                android:layout_height="20px" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".2"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -105,10 +112,11 @@
                 android:id="@+id/springBtn"
                 android:textColor="#ffffff"
                 android:background="#6ad050"
-                android:minHeight="220px"
-                android:minWidth="270px"
+                android:minHeight="70sp"
+                android:minWidth="140sp"
                 android:layout_alignParentRight="true"
-                android:onClick="moveToNewActivity" />
+                android:onClick="moveToNewActivity"
+                android:layout_weight=".3"/>
         </LinearLayout>
 
         <LinearLayout
@@ -116,7 +124,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:layout_weight="1.2">
+            android:layout_weight="1.2"
+            android:weightSum="1">
 
             <Button
                 android:layout_width="wrap_content"
@@ -125,13 +134,15 @@
                 android:id="@+id/autumnBtn"
                 android:textColor="#ffffff"
                 android:background="#fa1f23"
-                android:minHeight="220px"
-                android:minWidth="270px"
-                android:onClick="moveToNewActivity"/>
+                android:minHeight="70sp"
+                android:minWidth="140sp"
+                android:onClick="moveToNewActivity"
+                android:layout_weight=".3"/>
 
             <Space
-                android:layout_width="70px"
-                android:layout_height="20px" />
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight=".2"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -140,9 +151,10 @@
                 android:id="@+id/winterBtn"
                 android:textColor="#ffffff"
                 android:background="#54a4f4"
-                android:minHeight="220px"
-                android:minWidth="270px"
-                android:onClick="moveToNewActivity"/>
+                android:minHeight="70sp"
+                android:minWidth="140sp"
+                android:onClick="moveToNewActivity"
+                android:layout_weight=".3"/>
         </LinearLayout>
 
     </LinearLayout>

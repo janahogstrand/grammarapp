@@ -42,7 +42,7 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
         this.data = data;
         festivalPicture = (ImageView) itemView.findViewById(R.id.festival_picture);
         title = (TextView) itemView.findViewById(R.id.title);
-        description = (TextView) itemView.findViewById(R.id.description);
+        description = (TextView) itemView.findViewById(R.id.desc);
 
         view = itemView;
 

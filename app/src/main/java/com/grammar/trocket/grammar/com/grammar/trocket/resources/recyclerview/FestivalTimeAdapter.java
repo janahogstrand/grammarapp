@@ -64,7 +64,7 @@ public class FestivalTimeAdapter extends RecyclerView.Adapter<FestivalTimeViewHo
 
 
         title.setText(festivalData.get(position).getSpanishName());
-        desc.setText(festivalData.get(position).getEnglishName());
+        //desc.setText(festivalData.get(position).getEnglishName());
     }
 
     /**

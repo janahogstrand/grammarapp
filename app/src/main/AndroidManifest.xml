@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.grammar.trocket.grammar">
+          package="com.grammar.trocket.grammar">
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -21,37 +21,38 @@
             </intent-filter>
         </activity>
         <activity android:name=".com.grammar.trocket.resources.ListViewActivity" android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".com.grammar.trocket.resources.BigView" android:theme="@style/AppTheme.NoActionBar" android:label="Item viewer" />
         <activity android:name=".com.grammar.trocket.resources.Festivals" android:label="Festivals" android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".com.grammar.trocket.resources.Times" android:label="Times" android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsMain"
-        android:theme="@style/AppTheme.NoActionBar"
-        android:label="SeasonsMain"
-        />
+                  android:theme="@style/AppTheme.NoActionBar"
+                  android:label="Seasons"
+            />
 
         <activity android:name=".com.grammar.trocket.resources.Alphabet"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="Alphabet"
-         />
+                  android:theme="@style/AppTheme.NoActionBar"
+                  android:label="Alphabet"
+            />
 
-        <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsFirstActivity" android:label="SeasonsFirstActivity"/>
-        <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsSecondActivity" android:label="SeasonsSecondActivity"/>
-        <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsThirdActivity" android:label="SeasonsThirdActivity"/>
-        <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsFourthActivity" android:label="SeasonsFourthActivity"/>
-        <activity android:name=".com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity" android:label="TextQuizMainActivity"/>
-        <activity android:name=".com.grammar.trocket.exercises.text_quiz.TextQuizStatisticsActivity" android:label="TextQuizStatisticsActivity"/>
-        <activity android:name=".com.grammar.trocket.exercises.audio_quiz.AudioQuizMainActivity" android:label="TextQuizStatisticsActivity"/>
-        <activity android:name=".com.grammar.trocket.exercises.Video" android:label="Video"   android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="landscape"/>
-        <activity android:name=".com.grammar.trocket.exercises.audio_quiz.AudioQuizStatisticsActivity" android:label="TextQuizStatisticsActivity"/>
-        <activity android:name=".com.grammar.trocket.resources.DaysOfTheWeek" android:theme="@style/AppTheme.NoActionBar" android:label="DaysOfTheWeek"/>
+        <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsFirstActivity" android:label="Seasons"/>
+        <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsSecondActivity" android:label="Seasons"/>
+        <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsThirdActivity" android:label="Seasons"/>
+        <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsFourthActivity" android:label="Seasons"/>
+        <activity android:name=".com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity" android:label=""/>
+        <activity android:name=".com.grammar.trocket.exercises.text_quiz.TextQuizStatisticsActivity" android:label=""/>
+        <activity android:name=".com.grammar.trocket.exercises.audio_quiz.AudioQuizMainActivity" android:label=""/>
+        <activity android:name=".com.grammar.trocket.exercises.Video" android:label=""/>
+        <activity android:name=".com.grammar.trocket.exercises.audio_quiz.AudioQuizStatisticsActivity" android:label=""/>
+        <activity android:name=".com.grammar.trocket.resources.DaysOfTheWeek" android:theme="@style/AppTheme.NoActionBar" android:label="Days Of The Week"/>
 
         <activity android:name=".com.grammar.trocket.exercises.image_quiz.Image_Quiz_Main"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="Image_Quiz_Main"
+                  android:theme="@style/AppTheme.NoActionBar"
+                  android:label=""
             />
-        <activity android:name=".com.grammar.trocket.exercises.image_quiz.Image_Quiz_Statistics" android:label="Image_Quiz_Stats"/>
-        <activity android:name=".com.grammar.trocket.exercises.multiple_quiz.Multiple_Quiz_Main_Activity" android:label="Multiple_Quiz_Main_Activity"/>
-        <activity android:name=".com.grammar.trocket.exercises.multiple_quiz.Multiple_Quiz_Statistics_Activity" android:label="Multiple_Quiz_Statistics_Activity"/>
+        <activity android:name=".com.grammar.trocket.exercises.image_quiz.Image_Quiz_Statistics" android:label=""/>
+        <activity android:name=".com.grammar.trocket.exercises.multiple_quiz.Multiple_Quiz_Main_Activity" android:label=""/>
+        <activity android:name=".com.grammar.trocket.exercises.multiple_quiz.Multiple_Quiz_Statistics_Activity" android:label=""/>
 
     </application>
 
