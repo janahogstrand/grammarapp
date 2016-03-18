@@ -34,19 +34,7 @@ public class Alphabet extends BaseActivityDrawer{
         super.onCreateDrawer();
         getDialect();
 
-
-
-        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                Alphabet.textToSpeech.setLanguage(new Locale("Es", "es"));
-                //For first TTS played
-//                if (status == TextToSpeech.SUCCESS) {
-//                    playAudio();
-//                }
-            }
-        });
-
+        initTTS();
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
 
         rv.setHasFixedSize(true);
@@ -98,6 +86,14 @@ public class Alphabet extends BaseActivityDrawer{
         return alphabetList;
     }
 
+    private void initTTS(){
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                Alphabet.textToSpeech.setLanguage(new Locale("Es", "es"));
+            }
+        });
+    }
 
     @Override
     protected void onDestroy() {

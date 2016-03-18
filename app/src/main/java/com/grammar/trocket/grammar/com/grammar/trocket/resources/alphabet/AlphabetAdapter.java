@@ -1,14 +1,19 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabet;
 
+import android.content.DialogInterface;
 import android.speech.tts.TextToSpeech;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.AlphabetDialog;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -27,17 +32,26 @@ public class AlphabetAdapter extends RecyclerView.Adapter<AlphabetAdapter.Alphab
     public class AlphabetViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         Locale language = new Locale("es", "ES");
+        ArrayList<AlphabetItem> alphabetList;
 
-        public AlphabetViewHolder(View itemView, ArrayList<AlphabetItem> alphabetList) {
+        public AlphabetViewHolder(final View itemView, final ArrayList<AlphabetItem> alphabetList) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
+            this.alphabetList = alphabetList;
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //stopAllSound();
-                    //initTTS(v.getContext());
-                    playAudio();
+                    //Check if it is a dictionary item
+                    if(alphabetList.get(getAdapterPosition()).getIsDictionary()){
+
+                        //TODO
+                        //Goes to new activity
+                        //Goes to correct index of that new activity to macth letter clicked
+
+                    }else {
+                        playAudio();
+                    }
                 }
             });
 
