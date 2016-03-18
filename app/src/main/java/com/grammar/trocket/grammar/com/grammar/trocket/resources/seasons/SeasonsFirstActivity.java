@@ -76,13 +76,13 @@ public class SeasonsFirstActivity extends AppCompatActivity {
             switch (clickedButton.getText().toString()) {
                 case "marzo":
                     //player = MediaPlayer.create(BigView.this, R.raw.placeholderaudio1);
-                    setAudio("https://dl.dropboxusercontent.com/1/view/55452sookpv6m84/uploads/tap_item/audio/1/Evil_Laugh_1-Timothy-64737261.mp3");
+                    setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
                     break;
                 case "abril":
-                    setAudio("https://dl.dropboxusercontent.com/1/view/55452sookpv6m84/uploads/tap_item/audio/1/Evil_Laugh_1-Timothy-64737261.mp3");
+                    setAudio("https://www.dropbox.com/s/7mga5icr0uweph/U01-E05.mp3?raw=1");
                     break;
                 case "mayo":
-                    setAudio("https://dl.dropboxusercontent.com/1/view/55452sookpv6m84/uploads/tap_item/audio/1/Evil_Laugh_1-Timothy-64737261.mp3");
+                    setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
                     break;
                 default:
                     player = null;
@@ -101,19 +101,15 @@ public class SeasonsFirstActivity extends AppCompatActivity {
      * If media player is running this will stop
      **/
     private void stopAllSound() {
-        try {
-            if (textToSpeech.isSpeaking()) {
-                textToSpeech.stop();
+        if (textToSpeech.isSpeaking()) {
+            textToSpeech.stop();
+        }
+        if (player != null) {
+            if (player.isPlaying()) {
+                player.stop();
+                player.reset();
+                player.release();
             }
-            if (player != null) {
-                if (player.isPlaying()) {
-                    player.stop();
-                    player.reset();
-                    player.release();
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -121,16 +117,12 @@ public class SeasonsFirstActivity extends AppCompatActivity {
      * Plays audio for a given address
      * @param address Address of audio URL
      * **/
-    private void setAudio(String address){
+    private void setAudio(String address) throws IOException{
         player = new MediaPlayer();
-        try {
             player.setAudioStreamType(AudioManager.STREAM_MUSIC);
             player.setDataSource(address);
             player.prepare();
             player.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**

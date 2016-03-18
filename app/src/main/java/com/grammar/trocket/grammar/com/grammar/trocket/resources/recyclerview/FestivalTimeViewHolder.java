@@ -3,7 +3,9 @@ package com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.Festivals;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,7 +32,7 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
     public TextView description;
     private View view;
     private List<FestivalTimeItem> data;
-    TextToSpeech textToSpeech;
+    public static TextToSpeech textToSpeech;
     Locale language = new Locale("es", "ES");
     MediaPlayer player;
 
@@ -45,6 +48,9 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
         description = (TextView) itemView.findViewById(R.id.description);
 
         view = itemView;
+
+        //AppCompatActivity app = (AppCompatActivity) view.getContext();
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,17 +60,20 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
 
             }
 
-            private void initTTS(Context context) {
-                textToSpeech = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
-                    @Override
-                    public void onInit(int status) {
-                        textToSpeech.setLanguage(language);
-                        //For first TTS played
-                        if (status == TextToSpeech.SUCCESS) {
-                            playAudio();
-                        }
-                    }
-                });
+
+        });
+    }
+
+
+    private void initTTS(Context context) {
+        textToSpeech = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                textToSpeech.setLanguage(language);
+                //For first TTS played
+                if (status == TextToSpeech.SUCCESS) {
+                    playAudio();
+                }
             }
         });
     }
@@ -78,9 +87,10 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
         stopAllSound();
         try {
             assignAudio(phrase);
+            //destroyAudio();
         } catch (Exception e) {
-            stopAllSound();
             textToSpeech.speak(phrase, TextToSpeech.QUEUE_FLUSH, null);
+            //destroyAudio();
         }
     }
 
@@ -91,18 +101,18 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
      *
      * @throws NullPointerException When no audio is found
      */
-    private void assignAudio(String text) {
+    private void assignAudio(String text) throws IOException {
         stopAllSound();
 
         switch (text) {
             case "Son las doce en punto":
-                setAudio("https://dl.dropboxusercontent.com/1/view/uv2fi3wdiz978wj/uploads/tap_item/audio/1/Evil_Laugh_1-Timothy-64737261.mp3");
+                setAudio("https://www.dropbox.com/s/7mga5icr0uweph/U01-E05.mp3?raw=1");
                 break;
             case "El Indianas":
-                setAudio("https://dl.dropboxusercontent.com/1/view/uv2fi3wdiz978wj/uploads/tap_item/audio/1/Evil_Laugh_1-Timothy-64737261.mp3");
+                setAudio("https://www.dropbox.com/s/7mga5icr0uweph/U01-E05.mp3?raw=1");
                 break;
             case "Es Test":
-                setAudio("https://dl.dropboxusercontent.com/1/view/uv2fi3wdiz978wj/uploads/tap_item/audio/1/Evil_Laugh_1-Timothy-64737261.mp3");
+                setAudio("https://www.dropbox.com/s/7mga5icr0uweph/U01-E05.mp3?raw=1");
                 break;
             default:
                 player = null;
@@ -112,14 +122,9 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * Stops all current sound
-     * If text to speech is running this will stop
      * If media player is running this will stop
      **/
     private void stopAllSound() {
-        try {
-            if (textToSpeech.isSpeaking()) {
-                textToSpeech.stop();
-            }
             if (player != null) {
                 if (player.isPlaying()) {
                     player.stop();
@@ -127,50 +132,21 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
                     player.release();
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /**
-     * Stes audio up
-     * */
-    private void setAudio(String address) {
+     * Plays audio for a given address
+     * @param address Address of audio URL
+     * **/
+    private void setAudio(String address) throws IOException{
         player = new MediaPlayer();
-        try {
-            player.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            player.setDataSource(address);
-            player.prepare();
-            player.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        player.setDataSource(address);
+        player.prepare();
+        player.start();
     }
-//
-//    /**
-//     * This method is called whenever an activity is closed or destroyed.
-//     * This method stops the textToSpeech object from running and
-//     * then destroys it inorder for it not to leak information.
-//     */
-//    @Override
-//    protected void onDestroy() {
-//        //Close the Text to Speech Library
-//        if(player != null){
-//            if (player.isPlaying()) {
-//                player.stop();
-//                player.reset();
-//                player.release();
-//                Log.d("Player released ", "Player Destroyed");
-//            }
-//        }
-//
-//        if (textToSpeech != null) {
-//            textToSpeech.stop();
-//            textToSpeech.shutdown();
-//            Log.d("-------------------", "TTS Destroyed");
-//        }
-//        super.onDestroy();
-//    }
+
+
 
 }
 

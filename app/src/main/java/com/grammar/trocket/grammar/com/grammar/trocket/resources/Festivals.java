@@ -1,18 +1,23 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.resources;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeAdapter;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeItem;
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +32,6 @@ import java.util.Locale;
  * data can retrieved from the database and
  * views will then be inflated
  *
- * @see BigView
  */
 public class Festivals extends BaseActivityDrawer {
     private List<FestivalTimeItem> festData;
@@ -102,4 +106,27 @@ public class Festivals extends BaseActivityDrawer {
         return imageAddress;
     }
 
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Really Exit?")
+                .setMessage("Are you sure you want to exit?")
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface arg0, int arg1) {
+//                        textToSpeech.stop();
+//                        FestivalTimeViewHolder.textToSpeech.shutdown();
+//                        Log.d("-------------------", "TTS Destroyed");
+                        Festivals.super.onBackPressed();
+                    }
+                }).create().show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        FestivalTimeViewHolder.textToSpeech.shutdown();
+        Log.d("-------------------", "TTS Destroyed");
+        super.onDestroy();
+    }
 }

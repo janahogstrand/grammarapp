@@ -42,6 +42,7 @@ public class FestivalTimeAdapter extends RecyclerView.Adapter<FestivalTimeViewHo
     public FestivalTimeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_festival, parent, false);
         FestivalTimeViewHolder viewHolder = new FestivalTimeViewHolder(v, festivalData);
+
         return viewHolder;
     }
 
