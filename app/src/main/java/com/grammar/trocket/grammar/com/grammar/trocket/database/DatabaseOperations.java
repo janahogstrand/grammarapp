@@ -1,71 +1,217 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.database;
 
+
 import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 
 /**
  * Created by ran on 16/03/16.
  */
-public class DatabaseOperations {
+public class DatabaseOperations extends SQLiteOpenHelper {
 
-    private Activity activity;
-    public DatabaseOperations(Activity activity) {
-        this.activity = activity;
+    private static DatabaseOperations sInstance;
+
+    public SQLiteStatement statement;
+
+//    public DatabaseOperations(Activity activity) {
+//        this.activity = activity;
+//    }
+
+    public static synchronized DatabaseOperations getInstance(Context context) {
+
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        // See this article for more information: http://bit.ly/6LRzfx
+        if (sInstance == null) {
+            sInstance = new DatabaseOperations(context.getApplicationContext());
+        }
+        return sInstance;
     }
 
-    private static SQLiteDatabase myDatabase;
-    protected SQLiteStatement statement;
+    private static final String DATABASE_NAME = "GrammarCourses";
+    private static final int DATABASE_VERSION = 1;
 
-    public Boolean databaseExists() {
-        File database = activity.getApplicationContext().getDatabasePath("GrammarCourses");
+    public DatabaseOperations(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
 
-        if (!database.exists()) {
-            // Database does not exist so copy it from assets here
-            return false;
-        } else {
-            return true;
-        }
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+
+        // creating required tables
+        createDB(db);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // on upgrade drop older tables
+        db.rawQuery("DROP TABLE IF EXISTS TableUpdate", null);
+        db.rawQuery("DROP TABLE IF EXISTS Course", null);
+        db.rawQuery("DROP TABLE IF EXISTS Dialect", null);
+        db.rawQuery("DROP TABLE IF EXISTS Content", null);
+        db.rawQuery("DROP TABLE IF EXISTS Video", null);
+        db.rawQuery("DROP TABLE IF EXISTS Quiz", null);
+        db.rawQuery("DROP TABLE IF EXISTS QuizQuestion", null);
+        db.rawQuery("DROP TABLE IF EXISTS QuizAnswer", null);
+        db.rawQuery("DROP TABLE IF EXISTS Tap", null);
+        db.rawQuery("DROP TABLE IF EXISTS TapItem", null);
+        db.rawQuery("DROP TABLE IF EXISTS ThumbnailTap", null);
+        db.rawQuery("DROP TABLE IF EXISTS ThumbnailTapItem", null);
+        db.rawQuery("DROP TABLE IF EXISTS Cluster", null);
+        db.rawQuery("DROP TABLE IF EXISTS ClusterItem", null);
+        db.rawQuery("DROP TABLE IF EXISTS ClusterSubItem", null);
+        db.rawQuery("DROP TABLE IF EXISTS Dictionary", null);
+        db.rawQuery("DROP TABLE IF EXISTS DictionaryLetter", null);
+        db.rawQuery("DROP TABLE IF EXISTS DictionaryWord", null);
+
+        // create new tables
+        onCreate(db);
     }
 
 
-    public synchronized void DatabaseSetup() {
-        try {
-            if(databaseExists()) {
-                myDatabase = activity.openOrCreateDatabase("GrammarCourses", activity.MODE_PRIVATE, null);
+    public void DatabaseSetup() {
+        SQLiteDatabase myDatabase = this.getWritableDatabase();
+//        try {
+//            if(databaseExists()) {
+//
+//                // Check 'updated at' time. If remote time is later than local time, download data for all tables.
+////                updateDBTable("http://grammarapp.herokuapp.com/api/courses", "Course");
+//                // So abstract DB insertion from the else branch so that both can use it.
+//                checkDB();
+////                Cursor course = selectDBTable("Course");
+//            } else {
+//                createDB();
+////                Cursor course = selectDBTable("Course");
+//            }
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//        }
+    }
 
-                // Check 'updated at' time. If remote time is later than local time, download data for all tables.
-//                updateDBTable("http://grammarapp.herokuapp.com/api/courses", "Course");
-                // So abstract DB insertion from the else branch so that both can use it.
-                checkDB();
-//                Cursor course = selectDBTable("Course");
-            } else {
-                myDatabase = activity.openOrCreateDatabase("GrammarCourses", activity.MODE_PRIVATE, null);
-                createDB();
-//                Cursor course = selectDBTable("Course");
-            }
 
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+    public void checkDB() {
+        SQLiteDatabase myDatabase = this.getWritableDatabase();
+//        CheckDBTask task = new CheckDBTask();
+//        task.execute("http://grammarapp.herokuapp.com/api/table_updates", "TableUpdate");
+    }
+
+//    public Boolean databaseExists() {
+//        File database = activity.getApplicationContext().getDatabasePath("GrammarCourses");
+//
+//        if (!database.exists()) {
+//            // Database does not exist so copy it from assets here
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
+
+    public Cursor selectDBTable(String table) {
+        SQLiteDatabase myDatabase = this.getWritableDatabase();
+        Cursor c = myDatabase.rawQuery("SELECT * FROM " + table, null);
+//        while (c.moveToNext()) {
+//            Log.i("Select", c.getString(c.getColumnIndex("name")));
+//        }
+        return c;
+    }
+
+    public void updateDBTable(String url, String table) {
+        UpdateDBTask task = new UpdateDBTask();
+        task.execute(url, table, "insert");
+    }
+
+
+    public void createDB(SQLiteDatabase myDatabase) {
+
+
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS TableUpdate (_id INTEGER NOT NULL PRIMARY KEY, tableName VARCHAR(50), updateTime VARCHAR(24))");
+
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Course (_id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(50), creator VARCHAR(50), password VARCHAR(50), Created DATETIME, LastEdit DATETIME)");
+
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Category (_id INTEGER NOT NULL PRIMARY KEY, courseId INTEGER, type VARCHAR(6), internalName VARCHAR(50), name VARCHAR(50) NOT NULL, iconURL TEXT, content INTEGER, hierarchy INTEGER, hasDialect INTEGER, parentId INTEGER, depth INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Dialect (_id INTEGER NOT NULL PRIMARY KEY, courseId INTEGER, name VARCHAR(50), code VARCHAR(15), Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Content (_id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(50), Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Video (_id INTEGER NOT NULL PRIMARY KEY, categoryId INTEGER, URL TEXT, subtitledURL TEXT, hierarchy INTEGER, dialectId INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Quiz (_id INTEGER NOT NULL PRIMARY KEY, categoryId INTEGER, imageURL TEXT, instruction TEXT, type VARCHAR(10), hierarchy INTEGER, dialectId INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS QuizQuestion (_id INTEGER NOT NULL PRIMARY KEY, quizId INTEGER, audioURL TEXT, wording TEXT, hierarchy INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS QuizAnswer (_id INTEGER NOT NULL PRIMARY KEY, quizQuestionId INTEGER, imageURL TEXT, wording TEXT, hierarchy INTEGER, correct INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS QuizCompletion (_id INTEGER NOT NULL PRIMARY KEY, quizId INTEGER, completed INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Tap (_id INTEGER NOT NULL PRIMARY KEY, categoryId INTEGER, title TEXT, instruction TEXT, help TEXT, dialectId INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS TapItem (_id INTEGER NOT NULL PRIMARY KEY, tapId INTEGER, label TEXT, pronunciation TEXT, audioURL TEXT, hierarchy INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS ThumbnailTap (_id INTEGER NOT NULL PRIMARY KEY, categoryId INTEGER, title TEXT, instruction TEXT, help TEXT, dialectId INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS ThumbnailTapItem (_id INTEGER NOT NULL PRIMARY KEY, thumbnailTapId INTEGER, name TEXT, translation TEXT, thumbnailURL TEXT, fullImageURL TEXT, audioURL TEXT, hierarchy INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Cluster (_id INTEGER NOT NULL PRIMARY KEY, categoryId INTEGER, title TEXT, instruction TEXT, help TEXT, dialectId INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS ClusterItem (_id INTEGER NOT NULL PRIMARY KEY, clusterId INTEGER, name TEXT, imageURL TEXT, hierarchy INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS ClusterSubItem (_id INTEGER NOT NULL PRIMARY KEY, clusterItemId INTEGER, name TEXT, description TEXT, clickable INTEGER, audioURL TEXT, hierarchy INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Dictionary (_id INTEGER NOT NULL PRIMARY KEY, courseId INTEGER, title TEXT, instruction TEXT, help TEXT, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS DictionaryLetter (_id INTEGER NOT NULL PRIMARY KEY, dictionaryId INTEGER, label VARCHAR(10), hierarchy INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS DictionaryWord (_id INTEGER NOT NULL PRIMARY KEY, dictionaryLetterId INTEGER, label VARCHAR(10), hierarchy INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+
+        updateDBTable("http://grammarapp.herokuapp.com/api/table_updates", "TableUpdate");
+        updateDBTable("http://grammarapp.herokuapp.com/api/courses", "Course");
+        updateDBTable("http://grammarapp.herokuapp.com/api/categories", "Category");
+        updateDBTable("http://grammarapp.herokuapp.com/api/dialects", "Dialect");
+        updateDBTable("http://grammarapp.herokuapp.com/api/contents", "Content");
+        updateDBTable("http://grammarapp.herokuapp.com/api/videos", "Video");
+        updateDBTable("http://grammarapp.herokuapp.com/api/quizzes", "Quiz");
+        updateDBTable("http://grammarapp.herokuapp.com/api/quiz_questions", "QuizQuestion");
+        updateDBTable("http://grammarapp.herokuapp.com/api/quiz_answers", "QuizAnswer");
+        updateDBTable("http://grammarapp.herokuapp.com/api/taps", "Tap");
+        updateDBTable("http://grammarapp.herokuapp.com/api/tap_items", "TapItem");
+        updateDBTable("http://grammarapp.herokuapp.com/api/thumbnail_taps", "ThumbnailTap");
+        updateDBTable("http://grammarapp.herokuapp.com/api/thumbnail_tap_items", "ThumbnailTapItem");
+        updateDBTable("http://grammarapp.herokuapp.com/api/clusters", "Cluster");
+        updateDBTable("http://grammarapp.herokuapp.com/api/cluster_items", "ClusterItem");
+        updateDBTable("http://grammarapp.herokuapp.com/api/cluster_sub_items", "ClusterSubItem");
+        updateDBTable("http://grammarapp.herokuapp.com/api/dictionaries", "Dictionary");
+        updateDBTable("http://grammarapp.herokuapp.com/api/dictionary_letters", "DictionaryLetter");
+        updateDBTable("http://grammarapp.herokuapp.com/api/dictionary_words", "DictionaryWord");
+
     }
 
 
     public void checkUpdateTimes(String result) {
+        SQLiteDatabase myDatabase = this.getWritableDatabase();
         try {
             JSONArray jsonArray = new JSONArray(result);
 
             HashMap<String, String> hmap = new HashMap<>();
 
-            myDatabase = activity.openOrCreateDatabase("GrammarCourses", activity.MODE_PRIVATE, null);
 
             try (Cursor c = myDatabase.rawQuery("SELECT * FROM TableUpdate", null)) {
                 Log.i("Count", String.valueOf(c.getCount()));
@@ -87,19 +233,22 @@ public class DatabaseOperations {
                 }
             }
 
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
     }
 
-    public void insertIntoDB(String result, String table) {
+
+    public synchronized void insertIntoDB(String result, String table) {
+        SQLiteDatabase myDatabase = this.getWritableDatabase();
         try {
 
             JSONArray jsonArray = new JSONArray(result);
 
             String query = "INSERT INTO " + table + " ";
-            myDatabase = activity.openOrCreateDatabase("GrammarCourses", activity.MODE_PRIVATE, null);
 
             switch (table) {
                 case "TableUpdate":
@@ -112,6 +261,7 @@ public class DatabaseOperations {
                         statement.bindString(2, jsonArray.getJSONObject(i).getString("tableName"));
                         statement.bindString(3, jsonArray.getJSONObject(i).getString("updateTime"));
                         statement.execute();
+//                        Log.i("I", jsonArray.getJSONObject(i).getString("tableName"));
                     }
                     myDatabase.setTransactionSuccessful();
                     myDatabase.endTransaction();
@@ -459,105 +609,119 @@ public class DatabaseOperations {
         }
     }
 
+    public class CheckDBTask extends AsyncTask<String, Void, String> {
 
-    public synchronized void createDB() {
-        myDatabase = activity.openOrCreateDatabase("GrammarCourses", activity.MODE_PRIVATE, null);
+//    ProgressDialog progDailog = new ProgressDialog(MainActivity.this);
+//
+//    @Override
+//    protected void onPreExecute() {
+//        super.onPreExecute();
+//        progDailog.setMessage("Loading...");
+//        progDailog.setIndeterminate(false);
+//        progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        progDailog.setCancelable(true);
+//        progDailog.show();
+//    }
 
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS TableUpdate (_id INTEGER NOT NULL PRIMARY KEY, tableName VARCHAR(50), updateTime VARCHAR(24))");
+        @Override
+        protected String doInBackground(String... params) {
 
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Course (_id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(50), creator VARCHAR(50), password VARCHAR(50), Created DATETIME, LastEdit DATETIME)");
+            String result = "";
+            URL url;
+            HttpURLConnection urlConnection = null;
+            try {
+                url = new URL(params[0]);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                InputStream in = urlConnection.getInputStream();
+                InputStreamReader isr = new InputStreamReader(in);
 
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Category (_id INTEGER NOT NULL PRIMARY KEY, courseId INTEGER, type VARCHAR(6), internalName VARCHAR(50), name VARCHAR(50) NOT NULL, iconURL TEXT, content INTEGER, hierarchy INTEGER, hasDialect INTEGER, parentId INTEGER, depth INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+                int data = isr.read();
 
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Dialect (_id INTEGER NOT NULL PRIMARY KEY, courseId INTEGER, name VARCHAR(50), code VARCHAR(15), Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+                while(data != -1) {
+                    result += (char) data;
+                    data = isr.read();
+                }
 
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Content (_id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(50), Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+                checkUpdateTimes(result);
 
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Video (_id INTEGER NOT NULL PRIMARY KEY, categoryId INTEGER, URL TEXT, subtitledURL TEXT, hierarchy INTEGER, dialectId INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+                return result;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Quiz (_id INTEGER NOT NULL PRIMARY KEY, categoryId INTEGER, imageURL TEXT, instruction TEXT, type VARCHAR(10), hierarchy INTEGER, dialectId INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
 
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS QuizQuestion (_id INTEGER NOT NULL PRIMARY KEY, quizId INTEGER, audioURL TEXT, wording TEXT, hierarchy INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+            return result;
+        }
 
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS QuizAnswer (_id INTEGER NOT NULL PRIMARY KEY, quizQuestionId INTEGER, imageURL TEXT, wording TEXT, hierarchy INTEGER, correct INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
-
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS QuizCompletion (_id INTEGER NOT NULL PRIMARY KEY, quizId INTEGER, completed INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
-
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Tap (_id INTEGER NOT NULL PRIMARY KEY, categoryId INTEGER, title TEXT, instruction TEXT, help TEXT, dialectId INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
-
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS TapItem (_id INTEGER NOT NULL PRIMARY KEY, tapId INTEGER, label TEXT, pronunciation TEXT, audioURL TEXT, hierarchy INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
-
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS ThumbnailTap (_id INTEGER NOT NULL PRIMARY KEY, categoryId INTEGER, title TEXT, instruction TEXT, help TEXT, dialectId INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
-
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS ThumbnailTapItem (_id INTEGER NOT NULL PRIMARY KEY, thumbnailTapId INTEGER, name TEXT, translation TEXT, thumbnailURL TEXT, fullImageURL TEXT, audioURL TEXT, hierarchy INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
-
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Cluster (_id INTEGER NOT NULL PRIMARY KEY, categoryId INTEGER, title TEXT, instruction TEXT, help TEXT, dialectId INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
-
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS ClusterItem (_id INTEGER NOT NULL PRIMARY KEY, clusterId INTEGER, name TEXT, imageURL TEXT, hierarchy INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
-
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS ClusterSubItem (_id INTEGER NOT NULL PRIMARY KEY, clusterItemId INTEGER, name TEXT, description TEXT, clickable INTEGER, audioURL TEXT, hierarchy INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
-
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Dictionary (_id INTEGER NOT NULL PRIMARY KEY, courseId INTEGER, title TEXT, instruction TEXT, help TEXT, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
-
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS DictionaryLetter (_id INTEGER NOT NULL PRIMARY KEY, dictionaryId INTEGER, label VARCHAR(10), hierarchy INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
-
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS DictionaryWord (_id INTEGER NOT NULL PRIMARY KEY, dictionaryLetterId INTEGER, label VARCHAR(10), hierarchy INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
-
-        updateDBTable("http://grammarapp.herokuapp.com/api/table_updates", "TableUpdate");
-        updateDBTable("http://grammarapp.herokuapp.com/api/courses", "Course");
-        updateDBTable("http://grammarapp.herokuapp.com/api/categories", "Category");
-        updateDBTable("http://grammarapp.herokuapp.com/api/dialects", "Dialect");
-        updateDBTable("http://grammarapp.herokuapp.com/api/contents", "Content");
-//                updateDBTable("http://grammarapp.herokuapp.com/api/videos", "Video");
-        updateDBTable("http://grammarapp.herokuapp.com/api/quizzes", "Quiz");
-        updateDBTable("http://grammarapp.herokuapp.com/api/quiz_questions", "QuizQuestion");
-        updateDBTable("http://grammarapp.herokuapp.com/api/quiz_answers", "QuizAnswer");
-        updateDBTable("http://grammarapp.herokuapp.com/api/taps", "Tap");
-        updateDBTable("http://grammarapp.herokuapp.com/api/tap_items", "TapItem");
-        updateDBTable("http://grammarapp.herokuapp.com/api/thumbnail_taps", "ThumbnailTap");
-        updateDBTable("http://grammarapp.herokuapp.com/api/thumbnail_tap_items", "ThumbnailTapItem");
-        updateDBTable("http://grammarapp.herokuapp.com/api/clusters", "Cluster");
-        updateDBTable("http://grammarapp.herokuapp.com/api/cluster_items", "ClusterItem");
-        updateDBTable("http://grammarapp.herokuapp.com/api/cluster_sub_items", "ClusterSubItem");
-        updateDBTable("http://grammarapp.herokuapp.com/api/dictionaries", "Dictionary");
-        updateDBTable("http://grammarapp.herokuapp.com/api/dictionary_letters", "DictionaryLetter");
-        updateDBTable("http://grammarapp.herokuapp.com/api/dictionary_words", "DictionaryWord");
+//    @Override
+//    protected void onPostExecute(String result) {
+//        super.onPostExecute(result);
+//        progDailog.dismiss();
+//    }
     }
 
 
-    public void updateDBTable(String url, String table) {
-        myDatabase = activity.openOrCreateDatabase("GrammarCourses", activity.MODE_PRIVATE, null);
-        UpdateDBTask task = new UpdateDBTask(activity);
-        task.execute(url, table, "insert");
+    public class UpdateDBTask extends AsyncTask<String, Void, String> {
+
+//        public UpdateDBTask(SQLiteDatabase db) {
+//            myDatabase = db;
+//        }
+
+//    ProgressDialog progDailog = new ProgressDialog(MainActivity.this);
+//
+//    @Override
+//    protected void onPreExecute() {
+//        super.onPreExecute();
+//        progDailog.setMessage("Loading...");
+//        progDailog.setIndeterminate(false);
+//        progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        progDailog.setCancelable(true);
+//        progDailog.show();
+//    }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String result = "";
+            URL url;
+            HttpURLConnection urlConnection = null;
+            try {
+                url = new URL(params[0]);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                InputStream in = urlConnection.getInputStream();
+                InputStreamReader isr = new InputStreamReader(in);
+
+                int data = isr.read();
+
+                while(data != -1) {
+                    result += (char) data;
+                    data = isr.read();
+                }
+
+                insertIntoDB(result, params[1]);
+
+                return result;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return result;
+        }
+
+//    @Override
+//    protected void onPostExecute(String result) {
+//        super.onPostExecute(result);
+//        progDailog.dismiss();
+//    }
     }
-
-
-    public void checkDB() {
-//        myDatabase = activity.openOrCreateDatabase("GrammarCourses", activity.MODE_PRIVATE, null);
-//        CheckDBTask task = new CheckDBTask();
-//        task.execute("http://grammarapp.herokuapp.com/api/table_updates", "TableUpdate");
-//        myDatabase.close();
-    }
-
-
-    public synchronized Cursor selectDBTable(String table) {
-        myDatabase = activity.openOrCreateDatabase("GrammarCourses", activity.MODE_PRIVATE, null);
-        Cursor c = myDatabase.rawQuery("SELECT * FROM " + table, null);
-        return c;
-    }
-
-    public synchronized Cursor selectDBTable(String table, String argument) {
-        myDatabase = activity.openOrCreateDatabase("GrammarCourses", activity.MODE_PRIVATE, null);
-        Cursor c = myDatabase.rawQuery("SELECT * FROM " + table + " " + argument, null);
-        return c;
-    }
-
-    public synchronized Cursor queryDB(String query) {
-        myDatabase = activity.openOrCreateDatabase("GrammarCourses", activity.MODE_PRIVATE, null);
-        Cursor c = myDatabase.rawQuery(query, null);
-        return c;
-    }
-
-
 
 }
+
+
+
+
