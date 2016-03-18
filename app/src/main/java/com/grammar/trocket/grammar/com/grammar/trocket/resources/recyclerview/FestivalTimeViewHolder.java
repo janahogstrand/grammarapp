@@ -3,9 +3,7 @@ package com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
-import com.grammar.trocket.grammar.com.grammar.trocket.resources.Festivals;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,7 +31,7 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
     private List<FestivalTimeItem> data;
     public static TextToSpeech textToSpeech;
     Locale language = new Locale("es", "ES");
-    MediaPlayer player;
+    public static MediaPlayer player;
 
 
     /**
@@ -55,6 +52,7 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 //Get context
+                stopAllSound();
                 Context context = v.getContext();
                 initTTS(context);
 
@@ -66,6 +64,7 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
 
 
     private void initTTS(Context context) {
+        //stopAllSound();
         textToSpeech = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -84,7 +83,7 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
      **/
     private void playAudio() {
         String phrase = data.get(getAdapterPosition()).getSpanishName().toString();
-        stopAllSound();
+        //stopAllSound();
         try {
             assignAudio(phrase);
             //destroyAudio();
@@ -102,11 +101,11 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
      * @throws NullPointerException When no audio is found
      */
     private void assignAudio(String text) throws IOException {
-        stopAllSound();
+        //stopAllSound();
 
         switch (text) {
             case "Son las doce en punto":
-                setAudio("https://www.dropbox.com/s/7mga5icr0uweph/U01-E05.mp3?raw=1");
+                setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
                 break;
             case "El Indianas":
                 setAudio("https://www.dropbox.com/s/7mga5icr0uweph/U01-E05.mp3?raw=1");
@@ -125,27 +124,33 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
      * If media player is running this will stop
      **/
     private void stopAllSound() {
-            if (player != null) {
-                if (player.isPlaying()) {
-                    player.stop();
-                    player.reset();
-                    player.release();
-                }
+        if (textToSpeech != null) {
+                textToSpeech.stop();
+                textToSpeech.shutdown();
+                Log.w("Player released", "TTS Shutdown");
+        }
+        if (player != null) {
+            if (player.isPlaying()) {
+                player.stop();
+                player.reset();
+                player.release();
+                Log.w("Player released", "Audio Released");
             }
+        }
     }
 
     /**
      * Plays audio for a given address
+     *
      * @param address Address of audio URL
-     * **/
-    private void setAudio(String address) throws IOException{
+     **/
+    private void setAudio(String address) throws IOException {
         player = new MediaPlayer();
         player.setAudioStreamType(AudioManager.STREAM_MUSIC);
         player.setDataSource(address);
         player.prepare();
         player.start();
     }
-
 
 
 }

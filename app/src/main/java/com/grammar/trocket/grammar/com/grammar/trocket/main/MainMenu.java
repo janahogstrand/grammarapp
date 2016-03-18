@@ -50,8 +50,8 @@ public class MainMenu extends BaseActivityDrawer {
 //        getApplicationContext().deleteDatabase("GrammarCourses");
         //dbOps.DatabaseSetup();
 //        Cursor result = dbOps.queryDB("SELECT * FROM Course AS co JOIN Category AS ca ON co._id=ca.courseId WHERE co.name='Spanish'");
-        Cursor result = dbOps.selectDBTable("Course");
-        Log.i("Select Count", Integer.toString(result.getCount()));
+ //       Cursor result = dbOps.selectDBTable("Course");
+//        Log.i("Select Count", Integer.toString(result.getCount()));
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());

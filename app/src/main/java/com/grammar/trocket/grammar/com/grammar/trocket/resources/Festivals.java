@@ -125,8 +125,11 @@ public class Festivals extends BaseActivityDrawer {
 
     @Override
     protected void onDestroy() {
-        FestivalTimeViewHolder.textToSpeech.shutdown();
-        Log.d("-------------------", "TTS Destroyed");
+        if(FestivalTimeViewHolder.textToSpeech != null){
+            FestivalTimeViewHolder.textToSpeech.shutdown();
+            Log.d("-------------------", "TTS Destroyed");
+
+        }
         super.onDestroy();
     }
 }
