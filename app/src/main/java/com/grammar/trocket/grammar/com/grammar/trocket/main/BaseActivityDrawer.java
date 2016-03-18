@@ -63,10 +63,6 @@ public class BaseActivityDrawer extends AppCompatActivity implements NavigationV
             closeDrawer();
         }
 
-        if (id == R.id.nav_glossary)
-        {
-            closeDrawer();
-        }
 
         if (id == R.id.nav_record_audio)
         {

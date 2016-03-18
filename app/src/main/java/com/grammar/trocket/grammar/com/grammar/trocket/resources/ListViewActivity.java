@@ -102,7 +102,7 @@ public class ListViewActivity extends BaseActivityDrawer {
                 MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.placeholderaudio1);
                 mediaPlayers.add(mediaPlayer);
             }else {
-                MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.placeholderaudio2);
+                MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.placeholderaudio1);
                 mediaPlayers.add(mediaPlayer);
             }
 
