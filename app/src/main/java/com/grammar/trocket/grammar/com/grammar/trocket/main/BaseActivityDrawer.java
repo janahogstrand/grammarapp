@@ -1,5 +1,6 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.main;
 
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -8,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleSelection;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.VoiceRecording;
 
 /**
@@ -54,8 +56,9 @@ public class BaseActivityDrawer extends AppCompatActivity implements NavigationV
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_add_module) {
-            closeDrawer();
-            // Handle the camera action
+            //closeDrawer();
+            Intent intent = new Intent(this, ModuleSelection.class);
+            startActivity(intent);
         }
 
         if (id == R.id.nav_credits)

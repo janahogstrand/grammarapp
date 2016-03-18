@@ -37,7 +37,7 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
     /**
      * Constructor adds on click
      **/
-    FestivalTimeViewHolder(View itemView, final List<FestivalTimeItem> data) {
+    public FestivalTimeViewHolder(View itemView, final List<FestivalTimeItem> data) {
         super(itemView);
         this.data = data;
         festivalPicture = (ImageView) itemView.findViewById(R.id.festival_picture);
