@@ -20,7 +20,7 @@ public class ModuleSelection extends BaseActivityDrawer {
 
     private ArrayList<ModuleItem> moduleData;
     private ModuleAdapter moduleAdapter;
-    public final static String LANGUAGE = "com.grammar.trocket.grammar.com.grammar.trocket.main.language";
+    public static String LANGUAGE = "com.grammar.trocket.grammar.com.grammar.trocket.main.language";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

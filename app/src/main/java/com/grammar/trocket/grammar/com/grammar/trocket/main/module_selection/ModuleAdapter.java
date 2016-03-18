@@ -1,5 +1,6 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeViewHolder;
 
 import java.util.ArrayList;
@@ -36,8 +38,11 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleView
                             "com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection", v.getContext().MODE_PRIVATE);
 
                     prefs.edit().putString(ModuleSelection.LANGUAGE, title.getText().toString()).apply();
-                    String lang = prefs.getString(ModuleSelection.LANGUAGE, new String());
-                    Log.w("Prefs are: ", lang );
+                    MainMenu.MainLanguage = prefs.getString(ModuleSelection.LANGUAGE, new String());
+                    Log.w("Prefs are: ", MainMenu.MainLanguage);
+
+                    Intent intent = new Intent(view.getContext(), MainMenu.class);
+                    view.getContext().startActivity(intent);
                 }
             });
 

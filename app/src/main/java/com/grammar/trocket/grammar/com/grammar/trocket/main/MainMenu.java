@@ -20,7 +20,7 @@ import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabResources
 public class MainMenu extends BaseActivityDrawer {
 
     //TODO Shared prefs
-    public final static String MainLanguage = "com.grammar.trocket.grammar.com.grammar.trocket.main.Spanish";
+    public static String MainLanguage = "Spanish";
     public static DatabaseOperations db;
 
     /**
