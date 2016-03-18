@@ -61,38 +61,29 @@ public class BaseActivityDrawer extends AppCompatActivity implements NavigationV
             startActivity(intent);
         }
 
-        if (id == R.id.nav_credits)
-        {
+        if (id == R.id.nav_credits) {
             closeDrawer();
         }
 
 
-        if (id == R.id.nav_record_audio)
-        {
-            if(startRecording)
-            {
+        if (id == R.id.nav_record_audio) {
+            if (startRecording) {
                 v.OnRecord(true, this.getApplicationContext());
                 item.setTitle("Stop Recording");
                 startRecording = false;
-            }
-            else
-            {
+            } else {
                 v.OnRecord(false, this.getApplicationContext());
                 item.setTitle("Record Audio");
                 startRecording = true;
             }
         }
 
-        if(id == R.id.nav_play_audio)
-        {
-            if(startPlaying)
-            {
+        if (id == R.id.nav_play_audio) {
+            if (startPlaying) {
                 v.onPlay(true);
-               item.setTitle("Stop Playing");
+                item.setTitle("Stop Playing");
                 startPlaying = false;
-            }
-            else
-            {
+            } else {
                 v.onPlay(false);
                 item.setTitle("Play Recording");
                 startPlaying = true;
@@ -102,8 +93,7 @@ public class BaseActivityDrawer extends AppCompatActivity implements NavigationV
         return true;
     }
 
-    public void closeDrawer()
-    {
+    public void closeDrawer() {
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.closeDrawer(GravityCompat.START);
     }

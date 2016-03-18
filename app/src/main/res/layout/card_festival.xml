@@ -24,7 +24,7 @@
             android:layout_below="@+id/festival_picture"
             android:maxLines="6"
             android:padding="8dp"
-            android:text="Super long spanish phrase Super long spanish phrase Super long spanish phrase Super long spanish phrase Super long spanish phrase Super long spanish phrase"
+            android:text=""
             android:textColor="#222"
             android:textStyle="bold"
             android:textSize="22sp" />
@@ -35,7 +35,7 @@
             android:layout_below="@+id/title"
             android:maxLines="3"
             android:padding="8dp"
-            android:text="Super long spanish phrase Super long spanish phrase Super long spanish phrase Super long spanish phrase Super long spanish phrase Super long spanish phrase"
+            android:text=""
             android:textColor="#666"
             android:textSize="14sp" />
 

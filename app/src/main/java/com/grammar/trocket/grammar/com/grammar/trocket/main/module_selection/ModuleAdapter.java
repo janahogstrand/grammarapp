@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
-import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeViewHolder;
 
 import java.util.ArrayList;
 
@@ -20,11 +19,12 @@ import java.util.ArrayList;
  */
 public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleViewHolder> {
 
-    private  ArrayList<ModuleItem> moduleData;
+    private ArrayList<ModuleItem> moduleData;
 
     public class ModuleViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
         private View view;
+
         public ModuleViewHolder(View itemView, ArrayList<ModuleItem> moduleData) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
@@ -50,7 +50,7 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleView
         }
     }
 
-    public ModuleAdapter(ArrayList<ModuleItem> moduleData){
+    public ModuleAdapter(ArrayList<ModuleItem> moduleData) {
         this.moduleData = moduleData;
     }
 

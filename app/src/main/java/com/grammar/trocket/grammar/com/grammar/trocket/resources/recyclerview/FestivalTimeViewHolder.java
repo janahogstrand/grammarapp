@@ -46,7 +46,6 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
 
         view = itemView;
 
-        //AppCompatActivity app = (AppCompatActivity) view.getContext();
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,9 +124,9 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
      **/
     private void stopAllSound() {
         if (textToSpeech != null) {
-                textToSpeech.stop();
-                textToSpeech.shutdown();
-                Log.w("Player released", "TTS Shutdown");
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+            Log.w("Player released", "TTS Shutdown");
         }
         if (player != null) {
             if (player.isPlaying()) {
