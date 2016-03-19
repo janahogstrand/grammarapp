@@ -26,6 +26,7 @@ public class Alphabet extends BaseActivityDrawer{
     private ArrayList<AlphabetItem> alphabetList;
     public static String dialect;
     public static TextToSpeech textToSpeech;
+    public static final String LETTER = "com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabet.LETTER";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
