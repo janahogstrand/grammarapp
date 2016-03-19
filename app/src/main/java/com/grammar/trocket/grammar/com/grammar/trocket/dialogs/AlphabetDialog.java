@@ -54,7 +54,7 @@ public class AlphabetDialog extends AlertDialog.Builder {
      * @param translations List of possible dialects
      **/
     public void addListContent(final Context context, final ArrayAdapter<String> translations) {
-        this.setTitle("Dictionary");
+        this.setTitle("DictionaryItemsList");
 
 
 

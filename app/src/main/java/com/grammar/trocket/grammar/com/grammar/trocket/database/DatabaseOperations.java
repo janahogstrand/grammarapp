@@ -78,7 +78,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         db.rawQuery("DROP TABLE IF EXISTS Cluster", null);
         db.rawQuery("DROP TABLE IF EXISTS ClusterItem", null);
         db.rawQuery("DROP TABLE IF EXISTS ClusterSubItem", null);
-        db.rawQuery("DROP TABLE IF EXISTS Dictionary", null);
+        db.rawQuery("DROP TABLE IF EXISTS DictionaryItemsList", null);
         db.rawQuery("DROP TABLE IF EXISTS DictionaryLetter", null);
         db.rawQuery("DROP TABLE IF EXISTS DictionaryWord", null);
 
@@ -176,7 +176,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
 
         myDatabase.execSQL("CREATE TABLE IF NOT EXISTS ClusterSubItem (_id INTEGER NOT NULL PRIMARY KEY, clusterItemId INTEGER, name TEXT, description TEXT, clickable INTEGER, audioURL TEXT, hierarchy INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
 
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Dictionary (_id INTEGER NOT NULL PRIMARY KEY, courseId INTEGER, title TEXT, instruction TEXT, help TEXT, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS DictionaryItemsList (_id INTEGER NOT NULL PRIMARY KEY, courseId INTEGER, title TEXT, instruction TEXT, help TEXT, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
 
         myDatabase.execSQL("CREATE TABLE IF NOT EXISTS DictionaryLetter (_id INTEGER NOT NULL PRIMARY KEY, dictionaryId INTEGER, label VARCHAR(10), hierarchy INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
 
@@ -198,7 +198,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         updateDBTable("http://grammarapp.herokuapp.com/api/clusters", "Cluster");
         updateDBTable("http://grammarapp.herokuapp.com/api/cluster_items", "ClusterItem");
         updateDBTable("http://grammarapp.herokuapp.com/api/cluster_sub_items", "ClusterSubItem");
-        updateDBTable("http://grammarapp.herokuapp.com/api/dictionaries", "Dictionary");
+        updateDBTable("http://grammarapp.herokuapp.com/api/dictionaries", "DictionaryItemsList");
         updateDBTable("http://grammarapp.herokuapp.com/api/dictionary_letters", "DictionaryLetter");
         updateDBTable("http://grammarapp.herokuapp.com/api/dictionary_words", "DictionaryWord");
 
@@ -551,7 +551,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
                     myDatabase.endTransaction();
                     break;
 
-                case "Dictionary":
+                case "DictionaryItemsList":
                     query += "(_id, courseId, title, instruction, help, Created, LastEdit) VALUES (?, ?, ?, ?, ?, ?, ?)";
                     myDatabase.beginTransaction();
                     statement = myDatabase.compileStatement(query);

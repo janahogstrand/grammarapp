@@ -1,20 +1,15 @@
-package com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabet;
+package com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.speech.tts.TextToSpeech;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
-import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.AlphabetDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 
 import java.util.ArrayList;
@@ -23,13 +18,17 @@ import java.util.Locale;
 /**
  * Created by jamiemoreland on 18/03/16.
  */
-public class AlphabetAdapter extends RecyclerView.Adapter<AlphabetAdapter.AlphabetViewHolder> {
+public class DictionaryAlphabetAdapter extends RecyclerView.Adapter<DictionaryAlphabetAdapter.AlphabetViewHolder> {
 
     private ArrayList<AlphabetItem> alphabetList;
+    private int itemPositionAlphabet = 0;
+    private int itemPositionDictionary = 0;
+    private String callerName;
     Intent intent;
 
-    public AlphabetAdapter(ArrayList<AlphabetItem> alphabetList) {
+    public DictionaryAlphabetAdapter(ArrayList<AlphabetItem> alphabetList, String callerName) {
         this.alphabetList = alphabetList;
+        this.callerName = callerName;
     }
 
     public class AlphabetViewHolder extends RecyclerView.ViewHolder {
@@ -39,8 +38,8 @@ public class AlphabetAdapter extends RecyclerView.Adapter<AlphabetAdapter.Alphab
 
         /**
          * Plays auudio if alphabet
-         * otherwise goes to new Dictionary activity
-         * @see Dictionary
+         * otherwise goes to new DictionaryItemsList activity
+         * @see DictionaryItemsList
          **/
         public AlphabetViewHolder(final View itemView, final ArrayList<AlphabetItem> alphabetList) {
             super(itemView);
@@ -55,7 +54,7 @@ public class AlphabetAdapter extends RecyclerView.Adapter<AlphabetAdapter.Alphab
 
                     if(alphabetList.get(getAdapterPosition()).getIsDictionary()){
 
-                        intent = new Intent(v.getContext(), Dictionary.class);
+                        intent = new Intent(v.getContext(), DictionaryItemsList.class);
                         intent.putExtra(DialectDialog.DIALECT_INFO, language);
                         intent.putExtra(Alphabet.LETTER, letter.toUpperCase());
                         v.getContext().startActivity(intent);
@@ -96,9 +95,29 @@ public class AlphabetAdapter extends RecyclerView.Adapter<AlphabetAdapter.Alphab
      **/
     @Override
     public AlphabetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_alphabet, parent, false);
-        AlphabetViewHolder viewHolder = new AlphabetViewHolder(v, alphabetList);
-        return viewHolder;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_alphabet, parent, false);
+
+        if(callerName.equals("Alphabet")) {
+            ++itemPositionAlphabet;
+            if (itemPositionAlphabet % 2 == 0) {
+                view.setBackgroundResource(R.drawable.rounded_button_primary);
+            } else {
+                view.setBackgroundResource(R.drawable.rounded_button_secondary);
+            }
+        }
+        else if(callerName.equals("DictionaryItemsList")) {
+            ++itemPositionDictionary;
+            if (itemPositionDictionary % 2 == 0) {
+                view.setBackgroundResource(R.drawable.rounded_button_primary);
+            } else {
+                view.setBackgroundResource(R.drawable.rounded_button_secondary);
+            }
+        }
+
+
+            AlphabetViewHolder viewHolder = new AlphabetViewHolder(view, alphabetList);
+            return viewHolder;
+
     }
 
     /**

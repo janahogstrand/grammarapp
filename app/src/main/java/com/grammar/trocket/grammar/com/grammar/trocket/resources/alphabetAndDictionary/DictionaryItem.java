@@ -1,4 +1,4 @@
-package com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabet;
+package com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary;
 
 /**
  * Created by jamiemoreland on 19/03/16.
@@ -14,16 +14,18 @@ public class DictionaryItem {
         this.englishWord = englishWord;
     }
 
-    /*
-    * Gets foreign word
-    * **/
+    /**
+     * Gets foreign word
+     * @return
+     */
     public String getForeignWord(){
         return foreignWord;
     }
 
-    /*
-    * Gets english word
-    * **/
+    /**
+     * Gets english word
+     * @return
+     */
     public String getEnglishWord(){
         return englishWord;
     }

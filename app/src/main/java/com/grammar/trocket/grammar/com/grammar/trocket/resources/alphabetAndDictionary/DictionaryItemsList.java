@@ -1,4 +1,4 @@
-package com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabet;
+package com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,10 +17,10 @@ import java.util.Locale;
  * Created by jamiemoreland on 19/03/16.
  * Activity that displays wordss
  */
-public class Dictionary extends BaseActivityDrawer{
+public class DictionaryItemsList extends BaseActivityDrawer{
 
     private String dialect;
-    private DictionaryAdapter dictionaryAdapter;
+    private DictionaryItemsAdapter dictionaryAdapter;
     private ArrayList<DictionaryItem> wordList;
     public static TextToSpeech textToSpeech;
 
@@ -41,11 +41,11 @@ public class Dictionary extends BaseActivityDrawer{
 
         rv.setHasFixedSize(true);
 
-        LinearLayoutManager llm = new LinearLayoutManager(Dictionary.this);
+        LinearLayoutManager llm = new LinearLayoutManager(DictionaryItemsList.this);
         rv.setLayoutManager(llm);
 
 
-        dictionaryAdapter = new DictionaryAdapter(getData());
+        dictionaryAdapter = new DictionaryItemsAdapter(getData());
         rv.setAdapter(dictionaryAdapter);
 
         llm.scrollToPositionWithOffset(getIndex(), 35);

@@ -1,4 +1,4 @@
-package com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabet;
+package com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary;
 
 import android.speech.tts.TextToSpeech;
 import android.support.v7.widget.RecyclerView;
@@ -16,18 +16,27 @@ import java.util.Locale;
 /**
  * Created by jamiemoreland on 19/03/16.
  */
-public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.DictionaryViewHolder> {
+public class DictionaryItemsAdapter extends RecyclerView.Adapter<DictionaryItemsAdapter.DictionaryViewHolder> {
 
     private ArrayList<DictionaryItem> wordList;
+    private int itemPosition = 0;
 
-    public DictionaryAdapter(ArrayList<DictionaryItem> wordList){
+    public DictionaryItemsAdapter(ArrayList<DictionaryItem> wordList){
         this.wordList = wordList;
     }
 
     @Override
     public DictionaryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_alphabet, parent, false);
-        DictionaryViewHolder viewHolder = new DictionaryViewHolder(v, wordList);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_alphabet, parent, false);
+
+        ++itemPosition;
+        if (itemPosition%2==0) {
+            view.setBackgroundResource(R.drawable.rounded_button_primary);
+        } else {
+            view.setBackgroundResource(R.drawable.rounded_button_secondary);
+        }
+
+        DictionaryViewHolder viewHolder = new DictionaryViewHolder(view, wordList);
         return viewHolder;
     }
 
@@ -69,16 +78,16 @@ public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.Di
         private void playAudio() {
             stopAllSound();
             String phrase = wordList.get(getAdapterPosition()).getForeignWord();
-            Dictionary.textToSpeech.setLanguage(language);
-            Dictionary.textToSpeech.speak(phrase, TextToSpeech.QUEUE_FLUSH, null);
+            DictionaryItemsList.textToSpeech.setLanguage(language);
+            DictionaryItemsList.textToSpeech.speak(phrase, TextToSpeech.QUEUE_FLUSH, null);
         }
 
         /**
          * Stops all current sound
          **/
         private void stopAllSound() {
-            if (Dictionary.textToSpeech != null) {
-                Dictionary.textToSpeech.stop();
+            if (DictionaryItemsList.textToSpeech != null) {
+                DictionaryItemsList.textToSpeech.stop();
                 Log.w("TTS stopped", "TTS stop");
             }
         }

@@ -1,4 +1,4 @@
-package com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabet;
+package com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary;
 
 /**
  * Created by jamiemoreland on 18/03/16.

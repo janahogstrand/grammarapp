@@ -29,8 +29,8 @@
                   android:label="Seasons"
             />
 
-        <activity android:name=".com.grammar.trocket.resources.alphabet.Alphabet" android:theme="@style/AppTheme.NoActionBar" android:label="Alphabet"/>
-        <activity android:name=".com.grammar.trocket.resources.alphabet.Dictionary" android:theme="@style/AppTheme.NoActionBar" android:label="Dictionary"/>
+        <activity android:name=".com.grammar.trocket.resources.alphabetAndDictionary.Alphabet" android:theme="@style/AppTheme.NoActionBar" android:label="Alphabet"/>
+        <activity android:name=".com.grammar.trocket.resources.alphabetAndDictionary.DictionaryItemsList" android:theme="@style/AppTheme.NoActionBar" android:label="Dictionary"/>
         <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsFirstActivity" android:label="Seasons"/>
         <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsSecondActivity" android:label="Seasons"/>
         <activity android:name=".com.grammar.trocket.resources.seasons.SeasonsThirdActivity" android:label="Seasons"/>

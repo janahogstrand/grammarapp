@@ -7,12 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.grammar.trocket.grammar.R;
-import com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabet.Alphabet;
-import com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabet.AlphabetAdapter;
-import com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabet.AlphabetItem;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary.DictionaryAlphabetAdapter;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary.AlphabetItem;
 
 import java.util.ArrayList;
 
@@ -20,7 +18,7 @@ import java.util.ArrayList;
 public class FragmentTabDictionary extends Fragment {
 
     View view;
-    private AlphabetAdapter alphabetAdapter;
+    private DictionaryAlphabetAdapter alphabetAdapter;
     private ArrayList<AlphabetItem> alphabetList;
 
     /**
@@ -38,7 +36,7 @@ public class FragmentTabDictionary extends Fragment {
         rv.setLayoutManager(glm);
 
 
-        alphabetAdapter = new AlphabetAdapter(getData());
+        alphabetAdapter = new DictionaryAlphabetAdapter(getData(), "DictionaryItemsList");
         rv.setAdapter(alphabetAdapter);
 
         return view;

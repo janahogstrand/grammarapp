@@ -1,11 +1,9 @@
-package com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabet;
+package com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
@@ -19,7 +17,7 @@ import java.util.Locale;
  */
 public class Alphabet extends BaseActivityDrawer{
 
-    private AlphabetAdapter alphabetAdapter;
+    private DictionaryAlphabetAdapter alphabetAdapter;
     private ArrayList<AlphabetItem> alphabetList;
     public static String dialect;
     public static TextToSpeech textToSpeech;
@@ -41,7 +39,7 @@ public class Alphabet extends BaseActivityDrawer{
         rv.setLayoutManager(glm);
 
 
-        alphabetAdapter = new AlphabetAdapter(getData());
+        alphabetAdapter = new DictionaryAlphabetAdapter(getData(), "Alphabet");
         rv.setAdapter(alphabetAdapter);
     }
 

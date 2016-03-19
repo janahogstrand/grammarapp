@@ -21,7 +21,7 @@ import com.grammar.trocket.grammar.com.grammar.trocket.resources.DaysOfTheWeek;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Festivals;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.ListViewActivity;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Times;
-import com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabet.Alphabet;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary.Alphabet;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.seasons.SeasonsMain;
 
 import java.util.ArrayList;
