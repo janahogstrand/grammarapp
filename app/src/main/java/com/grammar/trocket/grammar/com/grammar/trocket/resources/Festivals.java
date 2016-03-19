@@ -33,7 +33,7 @@ import java.util.Locale;
  * views will then be inflated
  *
  */
-public class Festivals extends BaseActivityDrawer {
+public class  Festivals extends BaseActivityDrawer {
     private List<FestivalTimeItem> festData;
     String dialect;
 

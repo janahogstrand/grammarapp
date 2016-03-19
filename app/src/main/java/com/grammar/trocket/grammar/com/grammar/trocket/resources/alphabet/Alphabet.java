@@ -7,12 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
-import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleAdapter;
-import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleItem;
 
 import java.util.ArrayList;
 import java.util.Locale;

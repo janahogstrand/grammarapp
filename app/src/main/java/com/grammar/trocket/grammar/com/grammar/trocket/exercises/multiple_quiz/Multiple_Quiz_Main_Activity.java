@@ -25,17 +25,17 @@ public class Multiple_Quiz_Main_Activity extends Activity {
     public CheckBox answerOption4;
     public CheckBox answerOption5;
     public CheckBox answerOption6;
-    public Multiple_Quiz_Questions_List questionsList = new Multiple_Quiz_Questions_List();
-    public Multiple_Quiz_Answers_List answersList = new Multiple_Quiz_Answers_List();
+    public Multiple_Quiz_Questions_List questionsList;
+    public Multiple_Quiz_Answers_List answersList;
     public String[] questionsListArray;
-    public String[] answerArray;
+    public String[] correctAnswerArray;
     public String currentQuestion;
     public String[] answerOptionArray;
     public int successCounter = 0;
     public int mistakeCounter = 0;
     public int questionNumber = 0;
     public ArrayList<String> selectedAnswers = new ArrayList<>();
-    public ArrayList<String> finalAnswerList = new ArrayList<>();
+    public ArrayList<String> correctAnswerList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,10 @@ public class Multiple_Quiz_Main_Activity extends Activity {
         answerOption5 = (CheckBox) findViewById(R.id.answerOption5);
         answerOption6 = (CheckBox) findViewById(R.id.answerOption6);
 
+        questionsList = new Multiple_Quiz_Questions_List();
         questionsListArray = questionsList.createArray();
+        answersList = new Multiple_Quiz_Answers_List();
+
         assignVariables();
         assignTextView();
     }
@@ -62,14 +65,16 @@ public class Multiple_Quiz_Main_Activity extends Activity {
      * CorrectAnswer is assigned the current question's correct answer.
      */
     public void assignVariables(){
-        finalAnswerList.clear();
+        correctAnswerList.clear();
+        selectedAnswers.clear();
+
         currentQuestion = questionsListArray[questionNumber];
         answerOptionArray = answersList.getAnswerOptions(currentQuestion);
-        answerArray = answersList.getCorrectAnswer(currentQuestion);
-        selectedAnswers.clear();
-        for (int i = 0; i != answerArray.length; i++)
+        correctAnswerArray = answersList.getCorrectAnswer(currentQuestion);
+
+        for (int i = 0; i != correctAnswerArray.length; i++)
         {
-            finalAnswerList.add(answerArray[i].toString());
+            correctAnswerList.add(correctAnswerArray[i]);
         }
 
     }
@@ -101,19 +106,19 @@ public class Multiple_Quiz_Main_Activity extends Activity {
 
     public void checkResult(View view)
     {
+        CheckBox changeBackground = null;
         while(!selectedAnswers.isEmpty())
         {
             for (int i = 0; i < selectedAnswers.size(); i++) {
-                CheckBox changeBackground = null;
-                if (finalAnswerList.contains(selectedAnswers.get(i).toString())) {
+                if (correctAnswerList.contains(selectedAnswers.get(i))) {
                     Log.d("correct", "correct");
-                    changeBackground = checkBoxForBackgroundChange(selectedAnswers.get(i).toString());
+                    changeBackground = checkBoxForBackgroundChange(selectedAnswers.get(i));
                     changeBackground.setBackgroundResource(R.drawable.rounded_button_green);
                     successCounter++;
                     selectedAnswers.remove(i);
                 } else {
-                    Log.d("mistake", selectedAnswers.get(i).toString());
-                    changeBackground = checkBoxForBackgroundChange(selectedAnswers.get(i).toString());
+                    Log.d("mistake", selectedAnswers.get(i));
+                    changeBackground = checkBoxForBackgroundChange(selectedAnswers.get(i));
                     changeBackground.setBackgroundResource(R.drawable.rounded_button_red);
                     mistakeCounter++;
                     selectedAnswers.remove(i);
@@ -121,12 +126,75 @@ public class Multiple_Quiz_Main_Activity extends Activity {
             }
         }
 
-       disableCheckboxes();
-       questionNumber++;
-       checkQuestionNumber();
-
-
+        showCorrectAnswer();
+        disableCheckboxes();
+        questionNumber++;
+        checkQuestionNumber();
     }
+
+    /**
+     * This method is called in the check results. It's designed to find which checkbox
+     * was called clicked by comparing the selectedAnswer with the checkboxes strings.
+     * @return
+     */
+    public CheckBox checkBoxForBackgroundChange(String selectedAnswer)
+    {
+        CheckBox value = null;
+
+        if(selectedAnswer == answerOption1.getText().toString())
+        {
+            value = answerOption1;
+        }
+        if(selectedAnswer == answerOption2.getText().toString())
+        {
+            value = answerOption2;
+        }
+        if(selectedAnswer == answerOption3.getText().toString())
+        {
+            value = answerOption3;
+        }
+        if(selectedAnswer == answerOption4.getText().toString())
+        {
+            value = answerOption4;
+        }
+        if(selectedAnswer == answerOption5.getText().toString())
+        {
+            value = answerOption5;
+        }
+        if (selectedAnswer == answerOption6.getText().toString())
+        {
+            value = answerOption6;
+        }
+
+        return value;
+    }
+
+
+    /**
+     * This method is called by checkResult() when a user clicks a button holding the wrong answer.
+     * This method shows the user the button holding the correct answer by changing its color to green.
+     */
+    public void showCorrectAnswer(){
+        if(correctAnswerList.contains(answerOption1.getText().toString())){
+            answerOption1.setBackgroundResource(R.drawable.rounded_button_green);
+        }
+        if (correctAnswerList.contains(answerOption2.getText().toString())){
+            answerOption2.setBackgroundResource(R.drawable.rounded_button_green);
+        }
+        if (correctAnswerList.contains(answerOption3.getText().toString())){
+            answerOption3.setBackgroundResource(R.drawable.rounded_button_green);
+        }
+        if (correctAnswerList.contains(answerOption4.getText().toString())){
+            answerOption4.setBackgroundResource(R.drawable.rounded_button_green);
+        }
+        if (correctAnswerList.contains(answerOption5.getText().toString())){
+            answerOption5.setBackgroundResource(R.drawable.rounded_button_green);
+        }
+        if (correctAnswerList.contains(answerOption6.getText().toString())){
+            answerOption6.setBackgroundResource(R.drawable.rounded_button_green);
+        }
+    }
+
 
     /**
      * disables all the buttons to prevent the users to click a
@@ -149,6 +217,33 @@ public class Multiple_Quiz_Main_Activity extends Activity {
 
 
     }
+
+
+    /**
+     * If the question number is equal to 10 ((indicating that all the questions are over
+     * an intent sends the user to the statics screen with message which changes according to
+     * how the user performed in the quiz.
+     */
+    public void checkQuestionNumber(){
+        if(questionNumber == 10){
+            Intent intent = new Intent(this, QuizStatisticsActivity.class);
+            intent.putExtra(TextQuizMainActivity.EXTRA_MESSAGE, ""+successCounter);
+            intent.putExtra(TextQuizMainActivity.EXTRA_MESSAGE2, ""+mistakeCounter);
+            startActivity(intent);
+        }
+        else {
+            // Execute run() after 1 seconds have passed
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    assignVariables();
+                    assignTextView();
+                    restoreColor();
+                }
+            }, 1000);
+        }
+    }
+
     /**
      * Colors all the button's background to white thus
      * returning it to its original color and then set the buttons
@@ -169,31 +264,14 @@ public class Multiple_Quiz_Main_Activity extends Activity {
         answerOption6.setClickable(true);
     }
 
-    /**
-     * If the question number is equal to 10 ((indicating that all the questions are over
-     * an intent sends the user to the statics screen with message which changes according to
-     * how the user performed in the quiz.
-     */
-    public void checkQuestionNumber(){
-        if(questionNumber == 10){
-            Intent intent = new Intent(this, QuizStatisticsActivity.class);
-            intent.putExtra(TextQuizMainActivity.EXTRA_MESSAGE, ""+successCounter);
-            intent.putExtra(TextQuizMainActivity.EXTRA_MESSAGE2, ""+mistakeCounter);
-            startActivity(intent);
-        }
-        else {
-            // Execute run() after 2 seconds have passed
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    assignVariables();
-                    assignTextView();
-                    restoreColor();
-                }
-            }, 1000);
-        }
-    }
 
+    /**
+     * This method is called when the user clicks on the check boxes.
+     * This method adds the checked boxes to the selectedAnswers arrayList, but
+     * if the check box text is already in the selectedAnswers arrayList this
+     * method removes it.
+     * @param view
+     */
     public void checkboxUse(View view)
     {
         CheckBox answer = (CheckBox) view;
@@ -208,44 +286,5 @@ public class Multiple_Quiz_Main_Activity extends Activity {
 
     }
 
-    /**
-     * This method is called in the check results. It's designed to find the id of the checkbox
-     * that contains the answer String S;
-     * This allows us the change the background colour choice.
-     * @param s
-     * @return
-     */
-    public CheckBox checkBoxForBackgroundChange(String s)
-    {
-        CheckBox value = null;
-
-        if(s == answerOption1.getText().toString())
-        {
-            value = answerOption1;
-        }
-        if( s == answerOption2.getText().toString())
-        {
-            value = answerOption2;
-        }
-        if( s == answerOption3.getText().toString())
-        {
-            value = answerOption3;
-        }
-        if( s == answerOption4.getText().toString())
-        {
-            value = answerOption4;
-        }
-        if( s == answerOption5.getText().toString())
-        {
-            value = answerOption5;
-        }
-        if ( s == answerOption6.getText().toString())
-        {
-            value = answerOption6;
-        }
-
-
-        return value;
-    }
 
 }

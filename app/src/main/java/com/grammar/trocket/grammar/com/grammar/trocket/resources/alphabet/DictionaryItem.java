@@ -6,10 +6,10 @@ package com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabet;
  * Holds the foreign and english version of the word
  * to be used by a card view
  */
-public class WordItem {
+public class DictionaryItem {
     private String foreignWord;
     private String englishWord;
-    public WordItem(String foreignWord, String englishWord){
+    public DictionaryItem(String foreignWord, String englishWord){
         this.foreignWord = foreignWord;
         this.englishWord = englishWord;
     }

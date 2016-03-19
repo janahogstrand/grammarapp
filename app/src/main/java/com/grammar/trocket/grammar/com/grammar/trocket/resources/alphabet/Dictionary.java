@@ -3,15 +3,11 @@ package com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabet;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.grammar.trocket.grammar.R;
-import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
 
 import java.util.ArrayList;
@@ -25,7 +21,7 @@ public class Dictionary extends BaseActivityDrawer{
 
     private String dialect;
     private DictionaryAdapter dictionaryAdapter;
-    private ArrayList<WordItem> wordList;
+    private ArrayList<DictionaryItem> wordList;
     public static TextToSpeech textToSpeech;
 
     private String letter;
@@ -61,7 +57,7 @@ public class Dictionary extends BaseActivityDrawer{
      * */
     private int getIndex(){
         int index = 0;
-        for(WordItem word: wordList){
+        for(DictionaryItem word: wordList){
             String firstLetter = (word.getForeignWord().charAt(0) + "").toUpperCase();
             if(firstLetter.equals(letter)){
                 break;
@@ -75,22 +71,22 @@ public class Dictionary extends BaseActivityDrawer{
     }
 
     //TODO database ORDER BY ASCENDING
-    private ArrayList<WordItem> getData() {
-        wordList = new ArrayList<WordItem>();
+    private ArrayList<DictionaryItem> getData() {
+        wordList = new ArrayList<DictionaryItem>();
 
-        wordList.add(new WordItem("Appleo", "Apple"));
-        wordList.add(new WordItem("Antso", "Ants"));
-        wordList.add(new WordItem("Bannano", "Bannanas"));
-        wordList.add(new WordItem("Bee", "Bee"));
-        wordList.add(new WordItem("Cato", "Cat"));
-        wordList.add(new WordItem("Cowo", "Cow"));
-        wordList.add(new WordItem("Doggo", "Dog"));
-        wordList.add(new WordItem("Diggero", "Digger"));
-        wordList.add(new WordItem("Eggo", "Eggs"));
-        wordList.add(new WordItem("Eeee", "Eee"));
-        wordList.add(new WordItem("Flyo", "Fly"));
-        wordList.add(new WordItem("Froggo", "Frog"));
-        wordList.add(new WordItem("GGgg", "G"));
+        wordList.add(new DictionaryItem("Appleo", "Apple"));
+        wordList.add(new DictionaryItem("Antso", "Ants"));
+        wordList.add(new DictionaryItem("Bannano", "Bannanas"));
+        wordList.add(new DictionaryItem("Bee", "Bee"));
+        wordList.add(new DictionaryItem("Cato", "Cat"));
+        wordList.add(new DictionaryItem("Cowo", "Cow"));
+        wordList.add(new DictionaryItem("Doggo", "Dog"));
+        wordList.add(new DictionaryItem("Diggero", "Digger"));
+        wordList.add(new DictionaryItem("Eggo", "Eggs"));
+        wordList.add(new DictionaryItem("Eeee", "Eee"));
+        wordList.add(new DictionaryItem("Flyo", "Fly"));
+        wordList.add(new DictionaryItem("Froggo", "Frog"));
+        wordList.add(new DictionaryItem("GGgg", "G"));
 
 
         return wordList;

@@ -52,70 +52,11 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View v) {
                 //Get context
                 stopAllSound();
-                Context context = v.getContext();
                 playAudio();
-
             }
 
 
         });
-    }
-
-
-//    private void initTTS(Context context) {
-//        //stopAllSound();
-//        textToSpeech = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
-//            @Override
-//            public void onInit(int status) {
-//                textToSpeech.setLanguage(language);
-//                //For first TTS played
-//                if (status == TextToSpeech.SUCCESS) {
-//                    playAudio();
-//                }
-//            }
-//        });
-//    }
-
-    /**
-     * Plays from audio file if not found
-     * then plays textToSpeech
-     **/
-    private void playAudio() {
-        String phrase = data.get(getAdapterPosition()).getSpanishName().toString();
-        //stopAllSound();
-        try {
-            assignAudio(phrase);
-            //destroyAudio();
-        } catch (Exception e) {
-            textToSpeech.speak(phrase, TextToSpeech.QUEUE_FLUSH, null);
-            //destroyAudio();
-        }
-    }
-
-    /**
-     * Database will assign correct audio files, for now I have used
-     * if statements to simulate this
-     * TODO database implementation
-     *
-     * @throws NullPointerException When no audio is found
-     */
-    private void assignAudio(String text) throws IOException {
-        //stopAllSound();
-
-        switch (text) {
-            case "Son las doce en punto":
-                setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
-                break;
-            case "El Indianas":
-                setAudio("https://www.dropbox.com/s/7mga5icr0uweph/U01-E05.mp3?raw=1");
-                break;
-            case "Es Test":
-                setAudio("https://www.dropbox.com/s/7mga5icr0uweph/U01-E05.mp3?raw=1");
-                break;
-            default:
-                player = null;
-        }
-        player.start();
     }
 
     /**
@@ -136,6 +77,44 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
             }
         }
     }
+
+    /**
+     * Plays from audio file if not found
+     * then plays textToSpeech
+     **/
+    private void playAudio() {
+        String phrase = data.get(getAdapterPosition()).getSpanishName().toString();
+        try {
+            assignAudio(phrase);
+        } catch (Exception e) {
+            textToSpeech.speak(phrase, TextToSpeech.QUEUE_FLUSH, null);
+        }
+    }
+
+    /**
+     * Database will assign correct audio files, for now I have used
+     * if statements to simulate this
+     * TODO database implementation
+     *
+     * @throws NullPointerException When no audio is found
+     */
+    private void assignAudio(String text) throws IOException {
+        switch (text) {
+            case "Son las doce en punto":
+                setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
+                break;
+            case "El Indianas":
+                setAudio("https://www.dropbox.com/s/7mga5icr0uweph/U01-E05.mp3?raw=1");
+                break;
+            case "Es Test":
+                setAudio("https://www.dropbox.com/s/7mga5icr0uweph/U01-E05.mp3?raw=1");
+                break;
+            default:
+                player = null;
+        }
+        player.start();
+    }
+
 
     /**
      * Plays audio for a given address

@@ -40,13 +40,11 @@ public class AudioQuizMainActivity extends Activity {
     public int questionNumber = 0;
     TextToSpeech textToSpeech;
     Locale language;
-    public final static String EXTRA_MESSAGE = "com.grammar.trocket.grammar.com.grammar.trocket.audioQuiz.MESSAGE";
-    public final static String EXTRA_MESSAGE2 = "com.grammar.trocket.grammar.com.grammar.trocket.audioQuiz.MESSAGE2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.quiz_main);
+        setContentView(R.layout.audio_quiz_main);
         isSpanishDialect = true; //THIS NEEDS TO BE CHANGED!!
         question = (TextView) findViewById(R.id.question);
         answerOption1 = (Button) findViewById(R.id.answerOption1);
@@ -111,12 +109,40 @@ public class AudioQuizMainActivity extends Activity {
         else {
             Log.d("mistake", pressedButton.getText().toString());
             pressedButton.setBackgroundResource(R.drawable.rounded_button_red);
+            showCorrectAnswer();
             mistakeCounter++;
         }
         disableButtons();
         questionNumber++;
         checkQuestionNumber();
     }
+
+
+    /**
+     * This method is called by checkResult() when a user clicks a button holding the wrong answer.
+     * This method shows the user the button holding the correct answer by changing its color to green.
+     */
+    public void showCorrectAnswer(){
+        if(correctAnswer.equals(answerOption1.getText().toString())){
+            answerOption1.setBackgroundResource(R.drawable.rounded_button_green);
+        }
+        else if (correctAnswer.equals(answerOption2.getText().toString())){
+            answerOption2.setBackgroundResource(R.drawable.rounded_button_green);
+        }
+        else if (correctAnswer.equals(answerOption3.getText().toString())){
+            answerOption3.setBackgroundResource(R.drawable.rounded_button_green);
+        }
+        else if (correctAnswer.equals(answerOption4.getText().toString())){
+            answerOption4.setBackgroundResource(R.drawable.rounded_button_green);
+        }
+        else if (correctAnswer.equals(answerOption5.getText().toString())){
+            answerOption5.setBackgroundResource(R.drawable.rounded_button_green);
+        }
+        else if (correctAnswer.equals(answerOption6.getText().toString())){
+            answerOption6.setBackgroundResource(R.drawable.rounded_button_green);
+        }
+    }
+
 
     /**
      * disables all the buttons to prevent the users to click a
@@ -195,7 +221,7 @@ public class AudioQuizMainActivity extends Activity {
     }
 
 
-    public void btnClicked(View v) {
+    public void replyBtn(View v) {
         playAudio();
     }
 

@@ -39,8 +39,6 @@ public class Image_Quiz_Main extends Activity {
     public String imageAddress4;
     public String imageAddress5;
     public String imageAddress6;
-    public final static String EXTRA_MESSAGE = "com.example.teerachel.imagequizactivity.message";
-    public final static String EXTRA_MESSAGE2 = "com.example.teerachel.imagequizactivity.message2";
 
 
     @Override

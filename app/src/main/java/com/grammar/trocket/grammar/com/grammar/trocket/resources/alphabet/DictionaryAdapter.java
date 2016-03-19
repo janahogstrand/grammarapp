@@ -18,9 +18,9 @@ import java.util.Locale;
  */
 public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.DictionaryViewHolder> {
 
-    private ArrayList<WordItem> wordList;
+    private ArrayList<DictionaryItem> wordList;
 
-    public DictionaryAdapter(ArrayList<WordItem> wordList){
+    public DictionaryAdapter(ArrayList<DictionaryItem> wordList){
         this.wordList = wordList;
     }
 
@@ -48,7 +48,7 @@ public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.Di
         public TextView title;
         public TextView title2;
         Locale language = new Locale("es", "ES");
-        public DictionaryViewHolder(View itemView, ArrayList<WordItem> wordList) {
+        public DictionaryViewHolder(View itemView, ArrayList<DictionaryItem> wordList) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
             title2 = (TextView) itemView.findViewById(R.id.title2);
