@@ -1,5 +1,6 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.exercises.image_quiz;
 
+import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.os.Bundle;
@@ -10,11 +11,12 @@ import android.widget.TextView;
 import android.widget.ImageView;
 
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizStatisticsActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity;
 import com.squareup.picasso.Picasso;
-import android.support.v7.app.AppCompatActivity;
 
 
-public class Image_Quiz_Main extends AppCompatActivity{
+public class Image_Quiz_Main extends Activity {
 
     public ImageView firstView;
     public ImageView secondView;
@@ -44,7 +46,7 @@ public class Image_Quiz_Main extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.image_main);
+        setContentView(R.layout.image_quiz_main);
 
         questions = new Image_Quiz_Question();
         answers = new Image_Quiz_Answers();
@@ -157,9 +159,9 @@ public class Image_Quiz_Main extends AppCompatActivity{
      */
     public void checkQuestionNumber(){
         if(questionNumber == 6){
-            Intent intent = new Intent(this, Image_Quiz_Statistics.class);
-            intent.putExtra(EXTRA_MESSAGE, ""+successCounter);
-            intent.putExtra(EXTRA_MESSAGE2, ""+mistakeCounter);
+            Intent intent = new Intent(this, QuizStatisticsActivity.class);
+            intent.putExtra(TextQuizMainActivity.EXTRA_MESSAGE, ""+successCounter);
+            intent.putExtra(TextQuizMainActivity.EXTRA_MESSAGE2, ""+mistakeCounter);
             startActivity(intent);
         }
         else {
