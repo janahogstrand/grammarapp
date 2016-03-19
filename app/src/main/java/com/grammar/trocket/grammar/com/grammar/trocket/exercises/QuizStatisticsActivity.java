@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 
 public class QuizStatisticsActivity extends AppCompatActivity {
 
@@ -50,5 +51,12 @@ public class QuizStatisticsActivity extends AppCompatActivity {
         else {
             comment.setText("Try harder");
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(QuizStatisticsActivity.this, MainMenu.class);
+        startActivity(intent);
     }
 }
