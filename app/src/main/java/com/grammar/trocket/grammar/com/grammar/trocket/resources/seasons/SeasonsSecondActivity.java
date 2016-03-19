@@ -73,7 +73,6 @@ public class SeasonsSecondActivity extends AppCompatActivity {
             stopAllSound();
             switch (clickedButton.getText().toString()) {
                 case "junio":
-                    //player = MediaPlayer.create(BigView.this, R.raw.placeholderaudio1);
                     setAudio("https://www.dropbox.com/s/7mga5icr0uweph/U01-E05.mp3?raw=1");
                     break;
                 case "julio":

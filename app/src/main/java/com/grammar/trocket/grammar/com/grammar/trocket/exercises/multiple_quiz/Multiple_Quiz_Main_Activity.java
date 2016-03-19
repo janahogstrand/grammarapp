@@ -11,6 +11,8 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizStatisticsActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity;
 
 import java.util.ArrayList;
 
@@ -34,9 +36,6 @@ public class Multiple_Quiz_Main_Activity extends Activity {
     public int questionNumber = 0;
     public ArrayList<String> selectedAnswers = new ArrayList<>();
     public ArrayList<String> finalAnswerList = new ArrayList<>();
-
-    public final static String EXTRA_MESSAGE = "com.firasaltayeb.quizbutton.MESSAGE";
-    public final static String EXTRA_MESSAGE2 = "com.firasaltayeb.quizbutton.MESSAGE2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,9 +176,9 @@ public class Multiple_Quiz_Main_Activity extends Activity {
      */
     public void checkQuestionNumber(){
         if(questionNumber == 10){
-            Intent intent = new Intent(this, Multiple_Quiz_Statistics_Activity.class);
-            intent.putExtra(EXTRA_MESSAGE, ""+successCounter);
-            intent.putExtra(EXTRA_MESSAGE2, ""+mistakeCounter);
+            Intent intent = new Intent(this, QuizStatisticsActivity.class);
+            intent.putExtra(TextQuizMainActivity.EXTRA_MESSAGE, ""+successCounter);
+            intent.putExtra(TextQuizMainActivity.EXTRA_MESSAGE2, ""+mistakeCounter);
             startActivity(intent);
         }
         else {

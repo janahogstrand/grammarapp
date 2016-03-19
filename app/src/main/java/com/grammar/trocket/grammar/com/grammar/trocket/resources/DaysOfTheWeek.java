@@ -1,16 +1,17 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.resources;
 
-import android.app.Activity;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Locale;
 
 
@@ -25,8 +26,11 @@ public class DaysOfTheWeek extends BaseActivityDrawer {
     Button sundayBtn;
     MediaPlayer mondayPlayer, tuesdayPlayer, wednesdayPlayer, thursdayPlayer, fridayPlayer,
                 saturdayPlayer, sundayPlayer;
+    // mediaPlayers arrayList will hold mediaPlayers who each are
+    // assigned with a unique audio file
+    ArrayList<MediaPlayer> mediaPlayers;
     boolean mondayMissing, tuesdayMissing, wednesdayMissing, thursdayMissing, fridayMissing,
-            saturdayMissing, sundayMissing;
+            saturdayMissing, sundayMissing = false;
     TextToSpeech textToSpeech;
     Locale language;
 
@@ -44,6 +48,12 @@ public class DaysOfTheWeek extends BaseActivityDrawer {
         fridayBtn = (Button) findViewById(R.id.fridayBtn);
         saturdayBtn = (Button) findViewById(R.id.saturdayBtn);
         sundayBtn = (Button) findViewById(R.id.sundayBtn);
+
+        mediaPlayers = new ArrayList<MediaPlayer>();
+        mediaPlayers.add(mondayPlayer);  mediaPlayers.add(tuesdayPlayer);
+        mediaPlayers.add(wednesdayPlayer);  mediaPlayers.add(thursdayPlayer);
+        mediaPlayers.add(fridayPlayer);  mediaPlayers.add(saturdayPlayer);
+        mediaPlayers.add(sundayPlayer);
 
         assignBtnText();
         assignLanguage();
@@ -85,38 +95,49 @@ public class DaysOfTheWeek extends BaseActivityDrawer {
      */
     public void assignBtnSounds(){
         try {
-            mondayPlayer = MediaPlayer.create(this, R.raw.placeholderaudio1); mondayMissing = false;
-        }catch (Exception e){ mondayMissing = true; }
+            mondayPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mondayPlayer.setDataSource("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
+            mondayPlayer.prepare();
+        }catch (Exception e){
+            //mondayMissing = true;
+            Log.d("111111111", "mondayMissing");
+            Log.d("111111111", "mondayMissing");
+            Log.d("111111111", "mondayMissing");
+            Log.d("111111111", "mondayMissing");
+            Log.d("111111111", "mondayMissing");
+        }
         try {
-            //tuesdayPlayer = MediaPlayer.create(this, R.raw.tuesday); tuesdayMissing = false;
-            throw new RuntimeException("exception");
+            tuesdayPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            tuesdayPlayer.setDataSource("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
+//            tuesdayPlayer.prepare();
         }catch (Exception e){ tuesdayMissing = true; }
         try {
-            //wednesdayPlayer = MediaPlayer.create(this, R.raw.wednesday); wednesdayMissing = false;
-            throw new RuntimeException("exception");
+            wednesdayPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            wednesdayPlayer.setDataSource("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
+//            wednesdayPlayer.prepare();
         }catch (Exception e){ wednesdayMissing = true; }
         try {
-            //thursdayPlayer = MediaPlayer.create(this, R.raw.thursday); thursdayMissing = false;
-            throw new RuntimeException("exception");
+            thursdayPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            thursdayPlayer.setDataSource("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
+//            thursdayPlayer.prepare();
         }catch (Exception e){ thursdayMissing = true; }
         try {
-            //fridayPlayer = MediaPlayer.create(this, R.raw.friday); fridayMissing = false;
-            throw new RuntimeException("exception");
+            fridayPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            fridayPlayer.setDataSource("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
+//            fridayPlayer.prepare();
         }catch (Exception e){ fridayMissing = true; }
         try {
-            //saturdayPlayer = MediaPlayer.create(this, R.raw.saturday); saturdayMissing = false;
-            throw new RuntimeException("exception");
+            saturdayPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            saturdayPlayer.setDataSource("");
+//            saturdayPlayer.prepare();
         }catch (Exception e){ saturdayMissing = true; }
         try {
-            //sundayPlayer = MediaPlayer.create(this, R.raw.sunday); sundayMissing = false;
-            throw new RuntimeException("exception");
+            sundayPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            sundayPlayer.setDataSource("");
+//            sundayPlayer.prepare();
         }catch (Exception e){ sundayMissing = true; }
 
     }
-
-
-    //---------------------------------------------------------------------------------------------- 
-    // All the BtnClicked methods below share the same comment
 
     /** 
      * This method is invoked when the associated button is clicked, the methods checks 
@@ -125,46 +146,51 @@ public class DaysOfTheWeek extends BaseActivityDrawer {
      *  will be played using the start method. 
      *  @param view 
      */
-    public void mondayBtnClicked(View view){
-        if(mondayMissing){
-            textToSpeech.speak("Lunes", TextToSpeech.QUEUE_FLUSH, null);
-        }else { mondayPlayer.start();}
-    }
+    public void weekBtnClicked(View view) throws IOException{
+        Button clickedButton = (Button) view;
+        if(!mondayMissing && view.getTag().toString().equals("mondayBtn")){
+           // mondayPlayer.prepare();
+            //mondayPlayer.start();
+            Log.d("111111111", "mondayMissing");
+            Log.d("111111111", "mondayMissing");
+            Log.d(view.getTag().toString() , "mondayMissing");
+            Log.d(view.getTag().toString() , "mondayMissing");
+            Log.d("111111111", "mondayMissing");
 
-    public void tuesdayBtnClicked(View view){
-        if(tuesdayMissing){
-            textToSpeech.speak("Martes", TextToSpeech.QUEUE_FLUSH, null);
-        }else { tuesdayPlayer.start();}
-    }
-
-    public void wednesdayBtnClicked(View view){
-        if(wednesdayMissing){
-            textToSpeech.speak("Miercoles", TextToSpeech.QUEUE_FLUSH, null);
-        }else { wednesdayPlayer.start();}
-    }
-
-    public void thursdayBtnClicked(View view){
-        if(thursdayMissing){
-            textToSpeech.speak("Jueves", TextToSpeech.QUEUE_FLUSH, null);
-        }else { thursdayPlayer.start();}
-    }
-
-    public void fridayBtnClicked(View view){
-        if(fridayMissing){
-            textToSpeech.speak("Viernes", TextToSpeech.QUEUE_FLUSH, null);
-        }else { fridayPlayer.start();}
-    }
-
-    public void saturdayBtnClicked(View view){
-        if(saturdayMissing){
-            textToSpeech.speak("Sabado", TextToSpeech.QUEUE_FLUSH, null);
-        }else { saturdayPlayer.start();}
-    }
-
-    public void sundayBtnClicked(View view){
-        if(sundayMissing){
-            textToSpeech.speak("Domingo", TextToSpeech.QUEUE_FLUSH, null);
-        }else { sundayPlayer.start();}
+        }
+        else if(!tuesdayMissing && view.getTag().toString().equals("tuesdayBtn")){
+//            tuesdayPlayer.prepare();
+//            tuesdayPlayer.start();
+        }
+        else if(!wednesdayMissing && view.getTag().toString().equals("wednesdayBtn")){
+//             wednesdayPlayer.prepare();
+//             wednesdayPlayer.start();
+        }
+        else if(!thursdayMissing && view.getTag().toString().equals("thursdayBtn")){
+//             thursdayPlayer.prepare();
+//             tuesdayPlayer.start();
+        }
+        else if(!fridayMissing && view.getTag().toString().equals("fridayBtn")){
+//            fridayPlayer.prepare();
+//            fridayPlayer.start();
+        }
+        else if(!saturdayMissing && view.getTag().toString().equals("saturdayBtn")){
+//            saturdayPlayer.prepare();
+//            saturdayPlayer.start();
+        }
+        else if(!sundayMissing && view.getTag().toString().equals("sundayBtn")){
+//            sundayPlayer.prepare();
+//            sundayPlayer.start();
+        }
+        else {
+            Log.d("111111111", "textToSpeech");
+            Log.d("111111111", "textToSpeech");
+            Log.d("111111111", "textToSpeech");
+            Log.d("111111111", "textToSpeech");
+            Log.d("111111111", "textToSpeech");
+            String viewTextAsString = clickedButton.getText().toString();
+            textToSpeech.speak(viewTextAsString, TextToSpeech.QUEUE_FLUSH, null);
+        }
     }
 
     /**
@@ -174,8 +200,18 @@ public class DaysOfTheWeek extends BaseActivityDrawer {
      */
     @Override
     protected void onDestroy() {
-        //Close the Text to Speech Library
+        for( MediaPlayer mediaPlayer : mediaPlayers ){
+            if (mediaPlayer != null) {
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                    mediaPlayer.release();
+                    Log.d("mediaPlayer released ", " Player Destroyed");
+                }
+            }
+        }
 
+        //Close the Text to Speech Library
         if(textToSpeech != null) {
             textToSpeech.stop();
             textToSpeech.shutdown();

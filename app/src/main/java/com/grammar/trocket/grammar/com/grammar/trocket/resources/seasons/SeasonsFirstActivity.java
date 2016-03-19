@@ -75,7 +75,6 @@ public class SeasonsFirstActivity extends AppCompatActivity {
             stopAllSound();
             switch (clickedButton.getText().toString()) {
                 case "marzo":
-                    //player = MediaPlayer.create(BigView.this, R.raw.placeholderaudio1);
                     setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
                     break;
                 case "abril":
@@ -119,10 +118,10 @@ public class SeasonsFirstActivity extends AppCompatActivity {
      * **/
     private void setAudio(String address) throws IOException{
         player = new MediaPlayer();
-            player.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            player.setDataSource(address);
-            player.prepare();
-            player.start();
+        player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        player.setDataSource(address);
+        player.prepare();
+        player.start();
     }
 
     /**

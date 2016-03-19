@@ -1,16 +1,17 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.exercises.audio_quiz;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizStatisticsActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity;
 
 import java.util.Locale;
 
@@ -18,7 +19,7 @@ import java.util.Locale;
 /**
  * Created by Sam on 06/03/2016.
  */
-public class AudioQuizMainActivity extends AppCompatActivity {
+public class AudioQuizMainActivity extends Activity {
 
     public TextView question;
     public Button answerOption1;
@@ -45,7 +46,7 @@ public class AudioQuizMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.audio_quiz_main);
+        setContentView(R.layout.quiz_main);
         isSpanishDialect = true; //THIS NEEDS TO BE CHANGED!!
         question = (TextView) findViewById(R.id.question);
         answerOption1 = (Button) findViewById(R.id.answerOption1);
@@ -157,9 +158,9 @@ public class AudioQuizMainActivity extends AppCompatActivity {
     public void checkQuestionNumber(){
         if(questionNumber == 10){
 
-            Intent intent = new Intent(this, AudioQuizStatisticsActivity.class);
-            intent.putExtra(EXTRA_MESSAGE, ""+successCounter);
-            intent.putExtra(EXTRA_MESSAGE2, ""+mistakeCounter);
+            Intent intent = new Intent(this, QuizStatisticsActivity.class);
+            intent.putExtra(TextQuizMainActivity.EXTRA_MESSAGE, ""+successCounter);
+            intent.putExtra(TextQuizMainActivity.EXTRA_MESSAGE2, ""+mistakeCounter);
             startActivity(intent);
         }
         else {

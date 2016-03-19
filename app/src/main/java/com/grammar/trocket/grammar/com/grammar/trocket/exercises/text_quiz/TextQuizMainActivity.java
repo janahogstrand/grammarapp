@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizStatisticsActivity;
 
 public class TextQuizMainActivity extends Activity {
 
@@ -100,11 +101,38 @@ public class TextQuizMainActivity extends Activity {
         else {
             Log.d("mistake", pressedButton.getText().toString());
             pressedButton.setBackgroundResource(R.drawable.rounded_button_red);
+            showCorrectAnswer();
             mistakeCounter++;
         }
         disableButtons();
         questionNumber++;
         checkQuestionNumber();
+    }
+
+
+    /**
+     * This method is called by checkResult() when a user clicks a button holding the wrong answer.
+     * This method shows the user the button holding the correct answer by changing its color to green.
+     */
+    public void showCorrectAnswer(){
+        if(correctAnswer.equals(answerOption1.getText().toString())){
+            answerOption1.setBackgroundResource(R.drawable.rounded_button_green);
+        }
+        else if (correctAnswer.equals(answerOption2.getText().toString())){
+            answerOption2.setBackgroundResource(R.drawable.rounded_button_green);
+        }
+        else if (correctAnswer.equals(answerOption3.getText().toString())){
+            answerOption3.setBackgroundResource(R.drawable.rounded_button_green);
+        }
+        else if (correctAnswer.equals(answerOption4.getText().toString())){
+            answerOption4.setBackgroundResource(R.drawable.rounded_button_green);
+        }
+        else if (correctAnswer.equals(answerOption5.getText().toString())){
+            answerOption5.setBackgroundResource(R.drawable.rounded_button_green);
+        }
+        else if (correctAnswer.equals(answerOption6.getText().toString())){
+            answerOption6.setBackgroundResource(R.drawable.rounded_button_green);
+        }
     }
 
     /**
@@ -146,7 +174,7 @@ public class TextQuizMainActivity extends Activity {
      */
     public void checkQuestionNumber(){
         if(questionNumber == 10){
-            Intent intent = new Intent(this, TextQuizStatisticsActivity.class);
+            Intent intent = new Intent(this, QuizStatisticsActivity.class);
             intent.putExtra(EXTRA_MESSAGE, ""+successCounter);
             intent.putExtra(EXTRA_MESSAGE2, ""+mistakeCounter);
             startActivity(intent);

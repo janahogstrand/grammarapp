@@ -53,78 +53,86 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/mondayBtn"
-                android:onClick="mondayBtnClicked"
+                android:onClick="weekBtnClicked"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight=".09"
                 android:background="@drawable/rounded_button_primary"
                 android:textColor="#ffffff"
-                android:layout_margin="5dp" />
+                android:layout_margin="5dp"
+                android:tag="mondayBtn"/>
 
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tuesdayBtn"
-                android:onClick="tuesdayBtnClicked"
+                android:onClick="weekBtnClicked"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight=".09"
                 android:background="@drawable/rounded_button_secondary"
                 android:textColor="#ffffff"
-                android:layout_margin="5dp" />
+                android:layout_margin="5dp"
+                android:tag="tuesdayBtn"/>
 
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/wednesdayBtn"
-                android:onClick="wednesdayBtnClicked"
+                android:onClick="weekBtnClicked"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight=".09"
                 android:background="@drawable/rounded_button_primary"
                 android:textColor="#ffffff"
-                android:layout_margin="5dp" />
+                android:layout_margin="5dp"
+                android:tag="wednesdayBtn"/>
 
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/thursdayBtn"
-                android:onClick="thursdayBtnClicked"
+                android:onClick="weekBtnClicked"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight=".09"
                 android:background="@drawable/rounded_button_secondary"
                 android:textColor="#ffffff"
-                android:layout_margin="5dp" />
+                android:layout_margin="5dp"
+                android:tag="thursdayBtn"/>
 
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/fridayBtn"
-                android:onClick="fridayBtnClicked"
+                android:onClick="weekBtnClicked"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight=".09"
                 android:background="@drawable/rounded_button_primary"
                 android:textColor="#ffffff"
-                android:layout_margin="5dp" />
+                android:layout_margin="5dp"
+                android:tag="fridayBtn"/>
 
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/saturdayBtn"
-                android:onClick="saturdayBtnClicked"
+                android:onClick="weekBtnClicked"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight=".09"
                 android:background="@drawable/rounded_button_secondary"
                 android:textColor="#ffffff"
-                android:layout_margin="5dp" />
+                android:layout_margin="5dp"
+                android:tag="saturdayBtn"/>
 
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/sundayBtn"
-                android:onClick="sundayBtnClicked"
+                android:onClick="weekBtnClicked"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight=".09"
                 android:background="@drawable/rounded_button_primary"
                 android:textColor="#ffffff"
-                android:layout_margin="5dp" />
+                android:layout_margin="5dp"
+                android:tag="sundayBtn"/>
+
         </LinearLayout>
 
         <Space
