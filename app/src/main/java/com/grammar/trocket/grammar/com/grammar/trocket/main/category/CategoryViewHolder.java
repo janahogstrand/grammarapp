@@ -96,7 +96,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
                 selectIntent(context);
                 intent.putExtra(DialectDialog.CALLER_INFO,currentItem.name);
 
-                if (currentItem.hasDialect && currentItem.isResource) {
+                if ((currentItem.hasDialect == 1) && currentItem.isResource) {
                     //TODO make this adapter get information from database
                     ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                             view.getContext(),

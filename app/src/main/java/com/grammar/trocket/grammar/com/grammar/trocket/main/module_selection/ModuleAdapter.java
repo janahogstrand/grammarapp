@@ -23,11 +23,15 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleView
     private  ArrayList<ModuleItem> moduleData;
 
     public class ModuleViewHolder extends RecyclerView.ViewHolder {
+
         public TextView title;
         private View view;
-        public ModuleViewHolder(View itemView, ArrayList<ModuleItem> moduleData) {
+        ArrayList<ModuleItem> moduleItems;
+
+        public ModuleViewHolder(View itemView, final ArrayList<ModuleItem> moduleData) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
+            this.moduleItems = moduleData;
 
             view = itemView;
 
@@ -35,11 +39,17 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleView
                 @Override
                 public void onClick(View v) {
                     SharedPreferences prefs = v.getContext().getSharedPreferences(
-                            "com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection", v.getContext().MODE_PRIVATE);
+                            "com.grammar.trocket.grammar.com.grammar.trocket.main", v.getContext().MODE_PRIVATE);
 
                     prefs.edit().putString(ModuleSelection.LANGUAGE, title.getText().toString()).apply();
+                    int id = moduleItems.get(getAdapterPosition()).getModuleId();
+
+                    prefs.edit().putInt("courseId", id).apply();
+                    String savedID = Integer.toString(prefs.getInt("courseId", 0));
+
                     MainMenu.MainLanguage = prefs.getString(ModuleSelection.LANGUAGE, new String());
-                    Log.w("Prefs are: ", MainMenu.MainLanguage);
+                    Log.w("Language is: ", MainMenu.MainLanguage);
+                    Log.w("ID is: ", savedID);
 
                     Intent intent = new Intent(view.getContext(), MainMenu.class);
                     view.getContext().startActivity(intent);

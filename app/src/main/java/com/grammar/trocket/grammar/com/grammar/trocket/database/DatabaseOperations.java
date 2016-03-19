@@ -10,6 +10,8 @@ import android.database.sqlite.SQLiteStatement;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -43,6 +45,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         if (sInstance == null) {
             sInstance = new DatabaseOperations(context.getApplicationContext());
         }
+
         return sInstance;
     }
 
@@ -65,6 +68,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         // on upgrade drop older tables
         db.rawQuery("DROP TABLE IF EXISTS TableUpdate", null);
         db.rawQuery("DROP TABLE IF EXISTS Course", null);
+        db.rawQuery("DROP TABLE IF EXISTS Category", null);
         db.rawQuery("DROP TABLE IF EXISTS Dialect", null);
         db.rawQuery("DROP TABLE IF EXISTS Content", null);
         db.rawQuery("DROP TABLE IF EXISTS Video", null);
@@ -86,7 +90,39 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public void dbRefresh() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        // Todo Change rawQuery to execSQL
+        db.rawQuery("DROP TABLE IF EXISTS TableUpdate", null);
+        db.rawQuery("DROP TABLE IF EXISTS Course", null);
+        db.execSQL("DROP TABLE IF EXISTS Category");
+        Log.d("Database", "Dropped Category Table");
+        db.rawQuery("DROP TABLE IF EXISTS Dialect", null);
+        db.rawQuery("DROP TABLE IF EXISTS Content", null);
+        db.rawQuery("DROP TABLE IF EXISTS Video", null);
+        db.rawQuery("DROP TABLE IF EXISTS Quiz", null);
+        db.rawQuery("DROP TABLE IF EXISTS QuizQuestion", null);
+        db.rawQuery("DROP TABLE IF EXISTS QuizAnswer", null);
+        db.rawQuery("DROP TABLE IF EXISTS Tap", null);
+        db.rawQuery("DROP TABLE IF EXISTS TapItem", null);
+        db.rawQuery("DROP TABLE IF EXISTS ThumbnailTap", null);
+        db.rawQuery("DROP TABLE IF EXISTS ThumbnailTapItem", null);
+        db.rawQuery("DROP TABLE IF EXISTS Cluster", null);
+        db.rawQuery("DROP TABLE IF EXISTS ClusterItem", null);
+        db.rawQuery("DROP TABLE IF EXISTS ClusterSubItem", null);
+        db.rawQuery("DROP TABLE IF EXISTS Dictionary", null);
+        db.rawQuery("DROP TABLE IF EXISTS DictionaryLetter", null);
+        db.rawQuery("DROP TABLE IF EXISTS DictionaryWord", null);
 
+        // create new tables
+        onCreate(db);
+
+    }
+
+    public Boolean tableExists(String table) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor tCheck = db.rawQuery()
+    }
     public void DatabaseSetup() {
         SQLiteDatabase myDatabase = this.getWritableDatabase();
 //        try {
@@ -127,9 +163,12 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     public Cursor selectDBTable(String table) {
         SQLiteDatabase myDatabase = this.getWritableDatabase();
         Cursor c = myDatabase.rawQuery("SELECT * FROM " + table, null);
-//        while (c.moveToNext()) {
-//            Log.i("Select", c.getString(c.getColumnIndex("name")));
-//        }
+        return c;
+    }
+
+    public Cursor selectDBTable(String table, String clause) {
+        SQLiteDatabase myDatabase = this.getWritableDatabase();
+        Cursor c = myDatabase.rawQuery("SELECT * FROM " + table + " " + clause, null);
         return c;
     }
 
@@ -146,8 +185,8 @@ public class DatabaseOperations extends SQLiteOpenHelper {
 
         myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Course (_id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(50), creator VARCHAR(50), password VARCHAR(50), Created DATETIME, LastEdit DATETIME)");
 
-        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Category (_id INTEGER NOT NULL PRIMARY KEY, courseId INTEGER, type VARCHAR(6), internalName VARCHAR(50), name VARCHAR(50) NOT NULL, iconURL TEXT, content INTEGER, hierarchy INTEGER, hasDialect INTEGER, parentId INTEGER, depth INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
-
+        myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Category (_id INTEGER NOT NULL PRIMARY KEY, courseId INTEGER, type VARCHAR(20), name VARCHAR(50) NOT NULL, description TEXT, iconURL TEXT, content INTEGER, hierarchy INTEGER, hasDialect INTEGER, parentId INTEGER, depth INTEGER, Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
+        Log.d("Database", "Created Category Table");
         myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Dialect (_id INTEGER NOT NULL PRIMARY KEY, courseId INTEGER, name VARCHAR(50), code VARCHAR(15), Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
 
         myDatabase.execSQL("CREATE TABLE IF NOT EXISTS Content (_id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(50), Created VARCHAR(24), LastEdit VARCHAR(24) NOT NULL)");
@@ -286,7 +325,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
                     break;
 
                 case "Category":
-                    query += "(_id, courseId, type, internalName, name, iconURL, content, hasDialect, parentId, depth, Created, LastEdit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                    query += "(_id, courseId, type, name, iconURL, content, hasDialect, parentId, depth, Created, LastEdit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
                     myDatabase.beginTransaction();
                     statement = myDatabase.compileStatement(query);
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -294,19 +333,19 @@ public class DatabaseOperations extends SQLiteOpenHelper {
                         statement.bindString(1, jsonArray.getJSONObject(i).getString("id"));
                         statement.bindString(2, jsonArray.getJSONObject(i).getString("course_id"));
                         statement.bindString(3, jsonArray.getJSONObject(i).getString("kind"));
-                        statement.bindString(4, jsonArray.getJSONObject(i).getString("internalName"));
-                        statement.bindString(5, jsonArray.getJSONObject(i).getString("name"));
-                        statement.bindString(6, jsonArray.getJSONObject(i).getString("iconUrl"));
-                        statement.bindString(7, jsonArray.getJSONObject(i).getString("content"));
-                        statement.bindString(8, jsonArray.getJSONObject(i).getString("hasDialect"));
-                        statement.bindString(9, jsonArray.getJSONObject(i).getString("parent_id"));
-                        statement.bindString(10, jsonArray.getJSONObject(i).getString("depth"));
-                        statement.bindString(11, jsonArray.getJSONObject(i).getString("created_at"));
-                        statement.bindString(12, jsonArray.getJSONObject(i).getString("updated_at"));
+                        statement.bindString(4, jsonArray.getJSONObject(i).getString("name"));
+                        statement.bindString(5, jsonArray.getJSONObject(i).getString("iconUrl"));
+                        statement.bindString(6, jsonArray.getJSONObject(i).getString("content"));
+                        statement.bindString(7, jsonArray.getJSONObject(i).getString("hasDialect"));
+                        statement.bindString(8, jsonArray.getJSONObject(i).getString("parent_id"));
+                        statement.bindString(9, jsonArray.getJSONObject(i).getString("depth"));
+                        statement.bindString(10, jsonArray.getJSONObject(i).getString("created_at"));
+                        statement.bindString(11, jsonArray.getJSONObject(i).getString("updated_at"));
                         statement.execute();
                     }
                     myDatabase.setTransactionSuccessful();
                     myDatabase.endTransaction();
+                    Log.d("Database", "Populated Category Table");
                     break;
 
                 case "Dialect":

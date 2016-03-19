@@ -1,5 +1,6 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.tabs;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.grammar.trocket.grammar.com.grammar.trocket.database.DatabaseOperations;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.category.Category;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.category.CategoryAdapter;
 import com.grammar.trocket.grammar.R;
@@ -20,6 +22,10 @@ public class FragmentTabResources extends Fragment {
     private List<Category> categories;
     private RecyclerView rv;
 
+    public static DatabaseOperations db;
+    public Cursor c;
+    public String categoryId = getArguments().getString("resourcesId");
+
     /**
      * Inflate fragement tab 2
      * Set recycle view for card view
@@ -31,6 +37,9 @@ public class FragmentTabResources extends Fragment {
 
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setHasFixedSize(true);
+
+        db = DatabaseOperations.getInstance(getContext());
+        c = db.selectDBTable("Category", "WHERE categoryId='" + categoryId + "'");
 
         initializeData();
         initializeAdapter();
@@ -45,13 +54,17 @@ public class FragmentTabResources extends Fragment {
      **/
     private void initializeData() {
         categories = new ArrayList<>();
-        categories.add(new Category("El Alfabeto", "Learn the alphabet", R.drawable.ic_menu_send, true, true));
-        categories.add(new Category("Los Numeros", "Learn the numbers", R.drawable.ic_menu_send, true, true));
-        categories.add(new Category("Los Dias", "Learn the days of the week", R.drawable.ic_menu_send, true, true));
-        categories.add(new Category("El Calendario", "Learn how to read a calendar", R.drawable.ic_menu_send, true, true));
-        categories.add(new Category("Festividades", "Learn about festivals", R.drawable.ic_menu_send, true, true));
-        categories.add(new Category("Estaciones y Meses", "Learn about the seasons", R.drawable.ic_menu_send, true, true));
-        categories.add(new Category("La Hora", "Learn to tell the time", R.drawable.ic_menu_send, true, true));
+
+        while(c.moveToNext()) {
+            categories.add(new Category(c.getString(c.getColumnIndex("name")), c.getString(c.getColumnIndex("description")), Integer.parseInt(c.getString(c.getColumnIndex("iconURL"))), Integer.parseInt(c.getString(c.getColumnIndex("hasDialect"))), c.getString(c.getColumnIndex("_id")), true));
+        }
+//        categories.add(new Category("El Alfabeto", "Learn the alphabet", R.drawable.ic_menu_send, true, true));
+//        categories.add(new Category("Los Numeros", "Learn the numbers", R.drawable.ic_menu_send, true, true));
+//        categories.add(new Category("Los Dias", "Learn the days of the week", R.drawable.ic_menu_send, true, true));
+//        categories.add(new Category("El Calendario", "Learn how to read a calendar", R.drawable.ic_menu_send, true, true));
+//        categories.add(new Category("Festividades", "Learn about festivals", R.drawable.ic_menu_send, true, true));
+//        categories.add(new Category("Estaciones y Meses", "Learn about the seasons", R.drawable.ic_menu_send, true, true));
+//        categories.add(new Category("La Hora", "Learn to tell the time", R.drawable.ic_menu_send, true, true));
     }
 
     /**

@@ -1,6 +1,8 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.main;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -21,6 +23,14 @@ public class MainMenu extends BaseActivityDrawer {
 
     //TODO Shared prefs
     public static String MainLanguage = "Spanish";
+    public String courseId = null;
+    public String exercisesId = null;
+    public String exercisesName = null;
+    public String resourcesId = null;
+    public String resourcesName = null;
+    public String dictionaryId = null;
+    public String dictionaryName = null;
+
     public static DatabaseOperations db;
 
     /**
@@ -49,31 +59,71 @@ public class MainMenu extends BaseActivityDrawer {
 
 
 //        getApplicationContext().deleteDatabase("GrammarCourses");
-        //dbOps.DatabaseSetup();
+//        dbOps.DatabaseSetup();
 //        Cursor result = dbOps.queryDB("SELECT * FROM Course AS co JOIN Category AS ca ON co._id=ca.courseId WHERE co.name='Spanish'");
- //       Cursor result = dbOps.selectDBTable("Course");
+//        Cursor result = dbOps.selectDBTable("Course");
 //        Log.i("Select Count", Integer.toString(result.getCount()));
+
+
         db = DatabaseOperations.getInstance(getApplicationContext());
 //        String dbName = db.getDatabaseName();
 //        db.close();
 //        getApplicationContext().deleteDatabase(dbName);
+//        db = DatabaseOperations.getInstance(getApplicationContext());
+        db.dbRefresh();
 
-        Cursor result = db.selectDBTable("Course");
-        Log.i("Select Count", Integer.toString(result.getCount()));
 
-//        db.DatabaseSetup();
-//        Cursor result = dbOps.queryDB("SELECT * FROM Course AS co JOIN Category AS ca ON co._id=ca.courseId WHERE co.name='Spanish'");
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        SharedPreferences prefs = this.getSharedPreferences(
+                "com.grammar.trocket.grammar.com.grammar.trocket.main", Context.MODE_PRIVATE);
+        courseId = Integer.toString(prefs.getInt("courseId", 7));
+        Log.i("Saved Course ID", courseId);
 
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
-
+//        Cursor result = db.selectDBTable("Course");
+//        Log.i("Select Count", Integer.toString(result.getCount()));
+//
+//        Cursor c1 = db.selectDBTable("Category");
+//        //        Cursor c1 = db.selectDBTable("Category", "WHERE courseId='" + courseId + "' AND type='exercise' LIMIT 1");
+//        Log.i("Category Cursor", Integer.toString(c1.getCount()));
+//        if (c1.moveToNext()) {
+//            Log.i("Cursor", "c1");
+//            exercisesId = c1.getString(c1.getColumnIndex("_id"));
+//            exercisesName = c1.getString(c1.getColumnIndex("name"));
+//        }
+//
+//        //        Cursor c2 = db.selectDBTable("Category", "WHERE courseId='" + courseId + "' AND type='resource' LIMIT 1");
+//        Cursor c2 = db.selectDBTable("Category", "ORDER BY Created DESC LIMIT 1");
+//        if (c2.moveToNext()) {
+//            Log.i("Cursor", "c2");
+//            resourcesId = c2.getString(c2.getColumnIndex("_id"));
+//            resourcesName = c2.getString(c2.getColumnIndex("name"));
+//        }
+//
+//        Cursor c3 = db.selectDBTable("Dictionary", "ORDER BY Created DESC LIMIT 1");
+//        //        Cursor c3 = db.selectDBTable("Dictionary", "WHERE courseId='" + courseId + "' LIMIT 1");
+//        if (c3.moveToNext()) {
+//            Log.i("Cursor", "c3");
+//            dictionaryId = c3.getString(c3.getColumnIndex("_id"));
+//            dictionaryName = c3.getString(c3.getColumnIndex("title"));
+//        }
+//
+//        Log.i("ExercisesId", exercisesId);
+//        Log.i("ResourcesId", resourcesId);
+//        Log.i("DictionaryId", dictionaryId);
+//
+//        //        Log.i("Select Count", Integer.toString(result.getCount()));
+//
+//        //        db.DatabaseSetup();
+//        //        Cursor result = dbOps.queryDB("SELECT * FROM Course AS co JOIN Category AS ca ON co._id=ca.courseId WHERE co.name='Spanish'");
+//        // Create the adapter that will return a fragment for each of the three
+//        // primary sections of the activity.
+//        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+//
+//        // Set up the ViewPager with the sections adapter.
+//        mViewPager = (ViewPager) findViewById(R.id.container);
+//        mViewPager.setAdapter(mSectionsPagerAdapter);
+//
+//        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+//        tabLayout.setupWithViewPager(mViewPager);
 
     }
 
@@ -88,14 +138,27 @@ public class MainMenu extends BaseActivityDrawer {
             super(fm);
         }
 
+//        Cursor result = db.selectDBTable("Category", "WHERE courseId='" +  + "'");
+
         /**
          * Return tab at @position
          **/
         @Override
         public Fragment getItem(int position) {
+            Bundle bndl = new Bundle();
+            bndl.putString("exercisesId", exercisesId);
+            bndl.putString("resourcesId", resourcesId);
+            bndl.putString("dictionaryId", dictionaryId);
+
             FragmentTabExercises tab1 = new FragmentTabExercises();
+            tab1.setArguments(bndl);
+
             FragmentTabResources tab2 = new FragmentTabResources();
+            tab2.setArguments(bndl);
+
             FragmentTabDictionary tab3 = new FragmentTabDictionary();
+            tab3.setArguments(bndl);
+
             switch (position) {
                 case 0:
                     return tab1;
@@ -124,11 +187,11 @@ public class MainMenu extends BaseActivityDrawer {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "EXERCISES";
+                    return exercisesName;
                 case 1:
-                    return "RESOURCES";
+                    return resourcesName;
                 case 2:
-                    return "DICTIONARY";
+                    return dictionaryName;
             }
             return null;
         }
