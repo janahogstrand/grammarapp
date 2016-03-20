@@ -68,21 +68,17 @@ public class SeasonsSecondActivity extends AppCompatActivity {
     //TODO Make database interact with this
     public void playAudio(View v){
         Button clickedButton = (Button) v;
-
+        stopAllSound();
         try {
-            stopAllSound();
-            switch (clickedButton.getText().toString()) {
-                case "junio":
-                    setAudio("https://www.dropbox.com/s/7mga5icr0uweph/U01-E05.mp3?raw=1");
-                    break;
-                case "julio":
-                    setAudio("https://www.dropbox.com/s/7mga5icr0uweph/U01-E05.mp3?raw=1");
-                    break;
-                case "agosto":
-                    setAudio("https://www.dropbox.com/s/7mga5icr0uweph/U01-E05.mp3?raw=1");
-                    break;
-                default:
-                    player = null;
+            if (clickedButton.getText().toString().equals("junio"))
+            {
+                setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
+            } else if (clickedButton.getText().toString().equals("julio"))
+            {
+                setAudio("");
+            } else if (clickedButton.getText().toString().equals("agosto"))
+            {
+                setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
             }
         } catch (Exception e) {
             String viewTextAsString = clickedButton.getText().toString();
@@ -98,9 +94,6 @@ public class SeasonsSecondActivity extends AppCompatActivity {
      * If media player is running this will stop
      **/
     private void stopAllSound() {
-        if (textToSpeech.isSpeaking()) {
-            textToSpeech.stop();
-        }
         if (player != null) {
             if (player.isPlaying()) {
                 player.stop();

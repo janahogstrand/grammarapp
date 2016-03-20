@@ -1,6 +1,5 @@
-package com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview;
+package com.grammar.trocket.grammar.com.grammar.trocket.resources.festivalAndTime;
 
-import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.speech.tts.TextToSpeech;
@@ -64,10 +63,6 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
      * If media player is running this will stop
      **/
     private void stopAllSound() {
-        if (textToSpeech != null) {
-            textToSpeech.stop();
-            Log.w("Player released", "TTS Shutdown");
-        }
         if (player != null) {
             if (player.isPlaying()) {
                 player.stop();

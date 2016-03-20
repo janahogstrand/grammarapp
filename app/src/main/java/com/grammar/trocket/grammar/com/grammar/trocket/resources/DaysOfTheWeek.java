@@ -9,9 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Locale;
 
 
@@ -24,15 +22,9 @@ public class DaysOfTheWeek extends BaseActivityDrawer {
     Button fridayBtn;
     Button saturdayBtn;
     Button sundayBtn;
-    MediaPlayer mondayPlayer, tuesdayPlayer, wednesdayPlayer, thursdayPlayer, fridayPlayer,
-                saturdayPlayer, sundayPlayer;
-    // mediaPlayers arrayList will hold mediaPlayers who each are
-    // assigned with a unique audio file
-    ArrayList<MediaPlayer> mediaPlayers;
-    boolean mondayMissing, tuesdayMissing, wednesdayMissing, thursdayMissing, fridayMissing,
-            saturdayMissing, sundayMissing = false;
     TextToSpeech textToSpeech;
     Locale language;
+    MediaPlayer player;
 
 
     @Override
@@ -49,16 +41,11 @@ public class DaysOfTheWeek extends BaseActivityDrawer {
         saturdayBtn = (Button) findViewById(R.id.saturdayBtn);
         sundayBtn = (Button) findViewById(R.id.sundayBtn);
 
-        mediaPlayers = new ArrayList<MediaPlayer>();
-        mediaPlayers.add(mondayPlayer);  mediaPlayers.add(tuesdayPlayer);
-        mediaPlayers.add(wednesdayPlayer);  mediaPlayers.add(thursdayPlayer);
-        mediaPlayers.add(fridayPlayer);  mediaPlayers.add(saturdayPlayer);
-        mediaPlayers.add(sundayPlayer);
 
         assignBtnText();
         assignLanguage();
-        assignBtnSounds();
-    }
+   }
+
 
     /** 
      * This method assigns text to the View/Buttons with the target 
@@ -88,56 +75,7 @@ public class DaysOfTheWeek extends BaseActivityDrawer {
         });
     }
 
-    /** 
-     * This method determines whether an audio file is found or not when a search is done, 
-     * if the audio file is not available the correspondent boolean variable 
-     * is assigned as true thus indicating that textToSpeech should be used in its case. 
-     */
-    public void assignBtnSounds(){
-        try {
-            mondayPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mondayPlayer.setDataSource("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
-            mondayPlayer.prepare();
-        }catch (Exception e){
-            //mondayMissing = true;
-            Log.d("111111111", "mondayMissing");
-            Log.d("111111111", "mondayMissing");
-            Log.d("111111111", "mondayMissing");
-            Log.d("111111111", "mondayMissing");
-            Log.d("111111111", "mondayMissing");
-        }
-        try {
-            tuesdayPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            tuesdayPlayer.setDataSource("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
-//            tuesdayPlayer.prepare();
-        }catch (Exception e){ tuesdayMissing = true; }
-        try {
-            wednesdayPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            wednesdayPlayer.setDataSource("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
-//            wednesdayPlayer.prepare();
-        }catch (Exception e){ wednesdayMissing = true; }
-        try {
-            thursdayPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            thursdayPlayer.setDataSource("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
-//            thursdayPlayer.prepare();
-        }catch (Exception e){ thursdayMissing = true; }
-        try {
-            fridayPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            fridayPlayer.setDataSource("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
-//            fridayPlayer.prepare();
-        }catch (Exception e){ fridayMissing = true; }
-        try {
-            saturdayPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            saturdayPlayer.setDataSource("");
-//            saturdayPlayer.prepare();
-        }catch (Exception e){ saturdayMissing = true; }
-        try {
-            sundayPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            sundayPlayer.setDataSource("");
-//            sundayPlayer.prepare();
-        }catch (Exception e){ sundayMissing = true; }
 
-    }
 
     /** 
      * This method is invoked when the associated button is clicked, the methods checks 
@@ -148,50 +86,61 @@ public class DaysOfTheWeek extends BaseActivityDrawer {
      */
     public void weekBtnClicked(View view) throws IOException{
         Button clickedButton = (Button) view;
-        if(!mondayMissing && view.getTag().toString().equals("mondayBtn")){
-           // mondayPlayer.prepare();
-            //mondayPlayer.start();
-            Log.d("111111111", "mondayMissing");
-            Log.d("111111111", "mondayMissing");
-            Log.d(view.getTag().toString() , "mondayMissing");
-            Log.d(view.getTag().toString() , "mondayMissing");
-            Log.d("111111111", "mondayMissing");
-
+        stopAllSound();
+        try {
+            if (view.getTag().toString().equals("mondayBtn"))
+            {
+                setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
+            } else if (view.getTag().toString().equals("tuesdayBtn"))
+            {
+                setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
+            } else if (view.getTag().toString().equals("wednesdayBtn"))
+            {
+                setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
+            } else if (view.getTag().toString().equals("thursdayBtn"))
+            {
+                setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
+            } else if (view.getTag().toString().equals("fridayBtn"))
+            {
+                setAudio("");
+            } else if (view.getTag().toString().equals("saturdayBtn"))
+            {
+                setAudio("");
+            } else if (view.getTag().toString().equals("sundayBtn"))
+            {
+                setAudio("");
+            }
         }
-        else if(!tuesdayMissing && view.getTag().toString().equals("tuesdayBtn")){
-//            tuesdayPlayer.prepare();
-//            tuesdayPlayer.start();
-        }
-        else if(!wednesdayMissing && view.getTag().toString().equals("wednesdayBtn")){
-//             wednesdayPlayer.prepare();
-//             wednesdayPlayer.start();
-        }
-        else if(!thursdayMissing && view.getTag().toString().equals("thursdayBtn")){
-//             thursdayPlayer.prepare();
-//             tuesdayPlayer.start();
-        }
-        else if(!fridayMissing && view.getTag().toString().equals("fridayBtn")){
-//            fridayPlayer.prepare();
-//            fridayPlayer.start();
-        }
-        else if(!saturdayMissing && view.getTag().toString().equals("saturdayBtn")){
-//            saturdayPlayer.prepare();
-//            saturdayPlayer.start();
-        }
-        else if(!sundayMissing && view.getTag().toString().equals("sundayBtn")){
-//            sundayPlayer.prepare();
-//            sundayPlayer.start();
-        }
-        else {
-            Log.d("111111111", "textToSpeech");
-            Log.d("111111111", "textToSpeech");
-            Log.d("111111111", "textToSpeech");
-            Log.d("111111111", "textToSpeech");
-            Log.d("111111111", "textToSpeech");
+        catch (Exception e)
+        {
             String viewTextAsString = clickedButton.getText().toString();
             textToSpeech.speak(viewTextAsString, TextToSpeech.QUEUE_FLUSH, null);
         }
     }
+
+    /**
+     * Stops all current sound
+     * If media player is running this will stop
+     **/
+    private void stopAllSound() {
+        if (player != null) {
+            if (player.isPlaying()) {
+                player.stop();
+                player.reset();
+                player.release();
+                Log.w("Player released", "Audio Released");
+            }
+        }
+    }
+
+    private void setAudio(String address) throws IOException {
+        player = new MediaPlayer();
+        player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        player.setDataSource(address);
+        player.prepare();
+        player.start();
+    }
+
 
     /**
      * This method is called whenever an activity is closed or destroyed.
@@ -200,14 +149,12 @@ public class DaysOfTheWeek extends BaseActivityDrawer {
      */
     @Override
     protected void onDestroy() {
-        for( MediaPlayer mediaPlayer : mediaPlayers ){
-            if (mediaPlayer != null) {
-                if (mediaPlayer.isPlaying()) {
-                    mediaPlayer.stop();
-                    mediaPlayer.reset();
-                    mediaPlayer.release();
-                    Log.d("mediaPlayer released ", " Player Destroyed");
-                }
+        if(player != null){
+            if (player.isPlaying()) {
+                player.stop();
+                player.reset();
+                player.release();
+                Log.d("Player released ", "Player Destroyed");
             }
         }
 

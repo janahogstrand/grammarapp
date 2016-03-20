@@ -1,4 +1,4 @@
-package com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview;
+package com.grammar.trocket.grammar.com.grammar.trocket.resources.festivalAndTime;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

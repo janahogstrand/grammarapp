@@ -97,23 +97,30 @@ public class DictionaryAlphabetAdapter extends RecyclerView.Adapter<DictionaryAl
     public AlphabetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_alphabet, parent, false);
 
+//        if(callerName.equals("Alphabet")) {
+//            ++itemPositionAlphabet;
+//            if (itemPositionAlphabet % 2 == 0) {
+//                view.setBackgroundResource(R.drawable.rounded_button_primary);
+//            } else {
+//                view.setBackgroundResource(R.drawable.rounded_button_secondary);
+//            }
+//        }
+//        else if(callerName.equals("DictionaryItemsList")) {
+//            ++itemPositionDictionary;
+//            if (itemPositionDictionary % 2 == 0) {
+//                view.setBackgroundResource(R.drawable.rounded_button_primary);
+//            } else {
+//                view.setBackgroundResource(R.drawable.rounded_button_secondary);
+//            }
+//        }
+
         if(callerName.equals("Alphabet")) {
-            ++itemPositionAlphabet;
-            if (itemPositionAlphabet % 2 == 0) {
                 view.setBackgroundResource(R.drawable.rounded_button_primary);
-            } else {
-                view.setBackgroundResource(R.drawable.rounded_button_secondary);
-            }
         }
         else if(callerName.equals("DictionaryItemsList")) {
-            ++itemPositionDictionary;
-            if (itemPositionDictionary % 2 == 0) {
-                view.setBackgroundResource(R.drawable.rounded_button_primary);
-            } else {
                 view.setBackgroundResource(R.drawable.rounded_button_secondary);
-            }
-        }
 
+        }
 
             AlphabetViewHolder viewHolder = new AlphabetViewHolder(view, alphabetList);
             return viewHolder;

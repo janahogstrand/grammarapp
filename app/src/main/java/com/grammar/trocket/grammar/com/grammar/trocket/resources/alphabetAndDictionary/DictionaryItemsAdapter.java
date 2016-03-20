@@ -1,5 +1,6 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary;
 
+import android.graphics.Color;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,12 +30,14 @@ public class DictionaryItemsAdapter extends RecyclerView.Adapter<DictionaryItems
     public DictionaryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_alphabet, parent, false);
 
-        ++itemPosition;
-        if (itemPosition%2==0) {
-            view.setBackgroundResource(R.drawable.rounded_button_primary);
-        } else {
-            view.setBackgroundResource(R.drawable.rounded_button_secondary);
-        }
+//        ++itemPosition;
+//        if (itemPosition%2==0) {
+//            view.setBackgroundResource(R.drawable.rounded_button_primary);
+//        } else {
+//            view.setBackgroundResource(R.drawable.rounded_button_secondary);
+//        }
+
+        view.setBackgroundResource(R.drawable.rounded_button_primary);
 
         DictionaryViewHolder viewHolder = new DictionaryViewHolder(view, wordList);
         return viewHolder;

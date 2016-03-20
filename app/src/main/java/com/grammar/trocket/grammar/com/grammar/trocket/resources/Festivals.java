@@ -1,23 +1,18 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.resources;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
-import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeAdapter;
-import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeItem;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.festivalAndTime.FestivalTimeAdapter;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.festivalAndTime.FestivalTimeItem;
 import com.grammar.trocket.grammar.R;
-import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeViewHolder;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.festivalAndTime.FestivalTimeViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

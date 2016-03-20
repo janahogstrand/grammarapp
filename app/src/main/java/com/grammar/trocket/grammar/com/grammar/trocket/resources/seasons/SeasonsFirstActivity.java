@@ -68,23 +68,19 @@ public class SeasonsFirstActivity extends AppCompatActivity {
      * method which plays the clicked button's text.
      */
     //TODO Make database interact with this
-    public void playAudio(View v){
-        Button clickedButton = (Button) v;
-
+    public void playAudio(View view)throws IOException{
+        Button clickedButton = (Button) view;
+        stopAllSound();
         try {
-            stopAllSound();
-            switch (clickedButton.getText().toString()) {
-                case "marzo":
-                    setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
-                    break;
-                case "abril":
-                    setAudio("https://www.dropbox.com/s/7mga5icr0uweph/U01-E05.mp3?raw=1");
-                    break;
-                case "mayo":
-                    setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
-                    break;
-                default:
-                    player = null;
+            if (clickedButton.getText().toString().equals("marzo"))
+            {
+                setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
+            } else if (clickedButton.getText().toString().equals("abril"))
+            {
+                setAudio("");
+            } else if (clickedButton.getText().toString().equals("mayo"))
+            {
+                setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
             }
         } catch (Exception e) {
             String viewTextAsString = clickedButton.getText().toString();
@@ -100,9 +96,6 @@ public class SeasonsFirstActivity extends AppCompatActivity {
      * If media player is running this will stop
      **/
     private void stopAllSound() {
-        if (textToSpeech.isSpeaking()) {
-            textToSpeech.stop();
-        }
         if (player != null) {
             if (player.isPlaying()) {
                 player.stop();
@@ -132,8 +125,6 @@ public class SeasonsFirstActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         this.finish();
-        //Close the Text to Speech Library
-        //Close the Text to Speech Library
         if(player != null){
             if (player.isPlaying()) {
                 player.stop();
