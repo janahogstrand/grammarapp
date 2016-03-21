@@ -1,18 +1,19 @@
 package com.example.teerachel.imagequizactivity;
 
 
-
-
-import android.util.Log;
-import android.view.View;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Toast;
-import android.content.Intent;
-import android.widget.TextView;
-import android.widget.ImageView;
-import com.squareup.picasso.Picasso;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 
 
@@ -43,6 +44,7 @@ public class Image_Quiz_Main extends AppCompatActivity{
     public final static String EXTRA_MESSAGE = "com.example.teerachel.imagequizactivity.message";
     public final static String EXTRA_MESSAGE2 = "com.example.teerachel.imagequizactivity.message2";
 
+    ImageView[] iv = {firstView, secondView, thirdView, fourthView, fifthView, sixthView};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,21 +116,36 @@ public class Image_Quiz_Main extends AppCompatActivity{
      * If the answer is incorrect the mistake counter increase by one.
      * After that the question counter is increased thus moving the player to the
      * second question, and the checkQuestionNumber() method is called.
-     * The buttons also changes opacity onClick to indicate that the
+     * The buttons also changes colour onClick to indicate that the
      * button is clicked for user's purposes.
+     * Green for correct answers and Red for incorrect answers.
      * @param view
      */
     public void checkResult(final View view) {
-
+        final ImageView variableName = (ImageView) findViewById(view.getId());
         if(correctAns.equals(view.getTag().toString())) {
             successCounter++;
             Toast.makeText(Image_Quiz_Main.this,
                     "You're correct!", Toast.LENGTH_LONG).show();
+            variableName.setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);
+            variableName.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    variableName.clearColorFilter();
+                }
+            }, 1000);
         }
         else {
             mistakeCounter++;
             Toast.makeText(Image_Quiz_Main.this,
                     "Sorry, try again :(", Toast.LENGTH_LONG).show();
+            variableName.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+            variableName.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    variableName.clearColorFilter();
+                }
+            }, 1000);
         }
 
        Log.d("pressedView", view.getTag().toString() );
