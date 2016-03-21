@@ -1,8 +1,7 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.main;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -13,7 +12,6 @@ import android.util.Log;
 
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.database.DatabaseHelper;
-import com.grammar.trocket.grammar.com.grammar.trocket.database.DatabaseOperations;
 import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabDictionary;
 import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabExercises;
 import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabResources;
@@ -24,6 +22,8 @@ public class MainMenu extends BaseActivityDrawer {
     public static String MainLanguage = "Spanish";
     public static DatabaseHelper db;
     public static Cursor result;
+    public static final String TAB_SELECT = "com.grammar.trocket.grammar.com.grammar.trocket.TAB";
+    private int currentTab = 0;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -61,11 +61,18 @@ public class MainMenu extends BaseActivityDrawer {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        //Gets tab that was last clicked
+        Intent intent = getIntent();
+        currentTab = intent.getIntExtra(this.TAB_SELECT, currentTab);
+
+        TabLayout.Tab tab = tabLayout.getTabAt(currentTab);
+        tab.select();
     }
 
     private void loadDatabase() {
         db = DatabaseHelper.getInstance(getApplicationContext());
-        db.getWritableDatabase();
+        //db.getWritableDatabase();
 
         // This must be put into the refresh method, and ALSO called onCreate, or just after onCreate.
 //        db.onCreate(db.getWritableDatabase());

@@ -1,14 +1,18 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.tabs;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary.DictionaryAlphabetAdapter;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary.AlphabetItem;
 
@@ -20,6 +24,9 @@ public class FragmentTabDictionary extends Fragment {
     View view;
     private DictionaryAlphabetAdapter alphabetAdapter;
     private ArrayList<AlphabetItem> alphabetList;
+    private SwipeRefreshLayout swipeContainer;
+
+
 
     /**
      * Inflate fragment tab 3
@@ -27,6 +34,11 @@ public class FragmentTabDictionary extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_tab_dictionary, container, false);
+
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        swipeContainer.setRefreshing(false);
+
+        swipeListener(view);
 
         RecyclerView rv = (RecyclerView) view.findViewById(R.id.rv);
 
@@ -74,6 +86,25 @@ public class FragmentTabDictionary extends Fragment {
 
 
         return alphabetList;
+    }
+
+    /**
+     * Reloads main activity this time updating database
+     * **/
+    private void swipeListener(final View view){
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.w("Updating..", "Swiped clicked");
+                MainMenu.db.onCreate(MainMenu.db.getWritableDatabase());
+                Intent intent = new Intent(view.getContext(), MainMenu.class);
+                intent.putExtra(MainMenu.TAB_SELECT, 2);
+                view.getContext().startActivity(intent);
+            }
+        });
+
     }
 
 }

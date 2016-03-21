@@ -9,6 +9,8 @@ package com.grammar.trocket.grammar.com.grammar.trocket.database;
         import android.os.AsyncTask;
         import android.util.Log;
 
+        import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
+
         import org.json.JSONArray;
         import org.json.JSONException;
 
@@ -176,6 +178,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static Boolean taskDone = false;
     private static String[] selectedColumns = null;
     private static DatabaseHelper sInstance;
+    private SQLiteDatabase db;
 
     public static synchronized DatabaseHelper getInstance(Context context) {
 
@@ -194,9 +197,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        this.db = db;
 
         for(String TABLE : DATABASE_TABLE_NAMES) {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE);
+            Log.w("Dropping..", TABLE);
         }
 
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLEUPDATES_TABLE + " (" + TABLEUPDATES_ID + " INTEGER NOT NULL, " + TABLEUPDATES_TABLENAME + " VARCHAR(50), " + TABLEUPDATES_UPDATETIME + " VARCHAR(24))");
@@ -247,7 +252,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Boolean insertData(String... params) {
-        getWritableDatabase();
+        //getWritableDatabase();
         long result = 0;
         switch(params[0]) {
             case TABLEUPDATES_TABLE:
@@ -278,13 +283,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Log.i("Columns", params[0]);
             Log.i("JSON", (Integer.toString(jsonArray.getJSONObject(0).length())));
 
-            SQLiteDatabase db = this.getWritableDatabase();
+            //SQLiteDatabase db = this.getWritableDatabase();
             for(int j = 0; j < jsonArray.length(); ++j) {
                 ContentValues contentValues = new ContentValues();
                 for (int i = 0; i < selectedColumns.length; ++i) {
                     contentValues.put(selectedColumns[i], jsonArray.getJSONObject(j).getString(selectedColumns[i]));
                 }
-                result = db.insert(params[0], null, contentValues);
+                result = this.db.insert(params[0], null, contentValues);
             }
         } catch (JSONException e) {
             e.printStackTrace();
