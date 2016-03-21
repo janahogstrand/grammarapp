@@ -1,5 +1,6 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.resources;
 
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
 import java.io.IOException;
 import java.util.Locale;
@@ -15,6 +17,8 @@ import java.util.Locale;
 
 public class DaysOfTheWeek extends BaseActivityDrawer {
 
+
+    String dialect;
     Button mondayBtn;
     Button tuesdayBtn;
     Button wednesdayBtn;
@@ -67,7 +71,16 @@ public class DaysOfTheWeek extends BaseActivityDrawer {
      * and then sets it for the textToSpeech instance/variable. 
      */
     public void assignLanguage(){
-        language = new Locale("es", "ES");
+        Intent intent = getIntent();
+
+        dialect = intent.getStringExtra(DialectDialog.DIALECT_INFO);
+        if(dialect.equals("Spanish")){
+            language = new Locale("es", "ES");
+        }
+        else {
+            language = new Locale("es", "US");
+        }
+
         textToSpeech=new TextToSpeech(DaysOfTheWeek.this, new TextToSpeech.OnInitListener() {
             @Override public void onInit(int status) {
                 textToSpeech.setLanguage(language);

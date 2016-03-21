@@ -1,6 +1,7 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.resources;
 
 import android.content.Intent;
+import android.media.AudioManager;
 import android.util.Log;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -25,11 +27,9 @@ public class ListViewActivity extends BaseActivityDrawer {
     Locale language;
     ListView listView;
     ArrayList<String> data = new ArrayList<String>();
-    // mediaPlayers arrayList will hold mediaPlayers who each are
-    // assigned with a unique audio file
-    ArrayList<MediaPlayer> mediaPlayers = new ArrayList<MediaPlayer>();
     LinearLayout linerLayout;
     TextToSpeech textToSpeech;
+    MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +47,6 @@ public class ListViewActivity extends BaseActivityDrawer {
 
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(myOnClickListener);
-
-        assignMediaPlayers();
 
     }
 
@@ -93,23 +91,6 @@ public class ListViewActivity extends BaseActivityDrawer {
     }
 
     /**
-     *This method creates a mediaPlayers object for every item in listView and then
-     * adds it to the mediaPlayer arrayList.
-     */
-    public void assignMediaPlayers() {
-        for(int i = 2;i<data.size();i++){
-            if (i%2 == 0){
-                MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.placeholderaudio1);
-                mediaPlayers.add(mediaPlayer);
-            }else {
-                MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.placeholderaudio1);
-                mediaPlayers.add(mediaPlayer);
-            }
-
-        }
-    }
-
-    /**
      * This method is ran when any item in the listView is clicked. This method checks
      * whether the clicked item has a media player in the same position as it in the mediaPlayer
      * arrayList. If the mediaPlayer does not exist, the textToSpeech object runs the speak()
@@ -119,17 +100,57 @@ public class ListViewActivity extends BaseActivityDrawer {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            stopAllSound();
+            String clickedView = String.valueOf(parent.getItemAtPosition(position));
 
-            Log.d("position", position+"");
             try {
-                mediaPlayers.get(position).start();
+                if (clickedView.equals("1"))
+                {
+                    setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
+                }
+                else if (clickedView.equals("2"))
+                {
+                    setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
+                }
+                else {
+                    setAudio("");
+                }
+
             }catch (Exception e){
-                String clickedView = String.valueOf(parent.getItemAtPosition(position));
                 textToSpeech.speak(clickedView, TextToSpeech.QUEUE_FLUSH, null);
             }
 
         }
     };
+
+
+    /**
+     * Stops all current sound
+     * If media player is running this will stop
+     **/
+    private void stopAllSound() {
+        if (player != null) {
+            if (player.isPlaying()) {
+                player.stop();
+                player.reset();
+                player.release();
+                Log.w("Player released", "Audio Released");
+            }
+        }
+    }
+
+    /**
+     * Plays audio for a given address
+     * @param address Address of audio URL
+     * **/
+    private void setAudio(String address) throws IOException {
+        player = new MediaPlayer();
+        player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        player.setDataSource(address);
+        player.prepare();
+        player.start();
+    }
+
 
     /**
      * This method is called whenever an activity is closed or destroyed.
@@ -138,19 +159,14 @@ public class ListViewActivity extends BaseActivityDrawer {
      */
     @Override
     protected void onDestroy() {
-        this.finish();
-
-        for( MediaPlayer mediaPlayer : mediaPlayers ){
-            if (mediaPlayer != null) {
-                if (mediaPlayer.isPlaying()) {
-                    mediaPlayer.stop();
-                    mediaPlayer.reset();
-                    mediaPlayer.release();
-                    Log.d("mediaPlayer released ", " Player Destroyed");
-                }
+        if(player != null){
+            if (player.isPlaying()) {
+                player.stop();
+                player.reset();
+                player.release();
+                Log.d("Player released ", "Player Destroyed");
             }
         }
-
 
         //Close the Text to Speech Library
         if(textToSpeech != null) {
@@ -160,6 +176,7 @@ public class ListViewActivity extends BaseActivityDrawer {
         }
         super.onDestroy();
     }
+
 
 
 
