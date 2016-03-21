@@ -37,7 +37,7 @@
             android:id="@+id/answerOption1"
             android:layout_weight=".09"
             android:onClick="checkResult"
-            android:background="@drawable/rounded_button_primary"
+            android:background="@drawable/quiz_rounded_button_primary"
             android:gravity="center"
             android:layout_margin="5dp"
             android:textColor="#ffffff"/>
@@ -49,7 +49,7 @@
             android:id="@+id/answerOption2"
             android:layout_weight=".09"
             android:onClick="checkResult"
-            android:background="@drawable/rounded_button_secondary"
+            android:background="@drawable/quiz_rounded_button_secondary"
             android:gravity="center"
             android:layout_margin="5dp"
             android:textColor="#ffffff"/>
@@ -61,7 +61,7 @@
             android:id="@+id/answerOption3"
             android:layout_weight=".09"
             android:onClick="checkResult"
-            android:background="@drawable/rounded_button_primary"
+            android:background="@drawable/quiz_rounded_button_primary"
             android:gravity="center"
             android:layout_margin="5dp"
             android:textColor="#ffffff"/>
@@ -73,7 +73,7 @@
             android:id="@+id/answerOption4"
             android:layout_weight=".09"
             android:onClick="checkResult"
-            android:background="@drawable/rounded_button_secondary"
+            android:background="@drawable/quiz_rounded_button_secondary"
             android:gravity="center"
             android:layout_margin="5dp"
             android:textColor="#ffffff"/>
@@ -85,7 +85,7 @@
             android:id="@+id/answerOption5"
             android:layout_weight=".09"
             android:onClick="checkResult"
-            android:background="@drawable/rounded_button_primary"
+            android:background="@drawable/quiz_rounded_button_primary"
             android:gravity="center"
             android:layout_margin="5dp"
             android:textColor="#ffffff"/>
@@ -97,7 +97,7 @@
             android:id="@+id/answerOption6"
             android:layout_weight=".09"
             android:onClick="checkResult"
-            android:background="@drawable/rounded_button_secondary"
+            android:background="@drawable/quiz_rounded_button_secondary"
             android:gravity="center"
             android:layout_margin="5dp"
             android:textColor="#ffffff"/>

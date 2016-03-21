@@ -39,7 +39,7 @@ public class TextQuizMainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.text_quiz_main_activity);
+        setContentView(R.layout.activity_text_quiz_main);
 
         question = (TextView) findViewById(R.id.question);
         answerOption1 = (Button) findViewById(R.id.answerOption1);
@@ -95,12 +95,12 @@ public class TextQuizMainActivity extends Activity {
         Button pressedButton = (Button) view;
         if(correctAnswer.equals(pressedButton.getText().toString())) {
             Log.d("correct", "correct");
-            pressedButton.setBackgroundResource(R.drawable.rounded_button_green);
+            pressedButton.setBackgroundResource(R.drawable.quiz_rounded_button_green);
             successCounter++;
         }
         else {
             Log.d("mistake", pressedButton.getText().toString());
-            pressedButton.setBackgroundResource(R.drawable.rounded_button_red);
+            pressedButton.setBackgroundResource(R.drawable.quiz_rounded_button_red);
             showCorrectAnswer();
             mistakeCounter++;
         }
@@ -116,22 +116,22 @@ public class TextQuizMainActivity extends Activity {
      */
     public void showCorrectAnswer(){
         if(correctAnswer.equals(answerOption1.getText().toString())){
-            answerOption1.setBackgroundResource(R.drawable.rounded_button_green);
+            answerOption1.setBackgroundResource(R.drawable.quiz_rounded_button_green);
         }
         else if (correctAnswer.equals(answerOption2.getText().toString())){
-            answerOption2.setBackgroundResource(R.drawable.rounded_button_green);
+            answerOption2.setBackgroundResource(R.drawable.quiz_rounded_button_green);
         }
         else if (correctAnswer.equals(answerOption3.getText().toString())){
-            answerOption3.setBackgroundResource(R.drawable.rounded_button_green);
+            answerOption3.setBackgroundResource(R.drawable.quiz_rounded_button_green);
         }
         else if (correctAnswer.equals(answerOption4.getText().toString())){
-            answerOption4.setBackgroundResource(R.drawable.rounded_button_green);
+            answerOption4.setBackgroundResource(R.drawable.quiz_rounded_button_green);
         }
         else if (correctAnswer.equals(answerOption5.getText().toString())){
-            answerOption5.setBackgroundResource(R.drawable.rounded_button_green);
+            answerOption5.setBackgroundResource(R.drawable.quiz_rounded_button_green);
         }
         else if (correctAnswer.equals(answerOption6.getText().toString())){
-            answerOption6.setBackgroundResource(R.drawable.rounded_button_green);
+            answerOption6.setBackgroundResource(R.drawable.quiz_rounded_button_green);
         }
     }
 
@@ -153,12 +153,12 @@ public class TextQuizMainActivity extends Activity {
      * to be clickable.
      */
     public void restoreColor(){
-        answerOption1.setBackgroundResource(R.drawable.rounded_button_primary);
-        answerOption2.setBackgroundResource(R.drawable.rounded_button_secondary);
-        answerOption3.setBackgroundResource(R.drawable.rounded_button_primary);
-        answerOption4.setBackgroundResource(R.drawable.rounded_button_secondary);
-        answerOption5.setBackgroundResource(R.drawable.rounded_button_primary);
-        answerOption6.setBackgroundResource(R.drawable.rounded_button_secondary);
+        answerOption1.setBackgroundResource(R.drawable.quiz_rounded_button_primary);
+        answerOption2.setBackgroundResource(R.drawable.quiz_rounded_button_secondary);
+        answerOption3.setBackgroundResource(R.drawable.quiz_rounded_button_primary);
+        answerOption4.setBackgroundResource(R.drawable.quiz_rounded_button_secondary);
+        answerOption5.setBackgroundResource(R.drawable.quiz_rounded_button_primary);
+        answerOption6.setBackgroundResource(R.drawable.quiz_rounded_button_secondary);
         answerOption1.setClickable(true);
         answerOption2.setClickable(true);
         answerOption3.setClickable(true);

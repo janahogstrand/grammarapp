@@ -37,7 +37,7 @@
             android:id="@+id/answerOption1"
             android:layout_weight=".12"
             android:layout_margin="5sp"
-            android:background="@drawable/rounded_button_primary"
+            android:background="@drawable/quiz_rounded_button_primary"
             android:onClick="checkboxUse"/>
 
         <CheckBox
@@ -47,7 +47,7 @@
             android:id="@+id/answerOption2"
             android:layout_weight=".12"
             android:layout_margin="5sp"
-            android:background="@drawable/rounded_button_secondary"
+            android:background="@drawable/quiz_rounded_button_secondary"
             android:onClick="checkboxUse"/>
 
         <CheckBox
@@ -57,7 +57,7 @@
             android:id="@+id/answerOption3"
             android:layout_weight=".12"
             android:layout_margin="5sp"
-            android:background="@drawable/rounded_button_primary"
+            android:background="@drawable/quiz_rounded_button_primary"
             android:onClick="checkboxUse"/>
 
         <CheckBox
@@ -67,7 +67,7 @@
             android:id="@+id/answerOption4"
             android:layout_weight=".12"
             android:layout_margin="5sp"
-            android:background="@drawable/rounded_button_secondary"
+            android:background="@drawable/quiz_rounded_button_secondary"
             android:onClick="checkboxUse"/>
 
         <CheckBox
@@ -77,7 +77,7 @@
             android:id="@+id/answerOption5"
             android:layout_weight=".12"
             android:layout_margin="5sp"
-            android:background="@drawable/rounded_button_primary"
+            android:background="@drawable/quiz_rounded_button_primary"
             android:onClick="checkboxUse"/>
 
         <CheckBox
@@ -87,7 +87,7 @@
             android:id="@+id/answerOption6"
             android:layout_weight=".12"
             android:layout_margin="5sp"
-            android:background="@drawable/rounded_button_secondary"
+            android:background="@drawable/quiz_rounded_button_secondary"
             android:onClick="checkboxUse"/>
 
         <Button

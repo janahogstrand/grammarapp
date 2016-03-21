@@ -24,7 +24,7 @@ public class SeasonsMain extends BaseActivityDrawer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.seasons_main_activity);
+        setContentView(R.layout.activity_seasons_main);
         super.onCreateDrawer();
 
         pageTitle = (TextView) findViewById(R.id.pageTitle);

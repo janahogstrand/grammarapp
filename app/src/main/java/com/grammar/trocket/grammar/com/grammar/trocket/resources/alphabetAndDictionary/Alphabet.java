@@ -26,7 +26,7 @@ public class Alphabet extends BaseActivityDrawer{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.module_main);
+        setContentView(R.layout.activity_module_main);
         super.onCreateDrawer();
         getDialect();
 

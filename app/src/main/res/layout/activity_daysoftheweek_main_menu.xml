@@ -10,7 +10,7 @@
     tools:openDrawer="start">
 
     <include
-        layout="@layout/module_app"
+        layout="@layout/activity_daysoftheweek"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageView2"
-            android:background="@drawable/egg"
+            android:background="@drawable/mascot_egg"
             android:layout_gravity="center_horizontal|bottom"
             android:layout_marginBottom="2sp"/>
     </android.support.design.widget.NavigationView>

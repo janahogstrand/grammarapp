@@ -44,7 +44,7 @@ public class Image_Quiz_Main extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.image_quiz_main);
+        setContentView(R.layout.activity_image_quiz_main);
 
         questions = new Image_Quiz_Question();
         answers = new Image_Quiz_Answers();
