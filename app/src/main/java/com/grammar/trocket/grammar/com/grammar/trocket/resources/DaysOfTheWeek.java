@@ -34,7 +34,7 @@ public class DaysOfTheWeek extends BaseActivityDrawer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.daysoftheweek_main_menu);
+        setContentView(R.layout.activity_daysoftheweek_main_menu);
         super.onCreateDrawer();
 
         mondayBtn = (Button) findViewById(R.id.mondayBtn);

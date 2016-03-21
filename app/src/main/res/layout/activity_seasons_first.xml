@@ -8,7 +8,7 @@
               android:paddingRight="@dimen/activity_horizontal_margin"
               android:paddingTop="@dimen/activity_vertical_margin"
               tools:context="com.grammar.trocket.grammar.FirstActivity"
-              android:background="@drawable/spring"
+              android:background="@drawable/seasons_background_spring"
               android:scaleType="fitXY"
               android:orientation="horizontal"
               android:gravity="center_vertical|center_horizontal"

@@ -20,7 +20,7 @@ public class QuizStatisticsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.quiz_statistics);
+        setContentView(R.layout.activity_quiz_statistics);
 
         // Get the message from the intent
         // EXTRA_MESSAGEs in the TextQuizMainActivity are used by all the quizzes

@@ -61,7 +61,7 @@ public class ListViewAdapter extends BaseAdapter {
         if (output == null) {
             // there wasn't a recycled view to work with, so create one from scratch
             LayoutInflater inflater = activity.getLayoutInflater();
-            output = inflater.inflate(R.layout.list_view_row, parent, false);
+            output = inflater.inflate(R.layout.activity_list_view_row, parent, false);
         }
         // get hold of the TextView
         TextView textView = (TextView) output.findViewById(R.id.name);
@@ -74,9 +74,9 @@ public class ListViewAdapter extends BaseAdapter {
         textView.setGravity(Gravity.CENTER);
 
         if (position%2==0) {
-            textView.setBackgroundResource(R.drawable.rounded_button_primary);
+            textView.setBackgroundResource(R.drawable.quiz_rounded_button_primary);
         } else {
-            textView.setBackgroundResource(R.drawable.rounded_button_secondary);
+            textView.setBackgroundResource(R.drawable.quiz_rounded_button_secondary);
         }
 
         return output;

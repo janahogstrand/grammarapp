@@ -19,7 +19,7 @@ public class Video extends BaseActivityDrawer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.video_activity_main);
+        setContentView(R.layout.activity_video_main);
         super.onCreateDrawer();
 
         // get video address from previous activity

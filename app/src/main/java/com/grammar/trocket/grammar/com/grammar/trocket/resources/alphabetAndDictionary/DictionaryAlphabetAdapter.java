@@ -100,25 +100,25 @@ public class DictionaryAlphabetAdapter extends RecyclerView.Adapter<DictionaryAl
 //        if(callerName.equals("Alphabet")) {
 //            ++itemPositionAlphabet;
 //            if (itemPositionAlphabet % 2 == 0) {
-//                view.setBackgroundResource(R.drawable.rounded_button_primary);
+//                view.setBackgroundResource(R.drawable.quizz_rounded_button_primary);
 //            } else {
-//                view.setBackgroundResource(R.drawable.rounded_button_secondary);
+//                view.setBackgroundResource(R.drawable.quizz_rounded_button_secondary);
 //            }
 //        }
 //        else if(callerName.equals("DictionaryItemsList")) {
 //            ++itemPositionDictionary;
 //            if (itemPositionDictionary % 2 == 0) {
-//                view.setBackgroundResource(R.drawable.rounded_button_primary);
+//                view.setBackgroundResource(R.drawable.quizz_rounded_button_primary);
 //            } else {
-//                view.setBackgroundResource(R.drawable.rounded_button_secondary);
+//                view.setBackgroundResource(R.drawable.quizz_rounded_button_secondary);
 //            }
 //        }
 
         if(callerName.equals("Alphabet")) {
-                view.setBackgroundResource(R.drawable.rounded_button_primary);
+                view.setBackgroundResource(R.drawable.quiz_rounded_button_primary);
         }
         else if(callerName.equals("DictionaryItemsList")) {
-                view.setBackgroundResource(R.drawable.rounded_button_secondary);
+                view.setBackgroundResource(R.drawable.quiz_rounded_button_secondary);
 
         }
 

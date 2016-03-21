@@ -56,15 +56,15 @@ public class FragmentTabExercises extends Fragment {
      **/
     private void initializeData() {
         categories = new ArrayList<>();
-        categories.add(new Category("Greetings", "Learn basic greetings!", R.drawable.greetings, true));
-        categories.add(new Category("Checking in", "Learn to check in", R.drawable.checking_in, true));
-        categories.add(new Category("Sightseeing", "Learn to order!", R.drawable.sightseeing, true));
-        categories.add(new Category("Directions", "Learn your way round", R.drawable.directions, false));
-        categories.add(new Category("Eating", "Learn to ask for your favourite dishes!", R.drawable.eating, false));
-        categories.add(new Category("Likes", "Talk about your likes", R.drawable.likes, false));
-        categories.add(new Category("Planning", "Learn to plan", R.drawable.planning, false));
-        categories.add(new Category("Shopping", "Learn about shopping", R.drawable.shopping, false));
-        categories.add(new Category("Dating", "Find love abroad!", R.drawable.dating, false));
+        categories.add(new Category("Greetings", "Learn basic greetings!", R.drawable.ic_greetings, true));
+        categories.add(new Category("Checking in", "Learn to check in", R.drawable.ic_checking_in, true));
+        categories.add(new Category("Sightseeing", "Learn to order!", R.drawable.ic_sightseeing, true));
+        categories.add(new Category("Directions", "Learn your way round", R.drawable.ic_directions, false));
+        categories.add(new Category("Eating", "Learn to ask for your favourite dishes!", R.drawable.ic_eating, false));
+        categories.add(new Category("Likes", "Talk about your likes", R.drawable.ic_likes, false));
+        categories.add(new Category("Planning", "Learn to plan", R.drawable.ic_planning, false));
+        categories.add(new Category("Shopping", "Learn about shopping", R.drawable.ic_shopping, false));
+        categories.add(new Category("Dating", "Find love abroad!", R.drawable.ic_dating, false));
     }
 
     /**

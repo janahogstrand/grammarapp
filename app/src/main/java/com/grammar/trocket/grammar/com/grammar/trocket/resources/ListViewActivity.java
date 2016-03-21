@@ -34,7 +34,7 @@ public class ListViewActivity extends BaseActivityDrawer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_view_main_activity);
+        setContentView(R.layout.activity_list_view_main);
         super.onCreateDrawer();
 
         listView = (ListView) findViewById(R.id.listView);
