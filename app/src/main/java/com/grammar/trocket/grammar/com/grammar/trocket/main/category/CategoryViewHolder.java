@@ -2,8 +2,11 @@ package com.grammar.trocket.grammar.com.grammar.trocket.main.category;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,6 +20,7 @@ import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.VideoObserveDialo
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.VideoReflectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Quiz;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizType;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.DaysOfTheWeek;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Festivals;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.ListViewActivity;
@@ -49,6 +53,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
     List<Category> categories;
     int index;
     Intent intent;
+    SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
 
     /**
      * Init views
@@ -64,6 +69,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         observe = (Button) itemView.findViewById(R.id.observe);
         reflect = (Button) itemView.findViewById(R.id.reflect);
         experiment = (Button) itemView.findViewById(R.id.experiment);
+
         view = itemView;
         checkResource();
         makeOnClicks();
@@ -81,6 +87,17 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             reflect.setVisibility(View.INVISIBLE);
             experiment.setVisibility(View.INVISIBLE);
         }
+    }
+
+    private Cursor searchParentCategory(boolean isResource, int parentCategoryID){
+        Cursor result;
+        if(!isResource){
+            result = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'exercise' " + "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + parentCategoryID, null);
+        } else {
+            result = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'resource' " + "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + parentCategoryID, null);
+        }
+
+        return result;
     }
 
     /**
@@ -113,13 +130,16 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             }
         });
 
-        observe = (Button) view.findViewById(R.id.observe);
+
+
+
         observe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
                 String with = " with transcript";
                 String without = " without transcript";
+
                 //TODO make this adapter get information from database
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                         view.getContext(),
@@ -128,12 +148,32 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
                 arrayAdapter.add("Video 1" + with);
                 arrayAdapter.add("Video 1" + without);
 
+
+                int parentCategoryID = categories.get(getAdapterPosition()).id;
+                int clickedCategoryID;
+
+                Cursor result;
+
+                result = searchParentCategory(false, parentCategoryID);
+                result.moveToFirst();
+                Log.w("Sub-catty", result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
+                clickedCategoryID = result.getInt(result.getColumnIndex(MainMenu.db.CATEGORY_ID));
+                result.move(-1);
+
+                Cursor result2;
+                result2 = searchParentCategory(false, clickedCategoryID);
+                while(result2.moveToNext()){
+                    Log.w("Sub-catty2", result2.getString(result2.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
+                    arrayAdapter.add(result2.getString(result2.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
+                }
+
+                result.move(-1);
+
                 VideoObserveDialog observeDialog = new VideoObserveDialog(context, arrayAdapter);
 
             }
         });
 
-        reflect = (Button) view.findViewById(R.id.reflect);
         reflect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,38 +195,37 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             }
         });
 
-        experiment = (Button) view.findViewById(R.id.experiment);
         experiment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
-                    //TODO make this adapter get information from database
-                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                            view.getContext(),
-                            android.R.layout.select_dialog_singlechoice);
+                //TODO make this adapter get information from database
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                        view.getContext(),
+                        android.R.layout.select_dialog_singlechoice);
 
-                    ArrayList<Quiz> quizList = new ArrayList<Quiz>();
-                    if(currentItem.name == "Sightseeing" ){
-                        quizList.add(new Quiz("Sightseeing quiz 1", QuizType.TEXTQUIZ));
-                        quizList.add(new Quiz("Sightseeing quiz 2", QuizType.PICTUREQUIZ));
-                        quizList.add(new Quiz("Sightseeing quiz 3", QuizType.AUDIOQUIZ));
-                        quizList.add(new Quiz("Sightseeing quiz 4", QuizType.TEXTQUIZ));
-                        quizList.add(new Quiz("Sightseeing quiz 5", QuizType.MULTIPLEQUIZ));
-                    }
-                    else {
-                        quizList.add(new Quiz("Imperativo 1", QuizType.TEXTQUIZ));
-                        quizList.add(new Quiz("Imperativo 2", QuizType.PICTUREQUIZ));
-                        quizList.add(new Quiz("Tu o Usted", QuizType.AUDIOQUIZ));
-                        quizList.add(new Quiz("Vocabulario", QuizType.TEXTQUIZ));
-                        quizList.add(new Quiz("Comprension Auditiva", QuizType.MULTIPLEQUIZ));
-                    }
+                ArrayList<Quiz> quizList = new ArrayList<Quiz>();
+                if(currentItem.name == "Sightseeing" ){
+                    quizList.add(new Quiz("Sightseeing quiz 1", QuizType.TEXTQUIZ));
+                    quizList.add(new Quiz("Sightseeing quiz 2", QuizType.PICTUREQUIZ));
+                    quizList.add(new Quiz("Sightseeing quiz 3", QuizType.AUDIOQUIZ));
+                    quizList.add(new Quiz("Sightseeing quiz 4", QuizType.TEXTQUIZ));
+                    quizList.add(new Quiz("Sightseeing quiz 5", QuizType.MULTIPLEQUIZ));
+                }
+                else {
+                    quizList.add(new Quiz("Imperativo 1", QuizType.TEXTQUIZ));
+                    quizList.add(new Quiz("Imperativo 2", QuizType.PICTUREQUIZ));
+                    quizList.add(new Quiz("Tu o Usted", QuizType.AUDIOQUIZ));
+                    quizList.add(new Quiz("Vocabulario", QuizType.TEXTQUIZ));
+                    quizList.add(new Quiz("Comprension Auditiva", QuizType.MULTIPLEQUIZ));
+                }
 
 
-                    for(Quiz q: quizList){
-                        arrayAdapter.add(q.getName());
-                    }
+                for(Quiz q: quizList){
+                    arrayAdapter.add(q.getName());
+                }
 
-                    QuizDialog quizDialog = new QuizDialog(context, arrayAdapter, quizList);
+                QuizDialog quizDialog = new QuizDialog(context, arrayAdapter, quizList);
             }
         });
     }

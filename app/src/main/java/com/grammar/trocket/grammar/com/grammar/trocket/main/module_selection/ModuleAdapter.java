@@ -25,7 +25,7 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleView
         public TextView title;
         private View view;
 
-        public ModuleViewHolder(View itemView, ArrayList<ModuleItem> moduleData) {
+        public ModuleViewHolder(View itemView, final ArrayList<ModuleItem> moduleData) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
 
@@ -37,9 +37,9 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleView
                     SharedPreferences prefs = v.getContext().getSharedPreferences(
                             "com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection", v.getContext().MODE_PRIVATE);
 
-                    prefs.edit().putString(ModuleSelection.LANGUAGE, title.getText().toString()).apply();
-                    MainMenu.MainLanguage = prefs.getString(ModuleSelection.LANGUAGE, new String());
-                    Log.w("Prefs are: ", MainMenu.MainLanguage);
+                    prefs.edit().putInt(ModuleSelection.COURSE, moduleData.get(getAdapterPosition()).getModuleId()).apply();
+                    MainMenu.CourseID = prefs.getInt(ModuleSelection.COURSE, -1);
+                    Log.w("Prefs are: ", MainMenu.CourseID + "   " + moduleData.get(getAdapterPosition()).getModuleId());
 
                     Intent intent = new Intent(view.getContext(), MainMenu.class);
                     view.getContext().startActivity(intent);

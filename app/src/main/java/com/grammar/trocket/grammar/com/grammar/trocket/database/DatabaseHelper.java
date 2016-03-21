@@ -205,21 +205,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLEUPDATES_TABLE + " (" + TABLEUPDATES_ID + " INTEGER NOT NULL, " + TABLEUPDATES_TABLENAME + " VARCHAR(50), " + TABLEUPDATES_UPDATETIME + " VARCHAR(24))");
-
+        Log.w("Created..", TABLEUPDATES_TABLE);
         db.execSQL("CREATE TABLE IF NOT EXISTS " + COURSE_TABLE + " (" + COURSE_ID + " INTEGER NOT NULL, " + COURSE_NAME + " VARCHAR(50), " + COURSE_CREATOR + " VARCHAR(50), " + COURSE_PASSWORD + " VARCHAR(50), " + COURSE_CREATEDAT + " DATETIME, " + COURSE_UPDATEDAT + " DATETIME)");
-
+        Log.w("Created..", TABLEUPDATES_ID);
         db.execSQL("CREATE TABLE IF NOT EXISTS " + CATEGORY_TABLE + " (" + CATEGORY_ID + " INTEGER NOT NULL, " + CATEGORY_COURSEID + " INTEGER, " + CATEGORY_KIND + " VARCHAR(6), " + CATEGORY_NAME + " VARCHAR(50) NOT NULL, " + CATEGORY_ICONURL + " TEXT, " + CATEGORY_CONTENT + " INTEGER, " + CATEGORY_HIERARCHY + " INTEGER, " + CATEGORY_HASDIALECT + " INTEGER, " + CATEGORY_PARENTID + " INTEGER, " + CATEGORY_DEPTH + " INTEGER, " + CATEGORY_CREATEDAT + " VARCHAR(24), " + CATEGORY_UPDATEDAT + " VARCHAR(24) NOT NULL)");
-
+        Log.w("Created..", CATEGORY_ID);
         db.execSQL("CREATE TABLE IF NOT EXISTS " + DIALECT_TABLE + " (" + DIALECT_ID + " INTEGER NOT NULL, " + DIALECT_COURSEID + " INTEGER, " + DIALECT_NAME + " VARCHAR(50), " + DIALECT_CODE + " VARCHAR(15), " + DIALECT_CREATEDAT + " VARCHAR(24), " + DIALECT_UPDATEDAT + " VARCHAR(24) NOT NULL)");
-
+        Log.w("Created..", DIALECT_TABLE);
         db.execSQL("CREATE TABLE IF NOT EXISTS " + CONTENT_TABLE + " (" + CONTENT_ID + " INTEGER NOT NULL, " + CONTENT_NAME + " VARCHAR(50), " + CONTENT_CREATEDAT + " VARCHAR(24), " + CONTENT_UPDATEDAT + " VARCHAR(24) NOT NULL)");
-
+        Log.w("Created..", CONTENT_TABLE);
         db.execSQL("CREATE TABLE IF NOT EXISTS " + QUIZ_TABLE + " (" + QUIZ_ID + " INTEGER NOT NULL, " + QUIZ_CATEGORYID + " INTEGER, " + QUIZ_COURSEID + " INTEGER, " + QUIZ_IMAGEURL + " TEXT, " + QUIZ_INSTRUCTION + " TEXT, " + QUIZ_KIND + " VARCHAR(10), " + QUIZ_HIERARCHY + " INTEGER, " + QUIZ_DIALECTID + " INTEGER, " + QUIZ_CREATEDAT + " VARCHAR(24), " + QUIZ_UPDATEDAT + " VARCHAR(24) NOT NULL)");
-
+        Log.w("Created..", QUIZ_TABLE);
         db.execSQL("CREATE TABLE IF NOT EXISTS " + DICTIONARY_TABLE + " (" + DICTIONARY_ID + " INTEGER NOT NULL, " + DICTIONARY_COURSEID + " INTEGER, " + DICTIONARY_TITLE + " TEXT, " + DICTIONARY_INSTRUCTION + " TEXT, " + DICTIONARY_HELP + " TEXT, " + DICTIONARY_CREATEDAT + " VARCHAR(24), " + DICTIONARY_UPDATEDDAT + " VARCHAR(24) NOT NULL)");
-
+        Log.w("Created..", DICTIONARY_TABLE);
         for(String table: DATABASE_TABLE_NAMES) {
             insertIntoTable("http://grammarapp.herokuapp.com/api/" + table, table);
+            Log.w("Inserted..", table);
         }
 
     }
@@ -241,7 +242,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insertIntoTable(String url, String table) {
         downloadJSON(url);
-        while(taskDone != true) {
+        while(!taskDone) {
+            Log.w("WHILE", "STUCK IN WHILE LOOP");
         }
         if (insertData(table, jsonData)) {
             Log.i("Result", "Data inserted");

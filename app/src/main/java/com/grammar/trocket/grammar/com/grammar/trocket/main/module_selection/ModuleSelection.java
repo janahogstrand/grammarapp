@@ -1,11 +1,15 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.database.DatabaseHelper;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 
 import java.util.ArrayList;
 
@@ -16,7 +20,9 @@ public class ModuleSelection extends BaseActivityDrawer {
 
     private ArrayList<ModuleItem> moduleData;
     private ModuleAdapter moduleAdapter;
+    public static Cursor result;
     public static String LANGUAGE = "com.grammar.trocket.grammar.com.grammar.trocket.main.language";
+    public static String COURSE = "com.grammar.trocket.grammar.com.grammar.trocket.main.COURSE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +42,12 @@ public class ModuleSelection extends BaseActivityDrawer {
         rv.setAdapter(moduleAdapter);
     }
 
-    //TODO database
     private ArrayList<ModuleItem> getData() {
         moduleData = new ArrayList<ModuleItem>();
-
-        moduleData.add(new ModuleItem("Spanish", "Spanish", 0));
-        moduleData.add(new ModuleItem("German", "German", 1));
-        moduleData.add(new ModuleItem("French", "French", 2));
+        result = MainMenu.db.selectDBTable(MainMenu.db.COURSE_TABLE);
+        while(result.moveToNext()) {
+            moduleData.add(new ModuleItem(result.getString(result.getColumnIndex(MainMenu.db.COURSE_NAME)), result.getString(result.getColumnIndex(MainMenu.db.COURSE_CREATOR)), result.getInt(result.getColumnIndex(DatabaseHelper.COURSE_ID))));
+        }
 
         return moduleData;
     }

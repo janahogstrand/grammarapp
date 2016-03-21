@@ -1,7 +1,9 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.main;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,6 +14,7 @@ import android.util.Log;
 
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.database.DatabaseHelper;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleSelection;
 import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabDictionary;
 import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabExercises;
 import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabResources;
@@ -20,9 +23,17 @@ public class MainMenu extends BaseActivityDrawer {
 
     //TODO Shared prefs
     public static String MainLanguage = "Spanish";
+    public static int CourseID;
+    public static int ExerciseID = -1;
+    public  static int ResourcesID = -1;
     public static DatabaseHelper db;
     public static Cursor result;
+    public static Cursor resultExercises;
+    public static Cursor resultResources;
     public static final String TAB_SELECT = "com.grammar.trocket.grammar.com.grammar.trocket.TAB";
+    public static final String RESOURCEID= "com.grammar.trocket.grammar.com.grammar.trocket.RESOURCEID";
+    public static final String EXERCISEID = "com.grammar.trocket.grammar.com.grammar.trocket.EXERCISEID";
+    //public static final String COURSE_SELECTED = "com.grammar.trocket.grammar.com.grammar.trocket.COURSE";
     private int currentTab = 0;
 
     /**
@@ -50,6 +61,8 @@ public class MainMenu extends BaseActivityDrawer {
         super.onCreateDrawer();
 
         loadDatabase();
+        loadPrefs();
+        //db.onCreate(db.getWritableDatabase());
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -63,11 +76,45 @@ public class MainMenu extends BaseActivityDrawer {
         tabLayout.setupWithViewPager(mViewPager);
 
         //Gets tab that was last clicked
-        Intent intent = getIntent();
-        currentTab = intent.getIntExtra(this.TAB_SELECT, currentTab);
+        try{
+            Intent intent = getIntent();
+            currentTab = intent.getIntExtra(this.TAB_SELECT, currentTab);
 
-        TabLayout.Tab tab = tabLayout.getTabAt(currentTab);
-        tab.select();
+            TabLayout.Tab tab = tabLayout.getTabAt(currentTab);
+            tab.select();
+        }catch (Exception e){
+
+        }
+
+    }
+
+    private void loadPrefs(){
+        SharedPreferences prefs = this.getApplicationContext().getSharedPreferences(
+                "com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection", this.getApplicationContext().MODE_PRIVATE);
+
+        CourseID = prefs.getInt(ModuleSelection.COURSE, -1);
+
+        SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
+        resultExercises = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'exercise' " + "AND " + MainMenu.db.CATEGORY_COURSEID + " = " + MainMenu.CourseID, null);
+        resultResources = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'resource' " + "AND " + MainMenu.db.CATEGORY_COURSEID + " = " + MainMenu.CourseID, null);
+
+        resultExercises.moveToFirst();
+        resultResources.moveToFirst();
+
+        try{
+            ExerciseID = resultExercises.getInt(resultExercises.getColumnIndex(MainMenu.db.CATEGORY_ID));
+            ResourcesID = resultResources.getInt(resultResources.getColumnIndex(MainMenu.db.CATEGORY_ID));
+            prefs.edit().putInt(this.RESOURCEID, ResourcesID ).apply();
+            prefs.edit().putInt(this.EXERCISEID, ExerciseID ).apply();
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.w("Failed:: ", "Has the user defined tabs in the course?");
+        }
+
+        CourseID = prefs.getInt(ModuleSelection.COURSE, -1);
+        Log.w("Prefs are: ", MainMenu.CourseID + "");
+        Log.w("Resources prefs are: ", ResourcesID + "");
+        Log.w("Exercise prefs are: ", ExerciseID + "");
     }
 
     private void loadDatabase() {
@@ -75,7 +122,7 @@ public class MainMenu extends BaseActivityDrawer {
         //db.getWritableDatabase();
 
         // This must be put into the refresh method, and ALSO called onCreate, or just after onCreate.
-//        db.onCreate(db.getWritableDatabase());
+        //db.onCreate(db.getWritableDatabase());
 
         // Test cursor with select all from Course table
         result = db.selectDBTable(db.COURSE_TABLE);
@@ -129,11 +176,21 @@ public class MainMenu extends BaseActivityDrawer {
          **/
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
+                switch (position) {
                 case 0:
-                    return "EXERCISES";
+                    try {
+                        return resultExercises.getString(resultExercises.getColumnIndex(MainMenu.db.CATEGORY_NAME));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        return "EXERCISES";
+                    }
                 case 1:
-                    return "RESOURCES";
+                    try {
+                        return resultResources.getString(resultResources.getColumnIndex(MainMenu.db.CATEGORY_NAME));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        return "RESOURCES";
+                    }
                 case 2:
                     return "DICTIONARY";
             }

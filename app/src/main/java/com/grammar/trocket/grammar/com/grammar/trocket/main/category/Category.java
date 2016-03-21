@@ -10,6 +10,7 @@ public class Category {
     int icon;
     boolean hasDialect;
     boolean isResource;
+    int id;
 
 
     /**
@@ -18,12 +19,13 @@ public class Category {
      * @param name Name of Category
      * @param  hasDialect Dialect  of category
      **/
-    public Category(String name, String desc, int icon, boolean hasDialect) {
+    public Category(String name, String desc, int icon, boolean hasDialect, int id) {
         this.name = name;
         this.desc = desc;
         this.icon = icon;
         this.hasDialect = hasDialect;
         this.isResource = false;
+        this.id = id;
     }
 
     /**
@@ -33,12 +35,13 @@ public class Category {
      * @param  hasDialect Dialect  of category
      * @param isResource Set true if this is a boolean, this will turn buttons on the card invisible
      **/
-    public Category(String name, String desc, int icon, boolean hasDialect, boolean isResource) {
+    public Category(String name, String desc, int icon, boolean hasDialect, boolean isResource, int id) {
         this.name = name;
         this.desc = desc;
         this.icon = icon;
         this.hasDialect = hasDialect;
         this.isResource = isResource;
+        this.id = id;
     }
 
 }

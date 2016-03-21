@@ -1,6 +1,8 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.tabs;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -24,6 +26,7 @@ public class FragmentTabExercises extends Fragment {
     private List<Category> categories;
     private RecyclerView rv;
     private SwipeRefreshLayout swipeContainer;
+    public static Cursor result;
 
     /**
      * Inflate fragments tab 1
@@ -56,15 +59,15 @@ public class FragmentTabExercises extends Fragment {
      **/
     private void initializeData() {
         categories = new ArrayList<>();
-        categories.add(new Category("Greetings", "Learn basic greetings!", R.drawable.ic_greetings, true));
-        categories.add(new Category("Checking in", "Learn to check in", R.drawable.ic_checking_in, true));
-        categories.add(new Category("Sightseeing", "Learn to order!", R.drawable.ic_sightseeing, true));
-        categories.add(new Category("Directions", "Learn your way round", R.drawable.ic_directions, false));
-        categories.add(new Category("Eating", "Learn to ask for your favourite dishes!", R.drawable.ic_eating, false));
-        categories.add(new Category("Likes", "Talk about your likes", R.drawable.ic_likes, false));
-        categories.add(new Category("Planning", "Learn to plan", R.drawable.ic_planning, false));
-        categories.add(new Category("Shopping", "Learn about shopping", R.drawable.ic_shopping, false));
-        categories.add(new Category("Dating", "Find love abroad!", R.drawable.ic_dating, false));
+        SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
+        result = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'exercise' " + "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + MainMenu.ExerciseID, null);
+        while(result.moveToNext()) {
+            Log.i("Category",  result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
+            Log.i("Category",  result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_ICONURL)));
+            categories.add(new Category(result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)), "Learn basic greetings!", R.drawable.ic_likes, true,  result.getInt(result.getColumnIndex(MainMenu.db.CATEGORY_ID)) ));
+
+        }
+        result.move(-1);
     }
 
     /**

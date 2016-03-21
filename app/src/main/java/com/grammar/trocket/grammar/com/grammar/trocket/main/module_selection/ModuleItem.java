@@ -17,6 +17,9 @@ public class ModuleItem {
     public String getModuleName(){
         return moduleName;
     }
+    public int getModuleId(){
+        return id;
+    }
 
     public String getModuleDialect(){
         return language;

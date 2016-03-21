@@ -1,6 +1,8 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.tabs;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -25,7 +27,7 @@ public class FragmentTabDictionary extends Fragment {
     private DictionaryAlphabetAdapter alphabetAdapter;
     private ArrayList<AlphabetItem> alphabetList;
     private SwipeRefreshLayout swipeContainer;
-
+    public static Cursor result;
 
 
     /**
@@ -57,6 +59,16 @@ public class FragmentTabDictionary extends Fragment {
     //TODO database
     private ArrayList<AlphabetItem> getData() {
         alphabetList = new ArrayList<AlphabetItem>();
+
+//        SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
+//        result = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'resource'", null);
+//        //result = MainMenu.db.selectDBTable(MainMenu.db.COURSE_TABLE);
+//        while(result.moveToNext()) {
+//            //Log.i("Cursor2", result.getString(result.getColumnIndex(MainMenu.db.COURSE_NAME)) + result.getColumnIndex(MainMenu.db.COURSE_NAME) + "" + result.getColumnIndex(DatabaseHelper.COURSE_CREATOR) + "" + result.getColumnIndex(DatabaseHelper.COURSE_ID) + "" );
+//            //moduleData.add(new ModuleItem(result.getString(result.getColumnIndex(MainMenu.db.COURSE_NAME)), result.getString(result.getColumnIndex(MainMenu.db.COURSE_CREATOR)), result.getColumnIndex(DatabaseHelper.COURSE_ID)));
+//            Log.i("Category",  result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
+//
+//        }
 
         alphabetList.add(new AlphabetItem("A", true));
         alphabetList.add(new AlphabetItem("B", true));
