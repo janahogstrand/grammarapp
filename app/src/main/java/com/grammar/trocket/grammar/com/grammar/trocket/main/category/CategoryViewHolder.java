@@ -90,15 +90,24 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
     }
 
     private Cursor searchParentCategory(boolean isResource, int parentCategoryID){
-        Cursor result;
+        Cursor cardChildren;
         if(!isResource){
-            result = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'exercise' " + "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + parentCategoryID, null);
+            cardChildren = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'exercise' " + "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + parentCategoryID, null);
         } else {
-            result = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'resource' " + "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + parentCategoryID, null);
+            cardChildren = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'resource' " + "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + parentCategoryID, null);
         }
 
-        return result;
+        return cardChildren;
     }
+
+    private Cursor searchParentQuiz(int parentCategoryID){
+        Cursor cardChildren;
+            cardChildren = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE +
+                    " JOIN " + MainMenu.db.QUIZ_TABLE + " ON " + MainMenu.db.CATEGORY_TABLE + "." + MainMenu.db.CATEGORY_ID + " = " + MainMenu.db.QUIZ_TABLE + "." + MainMenu.db.QUIZ_CATEGORYID +
+                    " WHERE " + MainMenu.db.QUIZ_CATEGORYID + " = " + parentCategoryID, null);
+        return cardChildren;
+    }
+
 
     /**
      * When card is clicked dialogs are opened
@@ -148,26 +157,29 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
                 arrayAdapter.add("Video 1" + with);
                 arrayAdapter.add("Video 1" + without);
 
-
+                //ParentId which is a  card for example Greetings
                 int parentCategoryID = categories.get(getAdapterPosition()).id;
                 int clickedCategoryID;
 
-                Cursor result;
+                Cursor cardChildren;
 
-                result = searchParentCategory(false, parentCategoryID);
-                result.moveToFirst();
-                Log.w("Sub-catty", result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
-                clickedCategoryID = result.getInt(result.getColumnIndex(MainMenu.db.CATEGORY_ID));
-                result.move(-1);
+                cardChildren = searchParentCategory(false, parentCategoryID);
+                cardChildren.moveToFirst();
+                Log.w("Sub-catty", cardChildren.getString(cardChildren.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
 
-                Cursor result2;
-                result2 = searchParentCategory(false, clickedCategoryID);
-                while(result2.moveToNext()){
-                    Log.w("Sub-catty2", result2.getString(result2.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
-                    arrayAdapter.add(result2.getString(result2.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
-                }
 
-                result.move(-1);
+                //ParentId which is a button inside card
+                clickedCategoryID = cardChildren.getInt(cardChildren.getColumnIndex(MainMenu.db.CATEGORY_ID));
+
+
+//                Cursor cardChildren2;
+//                cardChildren2 = searchParentCategory(false, clickedCategoryID);
+//                while(cardChildren2.moveToNext()){
+//                    Log.w("Sub-catty2", cardChildren2.getString(cardChildren2.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
+//                    arrayAdapter.add(cardChildren2.getString(cardChildren2.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
+//                }
+
+                cardChildren.move(-1);
 
                 VideoObserveDialog observeDialog = new VideoObserveDialog(context, arrayAdapter);
 
@@ -183,13 +195,22 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                         view.getContext(),
                         android.R.layout.select_dialog_singlechoice);
-                //TODO make DB get correct video
-                arrayAdapter.add("Video 1");
-                arrayAdapter.add("Video 2" );
-                arrayAdapter.add("Video 3");
-                arrayAdapter.add("Video 4" );
-                arrayAdapter.add("Video 5");
-                arrayAdapter.add("Video 6" );
+
+                int parentCategoryID = categories.get(getAdapterPosition()).id;
+                Cursor cardChildren = searchParentCategory(false, parentCategoryID);
+                //Go to second item
+                cardChildren.moveToFirst();
+                cardChildren.moveToNext();
+
+                Log.w("Sub-catty", cardChildren.getString(cardChildren.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
+
+                int clickedCategoryID = cardChildren.getInt(cardChildren.getColumnIndex(MainMenu.db.CATEGORY_ID));
+                Cursor buttonChildren = searchParentQuiz(clickedCategoryID);
+                while(buttonChildren.moveToNext()){
+                    Log.w("Experiment children", buttonChildren.getString(buttonChildren.getColumnIndex(MainMenu.db.QUIZ_INSTRUCTION)));
+                }
+
+                cardChildren.move(-1);
 
                 VideoReflectDialog reflectDialog = new VideoReflectDialog(context, arrayAdapter);
             }
@@ -205,25 +226,25 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
                         android.R.layout.select_dialog_singlechoice);
 
                 ArrayList<Quiz> quizList = new ArrayList<Quiz>();
-                if(currentItem.name == "Sightseeing" ){
-                    quizList.add(new Quiz("Sightseeing quiz 1", QuizType.TEXTQUIZ));
-                    quizList.add(new Quiz("Sightseeing quiz 2", QuizType.PICTUREQUIZ));
-                    quizList.add(new Quiz("Sightseeing quiz 3", QuizType.AUDIOQUIZ));
-                    quizList.add(new Quiz("Sightseeing quiz 4", QuizType.TEXTQUIZ));
-                    quizList.add(new Quiz("Sightseeing quiz 5", QuizType.MULTIPLEQUIZ));
-                }
-                else {
-                    quizList.add(new Quiz("Imperativo 1", QuizType.TEXTQUIZ));
-                    quizList.add(new Quiz("Imperativo 2", QuizType.PICTUREQUIZ));
-                    quizList.add(new Quiz("Tu o Usted", QuizType.AUDIOQUIZ));
-                    quizList.add(new Quiz("Vocabulario", QuizType.TEXTQUIZ));
-                    quizList.add(new Quiz("Comprension Auditiva", QuizType.MULTIPLEQUIZ));
+
+                //ParentId which is a  card for example Greetings
+                int parentCategoryID = categories.get(getAdapterPosition()).id;
+                Cursor cardChildren = searchParentCategory(false, parentCategoryID);
+                //Go to third item
+                cardChildren.moveToFirst();
+                cardChildren.moveToNext();
+                cardChildren.moveToNext();
+
+                Log.w("This belongs to:", cardChildren.getString(cardChildren.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
+
+                int clickedCategoryID = cardChildren.getInt(cardChildren.getColumnIndex(MainMenu.db.CATEGORY_ID));
+                Cursor buttonChildren = searchParentQuiz(clickedCategoryID);
+                while(buttonChildren.moveToNext()){
+                    Log.w("Children", buttonChildren.getString(buttonChildren.getColumnIndex(MainMenu.db.QUIZ_INSTRUCTION)));
                 }
 
+                cardChildren.move(-1);
 
-                for(Quiz q: quizList){
-                    arrayAdapter.add(q.getName());
-                }
 
                 QuizDialog quizDialog = new QuizDialog(context, arrayAdapter, quizList);
             }
