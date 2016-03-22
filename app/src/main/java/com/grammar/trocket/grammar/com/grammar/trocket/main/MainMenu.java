@@ -122,7 +122,7 @@ public class MainMenu extends BaseActivityDrawer {
         //db.getWritableDatabase();
 
         // This must be put into the refresh method, and ALSO called onCreate, or just after onCreate.
-        //db.onCreate(db.getWritableDatabase());
+        db.onCreate(db.getWritableDatabase());
 
         // Test cursor with select all from Course table
         result = db.selectDBTable(db.COURSE_TABLE);
