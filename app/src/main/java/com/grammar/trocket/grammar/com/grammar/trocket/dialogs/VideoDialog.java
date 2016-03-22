@@ -11,7 +11,7 @@ import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Video;
 /**
  * Created by jamiemoreland on 09/03/16.
  */
-public class VideoReflectDialog extends AlertDialog.Builder {
+public class VideoDialog extends AlertDialog.Builder {
 
     public final static String VIDEO_ADDRESS = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE2";
 
@@ -19,7 +19,7 @@ public class VideoReflectDialog extends AlertDialog.Builder {
     Intent intent;
 
 
-    public VideoReflectDialog(Context context, final ArrayAdapter<String> reflectOptions) {
+    public VideoDialog(Context context, final ArrayAdapter<String> reflectOptions) {
         super(context);
         this.context = context;
         addListContent(context, reflectOptions);

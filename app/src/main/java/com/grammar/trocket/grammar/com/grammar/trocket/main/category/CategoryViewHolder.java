@@ -16,8 +16,6 @@ import android.widget.TextView;
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.QuizDialog;
-import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.VideoObserveDialog;
-import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.VideoReflectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Quiz;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.DaysOfTheWeek;

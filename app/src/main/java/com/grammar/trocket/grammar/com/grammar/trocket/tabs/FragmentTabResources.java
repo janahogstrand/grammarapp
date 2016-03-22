@@ -57,27 +57,20 @@ public class FragmentTabResources extends Fragment {
 
     /**
      * Get data here
-     * //TODO Make this interact with database
      **/
     private void initializeData() {
         categories = new ArrayList<>();
-//        categories.add(new Category("El Alfabeto", "Learn the alphabet", R.drawable.ic_menu_send, true, true));
-//        categories.add(new Category("Los Numeros", "Learn the numbers", R.drawable.ic_menu_send, true, true));
-//        categories.add(new Category("Los Dias", "Learn the days of the week", R.drawable.ic_menu_send, true, true));
-//        categories.add(new Category("El Calendario", "Learn how to read a calendar", R.drawable.ic_menu_send, true, true));
-//        categories.add(new Category("Festividades", "Learn about festivals", R.drawable.ic_menu_send, true, true));
-//        categories.add(new Category("Estaciones y Meses", "Learn about the seasons", R.drawable.ic_menu_send, true, true));
-//        categories.add(new Category("La Hora", "Learn to tell the time", R.drawable.ic_menu_send, true, true));
 
-//        SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
-//        result = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'resource'", null);
-//        //result = MainMenu.db.selectDBTable(MainMenu.db.COURSE_TABLE);
-//        while(result.moveToNext()) {
-//            //Log.i("Cursor2", result.getString(result.getColumnIndex(MainMenu.db.COURSE_NAME)) + result.getColumnIndex(MainMenu.db.COURSE_NAME) + "" + result.getColumnIndex(DatabaseHelper.COURSE_CREATOR) + "" + result.getColumnIndex(DatabaseHelper.COURSE_ID) + "" );
-//            //moduleData.add(new ModuleItem(result.getString(result.getColumnIndex(MainMenu.db.COURSE_NAME)), result.getString(result.getColumnIndex(MainMenu.db.COURSE_CREATOR)), result.getColumnIndex(DatabaseHelper.COURSE_ID)));
-//            Log.i("Category",  result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
-//
-//        }
+        categories = new ArrayList<>();
+        SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
+        result = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'resource' " + "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + MainMenu.ResourcesID, null);
+        while(result.moveToNext()) {
+            Log.i("Category",  result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
+            Log.i("Category",  result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_ICONURL)));
+            categories.add(new Category(result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)), "Learn basic greetings!", R.drawable.ic_likes, true,  result.getInt(result.getColumnIndex(MainMenu.db.CATEGORY_ID)) ));
+
+        }
+        result.move(-1);
     }
 
     /**
