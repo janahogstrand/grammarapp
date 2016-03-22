@@ -19,7 +19,6 @@ import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.QuizDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.VideoObserveDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.VideoReflectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Quiz;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizType;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.DaysOfTheWeek;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Festivals;
@@ -89,6 +88,11 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
+    /**
+     * Used by searchAndReturnQuiz
+     * Gets all children of card categories so for example card
+     * Greetings may have children observe reflect and experiment
+     * */
     private Cursor searchParentCategory(boolean isResource, int parentCategoryID){
         Cursor cardChildren;
         if(!isResource){
@@ -100,12 +104,61 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         return cardChildren;
     }
 
+    /**
+     * Used by searchAndReturnQuiz
+     * Joins categories and quizzes to find a children of categories
+     * TODO make video method for same purpose
+     * */
     private Cursor searchParentQuiz(int parentCategoryID){
         Cursor cardChildren;
             cardChildren = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE +
                     " JOIN " + MainMenu.db.QUIZ_TABLE + " ON " + MainMenu.db.CATEGORY_TABLE + "." + MainMenu.db.CATEGORY_ID + " = " + MainMenu.db.QUIZ_TABLE + "." + MainMenu.db.QUIZ_CATEGORYID +
                     " WHERE " + MainMenu.db.QUIZ_CATEGORYID + " = " + parentCategoryID, null);
         return cardChildren;
+    }
+
+    /**
+     * Searches a parent id to see if it belongs
+     * to any quizzes
+     * a dialog is returned is so
+     * else returns null meaning it found none
+     * **/
+    private QuizDialog searchAndReturnQuiz(Context context, int parentCategoryID, int clickedIndex){
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                view.getContext(),
+                android.R.layout.select_dialog_singlechoice);
+
+        ArrayList<Quiz> quizList = new ArrayList<Quiz>();
+
+        Cursor cardChildren = searchParentCategory(false, parentCategoryID);
+        //Go to clicked item
+        for(int i =0; i < clickedIndex; i++){
+            cardChildren.moveToNext();
+        }
+
+        Log.w("Child of parent:", cardChildren.getString(cardChildren.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
+
+        int clickedCategoryID = cardChildren.getInt(cardChildren.getColumnIndex(MainMenu.db.CATEGORY_ID));
+        Cursor buttonChildren = searchParentQuiz(clickedCategoryID);
+
+        //Creates new entries with details stored
+        //Fills arrayadapter
+        //Fill quizList
+        while(buttonChildren.moveToNext()){
+            String title =  buttonChildren.getString(buttonChildren.getColumnIndex(MainMenu.db.QUIZ_INSTRUCTION));
+            String type =  buttonChildren.getString(buttonChildren.getColumnIndex(MainMenu.db.QUIZ_KIND));
+            arrayAdapter.add(title);
+            quizList.add(new Quiz(title, type));
+        }
+
+        //If no matches found return null
+        if(arrayAdapter.isEmpty()){
+            return null;
+        }
+
+        QuizDialog quizDialog = new QuizDialog(context, arrayAdapter, quizList, buttonChildren);
+
+        return quizDialog;
     }
 
 
@@ -148,40 +201,17 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
                 Context context = v.getContext();
                 String with = " with transcript";
                 String without = " without transcript";
-
-                //TODO make this adapter get information from database
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                        view.getContext(),
-                        android.R.layout.select_dialog_singlechoice);
-                //TODO make DB get correct video
-                arrayAdapter.add("Video 1" + with);
-                arrayAdapter.add("Video 1" + without);
+                //arrayAdapter.add("Video 1" + with);
+                //arrayAdapter.add("Video 1" + without)
+                //VideoObserveDialog observeDialog = new VideoObserveDialog(context, arrayAdapter);
 
                 //ParentId which is a  card for example Greetings
                 int parentCategoryID = categories.get(getAdapterPosition()).id;
-                int clickedCategoryID;
+                QuizDialog quizDialog = searchAndReturnQuiz(context, parentCategoryID, 1);
 
-                Cursor cardChildren;
-
-                cardChildren = searchParentCategory(false, parentCategoryID);
-                cardChildren.moveToFirst();
-                Log.w("Sub-catty", cardChildren.getString(cardChildren.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
-
-
-                //ParentId which is a button inside card
-                clickedCategoryID = cardChildren.getInt(cardChildren.getColumnIndex(MainMenu.db.CATEGORY_ID));
-
-
-//                Cursor cardChildren2;
-//                cardChildren2 = searchParentCategory(false, clickedCategoryID);
-//                while(cardChildren2.moveToNext()){
-//                    Log.w("Sub-catty2", cardChildren2.getString(cardChildren2.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
-//                    arrayAdapter.add(cardChildren2.getString(cardChildren2.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
-//                }
-
-                cardChildren.move(-1);
-
-                VideoObserveDialog observeDialog = new VideoObserveDialog(context, arrayAdapter);
+                if(quizDialog != null){
+                    quizDialog.show();
+                }
 
             }
         });
@@ -190,29 +220,12 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
-
-                //TODO make this adapter get information from database
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                        view.getContext(),
-                        android.R.layout.select_dialog_singlechoice);
-
                 int parentCategoryID = categories.get(getAdapterPosition()).id;
-                Cursor cardChildren = searchParentCategory(false, parentCategoryID);
-                //Go to second item
-                cardChildren.moveToFirst();
-                cardChildren.moveToNext();
+                QuizDialog quizDialog = searchAndReturnQuiz(context, parentCategoryID, 2);
 
-                Log.w("Sub-catty", cardChildren.getString(cardChildren.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
-
-                int clickedCategoryID = cardChildren.getInt(cardChildren.getColumnIndex(MainMenu.db.CATEGORY_ID));
-                Cursor buttonChildren = searchParentQuiz(clickedCategoryID);
-                while(buttonChildren.moveToNext()){
-                    Log.w("Experiment children", buttonChildren.getString(buttonChildren.getColumnIndex(MainMenu.db.QUIZ_INSTRUCTION)));
+                if(quizDialog != null){
+                    quizDialog.show();
                 }
-
-                cardChildren.move(-1);
-
-                VideoReflectDialog reflectDialog = new VideoReflectDialog(context, arrayAdapter);
             }
         });
 
@@ -220,33 +233,12 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
-                //TODO make this adapter get information from database
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                        view.getContext(),
-                        android.R.layout.select_dialog_singlechoice);
-
-                ArrayList<Quiz> quizList = new ArrayList<Quiz>();
-
-                //ParentId which is a  card for example Greetings
                 int parentCategoryID = categories.get(getAdapterPosition()).id;
-                Cursor cardChildren = searchParentCategory(false, parentCategoryID);
-                //Go to third item
-                cardChildren.moveToFirst();
-                cardChildren.moveToNext();
-                cardChildren.moveToNext();
+                QuizDialog quizDialog = searchAndReturnQuiz(context, parentCategoryID, 3);
 
-                Log.w("This belongs to:", cardChildren.getString(cardChildren.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
-
-                int clickedCategoryID = cardChildren.getInt(cardChildren.getColumnIndex(MainMenu.db.CATEGORY_ID));
-                Cursor buttonChildren = searchParentQuiz(clickedCategoryID);
-                while(buttonChildren.moveToNext()){
-                    Log.w("Children", buttonChildren.getString(buttonChildren.getColumnIndex(MainMenu.db.QUIZ_INSTRUCTION)));
+                if(quizDialog != null){
+                    quizDialog.show();
                 }
-
-                cardChildren.move(-1);
-
-
-                QuizDialog quizDialog = new QuizDialog(context, arrayAdapter, quizList);
             }
         });
     }

@@ -3,6 +3,7 @@ package com.grammar.trocket.grammar.com.grammar.trocket.dialogs;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.widget.ArrayAdapter;
 
@@ -24,12 +25,16 @@ public class QuizDialog extends AlertDialog.Builder {
     Context context;
     Intent intent;
     ArrayList<Quiz> quizList;
+    Cursor allQuizDetails;
 
-
-    public QuizDialog(Context context, final ArrayAdapter<String> quizOptions, ArrayList<Quiz> quizList) {
+    /**
+     * @param allQuizDetails Use this to get information about quizzes
+     * */
+    public QuizDialog(Context context, final ArrayAdapter<String> quizOptions, ArrayList<Quiz> quizList, Cursor allQuizDetails) {
         super(context);
         this.context = context;
         this.quizList = quizList;
+        this.allQuizDetails = allQuizDetails;
         addListContent(context, quizOptions);
     }
 
@@ -61,13 +66,13 @@ public class QuizDialog extends AlertDialog.Builder {
                     public void onClick(DialogInterface dialog, int position) {
 
                         switch (quizList.get(position).getQuizType()) {
-                            case TEXTQUIZ: intent = new Intent(context, TextQuizMainActivity.class);
+                            case "Text": intent = new Intent(context, TextQuizMainActivity.class);
                                 break;
-                            case MULTIPLEQUIZ:  intent = new Intent(context, Multiple_Quiz_Main_Activity.class);
+                            case "Multiple":  intent = new Intent(context, Multiple_Quiz_Main_Activity.class);
                                 break;
-                            case AUDIOQUIZ:  intent = new Intent(context, AudioQuizMainActivity.class);
+                            case "Audio":  intent = new Intent(context, AudioQuizMainActivity.class);
                                 break;
-                            case PICTUREQUIZ:  intent = new Intent(context, Image_Quiz_Main.class);
+                            case "Picture":  intent = new Intent(context, Image_Quiz_Main.class);
                         }
 
 //                        String selectedDialect = quizOptions.getItem(position);
@@ -78,7 +83,7 @@ public class QuizDialog extends AlertDialog.Builder {
                     }
                 });
         //Show dialog
-        this.show();
+        //this.show();
     }
 
 
