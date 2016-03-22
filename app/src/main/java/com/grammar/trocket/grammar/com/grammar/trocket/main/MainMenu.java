@@ -26,13 +26,16 @@ public class MainMenu extends BaseActivityDrawer {
     public static int CourseID;
     public static int ExerciseID = -1;
     public  static int ResourcesID = -1;
+    public  static int DictionaryID = -1;
     public static DatabaseHelper db;
     public static Cursor result;
     public static Cursor resultExercises;
     public static Cursor resultResources;
+    public static Cursor resultDictionary;
     public static final String TAB_SELECT = "com.grammar.trocket.grammar.com.grammar.trocket.TAB";
     public static final String RESOURCEID= "com.grammar.trocket.grammar.com.grammar.trocket.RESOURCEID";
     public static final String EXERCISEID = "com.grammar.trocket.grammar.com.grammar.trocket.EXERCISEID";
+    public static final String DICTIONARYID = "com.grammar.trocket.grammar.com.grammar.trocket.DICTIONARYID";
     //public static final String COURSE_SELECTED = "com.grammar.trocket.grammar.com.grammar.trocket.COURSE";
     private int currentTab = 0;
 
@@ -97,24 +100,45 @@ public class MainMenu extends BaseActivityDrawer {
         SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
         resultExercises = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'exercise' " + "AND " + MainMenu.db.CATEGORY_COURSEID + " = " + MainMenu.CourseID, null);
         resultResources = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'resource' " + "AND " + MainMenu.db.CATEGORY_COURSEID + " = " + MainMenu.CourseID, null);
+        resultDictionary = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.DICTIONARY_TABLE + " WHERE " + MainMenu.db.DICTIONARY_COURSEID + " = " + MainMenu.CourseID, null);
 
-        resultExercises.moveToFirst();
-        resultResources.moveToFirst();
+        try{
+            resultDictionary.moveToFirst();
+        }catch (Exception e){
+            Log.w("No Dictionary found", "No Dictionary defined");
+        }
+
+        try{
+            resultExercises.moveToFirst();
+        }catch (Exception e){
+            Log.w("No exercise found", "Non defined");
+        }
+
+        try{
+            resultResources.moveToFirst();
+        }catch (Exception e){
+            Log.w("No resources found", "Non defined");
+        }
+
 
         try{
             ExerciseID = resultExercises.getInt(resultExercises.getColumnIndex(MainMenu.db.CATEGORY_ID));
             ResourcesID = resultResources.getInt(resultResources.getColumnIndex(MainMenu.db.CATEGORY_ID));
+            DictionaryID = resultDictionary.getInt(resultDictionary.getColumnIndex(MainMenu.db.DICTIONARY_ID));
+
             prefs.edit().putInt(this.RESOURCEID, ResourcesID ).apply();
             prefs.edit().putInt(this.EXERCISEID, ExerciseID ).apply();
+            prefs.edit().putInt(this.DICTIONARYID, DictionaryID ).apply();
         }catch (Exception e){
             e.printStackTrace();
-            Log.w("Failed:: ", "Has the user defined tabs in the course?");
+            Log.w("Failed: ", "Has the user defined tabs in the course?");
         }
 
         CourseID = prefs.getInt(ModuleSelection.COURSE, -1);
         Log.w("Prefs are: ", MainMenu.CourseID + "");
         Log.w("Resources prefs are: ", ResourcesID + "");
         Log.w("Exercise prefs are: ", ExerciseID + "");
+        Log.w("Dictionary prefs are: ", DictionaryID + "");
     }
 
     private void loadDatabase() {
