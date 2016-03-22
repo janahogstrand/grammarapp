@@ -14,10 +14,13 @@ import android.util.Log;
 
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.database.DatabaseHelper;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.DialectItem;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleSelection;
 import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabDictionary;
 import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabExercises;
 import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabResources;
+
+import java.util.ArrayList;
 
 public class MainMenu extends BaseActivityDrawer {
 
@@ -32,6 +35,8 @@ public class MainMenu extends BaseActivityDrawer {
     public static Cursor resultExercises;
     public static Cursor resultResources;
     public static Cursor resultDictionary;
+    public static ArrayList<DialectItem> dialectsItems;
+    public static  Cursor dialectsCursor;
     public static final String TAB_SELECT = "com.grammar.trocket.grammar.com.grammar.trocket.TAB";
     public static final String RESOURCEID= "com.grammar.trocket.grammar.com.grammar.trocket.RESOURCEID";
     public static final String EXERCISEID = "com.grammar.trocket.grammar.com.grammar.trocket.EXERCISEID";
@@ -135,10 +140,23 @@ public class MainMenu extends BaseActivityDrawer {
         }
 
         CourseID = prefs.getInt(ModuleSelection.COURSE, -1);
+        findDialects(CourseID);
         Log.w("Prefs are: ", MainMenu.CourseID + "");
         Log.w("Resources prefs are: ", ResourcesID + "");
         Log.w("Exercise prefs are: ", ExerciseID + "");
         Log.w("Dictionary prefs are: ", DictionaryID + "");
+    }
+
+    private void findDialects(int courseID){
+        dialectsItems = new ArrayList<DialectItem>();
+        SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
+        dialectsCursor =  myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.DIALECT_TABLE + " WHERE " +  MainMenu.db.DIALECT_COURSEID + " = " + courseID, null);
+        while (dialectsCursor.moveToNext()){
+            String name = dialectsCursor.getString(dialectsCursor.getColumnIndex(MainMenu.db.DIALECT_NAME));
+            String code = dialectsCursor.getString(dialectsCursor.getColumnIndex(MainMenu.db.DIALECT_CODE));
+            dialectsItems.add(new DialectItem(name, code));
+        }
+
     }
 
     private void loadDatabase() {
@@ -216,7 +234,7 @@ public class MainMenu extends BaseActivityDrawer {
                         return "RESOURCES";
                     }
                 case 2:
-                    return "DICTIONARY";
+                    return "GLOSSARY";
             }
             return null;
         }

@@ -18,6 +18,7 @@ import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.QuizDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Quiz;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.DialectItem;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.DaysOfTheWeek;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Festivals;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.ListViewActivity;
@@ -179,9 +180,22 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
                             view.getContext(),
                             android.R.layout.select_dialog_singlechoice);
 
-                    arrayAdapter.add("Spanish");
-                    arrayAdapter.add("Mexican");
+//                    arrayAdapter.add("Spanish");
+//                    arrayAdapter.add("Mexican");
 
+                    ArrayList <DialectItem> dialectItems = MainMenu.dialectsItems;
+
+                    for(DialectItem dialect: dialectItems){
+                        arrayAdapter.add(dialect.getName());
+                    }
+
+//                    Cursor dialects = MainMenu.dialectsCursor;
+//                    //dialects.move(-1);
+//                    while(dialects.moveToNext()){
+//                        String name = dialects.getString(dialects.getColumnIndex(MainMenu.db.DIALECT_NAME));
+//                        arrayAdapter.add(name);
+//                        Log.w("Dialect", name);
+//                    }
 
                     DialectDialog dialectDialog = new DialectDialog(context, arrayAdapter, intent);
 

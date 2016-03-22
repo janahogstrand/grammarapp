@@ -60,11 +60,17 @@ public class FragmentTabExercises extends Fragment {
     private void initializeData() {
         categories = new ArrayList<>();
         SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
-        result = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'exercise' " + "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + MainMenu.ExerciseID, null);
+        result = myDatabase.rawQuery(
+                                    "SELECT * " +
+                                    "FROM " + MainMenu.db.CATEGORY_TABLE +
+                                    " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'exercise' " + "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + MainMenu.ExerciseID, null);
         while(result.moveToNext()) {
             Log.i("Category",  result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
-            Log.i("Category",  result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_ICONURL)));
-            categories.add(new Category(result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)), "Learn basic greetings!", R.drawable.ic_likes, true,  result.getInt(result.getColumnIndex(MainMenu.db.CATEGORY_ID)) ));
+            Log.i("Category", result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_ICONURL)));
+
+            String name = result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME));
+            int catId = result.getInt(result.getColumnIndex(MainMenu.db.CATEGORY_ID));
+            categories.add(new Category(name, "", R.drawable.ic_likes, true, catId));
 
         }
         result.move(-1);

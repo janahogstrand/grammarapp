@@ -67,7 +67,7 @@ public class FragmentTabResources extends Fragment {
         while(result.moveToNext()) {
             Log.i("Category",  result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
             Log.i("Category",  result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_ICONURL)));
-            categories.add(new Category(result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)), "Learn basic greetings!", R.drawable.ic_likes, true,  result.getInt(result.getColumnIndex(MainMenu.db.CATEGORY_ID)) ));
+            categories.add(new Category(result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)), "Learn basic greetings!", R.drawable.ic_likes, true, true,  result.getInt(result.getColumnIndex(MainMenu.db.CATEGORY_ID)) ));
 
         }
         result.move(-1);

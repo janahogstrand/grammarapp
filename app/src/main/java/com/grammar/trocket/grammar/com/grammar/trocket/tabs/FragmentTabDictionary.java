@@ -79,39 +79,9 @@ public class FragmentTabDictionary extends Fragment {
             Log.i("Letter2", letters.getString(letters.getColumnIndex(MainMenu.db.DICTIONARYLETTER_LABEL)));
 
             String letter = letters.getString(letters.getColumnIndex(MainMenu.db.DICTIONARYLETTER_LABEL));
-
-            //alphabetList.add(new Category(letters.getString(letters.getColumnIndex(MainMenu.db.CATEGORY_NAME)), "Learn basic greetings!", R.drawable.ic_likes, true,  letters.getInt(letters.getColumnIndex(MainMenu.db.CATEGORY_ID)) ));
             alphabetList.add(new AlphabetItem(letter, true));
         }
         letters.move(-1);
-//
-//        alphabetList.add(new AlphabetItem("A", true));
-//        alphabetList.add(new AlphabetItem("B", true));
-//        alphabetList.add(new AlphabetItem("C", true));
-//        alphabetList.add(new AlphabetItem("D", true));
-//        alphabetList.add(new AlphabetItem("E", true));
-//        alphabetList.add(new AlphabetItem("F", true));
-//        alphabetList.add(new AlphabetItem("G", true));
-//        alphabetList.add(new AlphabetItem("H", true));
-//        alphabetList.add(new AlphabetItem("I", true));
-//        alphabetList.add(new AlphabetItem("J", true));
-//        alphabetList.add(new AlphabetItem("K", true));
-//        alphabetList.add(new AlphabetItem("L", true));
-//        alphabetList.add(new AlphabetItem("M", true));
-//        alphabetList.add(new AlphabetItem("N", true));
-//        alphabetList.add(new AlphabetItem("O", true));
-//        alphabetList.add(new AlphabetItem("P", true));
-//        alphabetList.add(new AlphabetItem("Q", true));
-//        alphabetList.add(new AlphabetItem("R", true));
-//        alphabetList.add(new AlphabetItem("S", true));
-//        alphabetList.add(new AlphabetItem("T", true));
-//        alphabetList.add(new AlphabetItem("U", true));
-//        alphabetList.add(new AlphabetItem("W", true));
-//        alphabetList.add(new AlphabetItem("X", true));
-//        alphabetList.add(new AlphabetItem("Y", true));
-//        alphabetList.add(new AlphabetItem("Z", true));
-
-
         return alphabetList;
     }
 
