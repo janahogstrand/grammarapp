@@ -126,7 +126,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DICTIONARY_HELP = "help";
     public static final String DICTIONARY_INSTRUCTION = "instruction";
     public static final String DICTIONARY_CREATEDAT = "created_at";
-    public static final String DICTIONARY_UPDATEDDAT = "updated_at";
+    public static final String DICTIONARY_UPDATEDAT = "updated_at";
     public static final String DICTIONARY_COURSEID = "course_id";
     public static final String[] DICTIONARY_COLUMNS = {
             DICTIONARY_ID,
@@ -134,8 +134,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             DICTIONARY_HELP,
             DICTIONARY_INSTRUCTION,
             DICTIONARY_CREATEDAT,
-            DICTIONARY_UPDATEDDAT,
+            DICTIONARY_UPDATEDAT,
             DICTIONARY_COURSEID
+    };
+
+
+    public static final String DICTIONARYLETTER_TABLE = "dictionaries";
+    public static final String DICTIONARYLETTER_ID = "id";
+    public static final String DICTIONARYLETTER_LABEL = "label";
+    public static final String DICTIONARYLETTER_CREATEDAT = "created_at";
+    public static final String DICTIONARYLETTER_UPDATEDAT = "updated_at";
+    public static final String DICTIONARYLETTER_DICTIONARYID = "dictionary_id";
+    public static final String DICTIONARYLETTER_COURSEID = "course_id";
+    public static final String DICTIONARYLETTER_AUDIOURL = "audioUrl";
+    public static final String[] DICTIONARYLETTER_COLUMNS = {
+            DICTIONARYLETTER_ID,
+            DICTIONARYLETTER_LABEL,
+            DICTIONARYLETTER_CREATEDAT,
+            DICTIONARYLETTER_UPDATEDAT,
+            DICTIONARYLETTER_DICTIONARYID,
+            DICTIONARYLETTER_COURSEID,
+            DICTIONARYLETTER_AUDIOURL
+    };
+
+
+    public static final String DICTIONARYWORD_TABLE = "dictionaries";
+    public static final String DICTIONARYWORD_ID = "id";
+    public static final String DICTIONARYWORD_LABEL = "label";
+    public static final String DICTIONARYWORD_CREATEDAT = "created_at";
+    public static final String DICTIONARYWORD_UPDATEDAT = "updated_at";
+    public static final String DICTIONARYWORD_DICTIONARYID = "dictionary_id";
+    public static final String DICTIONARYWORD_COURSEID = "course_id";
+    public static final String[] DICTIONARYWORD_COLUMNS = {
+            DICTIONARYWORD_ID,
+            DICTIONARYWORD_LABEL,
+            DICTIONARYWORD_CREATEDAT,
+            DICTIONARYWORD_UPDATEDAT,
+            DICTIONARYWORD_DICTIONARYID,
+            DICTIONARYWORD_COURSEID
     };
 
 
@@ -163,14 +199,257 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             QUIZ_COURSEID
     };
 
-    public static final String[] DATABASE_TABLE_NAMES = {
+    public static final String QUIZQUESTION_TABLE = "quiz_questions";
+    public static final String QUIZQUESTION_ID = "id";
+    public static final String QUIZQUESTION_TEXT = "text";
+    public static final String QUIZQUESTION_HIERARCHY = "hierarchy";
+    public static final String QUIZQUESTION_CREATEDAT = "created_at";
+    public static final String QUIZQUESTION_UPDATEDAT = "updated_at";
+    public static final String QUIZQUESTION_QUIZID = "quiz_id";
+    public static final String QUIZQUESTION_AUDIOURL = "audioUrl";
+    public static final String QUIZQUESTION_COURSEID = "course_id";
+    public static final String[] QUIZQUESTION_COLUMNS = {
+            QUIZQUESTION_ID,
+            QUIZQUESTION_TEXT,
+            QUIZQUESTION_HIERARCHY,
+            QUIZQUESTION_CREATEDAT,
+            QUIZQUESTION_UPDATEDAT,
+            QUIZQUESTION_QUIZID,
+            QUIZQUESTION_AUDIOURL,
+            QUIZQUESTION_COURSEID
+    };
+
+
+    public static final String QUIZANSWER_TABLE = "quiz_answers";
+    public static final String QUIZANSWER_ID = "id";
+    public static final String QUIZANSWER_TEXT = "text";
+    public static final String QUIZANSWER_HIERARCHY = "hierarchy";
+    public static final String QUIZANSWER_CREATEDAT = "created_at";
+    public static final String QUIZANSWER_UPDATEDAT = "updated_at";
+    public static final String QUIZANSWER_QUIZQUESTIONID = "quiz_question_id";
+    public static final String QUIZANSWER_CORRECT = "correct";
+    public static final String QUIZANSWER_IMAGEURL = "imageUrl";
+    public static final String QUIZANSWER_COURSEID = "course_id";
+    public static final String[] QUIZANSWER_COLUMNS = {
+            QUIZANSWER_ID,
+            QUIZANSWER_TEXT,
+            QUIZANSWER_HIERARCHY,
+            QUIZANSWER_CREATEDAT,
+            QUIZANSWER_UPDATEDAT,
+            QUIZANSWER_QUIZQUESTIONID,
+            QUIZANSWER_CORRECT,
+            QUIZANSWER_IMAGEURL,
+            QUIZANSWER_COURSEID
+    };
+
+
+    public static final String VIDEO_TABLE = "videos";
+    public static final String VIDEO_ID = "id";
+    public static final String VIDEO_URL = "url";
+    public static final String VIDEO_SUBTITLEDURL = "subtitledUrl";
+    public static final String VIDEO_HIERARCHY = "hierarchy";
+    public static final String VIDEO_DIALECTID = "dialectId";
+    public static final String VIDEO_CREATEDAT = "created_at";
+    public static final String VIDEO_UPDATEDAT = "updated_at";
+    public static final String VIDEO_CATEGORYID = "category_id";
+    public static final String VIDEO_TITLE = "title";
+    public static final String VIDEO_COURSEID = "course_id";
+    public static final String[] VIDEO_COLUMNS = {
+            VIDEO_TABLE,
+            VIDEO_ID,
+            VIDEO_URL,
+            VIDEO_SUBTITLEDURL,
+            VIDEO_HIERARCHY,
+            VIDEO_DIALECTID,
+            VIDEO_CREATEDAT,
+            VIDEO_UPDATEDAT,
+            VIDEO_CATEGORYID,
+            VIDEO_TITLE,
+            VIDEO_COURSEID
+    };
+
+
+    public static final String TAP_TABLE = "taps";
+    public static final String TAP_ID = "id";
+    public static final String TAP_TITLE = "title";
+    public static final String TAP_INSTRUCTION = "instruction";
+    public static final String TAP_DIALECTID = "dialectId";
+    public static final String TAP_HELP = "help";
+    public static final String TAP_CREATEDAT = "created_at";
+    public static final String TAP_UPDATEDAT = "updated_at";
+    public static final String TAP_CATEGORYID = "category_id";
+    public static final String TAP_COURSEID = "course_id";
+    public static final String[] TAP_COLUMNS = {
+            TAP_ID,
+            TAP_TITLE,
+            TAP_INSTRUCTION,
+            TAP_DIALECTID,
+            TAP_HELP,
+            TAP_CREATEDAT,
+            TAP_UPDATEDAT,
+            TAP_CATEGORYID,
+            TAP_COURSEID
+    };
+
+
+    public static final String TAPITEM_TABLE = "tap_items";
+    public static final String TAPITEM_ID = "id";
+    public static final String TAPITEM_LABEL = "label";
+    public static final String TAPITEM_PRONUNCIATION = "pronunciation";
+    public static final String TAPITEM_AUDIOURL = "audioUrl";
+    public static final String TAPITEM_HIERARCHY = "hierarchy";
+    public static final String TAPITEM_CREATEDAT = "created_at";
+    public static final String TAPITEM_UPDATEDAT = "updated_at";
+    public static final String TAPITEM_TAPID = "tap_id";
+    public static final String TAPITEM_COURSEID = "course_id";
+    public static final String[] TAPITEM_COLUMNS = {
+            TAPITEM_ID,
+            TAPITEM_LABEL,
+            TAPITEM_PRONUNCIATION,
+            TAPITEM_AUDIOURL,
+            TAPITEM_HIERARCHY,
+            TAPITEM_CREATEDAT,
+            TAPITEM_UPDATEDAT,
+            TAPITEM_TAPID,
+            TAPITEM_COURSEID
+    };
+
+
+    public static final String THUMBNAILTAP_TABLE = "thumbnail_taps";
+    public static final String THUMBNAILTAP_ID = "id";
+    public static final String THUMBNAILTAP_TITLE = "title";
+    public static final String THUMBNAILTAP_INSTRUCTION = "instruction";
+    public static final String THUMBNAILTAP_DIALECTID = "dialectId";
+    public static final String THUMBNAILTAP_HELP = "help";
+    public static final String THUMBNAILTAP_CREATEDAT = "created_at";
+    public static final String THUMBNAILTAP_UPDATEDAT = "updated_at";
+    public static final String THUMBNAILTAP_CATEGORYID = "category_id";
+    public static final String THUMBNAILTAP_COURSEID = "course_id";
+    public static final String[] THUMBNAILTAP_COLUMNS = {
+            THUMBNAILTAP_ID,
+            THUMBNAILTAP_TITLE,
+            THUMBNAILTAP_INSTRUCTION,
+            THUMBNAILTAP_DIALECTID,
+            THUMBNAILTAP_HELP,
+            THUMBNAILTAP_CREATEDAT,
+            THUMBNAILTAP_UPDATEDAT,
+            THUMBNAILTAP_CATEGORYID,
+            THUMBNAILTAP_COURSEID
+    };
+
+
+    public static final String THUMBNAILTAPITEM_TABLE = "tap_items";
+    public static final String THUMBNAILTAPITEM_ID = "id";
+    public static final String THUMBNAILTAPITEM_NAME = "name";
+    public static final String THUMBNAILTAPITEM_TRANSLATION = "translation";
+    public static final String THUMBNAILTAPITEM_FULLIMAGEURL = "fullImageUrl";
+    public static final String THUMBNAILTAPITEM_AUDIOURL = "audioUrl";
+    public static final String THUMBNAILTAPITEM_HIERARCHY = "hierarchy";
+    public static final String THUMBNAILTAPITEM_CREATEDAT = "created_at";
+    public static final String THUMBNAILTAPITEM_UPDATEDAT = "updated_at";
+    public static final String THUMBNAILTAPITEM_THUMBNAILTAPID = "thumbnail_tap_id";
+    public static final String THUMBNAILTAPITEM_COURSEID = "course_id";
+    public static final String[] THUMBNAILTAPITEM_COLUMNS = {
+            THUMBNAILTAPITEM_ID,
+            THUMBNAILTAPITEM_NAME,
+            THUMBNAILTAPITEM_TRANSLATION,
+            THUMBNAILTAPITEM_FULLIMAGEURL,
+            THUMBNAILTAPITEM_AUDIOURL,
+            THUMBNAILTAPITEM_HIERARCHY,
+            THUMBNAILTAPITEM_CREATEDAT,
+            THUMBNAILTAPITEM_UPDATEDAT,
+            THUMBNAILTAPITEM_THUMBNAILTAPID,
+            THUMBNAILTAPITEM_COURSEID
+    };
+
+
+    public static final String CLUSTER_TABLE = "clusters";
+    public static final String CLUSTER_ID = "id";
+    public static final String CLUSTER_TITLE = "title";
+    public static final String CLUSTER_INSTRUCTION = "instruction";
+    public static final String CLUSTER_DIALECTID = "dialectId";
+    public static final String CLUSTER_HELP = "help";
+    public static final String CLUSTER_CREATEDAT = "created_at";
+    public static final String CLUSTER_UPDATEDAT = "updated_at";
+    public static final String CLUSTER_CATEGORYID = "category_id";
+    public static final String CLUSTER_COURSEID = "course_id";
+    public static final String[] CLUSTER_COLUMNS = {
+            CLUSTER_ID,
+            CLUSTER_TITLE,
+            CLUSTER_INSTRUCTION,
+            CLUSTER_DIALECTID,
+            CLUSTER_HELP,
+            CLUSTER_CREATEDAT,
+            CLUSTER_UPDATEDAT,
+            CLUSTER_CATEGORYID,
+            CLUSTER_COURSEID
+    };
+
+
+    public static final String CLUSTERITEM_TABLE = "cluster_items";
+    public static final String CLUSTERITEM_ID = "id";
+    public static final String CLUSTERITEM_NAME = "name";
+    public static final String CLUSTERITEM_HIERARCHY = "hierarchy";
+    public static final String CLUSTERITEM_CREATEDAT = "created_at";
+    public static final String CLUSTERITEM_UPDATEDAT = "updated_at";
+    public static final String CLUSTERITEM_CLUSTERID = "cluster_id";
+    public static final String CLUSTERITEM_COURSEID = "course_id";
+    public static final String[] CLUSTERITEM_COLUMNS = {
+            CLUSTERITEM_ID,
+            CLUSTERITEM_NAME,
+            CLUSTERITEM_HIERARCHY,
+            CLUSTERITEM_CREATEDAT,
+            CLUSTERITEM_UPDATEDAT,
+            CLUSTERITEM_CLUSTERID,
+            CLUSTERITEM_COURSEID
+    };
+
+
+    public static final String CLUSTERSUBITEM_TABLE = "cluster_sub_items";
+    public static final String CLUSTERSUBITEM_ID = "id";
+    public static final String CLUSTERSUBITEM_NAME = "name";
+    public static final String CLUSTERSUBITEM_DESCRIPTION = "description";
+    public static final String CLUSTERSUBITEM_CLICKABLE = "clickable";
+    public static final String CLUSTERSUBITEM_AUDIOURL = "audioUrl";
+    public static final String CLUSTERSUBITEM_HIERARCHY = "hierarchy";
+    public static final String CLUSTERSUBITEM_CREATEDAT = "created_at";
+    public static final String CLUSTERSUBITEM_UPDATEDAT = "updated_at";
+    public static final String CLUSTERSUBITEM_CLUSTERITEMID = "cluster_item_id";
+    public static final String CLUSTERSUBITEM_COURSEID = "course_id";
+    public static final String[] CLUSTERSUBITEM_COLUMNS = {
+            CLUSTERSUBITEM_ID,
+            CLUSTERSUBITEM_NAME,
+            CLUSTERSUBITEM_DESCRIPTION,
+            CLUSTERSUBITEM_CLICKABLE,
+            CLUSTERSUBITEM_AUDIOURL,
+            CLUSTERSUBITEM_HIERARCHY,
+            CLUSTERSUBITEM_CREATEDAT,
+            CLUSTERSUBITEM_UPDATEDAT,
+            CLUSTERSUBITEM_CLUSTERITEMID,
+            CLUSTERSUBITEM_COURSEID
+    };
+
+
+    public static String[] DATABASE_TABLE_NAMES = {
             TABLEUPDATES_TABLE,
             COURSE_TABLE,
             CATEGORY_TABLE,
             CONTENT_TABLE,
             DIALECT_TABLE,
             DICTIONARY_TABLE,
-            QUIZ_TABLE
+            DICTIONARYLETTER_TABLE,
+            DICTIONARYWORD_TABLE,
+            QUIZ_TABLE,
+            QUIZQUESTION_TABLE,
+            QUIZANSWER_TABLE,
+            VIDEO_TABLE,
+//            TAP_TABLE,
+//            TAPITEM_TABLE,
+//            THUMBNAILTAP_TABLE,
+//            THUMBNAILTAPITEM_TABLE,
+//            CLUSTER_TABLE,
+//            CLUSTERITEM_TABLE,
+//            CLUSTERSUBITEM_TABLE
     };
 
 
@@ -216,8 +495,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.w("Created..", CONTENT_TABLE);
         db.execSQL("CREATE TABLE IF NOT EXISTS " + QUIZ_TABLE + " (" + QUIZ_ID + " INTEGER NOT NULL, " + QUIZ_CATEGORYID + " INTEGER, " + QUIZ_COURSEID + " INTEGER, " + QUIZ_IMAGEURL + " TEXT, " + QUIZ_INSTRUCTION + " TEXT, " + QUIZ_KIND + " VARCHAR(10), " + QUIZ_HIERARCHY + " INTEGER, " + QUIZ_DIALECTID + " INTEGER, " + QUIZ_CREATEDAT + " VARCHAR(24), " + QUIZ_UPDATEDAT + " VARCHAR(24) NOT NULL)");
         Log.w("Created..", QUIZ_TABLE);
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + DICTIONARY_TABLE + " (" + DICTIONARY_ID + " INTEGER NOT NULL, " + DICTIONARY_COURSEID + " INTEGER, " + DICTIONARY_TITLE + " TEXT, " + DICTIONARY_INSTRUCTION + " TEXT, " + DICTIONARY_HELP + " TEXT, " + DICTIONARY_CREATEDAT + " VARCHAR(24), " + DICTIONARY_UPDATEDDAT + " VARCHAR(24) NOT NULL)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + QUIZQUESTION_TABLE + " (" + QUIZQUESTION_ID + " INTEGER NOT NULL, '" + QUIZQUESTION_TEXT + "' TEXT, " + QUIZQUESTION_HIERARCHY + "' INTEGER, " + QUIZQUESTION_CREATEDAT + "VARCHAR(24), " + QUIZQUESTION_UPDATEDAT + " VARCHAR(24), " + QUIZQUESTION_QUIZID + " INTEGER, " + QUIZQUESTION_AUDIOURL + " TEXT, " + QUIZQUESTION_COURSEID + " INTEGER)");
+        Log.w("Created..", QUIZQUESTION_TABLE);
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + QUIZANSWER_TABLE + " (" + QUIZANSWER_ID + " INTEGER NOT NULL, '" + QUIZANSWER_TEXT + "' TEXT, " + QUIZANSWER_HIERARCHY + "' INTEGER, " + QUIZANSWER_CREATEDAT + "VARCHAR(24), " + QUIZANSWER_UPDATEDAT + " VARCHAR(24), " + QUIZANSWER_QUIZQUESTIONID + " INTEGER, " + QUIZANSWER_CORRECT + " INTEGER, " + QUIZANSWER_IMAGEURL + " TEXT, " + QUIZANSWER_COURSEID + " INTEGER)");
+        Log.w("Created..", QUIZANSWER_TABLE);
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + DICTIONARY_TABLE + " (" + DICTIONARY_ID + " INTEGER NOT NULL, " + DICTIONARY_COURSEID + " INTEGER, " + DICTIONARY_TITLE + " TEXT, " + DICTIONARY_INSTRUCTION + " TEXT, " + DICTIONARY_HELP + " TEXT, " + DICTIONARY_CREATEDAT + " VARCHAR(24), " + DICTIONARY_UPDATEDAT + " VARCHAR(24) NOT NULL)");
         Log.w("Created..", DICTIONARY_TABLE);
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + DICTIONARYLETTER_TABLE + " (" + DICTIONARYLETTER_ID + " INTEGER NOT NULL, " + DICTIONARYLETTER_LABEL + " TEXT, " + DICTIONARYLETTER_CREATEDAT + "VARCHAR(24), " + DICTIONARYLETTER_UPDATEDAT + " VARCHAR(24), " + DICTIONARYLETTER_DICTIONARYID + " INTEGER, " + DICTIONARYLETTER_COURSEID + " INTEGER, " + DICTIONARYLETTER_AUDIOURL + " TEXT)");
+        Log.w("Created..", DICTIONARYLETTER_TABLE);
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + DICTIONARYWORD_TABLE + " (" + DICTIONARYWORD_ID + " INTEGER NOT NULL, " + DICTIONARYWORD_LABEL + " TEXT, " + DICTIONARYWORD_CREATEDAT + "VARCHAR(24), " + DICTIONARYWORD_UPDATEDAT + " VARCHAR(24), " + DICTIONARYWORD_DICTIONARYID + " INTEGER, " + DICTIONARYWORD_COURSEID + " INTEGER)");
+        Log.w("Created..", DICTIONARYWORD_TABLE);
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + VIDEO_TABLE + " (" + VIDEO_ID + " INTEGER NOT NULL, " + VIDEO_URL + " TEXT, " + VIDEO_SUBTITLEDURL + " TEXT, " + VIDEO_HIERARCHY + " INTEGER, " + VIDEO_DIALECTID + " INTEGER, " + VIDEO_CREATEDAT + "VARCHAR(24), " + VIDEO_UPDATEDAT + " VARCHAR(24), " + VIDEO_CATEGORYID + " INTEGER, " + VIDEO_TITLE + " TEXT, " + VIDEO_COURSEID + " INTEGER)");
+        Log.w("Created..", VIDEO_TABLE);
+
         for(String table: DATABASE_TABLE_NAMES) {
             insertIntoTable("http://grammarapp.herokuapp.com/api/" + table, table);
             Log.w("Inserted..", table);
