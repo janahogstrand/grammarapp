@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.category.Category;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary.DictionaryAlphabetAdapter;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary.AlphabetItem;
 
@@ -27,7 +28,7 @@ public class FragmentTabDictionary extends Fragment {
     private DictionaryAlphabetAdapter alphabetAdapter;
     private ArrayList<AlphabetItem> alphabetList;
     private SwipeRefreshLayout swipeContainer;
-    public static Cursor result;
+    public static Cursor letters;
 
 
     /**
@@ -61,40 +62,53 @@ public class FragmentTabDictionary extends Fragment {
         alphabetList = new ArrayList<AlphabetItem>();
 
 //        SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
-//        result = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'resource'", null);
-//        //result = MainMenu.db.selectDBTable(MainMenu.db.COURSE_TABLE);
-//        while(result.moveToNext()) {
-//            //Log.i("Cursor2", result.getString(result.getColumnIndex(MainMenu.db.COURSE_NAME)) + result.getColumnIndex(MainMenu.db.COURSE_NAME) + "" + result.getColumnIndex(DatabaseHelper.COURSE_CREATOR) + "" + result.getColumnIndex(DatabaseHelper.COURSE_ID) + "" );
-//            //moduleData.add(new ModuleItem(result.getString(result.getColumnIndex(MainMenu.db.COURSE_NAME)), result.getString(result.getColumnIndex(MainMenu.db.COURSE_CREATOR)), result.getColumnIndex(DatabaseHelper.COURSE_ID)));
-//            Log.i("Category",  result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
+//        letters = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'resource'", null);
+//        //letters = MainMenu.db.selectDBTable(MainMenu.db.COURSE_TABLE);
+//        while(letters.moveToNext()) {
+//            //Log.i("Cursor2", letters.getString(letters.getColumnIndex(MainMenu.db.COURSE_NAME)) + letters.getColumnIndex(MainMenu.db.COURSE_NAME) + "" + letters.getColumnIndex(DatabaseHelper.COURSE_CREATOR) + "" + letters.getColumnIndex(DatabaseHelper.COURSE_ID) + "" );
+//            //moduleData.add(new ModuleItem(letters.getString(letters.getColumnIndex(MainMenu.db.COURSE_NAME)), letters.getString(letters.getColumnIndex(MainMenu.db.COURSE_CREATOR)), letters.getColumnIndex(DatabaseHelper.COURSE_ID)));
+//            Log.i("Category",  letters.getString(letters.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
 //
 //        }
 
-        alphabetList.add(new AlphabetItem("A", true));
-        alphabetList.add(new AlphabetItem("B", true));
-        alphabetList.add(new AlphabetItem("C", true));
-        alphabetList.add(new AlphabetItem("D", true));
-        alphabetList.add(new AlphabetItem("E", true));
-        alphabetList.add(new AlphabetItem("F", true));
-        alphabetList.add(new AlphabetItem("G", true));
-        alphabetList.add(new AlphabetItem("H", true));
-        alphabetList.add(new AlphabetItem("I", true));
-        alphabetList.add(new AlphabetItem("J", true));
-        alphabetList.add(new AlphabetItem("K", true));
-        alphabetList.add(new AlphabetItem("L", true));
-        alphabetList.add(new AlphabetItem("M", true));
-        alphabetList.add(new AlphabetItem("N", true));
-        alphabetList.add(new AlphabetItem("O", true));
-        alphabetList.add(new AlphabetItem("P", true));
-        alphabetList.add(new AlphabetItem("Q", true));
-        alphabetList.add(new AlphabetItem("R", true));
-        alphabetList.add(new AlphabetItem("S", true));
-        alphabetList.add(new AlphabetItem("T", true));
-        alphabetList.add(new AlphabetItem("U", true));
-        alphabetList.add(new AlphabetItem("W", true));
-        alphabetList.add(new AlphabetItem("X", true));
-        alphabetList.add(new AlphabetItem("Y", true));
-        alphabetList.add(new AlphabetItem("Z", true));
+        SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
+        letters = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.DICTIONARYLETTER_TABLE + " WHERE " +  MainMenu.db.DICTIONARYLETTER_DICTIONARYID + " = " + MainMenu.DictionaryID, null);
+        while(letters.moveToNext()) {
+            Log.i("Letter1",  letters.getString(letters.getColumnIndex(MainMenu.db.DICTIONARYLETTER_COURSEID)));
+            Log.i("Letter2", letters.getString(letters.getColumnIndex(MainMenu.db.DICTIONARYLETTER_LABEL)));
+
+            String letter = letters.getString(letters.getColumnIndex(MainMenu.db.DICTIONARYLETTER_LABEL));
+
+            //alphabetList.add(new Category(letters.getString(letters.getColumnIndex(MainMenu.db.CATEGORY_NAME)), "Learn basic greetings!", R.drawable.ic_likes, true,  letters.getInt(letters.getColumnIndex(MainMenu.db.CATEGORY_ID)) ));
+            alphabetList.add(new AlphabetItem(letter, true));
+        }
+        letters.move(-1);
+//
+//        alphabetList.add(new AlphabetItem("A", true));
+//        alphabetList.add(new AlphabetItem("B", true));
+//        alphabetList.add(new AlphabetItem("C", true));
+//        alphabetList.add(new AlphabetItem("D", true));
+//        alphabetList.add(new AlphabetItem("E", true));
+//        alphabetList.add(new AlphabetItem("F", true));
+//        alphabetList.add(new AlphabetItem("G", true));
+//        alphabetList.add(new AlphabetItem("H", true));
+//        alphabetList.add(new AlphabetItem("I", true));
+//        alphabetList.add(new AlphabetItem("J", true));
+//        alphabetList.add(new AlphabetItem("K", true));
+//        alphabetList.add(new AlphabetItem("L", true));
+//        alphabetList.add(new AlphabetItem("M", true));
+//        alphabetList.add(new AlphabetItem("N", true));
+//        alphabetList.add(new AlphabetItem("O", true));
+//        alphabetList.add(new AlphabetItem("P", true));
+//        alphabetList.add(new AlphabetItem("Q", true));
+//        alphabetList.add(new AlphabetItem("R", true));
+//        alphabetList.add(new AlphabetItem("S", true));
+//        alphabetList.add(new AlphabetItem("T", true));
+//        alphabetList.add(new AlphabetItem("U", true));
+//        alphabetList.add(new AlphabetItem("W", true));
+//        alphabetList.add(new AlphabetItem("X", true));
+//        alphabetList.add(new AlphabetItem("Y", true));
+//        alphabetList.add(new AlphabetItem("Z", true));
 
 
         return alphabetList;
