@@ -37,7 +37,7 @@ public class DictionaryAlphabetAdapter extends RecyclerView.Adapter<DictionaryAl
         ArrayList<AlphabetItem> alphabetList;
 
         /**
-         * Plays auudio if alphabet
+         * Plays audio if alphabet
          * otherwise goes to new DictionaryItemsList activity
          * @see DictionaryItemsList
          **/

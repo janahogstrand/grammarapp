@@ -1,14 +1,18 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -23,6 +27,7 @@ public class DictionaryItemsList extends BaseActivityDrawer{
     private DictionaryItemsAdapter dictionaryAdapter;
     private ArrayList<DictionaryItem> wordList;
     public static TextToSpeech textToSpeech;
+    public static Cursor words;
 
     private String letter;
 
@@ -74,19 +79,21 @@ public class DictionaryItemsList extends BaseActivityDrawer{
     private ArrayList<DictionaryItem> getData() {
         wordList = new ArrayList<DictionaryItem>();
 
-        wordList.add(new DictionaryItem("Appleo", "Apple"));
-        wordList.add(new DictionaryItem("Antso", "Ants"));
-        wordList.add(new DictionaryItem("Bannano", "Bannanas"));
-        wordList.add(new DictionaryItem("Bee", "Bee"));
-        wordList.add(new DictionaryItem("Cato", "Cat"));
-        wordList.add(new DictionaryItem("Cowo", "Cow"));
-        wordList.add(new DictionaryItem("Doggo", "Dog"));
-        wordList.add(new DictionaryItem("Diggero", "Digger"));
-        wordList.add(new DictionaryItem("Eggo", "Eggs"));
-        wordList.add(new DictionaryItem("Eeee", "Eee"));
-        wordList.add(new DictionaryItem("Flyo", "Fly"));
-        wordList.add(new DictionaryItem("Froggo", "Frog"));
-        wordList.add(new DictionaryItem("GGgg", "G"));
+        SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
+        words = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.DICTIONARYLETTER_TABLE +
+                " JOIN " + MainMenu.db.DICTIONARYWORD_TABLE + " ON " + MainMenu.db.DICTIONARYLETTER_TABLE +"." + MainMenu.db.DICTIONARYLETTER_ID + " = " +  MainMenu.db.DICTIONARYWORD_TABLE + "." + MainMenu.db.DICTIONARYWORD_DICTIONARYLETTERID +
+                " WHERE " +  MainMenu.db.DICTIONARYLETTER_DICTIONARYID + " = " + MainMenu.DictionaryID + " ORDER BY "  + MainMenu.db.DICTIONARYWORD_TABLE + "." + MainMenu.db.DICTIONARYWORD_LABEL + " ASC", null);
+
+
+        while(words.moveToNext()) {
+            Log.i("Letter1", words.getString(words.getColumnIndex(MainMenu.db.DICTIONARYLETTER_COURSEID)));
+            Log.i("Letter2", words.getString(words.getColumnIndex(MainMenu.db.DICTIONARYLETTER_LABEL)));
+
+            String word = words.getString(words.getColumnIndex(MainMenu.db.DICTIONARYWORD_LABEL));
+            ;
+            wordList.add(new DictionaryItem(word, ""));
+        }
+        words.move(-1);
 
 
         return wordList;

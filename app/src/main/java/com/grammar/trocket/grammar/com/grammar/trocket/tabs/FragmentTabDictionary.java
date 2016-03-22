@@ -72,7 +72,8 @@ public class FragmentTabDictionary extends Fragment {
 //        }
 
         SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
-        letters = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.DICTIONARYLETTER_TABLE + " WHERE " +  MainMenu.db.DICTIONARYLETTER_DICTIONARYID + " = " + MainMenu.DictionaryID, null);
+        letters = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.DICTIONARYLETTER_TABLE + " WHERE " +  MainMenu.db.DICTIONARYLETTER_DICTIONARYID + " = " + MainMenu.DictionaryID
+                + " ORDER BY "  + MainMenu.db.DICTIONARYLETTER_TABLE + "." + MainMenu.db.DICTIONARYLETTER_LABEL + " ASC", null);
         while(letters.moveToNext()) {
             Log.i("Letter1",  letters.getString(letters.getColumnIndex(MainMenu.db.DICTIONARYLETTER_COURSEID)));
             Log.i("Letter2", letters.getString(letters.getColumnIndex(MainMenu.db.DICTIONARYLETTER_LABEL)));
