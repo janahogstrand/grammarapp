@@ -1,8 +1,7 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.tabs;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,21 +12,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.backend.GetJSON;
+import com.grammar.trocket.grammar.com.grammar.trocket.backend.TableNames;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.category.Category;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.category.CategoryAdapter;
-import com.grammar.trocket.grammar.R;
-import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleSelection;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class FragmentTabExercises extends Fragment {
 
     private List<Category> categories;
     private RecyclerView rv;
     private SwipeRefreshLayout swipeContainer;
-    public static Cursor result;
+    private View view;
 
     /**
      * Inflate fragments tab 1
@@ -37,7 +43,7 @@ public class FragmentTabExercises extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_tab_exercises, container, false);
         rv = (RecyclerView) v.findViewById(R.id.recycleView);
-
+        view = v;
         swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
         swipeContainer.setRefreshing(false);
 
@@ -50,8 +56,8 @@ public class FragmentTabExercises extends Fragment {
         try {
             initializeData();
             initializeAdapter();
-        }catch (Exception e){
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return v;
@@ -80,7 +86,36 @@ public class FragmentTabExercises extends Fragment {
 //            categories.add(new Category(name, "", getIcon(icon), true, catId));
 //        }
 
-        result.move(-1);
+
+        String cardsString = "";
+        //Get exercise and resource ids
+        GetJSON getExerciseCards = new GetJSON((Activity) view.getContext(), TableNames.CATEGORY_TABLE, "parentId", (MainMenu.ExerciseID + ""));
+        try {
+            cardsString = getExerciseCards.execute().get();
+            Log.w("Categories", cardsString);
+
+            JSONArray jsonArray = new JSONArray(cardsString);
+            for (int j = 0; j < jsonArray.length(); ++j) {
+                JSONObject jObject = jsonArray.getJSONObject(j);
+
+                int id = Integer.parseInt(jObject.get("id").toString());
+                String name = jObject.get("name").toString();
+                int icon = getIcon(jObject.get("iconUrl").toString());
+                Log.w("Exercise card: ", name + "  " + id + "  " + icon);
+                int order = Integer.parseInt(jObject.get("hierarchy").toString());
+                categories.add(new Category(name, "", icon, true, id, order));
+
+                Collections.sort(categories);
+                //Collections.sort(categories, (o1, o2) -> o1.compareTo(o2));
+
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -91,8 +126,8 @@ public class FragmentTabExercises extends Fragment {
         rv.setAdapter(adapter);
     }
 
-    private int getIcon(String icon){
-        switch (icon){
+    private int getIcon(String icon) {
+        switch (icon) {
             case "R.drawable.ic_greetings":
                 return R.drawable.ic_greetings;
             case "R.drawable.ic_checking_in":
@@ -117,14 +152,14 @@ public class FragmentTabExercises extends Fragment {
 
     /**
      * Reloads main activity this time updating database
-     * **/
-    private void swipeListener(final View view){
+     **/
+    private void swipeListener(final View view) {
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Log.w("Updating.." , "Swiped clicked");
+                Log.w("Updating..", "Swiped clicked");
                 //ModuleSelection.db.onCreate(ModuleSelection.db.getWritableDatabase());
                 Intent intent = new Intent(view.getContext(), MainMenu.class);
                 intent.putExtra(MainMenu.TAB_SELECT, 0);
