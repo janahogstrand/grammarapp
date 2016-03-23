@@ -35,9 +35,8 @@ public class AudioQuizMainActivity extends Activity {
     public int successCounter = 0;
     public int mistakeCounter = 0;
     public int questionNumber = 0;
-
-    TextToSpeech textToSpeech;
-    Locale language;
+    public TextToSpeech textToSpeech;
+    public Locale language;
     public MediaPlayer player;
 
     @Override

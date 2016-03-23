@@ -1,8 +1,11 @@
 package com.grammar.trocket.grammar.test;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.audio_quiz.AudioQuizMainActivity;
+
+import java.util.Locale;
 
 /**
  * Created by firasAltayeb on 23/03/2016.
@@ -35,6 +38,22 @@ public class TestAudioQuizMainActivity extends ActivityInstrumentationTestCase2<
                 audioQuizMainActivity.findAllViews();
                 assertEquals(audioQuizMainActivity.answerOption1.getResources().
                         getResourceName(audioQuizMainActivity.answerOption1.getId()), "com.grammar.trocket.grammar:id/answerOption1");
+            }
+        });
+    }
+
+    /**
+     * This method checks whether the method assignLanguage() works by checking
+     * whether language variable was assigned a language.
+     */
+
+    public void testAssignLanguage(){
+        audioQuizMainActivity = getActivity();
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                audioQuizMainActivity.assignLanguage();
+                assertEquals(audioQuizMainActivity.language.getCountry(), "ES");
             }
         });
     }

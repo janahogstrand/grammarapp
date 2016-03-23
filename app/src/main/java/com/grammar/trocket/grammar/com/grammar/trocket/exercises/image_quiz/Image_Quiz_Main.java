@@ -40,7 +40,6 @@ public class Image_Quiz_Main extends Activity {
     public String imageAddress4;
     public String imageAddress5;
     public String imageAddress6;
-    public ImageView[] imageViews = {answerOption1, answerOption2, answerOption3, answerOption4, answerOption5, answerOption6};
 
 
     @Override
