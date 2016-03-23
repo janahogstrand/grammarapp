@@ -1,25 +1,25 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.database;
 
-        import android.app.ProgressDialog;
-        import android.content.ContentValues;
-        import android.content.Context;
-        import android.database.Cursor;
-        import android.database.sqlite.SQLiteDatabase;
-        import android.database.sqlite.SQLiteOpenHelper;
-        import android.os.AsyncTask;
-        import android.util.Log;
+import android.app.ProgressDialog;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.os.AsyncTask;
+import android.util.Log;
 
-        import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
+import org.json.JSONArray;
+import org.json.JSONException;
 
-        import org.json.JSONArray;
-        import org.json.JSONException;
-
-        import java.io.IOException;
-        import java.io.InputStream;
-        import java.io.InputStreamReader;
-        import java.net.HttpURLConnection;
-        import java.net.MalformedURLException;
-        import java.net.URL;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by ran on 21/03/16.
@@ -441,24 +441,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             DICTIONARYWORD_TABLE,
             QUIZ_TABLE,
             QUIZQUESTION_TABLE,
-            //QUIZANSWER_TABLE,
-            VIDEO_TABLE
-// IF UNCOMMENTING THE LINES BELOW, ADD A COMMA TO THE END OF THE LINE ABOVE.
-//            TAP_TABLE,
-//            TAPITEM_TABLE,
-//            THUMBNAILTAP_TABLE,
-//            THUMBNAILTAPITEM_TABLE,
-//            CLUSTER_TABLE,
-//            CLUSTERITEM_TABLE,
-//            CLUSTERSUBITEM_TABLE
+            QUIZANSWER_TABLE,
+            VIDEO_TABLE,
+            TAP_TABLE,
+            TAPITEM_TABLE,
+            THUMBNAILTAP_TABLE,
+            THUMBNAILTAPITEM_TABLE,
+            CLUSTER_TABLE,
+            CLUSTERITEM_TABLE,
+            CLUSTERSUBITEM_TABLE
     };
 
 
     public static String jsonData = "";
     public static Boolean taskDone = false;
-    private static String[] selectedColumns = null;
+    public static String[] selectedColumns = null;
+    public static String selectedTable = null;
+    public static String courseId;
+    public static String exerciseId;
+    public static String resourceId;
+    public static ArrayList<String> exerciseCardID = new ArrayList<>();
+    public static ArrayList<String> resourceCardID = new ArrayList<>();
+    public static HashMap<String, String> contentID = new HashMap<String, String>();
+    public static ArrayList<String> videoID = new ArrayList<>();
+    public static ArrayList<String> quizID = new ArrayList<>();
+
+
+
     private static DatabaseHelper sInstance;
-    private SQLiteDatabase db;
 
     public static synchronized DatabaseHelper getInstance(Context context) {
 
@@ -477,42 +487,48 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        this.db = db;
 
         for(String TABLE : DATABASE_TABLE_NAMES) {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE);
-            Log.w("Dropping..", TABLE);
         }
 
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLEUPDATES_TABLE + " (" + TABLEUPDATES_ID + " INTEGER NOT NULL, " + TABLEUPDATES_TABLENAME + " VARCHAR(50), " + TABLEUPDATES_UPDATETIME + " VARCHAR(24))");
-        Log.w("Created..", TABLEUPDATES_TABLE);
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + COURSE_TABLE + " (" + COURSE_ID + " INTEGER NOT NULL, " + COURSE_NAME + " VARCHAR(50), " + COURSE_CREATOR + " VARCHAR(50), " + COURSE_PASSWORD + " VARCHAR(50), " + COURSE_CREATEDAT + " DATETIME, " + COURSE_UPDATEDAT + " DATETIME)");
-        Log.w("Created..", TABLEUPDATES_ID);
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + CATEGORY_TABLE + " (" + CATEGORY_ID + " INTEGER NOT NULL, " + CATEGORY_COURSEID + " INTEGER, " + CATEGORY_KIND + " VARCHAR(6), " + CATEGORY_NAME + " VARCHAR(50) NOT NULL, " + CATEGORY_ICONURL + " TEXT, " + CATEGORY_CONTENT + " INTEGER, " + CATEGORY_HIERARCHY + " INTEGER, " + CATEGORY_HASDIALECT + " INTEGER, " + CATEGORY_PARENTID + " INTEGER, " + CATEGORY_DEPTH + " INTEGER, " + CATEGORY_CREATEDAT + " VARCHAR(24), " + CATEGORY_UPDATEDAT + " VARCHAR(24) NOT NULL)");
-        Log.w("Created..", CATEGORY_ID);
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + DIALECT_TABLE + " (" + DIALECT_ID + " INTEGER NOT NULL, " + DIALECT_COURSEID + " INTEGER, " + DIALECT_NAME + " VARCHAR(50), " + DIALECT_CODE + " VARCHAR(15), " + DIALECT_CREATEDAT + " VARCHAR(24), " + DIALECT_UPDATEDAT + " VARCHAR(24) NOT NULL)");
-        Log.w("Created..", DIALECT_TABLE);
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + CONTENT_TABLE + " (" + CONTENT_ID + " INTEGER NOT NULL, " + CONTENT_NAME + " VARCHAR(50), " + CONTENT_CREATEDAT + " VARCHAR(24), " + CONTENT_UPDATEDAT + " VARCHAR(24) NOT NULL)");
-        Log.w("Created..", CONTENT_TABLE);
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + QUIZ_TABLE + " (" + QUIZ_ID + " INTEGER NOT NULL, " + QUIZ_CATEGORYID + " INTEGER, " + QUIZ_COURSEID + " INTEGER, " + QUIZ_IMAGEURL + " TEXT, " + QUIZ_INSTRUCTION + " TEXT, " + QUIZ_KIND + " VARCHAR(10), " + QUIZ_HIERARCHY + " INTEGER, " + QUIZ_DIALECTID + " INTEGER, " + QUIZ_CREATEDAT + " VARCHAR(24), " + QUIZ_UPDATEDAT + " VARCHAR(24) NOT NULL)");
-        Log.w("Created..", QUIZ_TABLE);
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + QUIZQUESTION_TABLE + " (" + QUIZQUESTION_ID + " INTEGER NOT NULL, \"" + QUIZQUESTION_TEXT + "\" TEXT, " + QUIZQUESTION_HIERARCHY + " INTEGER, " + QUIZQUESTION_CREATEDAT + " VARCHAR(24), " + QUIZQUESTION_UPDATEDAT + " VARCHAR(24), " + QUIZQUESTION_QUIZID + " INTEGER, " + QUIZQUESTION_AUDIOURL + " TEXT, " + QUIZQUESTION_COURSEID + " INTEGER)");
-        Log.w("Created..", QUIZQUESTION_TABLE);
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + QUIZANSWER_TABLE + " (" + QUIZANSWER_ID + " INTEGER NOT NULL, \"" + QUIZANSWER_TEXT + "\" TEXT, " + QUIZANSWER_HIERARCHY + " INTEGER, " + QUIZANSWER_CREATEDAT + " VARCHAR(24), " + QUIZANSWER_UPDATEDAT + " VARCHAR(24), " + QUIZANSWER_QUIZQUESTIONID + " INTEGER, " + QUIZANSWER_CORRECT + " INTEGER, " + QUIZANSWER_IMAGEURL + " TEXT, " + QUIZANSWER_COURSEID + " INTEGER)");
-        Log.w("Created..", QUIZANSWER_TABLE);
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + DICTIONARY_TABLE + " (" + DICTIONARY_ID + " INTEGER NOT NULL, " + DICTIONARY_COURSEID + " INTEGER, " + DICTIONARY_TITLE + " TEXT, " + DICTIONARY_INSTRUCTION + " TEXT, " + DICTIONARY_HELP + " TEXT, " + DICTIONARY_CREATEDAT + " VARCHAR(24), " + DICTIONARY_UPDATEDAT + " VARCHAR(24) NOT NULL)");
-        Log.w("Created..", DICTIONARY_TABLE);
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + DICTIONARYLETTER_TABLE + " (" + DICTIONARYLETTER_ID + " INTEGER NOT NULL, " + DICTIONARYLETTER_LABEL + " TEXT, " + DICTIONARYLETTER_CREATEDAT + " VARCHAR(24), " + DICTIONARYLETTER_UPDATEDAT + " VARCHAR(24), " + DICTIONARYLETTER_DICTIONARYID + " INTEGER, " + DICTIONARYLETTER_COURSEID + " INTEGER, " + DICTIONARYLETTER_AUDIOURL + " TEXT)");
-        Log.w("Created..", DICTIONARYLETTER_TABLE);
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + DICTIONARYWORD_TABLE + " (" + DICTIONARYWORD_ID + " INTEGER NOT NULL, " + DICTIONARYWORD_LABEL + " TEXT, " + DICTIONARYWORD_CREATEDAT + " VARCHAR(24), " + DICTIONARYWORD_UPDATEDAT + " VARCHAR(24), " + DICTIONARYWORD_DICTIONARYLETTERID + " INTEGER, " + DICTIONARYWORD_COURSEID + " INTEGER)");
-        Log.w("Created..", DICTIONARYWORD_TABLE);
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + VIDEO_TABLE + " (" + VIDEO_ID + " INTEGER NOT NULL, " + VIDEO_URL + " TEXT, " + VIDEO_SUBTITLEDURL + " TEXT, " + VIDEO_HIERARCHY + " INTEGER, " + VIDEO_DIALECTID + " INTEGER, " + VIDEO_CREATEDAT + " VARCHAR(24), " + VIDEO_UPDATEDAT + " VARCHAR(24), " + VIDEO_CATEGORYID + " INTEGER, " + VIDEO_TITLE + " TEXT, " + VIDEO_COURSEID + " INTEGER)");
-        Log.w("Created..", VIDEO_TABLE);
 
-        for(String table: DATABASE_TABLE_NAMES) {
-            insertIntoTable("http://grammarcms.herokuapp.com/api/" + table, table);
-            Log.w("Inserted..", table);
-        }
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + COURSE_TABLE + " (" + COURSE_ID + " INTEGER NOT NULL, " + COURSE_NAME + " VARCHAR(50), " + COURSE_CREATOR + " VARCHAR(50), " + COURSE_PASSWORD + " VARCHAR(50), " + COURSE_CREATEDAT + " DATETIME, " + COURSE_UPDATEDAT + " DATETIME)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + CATEGORY_TABLE + " (" + CATEGORY_ID + " INTEGER NOT NULL, " + CATEGORY_COURSEID + " INTEGER, " + CATEGORY_KIND + " VARCHAR(6), " + CATEGORY_NAME + " VARCHAR(50) NOT NULL, " + CATEGORY_ICONURL + " TEXT, " + CATEGORY_CONTENT + " INTEGER, " + CATEGORY_HIERARCHY + " INTEGER, " + CATEGORY_HASDIALECT + " INTEGER, " + CATEGORY_PARENTID + " INTEGER, " + CATEGORY_DEPTH + " INTEGER, " + CATEGORY_CREATEDAT + " VARCHAR(24), " + CATEGORY_UPDATEDAT + " VARCHAR(24) NOT NULL)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + DIALECT_TABLE + " (" + DIALECT_ID + " INTEGER NOT NULL, " + DIALECT_COURSEID + " INTEGER, " + DIALECT_NAME + " VARCHAR(50), " + DIALECT_CODE + " VARCHAR(15), " + DIALECT_CREATEDAT + " VARCHAR(24), " + DIALECT_UPDATEDAT + " VARCHAR(24) NOT NULL)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + CONTENT_TABLE + " (" + CONTENT_ID + " INTEGER NOT NULL, " + CONTENT_NAME + " VARCHAR(50), " + CONTENT_CREATEDAT + " VARCHAR(24), " + CONTENT_UPDATEDAT + " VARCHAR(24) NOT NULL)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + QUIZ_TABLE + " (" + QUIZ_ID + " INTEGER NOT NULL, " + QUIZ_CATEGORYID + " INTEGER, " + QUIZ_COURSEID + " INTEGER, " + QUIZ_IMAGEURL + " TEXT, " + QUIZ_INSTRUCTION + " TEXT, " + QUIZ_KIND + " VARCHAR(10), " + QUIZ_HIERARCHY + " INTEGER, " + QUIZ_DIALECTID + " INTEGER, " + QUIZ_CREATEDAT + " VARCHAR(24), " + QUIZ_UPDATEDAT + " VARCHAR(24) NOT NULL)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + QUIZQUESTION_TABLE + " (" + QUIZQUESTION_ID + " INTEGER NOT NULL, \"" + QUIZQUESTION_TEXT + "\" TEXT, "  + QUIZQUESTION_HIERARCHY + " INTEGER, " + QUIZQUESTION_CREATEDAT + " VARCHAR(24), " + QUIZQUESTION_UPDATEDAT + " VARCHAR(24), " + QUIZQUESTION_QUIZID + " INTEGER, " + QUIZQUESTION_AUDIOURL + " TEXT, " + QUIZQUESTION_COURSEID + " INTEGER)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + QUIZANSWER_TABLE + " (" + QUIZANSWER_ID + " INTEGER NOT NULL, \"" + QUIZANSWER_TEXT + "\" TEXT, "  + QUIZANSWER_HIERARCHY + " INTEGER, " + QUIZANSWER_CREATEDAT + " VARCHAR(24), " + QUIZANSWER_UPDATEDAT + " VARCHAR(24), " + QUIZANSWER_QUIZQUESTIONID + " INTEGER, " + QUIZANSWER_CORRECT + " INTEGER, " + QUIZANSWER_IMAGEURL + " TEXT, " + QUIZANSWER_COURSEID + " INTEGER)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + DICTIONARY_TABLE + " (" + DICTIONARY_ID + " INTEGER NOT NULL, " + DICTIONARY_COURSEID + " INTEGER, " + DICTIONARY_TITLE + " TEXT, " + DICTIONARY_INSTRUCTION + " TEXT, " + DICTIONARY_HELP + " TEXT, " + DICTIONARY_CREATEDAT + " VARCHAR(24), " + DICTIONARY_UPDATEDAT + " VARCHAR(24) NOT NULL)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + DICTIONARYLETTER_TABLE + " (" + DICTIONARYLETTER_ID + " INTEGER NOT NULL, " + DICTIONARYLETTER_LABEL + " TEXT, " + DICTIONARYLETTER_CREATEDAT + " VARCHAR(24), " + DICTIONARYLETTER_UPDATEDAT + " VARCHAR(24), " + DICTIONARYLETTER_DICTIONARYID + " INTEGER, " + DICTIONARYLETTER_COURSEID + " INTEGER, " + DICTIONARYLETTER_AUDIOURL + " TEXT)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + DICTIONARYWORD_TABLE + " (" + DICTIONARYWORD_ID + " INTEGER NOT NULL, " + DICTIONARYWORD_LABEL + " TEXT, " + DICTIONARYWORD_CREATEDAT + " VARCHAR(24), " + DICTIONARYWORD_UPDATEDAT + " VARCHAR(24), " + DICTIONARYWORD_DICTIONARYLETTERID + " INTEGER, " + DICTIONARYWORD_COURSEID + " INTEGER)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + VIDEO_TABLE + " (" + VIDEO_ID + " INTEGER NOT NULL, " + VIDEO_URL + " TEXT, " + VIDEO_SUBTITLEDURL + " TEXT, " + VIDEO_HIERARCHY + " INTEGER, " + VIDEO_DIALECTID + " INTEGER, " + VIDEO_CREATEDAT + " VARCHAR(24), " + VIDEO_UPDATEDAT + " VARCHAR(24), " + VIDEO_CATEGORYID + " INTEGER, " + VIDEO_TITLE + " TEXT, " + VIDEO_COURSEID + " INTEGER)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + TAP_TABLE + " (" + TAP_ID + " INTEGER NOT NULL, " + TAP_COURSEID + " INTEGER, " + TAP_TITLE + " TEXT, " + TAP_INSTRUCTION + " TEXT, " + TAP_HELP + " TEXT, " + TAP_CREATEDAT + " VARCHAR(24), " + TAP_UPDATEDAT + " VARCHAR(24) NOT NULL, " + TAP_CATEGORYID + "INTEGER, " + TAP_DIALECTID + " INTEGER)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + TAPITEM_TABLE + " (" + TAPITEM_ID + " INTEGER NOT NULL, " + TAPITEM_LABEL + " TEXT, " + TAPITEM_PRONUNCIATION + " TEXT, " + TAPITEM_AUDIOURL + " TEXT, " + TAPITEM_HIERARCHY + " INTEGER, " + TAPITEM_CREATEDAT + " VARCHAR(24), " + TAPITEM_UPDATEDAT + " VARCHAR(24) NOT NULL, " + TAPITEM_TAPID + "INTEGER, " + TAPITEM_COURSEID + " INTEGER)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + THUMBNAILTAP_TABLE + " (" + THUMBNAILTAP_ID + " INTEGER NOT NULL, " + THUMBNAILTAP_COURSEID + " INTEGER, " + THUMBNAILTAP_TITLE + " TEXT, " + THUMBNAILTAP_INSTRUCTION + " TEXT, " + THUMBNAILTAP_HELP + " TEXT, " + THUMBNAILTAP_CREATEDAT + " VARCHAR(24), " + THUMBNAILTAP_UPDATEDAT + " VARCHAR(24) NOT NULL, " + THUMBNAILTAP_CATEGORYID + "INTEGER, " + THUMBNAILTAP_DIALECTID + " INTEGER)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + THUMBNAILTAPITEM_TABLE + " (" + THUMBNAILTAPITEM_ID + " INTEGER NOT NULL, " + THUMBNAILTAPITEM_NAME + " TEXT, " + THUMBNAILTAPITEM_TRANSLATION + " TEXT, " + THUMBNAILTAPITEM_FULLIMAGEURL + " TEXT, " + THUMBNAILTAPITEM_AUDIOURL + " TEXT, " + THUMBNAILTAPITEM_HIERARCHY + " INTEGER, " + THUMBNAILTAPITEM_CREATEDAT + " VARCHAR(24), " + THUMBNAILTAPITEM_UPDATEDAT + " VARCHAR(24) NOT NULL, " + THUMBNAILTAPITEM_THUMBNAILTAPID + "INTEGER, " + THUMBNAILTAPITEM_COURSEID + " INTEGER)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + CLUSTER_TABLE + " (" + CLUSTER_ID + " INTEGER NOT NULL, " + CLUSTER_COURSEID + " INTEGER, " + CLUSTER_TITLE + " TEXT, " + CLUSTER_INSTRUCTION + " TEXT, " + CLUSTER_HELP + " TEXT, " + CLUSTER_CREATEDAT + " VARCHAR(24), " + CLUSTER_UPDATEDAT + " VARCHAR(24) NOT NULL, " + CLUSTER_CATEGORYID + "INTEGER, " + CLUSTER_DIALECTID + " INTEGER)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + CLUSTERITEM_TABLE + " (" + CLUSTERITEM_ID + " INTEGER NOT NULL, " + CLUSTERITEM_NAME + " TEXT, " + CLUSTERITEM_HIERARCHY + " INTEGER, " + CLUSTERITEM_CREATEDAT + " VARCHAR(24), " + CLUSTERITEM_UPDATEDAT + " VARCHAR(24) NOT NULL, " + CLUSTERITEM_CLUSTERID + " INTEGER, " + CLUSTERITEM_COURSEID + " INTEGER)");
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + CLUSTERSUBITEM_TABLE + " (" + CLUSTERSUBITEM_ID + " INTEGER NOT NULL, " + CLUSTERSUBITEM_NAME + " TEXT, " + CLUSTERSUBITEM_DESCRIPTION + " TEXT, " + CLUSTERSUBITEM_CLICKABLE + " INTEGER, " + CLUSTERSUBITEM_AUDIOURL + " TEXT, " + CLUSTERSUBITEM_HIERARCHY + " INTEGER, " + CLUSTERSUBITEM_CREATEDAT + " VARCHAR(24), " + CLUSTERSUBITEM_UPDATEDAT + " VARCHAR(24) NOT NULL, " + CLUSTERSUBITEM_CLUSTERITEMID + "INTEGER, " + CLUSTERSUBITEM_COURSEID + " INTEGER)");
 
     }
 
@@ -525,173 +541,88 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public void insertIntoTable() {
+        downloadJSON();
+    }
+
     public Cursor selectDBTable(String table) {
         SQLiteDatabase myDatabase = this.getWritableDatabase();
         Cursor c = myDatabase.rawQuery("SELECT * FROM " + table, null);
         return c;
     }
 
-    public void insertIntoTable(String url, String table) {
-        //downloadJSON(url, table);
-
-        DownloadJSONTask task = new DownloadJSONTask();
-        task.execute(url, table);
-
-//        while(!taskDone) {
-//            Log.w("WHILE", "STUCK IN WHILE LOOP");
-//        }
-//        if (insertData(table, jsonData)) {
-//            Log.i("Result", "Data inserted");
-//        } else {
-//            Log.i("Result", "Data HAS NOT BEEN inserted");
-//        }
-        //taskDone = false;
-    }
-
-//    public Boolean insertData(String... params) {
-//        //getWritableDatabase();
-//        long result = 0;
-//        switch(params[0]) {
-//            case TABLEUPDATES_TABLE:
-//                selectedColumns = TABLEUPDATE_COLUMNS;
-//                break;
-//            case COURSE_TABLE:
-//                selectedColumns = COURSE_COLUMNS;
-//                break;
-//            case CATEGORY_TABLE:
-//                selectedColumns = CATEGORY_COLUMNS;
-//                break;
-//            case CONTENT_TABLE:
-//                selectedColumns = CONTENT_COLUMNS;
-//                break;
-//            case DIALECT_TABLE:
-//                selectedColumns = DIALECT_COLUMNS;
-//                break;
-//            case DICTIONARY_TABLE:
-//                selectedColumns = DICTIONARY_COLUMNS;
-//                break;
-//            case DICTIONARYLETTER_TABLE:
-//                selectedColumns = DICTIONARYLETTER_COLUMNS;
-//                break;
-//            case DICTIONARYWORD_TABLE:
-//                selectedColumns = DICTIONARYWORD_COLUMNS;
-//                break;
-//            case QUIZ_TABLE:
-//                selectedColumns = QUIZ_COLUMNS;
-//                break;
-//            case QUIZQUESTION_TABLE:
-//                selectedColumns = QUIZQUESTION_COLUMNS;
-//                break;
-//            case QUIZANSWER_TABLE:
-//                selectedColumns = QUIZANSWER_COLUMNS;
-//                break;
-//            case VIDEO_TABLE:
-//                selectedColumns = VIDEO_COLUMNS;
-//                break;
-//        }
-//
-//        try {
-//            JSONArray jsonArray = new JSONArray(params[1]);
-//            Log.i("Columns", params[0]);
-//            Log.i("JSON", (Integer.toString(jsonArray.getJSONObject(0).length())));
-//
-//            //SQLiteDatabase db = this.getWritableDatabase();
-//            for(int j = 0; j < jsonArray.length(); ++j) {
-//                ContentValues contentValues = new ContentValues();
-//                for (int i = 0; i < selectedColumns.length; ++i) {
-//                    contentValues.put(selectedColumns[i], jsonArray.getJSONObject(j).getString(selectedColumns[i]));
-//                }
-//                result = this.db.insert(params[0], null, contentValues);
-//            }
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        if(result == -1) {
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
-
-    public void downloadJSON(String url, String table) {
-        DownloadJSONTask task = new DownloadJSONTask();
-        task.execute(url, table);
-    }
-
-    public class DownloadJSONTask extends AsyncTask<String, Void, String> {
-
-        public Boolean insertData(String... params) {
-            //getWritableDatabase();
-            long result = 0;
-            switch(params[0]) {
-                case TABLEUPDATES_TABLE:
-                    selectedColumns = TABLEUPDATE_COLUMNS;
-                    break;
-                case COURSE_TABLE:
-                    selectedColumns = COURSE_COLUMNS;
-                    break;
-                case CATEGORY_TABLE:
-                    selectedColumns = CATEGORY_COLUMNS;
-                    break;
-                case CONTENT_TABLE:
-                    selectedColumns = CONTENT_COLUMNS;
-                    break;
-                case DIALECT_TABLE:
-                    selectedColumns = DIALECT_COLUMNS;
-                    break;
-                case DICTIONARY_TABLE:
-                    selectedColumns = DICTIONARY_COLUMNS;
-                    break;
-                case DICTIONARYLETTER_TABLE:
-                    selectedColumns = DICTIONARYLETTER_COLUMNS;
-                    break;
-                case DICTIONARYWORD_TABLE:
-                    selectedColumns = DICTIONARYWORD_COLUMNS;
-                    break;
-                case QUIZ_TABLE:
-                    selectedColumns = QUIZ_COLUMNS;
-                    break;
-                case QUIZQUESTION_TABLE:
-                    selectedColumns = QUIZQUESTION_COLUMNS;
-                    break;
-                case QUIZANSWER_TABLE:
-                    selectedColumns = QUIZANSWER_COLUMNS;
-                    break;
-                case VIDEO_TABLE:
-                    selectedColumns = VIDEO_COLUMNS;
-                    break;
-            }
-
-            try {
-                JSONArray jsonArray = new JSONArray(params[1]);
-                Log.i("Columns", params[0]);
-                Log.i("JSON", (Integer.toString(jsonArray.getJSONObject(0).length())));
-
-                //SQLiteDatabase db = this.getWritableDatabase();
-                for(int j = 0; j < jsonArray.length(); ++j) {
-                    ContentValues contentValues = new ContentValues();
-                    for (int i = 0; i < selectedColumns.length; ++i) {
-                        contentValues.put(selectedColumns[i], jsonArray.getJSONObject(j).getString(selectedColumns[i]));
-                    }
-                    result = db.insert(params[0], null, contentValues);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            if(result == -1) {
-                return false;
-            } else {
-                return true;
-            }
+    public Boolean insertData(String... params) {
+        getWritableDatabase();
+        long result = 0;
+        switch(params[0]) {
+            case TABLEUPDATES_TABLE:
+                selectedColumns = TABLEUPDATE_COLUMNS;
+                break;
+            case COURSE_TABLE:
+                selectedColumns = COURSE_COLUMNS;
+                break;
+            case CATEGORY_TABLE:
+                selectedColumns = CATEGORY_COLUMNS;
+                break;
+            case CONTENT_TABLE:
+                selectedColumns = CONTENT_COLUMNS;
+                break;
+            case DIALECT_TABLE:
+                selectedColumns = DIALECT_COLUMNS;
+                break;
+            case DICTIONARY_TABLE:
+                selectedColumns = DICTIONARY_COLUMNS;
+                break;
+            case DICTIONARYLETTER_TABLE:
+                selectedColumns = DICTIONARYLETTER_COLUMNS;
+                break;
+            case DICTIONARYWORD_TABLE:
+                selectedColumns = DICTIONARYWORD_COLUMNS;
+                break;
+            case QUIZ_TABLE:
+                selectedColumns = QUIZ_COLUMNS;
+                break;
+            case QUIZQUESTION_TABLE:
+                selectedColumns = QUIZQUESTION_COLUMNS;
+                break;
+            case QUIZANSWER_TABLE:
+                selectedColumns = QUIZANSWER_COLUMNS;
+                break;
+            case VIDEO_TABLE:
+                selectedColumns = VIDEO_COLUMNS;
+                break;
         }
 
-        //ProgressDialog progressDialog = new ProgressDialog(MainMenu.context);
-//        @Override
-//        protected void onPreExecute() {
-//            //progressDialog.show();
-//            super.onPreExecute();
-//
-//        }
+        try {
+            JSONArray jsonArray = new JSONArray(params[1]);
+            Log.i("Columns", params[0]);
+            Log.i("JSON", (Integer.toString(jsonArray.getJSONObject(0).length())));
+
+            SQLiteDatabase db = this.getWritableDatabase();
+            for(int j = 0; j < jsonArray.length(); ++j) {
+                ContentValues contentValues = new ContentValues();
+                for (int i = 0; i < selectedColumns.length; ++i) {
+//                    Log.i("JSON key", selectedColumns[i]);
+                    contentValues.put(selectedColumns[i], jsonArray.getJSONObject(j).getString(selectedColumns[i]));
+                }
+                result = db.insert(params[0], null, contentValues);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if(result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void downloadJSON() {
+        DownloadCourseTask task = new DownloadCourseTask();
+        task.execute();
+    }
+
+    public class DownloadCourseTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
@@ -699,8 +630,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             URL url;
             HttpURLConnection urlConnection = null;
             try {
+
+
                 jsonData = "";
-                url = new URL(params[0]);
+
+                selectedColumns = COURSE_COLUMNS;
+                selectedTable = COURSE_TABLE;
+
+                url = new URL("http://grammarapp.herokuapp.com/api/" + selectedTable);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 InputStream in = urlConnection.getInputStream();
                 InputStreamReader isr = new InputStreamReader(in);
@@ -711,38 +648,518 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     jsonData += (char) data;
                     data = isr.read();
                 }
-                taskDone = true;
-                if (insertData(params[1], jsonData)) {
-                    Log.i("Result", "Data inserted");
+
+                long result = 0;
+
+                if(!jsonData.equals("[]")) {
+                    try {
+                        JSONArray jsonArray = new JSONArray(jsonData);
+                        Log.i("Columns", selectedTable);
+                        Log.i("JSON", (Integer.toString(jsonArray.getJSONObject(0).length())));
+
+                        for (int j = 0; j < jsonArray.length(); ++j) {
+                            ContentValues contentValues = new ContentValues();
+                            for (int i = 0; i < selectedColumns.length; ++i) {
+                                contentValues.put(selectedColumns[i], jsonArray.getJSONObject(j).getString(selectedColumns[i]));
+                            }
+                            result = getWritableDatabase().insert(selectedTable, null, contentValues);
+                            if (result != -1) {
+                                Log.i("Result", selectedTable + " data inserted");
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 } else {
-                    Log.i("Result", "Data HAS NOT BEEN inserted");
+                    Log.i("Result", "No JSON data at api link");
                 }
+
+
+                // Change courseId so it is set based on what course is selected in the add course drawer menu
+                courseId = "10";
+
+                // GET CONTENT TYPES
+
+                jsonData = "";
+
+                selectedColumns = CONTENT_COLUMNS;
+                selectedTable = CONTENT_TABLE;
+
+                url = new URL("http://grammarapp.herokuapp.com/api/" + selectedTable);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                in = urlConnection.getInputStream();
+                isr = new InputStreamReader(in);
+
+                data = isr.read();
+
+                while(data != -1) {
+                    jsonData += (char) data;
+                    data = isr.read();
+                }
+
+                if(!jsonData.equals("[]")) {
+
+                    result = 0;
+
+                    try {
+                        JSONArray jsonArray = new JSONArray(jsonData);
+                        Log.i("Columns", selectedTable);
+                        Log.i("JSON", (Integer.toString(jsonArray.getJSONObject(0).length())));
+
+                        for (int j = 0; j < jsonArray.length(); ++j) {
+                            ContentValues contentValues = new ContentValues();
+                            Log.i("JSON", (jsonArray.getJSONObject(j).getString("name")));
+
+                            contentID.put(jsonArray.getJSONObject(j).getString("id"), jsonArray.getJSONObject(j).getString("name"));
+
+
+                            for (int i = 0; i < selectedColumns.length; ++i) {
+                                contentValues.put(selectedColumns[i], jsonArray.getJSONObject(j).getString(selectedColumns[i]));
+                            }
+                            result = getWritableDatabase().insert(selectedTable, null, contentValues);
+                            if (result != -1) {
+                                Log.i("Result", selectedTable + "data inserted");
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.i("Result", "No JSON data at api link");
+                }
+
+
+                // GET DIALECTS
+
+                jsonData = "";
+
+                selectedColumns = DIALECT_COLUMNS;
+                selectedTable = DIALECT_TABLE;
+
+                url = new URL("http://grammarapp.herokuapp.com/api/" + selectedTable + "?courseId=" + courseId);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                in = urlConnection.getInputStream();
+                isr = new InputStreamReader(in);
+
+                data = isr.read();
+
+                while(data != -1) {
+                    jsonData += (char) data;
+                    data = isr.read();
+                }
+
+                if(!jsonData.equals("[]")) {
+
+                    result = 0;
+
+                    try {
+                        JSONArray jsonArray = new JSONArray(jsonData);
+                        Log.i("Columns", selectedTable);
+                        Log.i("JSON", (Integer.toString(jsonArray.getJSONObject(0).length())));
+
+                        for (int j = 0; j < jsonArray.length(); ++j) {
+                            ContentValues contentValues = new ContentValues();
+
+                            for (int i = 0; i < selectedColumns.length; ++i) {
+                                contentValues.put(selectedColumns[i], jsonArray.getJSONObject(j).getString(selectedColumns[i]));
+                            }
+                            result = getWritableDatabase().insert(selectedTable, null, contentValues);
+                            if (result != -1) {
+                                Log.i("Result", selectedTable + "data inserted");
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.i("Result", "No JSON data at api link");
+                }
+
+
+                // GET TOP LEVEL CATEGORIES (EXERCISE AND RESOURCES)
+
+
+                jsonData = "";
+
+                selectedColumns = CATEGORY_COLUMNS;
+                selectedTable = CATEGORY_TABLE;
+                url = new URL("http://grammarapp.herokuapp.com/api/" + selectedTable + "?courseId=" + courseId);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                in = urlConnection.getInputStream();
+                isr = new InputStreamReader(in);
+
+                data = isr.read();
+
+                while(data != -1) {
+                    jsonData += (char) data;
+                    data = isr.read();
+                }
+
+                if(!jsonData.equals("[]")) {
+
+                    result = 0;
+
+                    try {
+                        JSONArray jsonArray = new JSONArray(jsonData);
+                        Log.i("Columns", selectedTable);
+                        Log.i("JSON", (Integer.toString(jsonArray.getJSONObject(0).length())));
+
+                        for (int j = 0; j < jsonArray.length(); ++j) {
+                            ContentValues contentValues = new ContentValues();
+
+                            if (jsonArray.getJSONObject(j).getString("kind").equals("exercise")) {
+                                exerciseId = jsonArray.getJSONObject(j).getString("id");
+                            } else if (jsonArray.getJSONObject(j).getString("kind").equals("resource")) {
+                                resourceId = jsonArray.getJSONObject(j).getString("id");
+                            }
+
+                            for (int i = 0; i < selectedColumns.length; ++i) {
+                                contentValues.put(selectedColumns[i], jsonArray.getJSONObject(j).getString(selectedColumns[i]));
+                            }
+                            result = getWritableDatabase().insert(selectedTable, null, contentValues);
+                            if (result != -1) {
+                                Log.i("Result", selectedTable + "data inserted");
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.i("Result", "No JSON data at api link");
+                }
+
+                // GET EXERCISE CARDS (CATEGORIES)
+
+                jsonData = "";
+
+                selectedColumns = CATEGORY_COLUMNS;
+                selectedTable = CATEGORY_TABLE;
+                Log.i("Exercises parent id", exerciseId);
+                url = new URL("http://grammarapp.herokuapp.com/api/" + selectedTable + "?parentId=" + exerciseId);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                in = urlConnection.getInputStream();
+                isr = new InputStreamReader(in);
+
+                data = isr.read();
+
+                while(data != -1) {
+                    jsonData += (char) data;
+                    data = isr.read();
+                }
+
+                if(!jsonData.equals("[]")) {
+
+                    result = 0;
+
+                    try {
+                        JSONArray jsonArray = new JSONArray(jsonData);
+                        Log.i("Columns", selectedTable);
+                        Log.i("JSON", (Integer.toString(jsonArray.getJSONObject(0).length())));
+
+                        for (int j = 0; j < jsonArray.length(); ++j) {
+                            ContentValues contentValues = new ContentValues();
+
+                            exerciseCardID.add(jsonArray.getJSONObject(j).getString("id"));
+
+                            for (int i = 0; i < selectedColumns.length; ++i) {
+                                contentValues.put(selectedColumns[i], jsonArray.getJSONObject(j).getString(selectedColumns[i]));
+                            }
+                            result = getWritableDatabase().insert(selectedTable, null, contentValues);
+                            if (result != -1) {
+                                Log.i("Result", selectedTable + "data inserted");
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.i("Result", "No JSON data at api link");
+                }
+
+
+                // GET RESOURCE CARDS (CATEGORIES)
+
+                jsonData = "";
+
+                selectedColumns = CATEGORY_COLUMNS;
+                selectedTable = CATEGORY_TABLE;
+                Log.i("Resources parent id", resourceId);
+                url = new URL("http://grammarapp.herokuapp.com/api/" + selectedTable + "?parentId=" + resourceId);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                in = urlConnection.getInputStream();
+                isr = new InputStreamReader(in);
+
+                data = isr.read();
+
+                while(data != -1) {
+                    jsonData += (char) data;
+                    data = isr.read();
+                }
+
+                if(!jsonData.equals("[]")) {
+
+                    result = 0;
+
+                    try {
+                        JSONArray jsonArray = new JSONArray(jsonData);
+                        Log.i("Columns", selectedTable);
+                        Log.i("JSON", (Integer.toString(jsonArray.getJSONObject(0).length())));
+
+                        for (int j = 0; j < jsonArray.length(); ++j) {
+                            ContentValues contentValues = new ContentValues();
+
+//                                resourceCardID.add(jsonArray.getJSONObject(j).getString("id"));
+                            switch(contentID.get(jsonArray.getJSONObject(j).getString("content"))) {
+                                case "Quiz":
+                                    quizID.add(jsonArray.getJSONObject(j).getString("id"));
+                                    break;
+                                case "Video":
+                                    videoID.add(jsonArray.getJSONObject(j).getString("id"));
+                                    break;
+                            }
+
+
+                            for (int i = 0; i < selectedColumns.length; ++i) {
+                                contentValues.put(selectedColumns[i], jsonArray.getJSONObject(j).getString(selectedColumns[i]));
+                            }
+                            result = getWritableDatabase().insert(selectedTable, null, contentValues);
+                            if (result != -1) {
+                                Log.i("Result", selectedTable + "data inserted");
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.i("Result", "No JSON data at api link");
+                }
+
+
+
+                // GET DICTIONARY FOR COURSE
+
+                jsonData = "";
+
+                selectedColumns = DICTIONARY_COLUMNS;
+                selectedTable = DICTIONARY_TABLE;
+                Log.i("Dictionary course id", courseId);
+                url = new URL("http://grammarapp.herokuapp.com/api/" + selectedTable + "?courseId=" + courseId);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                in = urlConnection.getInputStream();
+                isr = new InputStreamReader(in);
+
+                data = isr.read();
+
+                while(data != -1) {
+                    jsonData += (char) data;
+                    data = isr.read();
+                }
+
+                if(!jsonData.equals("[]")) {
+
+                    result = 0;
+
+                    try {
+                        JSONArray jsonArray = new JSONArray(jsonData);
+                        Log.i("Columns", selectedTable);
+                        Log.i("JSON", (Integer.toString(jsonArray.getJSONObject(0).length())));
+
+                        for (int j = 0; j < jsonArray.length(); ++j) {
+                            ContentValues contentValues = new ContentValues();
+
+                            for (int i = 0; i < selectedColumns.length; ++i) {
+                                contentValues.put(selectedColumns[i], jsonArray.getJSONObject(j).getString(selectedColumns[i]));
+                            }
+                            result = getWritableDatabase().insert(selectedTable, null, contentValues);
+                            if (result != -1) {
+                                Log.i("Result", selectedTable + "data inserted");
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.i("Result", "No JSON data at api link");
+                }
+
+
+                // GET EXERCISE CARD BUTTONS (OBSERVE, REFLECT, AND EXPERIMENT)
+
+                for(String pID : exerciseCardID) {
+                    jsonData = "";
+
+                    selectedColumns = CATEGORY_COLUMNS;
+                    selectedTable = CATEGORY_TABLE;
+                    Log.i("Exercises card buttons", "checking parent_id " + pID);
+                    url = new URL("http://grammarapp.herokuapp.com/api/" + selectedTable + "?parentId=" + pID);
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                    in = urlConnection.getInputStream();
+                    isr = new InputStreamReader(in);
+
+                    data = isr.read();
+
+                    while(data != -1) {
+                        jsonData += (char) data;
+                        data = isr.read();
+                    }
+
+                    if(!jsonData.equals("[]")) {
+
+                        result = 0;
+
+                        try {
+                            JSONArray jsonArray = new JSONArray(jsonData);
+                            Log.i("Columns", selectedTable);
+                            Log.i("JSON", (Integer.toString(jsonArray.getJSONObject(0).length())));
+
+                            for (int j = 0; j < jsonArray.length(); ++j) {
+                                ContentValues contentValues = new ContentValues();
+
+                                switch(contentID.get(jsonArray.getJSONObject(j).getString("content"))) {
+                                    case "Quiz":
+                                        quizID.add(jsonArray.getJSONObject(j).getString("id"));
+                                        break;
+                                    case "Video":
+                                        videoID.add(jsonArray.getJSONObject(j).getString("id"));
+                                        break;
+                                }
+
+
+                                for (int i = 0; i < selectedColumns.length; ++i) {
+                                    contentValues.put(selectedColumns[i], jsonArray.getJSONObject(j).getString(selectedColumns[i]));
+                                }
+                                result = getWritableDatabase().insert(selectedTable, null, contentValues);
+                                if (result != -1) {
+                                    Log.i("Result", selectedTable + "data inserted");
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Log.i("Result", "No JSON data at api link");
+                    }
+                }
+
+
+                // GET ALL VIDEOS FOR EXERCISE CARD BUTTONS
+
+                for(String vidID : videoID) {
+                    jsonData = "";
+
+                    selectedColumns = VIDEO_COLUMNS;
+                    selectedTable = VIDEO_TABLE;
+                    Log.i("checking", "Videos for Exercises");
+                    url = new URL("http://grammarapp.herokuapp.com/api/" + selectedTable + "?categoryId=" + vidID);
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                    in = urlConnection.getInputStream();
+                    isr = new InputStreamReader(in);
+
+                    data = isr.read();
+
+                    while(data != -1) {
+                        jsonData += (char) data;
+                        data = isr.read();
+                    }
+
+                    if(!jsonData.equals("[]")) {
+
+                        result = 0;
+
+                        try {
+                            JSONArray jsonArray = new JSONArray(jsonData);
+                            Log.i("Columns", selectedTable);
+                            Log.i("JSON", (Integer.toString(jsonArray.getJSONObject(0).length())));
+
+                            for (int j = 0; j < jsonArray.length(); ++j) {
+                                ContentValues contentValues = new ContentValues();
+
+                                for (int i = 0; i < selectedColumns.length; ++i) {
+                                    contentValues.put(selectedColumns[i], jsonArray.getJSONObject(j).getString(selectedColumns[i]));
+                                }
+                                result = getWritableDatabase().insert(selectedTable, null, contentValues);
+                                if (result != -1) {
+                                    Log.i("Result", selectedTable + "data inserted");
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Log.i("Result", "No JSON data at api link");
+                    }
+                }
+
+
+                // GET ALL QUIZZES FOR EXERCISE CARD BUTTONS
+
+                for(String quID : quizID) {
+                    jsonData = "";
+
+                    selectedColumns = QUIZ_COLUMNS;
+                    selectedTable = QUIZ_TABLE;
+                    Log.i("checking", "Quizzes for Exercises");
+                    url = new URL("http://grammarapp.herokuapp.com/api/" + selectedTable + "?categoryId=" + quID);
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                    in = urlConnection.getInputStream();
+                    isr = new InputStreamReader(in);
+
+                    data = isr.read();
+
+                    while(data != -1) {
+                        jsonData += (char) data;
+                        data = isr.read();
+                    }
+
+                    if(!jsonData.equals("[]")) {
+
+                        result = 0;
+
+                        try {
+                            JSONArray jsonArray = new JSONArray(jsonData);
+                            Log.i("Columns", selectedTable);
+                            Log.i("JSON", (Integer.toString(jsonArray.getJSONObject(0).length())));
+
+                            for (int j = 0; j < jsonArray.length(); ++j) {
+                                ContentValues contentValues = new ContentValues();
+
+                                switch(contentID.get(jsonArray.getJSONObject(j).getString("content"))) {
+                                    case "Quiz":
+                                        quizID.add(jsonArray.getJSONObject(j).getString("id"));
+                                        break;
+                                    case "Video":
+                                        videoID.add(jsonArray.getJSONObject(j).getString("id"));
+                                        break;
+                                }
+
+
+                                for (int i = 0; i < selectedColumns.length; ++i) {
+                                    contentValues.put(selectedColumns[i], jsonArray.getJSONObject(j).getString(selectedColumns[i]));
+                                }
+                                result = getWritableDatabase().insert(selectedTable, null, contentValues);
+                                if (result != -1) {
+                                    Log.i("Result", selectedTable + "data inserted");
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Log.i("Result", "No JSON data at api link");
+                    }
+                }
+
+
                 return jsonData;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (insertData(params[1], jsonData)) {
-                Log.i("Result", "Data inserted");
-            } else {
-                Log.i("Result", "Data HAS NOT BEEN inserted");
-            }
+
             taskDone = true;
             return jsonData;
         }
-
-
-
-        @Override
-        protected void onPostExecute(String result) {;
-            super.onPostExecute(result);
-            MainMenu.loadPrefs(MainMenu.context);
-            //progressDialog.dismiss();
-
-
-        }
-
     }
 
 
