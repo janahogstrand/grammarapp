@@ -52,7 +52,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
     List<Category> categories;
     int index;
     Intent intent;
-    SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
+    //SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
 
     /**
      * Init views
@@ -93,29 +93,29 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
      * Gets all children of card categories so for example card
      * Greetings may have children observe reflect and experiment
      * */
-    private Cursor searchParentCategory(boolean isResource, int parentCategoryID){
-        Cursor cardChildren;
-        if(!isResource){
-            cardChildren = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.CATEGORY_TABLE + " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'exercise' " + "AND " + ModuleSelection.db.CATEGORY_PARENTID + " = " + parentCategoryID, null);
-        } else {
-            cardChildren = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.CATEGORY_TABLE + " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'resource' " + "AND " + ModuleSelection.db.CATEGORY_PARENTID + " = " + parentCategoryID, null);
-        }
-
-        return cardChildren;
-    }
+//    private Cursor searchParentCategory(boolean isResource, int parentCategoryID){
+//        Cursor cardChildren;
+//        if(!isResource){
+//            cardChildren = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.CATEGORY_TABLE + " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'exercise' " + "AND " + ModuleSelection.db.CATEGORY_PARENTID + " = " + parentCategoryID, null);
+//        } else {
+//            cardChildren = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.CATEGORY_TABLE + " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'resource' " + "AND " + ModuleSelection.db.CATEGORY_PARENTID + " = " + parentCategoryID, null);
+//        }
+//
+//        return cardChildren;
+//    }
 
     /**
      * Used by searchAndReturnQuiz
      * Joins categories and quizzes to find a children of categories
      * TODO make video method for same purpose
      * */
-    private Cursor searchParentQuiz(int parentCategoryID){
-        Cursor cardChildren;
-            cardChildren = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.CATEGORY_TABLE +
-                    " JOIN " + ModuleSelection.db.QUIZ_TABLE + " ON " + ModuleSelection.db.CATEGORY_TABLE + "." + ModuleSelection.db.CATEGORY_ID + " = " + ModuleSelection.db.QUIZ_TABLE + "." + ModuleSelection.db.QUIZ_CATEGORYID +
-                    " WHERE " + ModuleSelection.db.QUIZ_CATEGORYID + " = " + parentCategoryID, null);
-        return cardChildren;
-    }
+//    private Cursor searchParentQuiz(int parentCategoryID){
+//        Cursor cardChildren;
+//            cardChildren = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.CATEGORY_TABLE +
+//                    " JOIN " + ModuleSelection.db.QUIZ_TABLE + " ON " + ModuleSelection.db.CATEGORY_TABLE + "." + ModuleSelection.db.CATEGORY_ID + " = " + ModuleSelection.db.QUIZ_TABLE + "." + ModuleSelection.db.QUIZ_CATEGORYID +
+//                    " WHERE " + ModuleSelection.db.QUIZ_CATEGORYID + " = " + parentCategoryID, null);
+//        return cardChildren;
+//    }
 
     /**
      * Searches a parent id to see if it belongs
@@ -123,43 +123,43 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
      * a dialog is returned is so
      * else returns null meaning it found none
      * **/
-    private QuizDialog searchAndReturnQuiz(Context context, int parentCategoryID, int clickedIndex){
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                view.getContext(),
-                android.R.layout.select_dialog_singlechoice);
-
-        ArrayList<Quiz> quizList = new ArrayList<Quiz>();
-
-        Cursor cardChildren = searchParentCategory(false, parentCategoryID);
-        //Go to clicked item
-        for(int i =0; i < clickedIndex; i++){
-            cardChildren.moveToNext();
-        }
-
-        Log.w("Child of parent:", cardChildren.getString(cardChildren.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)));
-
-        int clickedCategoryID = cardChildren.getInt(cardChildren.getColumnIndex(ModuleSelection.db.CATEGORY_ID));
-        Cursor buttonChildren = searchParentQuiz(clickedCategoryID);
-
-        //Creates new entries with details stored
-        //Fills arrayadapter
-        //Fill quizList
-        while(buttonChildren.moveToNext()){
-            String title =  buttonChildren.getString(buttonChildren.getColumnIndex(ModuleSelection.db.QUIZ_INSTRUCTION));
-            String type =  buttonChildren.getString(buttonChildren.getColumnIndex(ModuleSelection.db.QUIZ_KIND));
-            arrayAdapter.add(title);
-            quizList.add(new Quiz(title, type));
-        }
-
-        //If no matches found return null
-        if(arrayAdapter.isEmpty()){
-            return null;
-        }
-
-        QuizDialog quizDialog = new QuizDialog(context, arrayAdapter, quizList, buttonChildren);
-
-        return quizDialog;
-    }
+//    private QuizDialog searchAndReturnQuiz(Context context, int parentCategoryID, int clickedIndex){
+//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+//                view.getContext(),
+//                android.R.layout.select_dialog_singlechoice);
+//
+//        ArrayList<Quiz> quizList = new ArrayList<Quiz>();
+//
+//        Cursor cardChildren = searchParentCategory(false, parentCategoryID);
+//        //Go to clicked item
+//        for(int i =0; i < clickedIndex; i++){
+//            cardChildren.moveToNext();
+//        }
+//
+//        Log.w("Child of parent:", cardChildren.getString(cardChildren.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)));
+//
+//        int clickedCategoryID = cardChildren.getInt(cardChildren.getColumnIndex(ModuleSelection.db.CATEGORY_ID));
+//        Cursor buttonChildren = searchParentQuiz(clickedCategoryID);
+//
+//        //Creates new entries with details stored
+//        //Fills arrayadapter
+//        //Fill quizList
+//        while(buttonChildren.moveToNext()){
+//            String title =  buttonChildren.getString(buttonChildren.getColumnIndex(ModuleSelection.db.QUIZ_INSTRUCTION));
+//            String type =  buttonChildren.getString(buttonChildren.getColumnIndex(ModuleSelection.db.QUIZ_KIND));
+//            arrayAdapter.add(title);
+//            quizList.add(new Quiz(title, type));
+//        }
+//
+//        //If no matches found return null
+//        if(arrayAdapter.isEmpty()){
+//            return null;
+//        }
+//
+//        QuizDialog quizDialog = new QuizDialog(context, arrayAdapter, quizList, buttonChildren);
+//
+//        return quizDialog;
+//    }
 
 
     /**
@@ -220,11 +220,11 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
                 //ParentId which is a  card for example Greetings
                 int parentCategoryID = categories.get(getAdapterPosition()).id;
-                QuizDialog quizDialog = searchAndReturnQuiz(context, parentCategoryID, 1);
+                //QuizDialog quizDialog = searchAndReturnQuiz(context, parentCategoryID, 1);
 
-                if(quizDialog != null){
-                    quizDialog.show();
-                }
+//                if(quizDialog != null){
+//                    quizDialog.show();
+//                }
 
             }
         });
@@ -234,11 +234,11 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View v) {
                 Context context = v.getContext();
                 int parentCategoryID = categories.get(getAdapterPosition()).id;
-                QuizDialog quizDialog = searchAndReturnQuiz(context, parentCategoryID, 2);
-
-                if(quizDialog != null){
-                    quizDialog.show();
-                }
+//                QuizDialog quizDialog = searchAndReturnQuiz(context, parentCategoryID, 2);
+//
+//                if(quizDialog != null){
+//                    quizDialog.show();
+//                }
             }
         });
 
@@ -247,11 +247,11 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View v) {
                 Context context = v.getContext();
                 int parentCategoryID = categories.get(getAdapterPosition()).id;
-                QuizDialog quizDialog = searchAndReturnQuiz(context, parentCategoryID, 3);
-
-                if(quizDialog != null){
-                    quizDialog.show();
-                }
+//                QuizDialog quizDialog = searchAndReturnQuiz(context, parentCategoryID, 3);
+//
+//                if(quizDialog != null){
+//                    quizDialog.show();
+//                }
             }
         });
     }

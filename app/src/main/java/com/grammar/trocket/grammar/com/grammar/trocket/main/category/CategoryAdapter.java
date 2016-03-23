@@ -59,37 +59,37 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
         //If an exercise rename buttons
         if(!categoryViewHolder.categories.get(i).isResource){
             int catID = categorys.get(i).id;
-
-            Cursor result;
-            result = categoryViewHolder.myDatabase.rawQuery("SELECT * " +
-                                                            "FROM " + ModuleSelection.db.CATEGORY_TABLE +
-                                                            " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'exercise' " + "AND " + ModuleSelection.db.CATEGORY_PARENTID + " = " + catID
-                    + " ORDER BY " + ModuleSelection.db.CATEGORY_HIERARCHY + " ASC ", null);
-
-            //SET INVISIBLE
-            categoryViewHolder.observe.setVisibility(View.INVISIBLE);
-            categoryViewHolder.reflect.setVisibility(View.INVISIBLE);
-            categoryViewHolder.experiment.setVisibility(View.INVISIBLE);
-
-            int index = 0;
-            //Sets visable if exists and renames
-            while(result.moveToNext()) {
-                Log.w("sub-cat", result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)) + "  " + index);
-                if(index == 0){
-                    categoryViewHolder.observe.setText(result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)));
-                    categoryViewHolder.observe.setVisibility(View.VISIBLE);
-                }
-                if(index == 1){
-                    categoryViewHolder.reflect.setText(result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)));
-                    categoryViewHolder.reflect.setVisibility(View.VISIBLE);
-                }
-                if(index == 2){
-                    categoryViewHolder.experiment.setText(result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)));
-                    categoryViewHolder.experiment.setVisibility(View.VISIBLE);
-                }
-                index++;
-            }
-            result.move(-1);
+//
+//            Cursor result;
+//            result = categoryViewHolder.myDatabase.rawQuery("SELECT * " +
+//                                                            "FROM " + ModuleSelection.db.CATEGORY_TABLE +
+//                                                            " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'exercise' " + "AND " + ModuleSelection.db.CATEGORY_PARENTID + " = " + catID
+//                    + " ORDER BY " + ModuleSelection.db.CATEGORY_HIERARCHY + " ASC ", null);
+//
+//            //SET INVISIBLE
+//            categoryViewHolder.observe.setVisibility(View.INVISIBLE);
+//            categoryViewHolder.reflect.setVisibility(View.INVISIBLE);
+//            categoryViewHolder.experiment.setVisibility(View.INVISIBLE);
+//
+//            int index = 0;
+//            //Sets visable if exists and renames
+//            while(result.moveToNext()) {
+//                Log.w("sub-cat", result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)) + "  " + index);
+//                if(index == 0){
+//                    categoryViewHolder.observe.setText(result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)));
+//                    categoryViewHolder.observe.setVisibility(View.VISIBLE);
+//                }
+//                if(index == 1){
+//                    categoryViewHolder.reflect.setText(result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)));
+//                    categoryViewHolder.reflect.setVisibility(View.VISIBLE);
+//                }
+//                if(index == 2){
+//                    categoryViewHolder.experiment.setText(result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)));
+//                    categoryViewHolder.experiment.setVisibility(View.VISIBLE);
+//                }
+//                index++;
+//            }
+            //result.move(-1);
         }
 
     }

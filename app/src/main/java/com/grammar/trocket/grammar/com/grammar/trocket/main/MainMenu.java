@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,11 +14,16 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.backend.GetJSON;
+import com.grammar.trocket.grammar.com.grammar.trocket.backend.TableNames;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.DialectItem;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleSelection;
 import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabDictionary;
 import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabExercises;
 import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabResources;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -30,22 +34,25 @@ public class MainMenu extends BaseActivityDrawer {
     public static String MainLanguage = "Spanish";
     public static int CourseID;
     public static int ExerciseID = -1;
-    public  static int ResourcesID = -1;
-    public  static int DictionaryID = -1;
-    //public static TableNames db;
-    public static Cursor result;
-    public static Cursor resultExercises;
-    public static Cursor resultResources;
-    public static Cursor resultDictionary;
+    public static int ResourcesID = -1;
+    public static int DictionaryID = -1;
+
+
+//    public String exerciseIdString;
+//    public String resourceIdString;
+
     public static ArrayList<DialectItem> dialectsItems;
-    public static  Cursor dialectsCursor;
+    public static Cursor dialectsCursor;
     public static final String TAB_SELECT = "com.grammar.trocket.grammar.com.grammar.trocket.TAB";
-    public static final String RESOURCEID= "com.grammar.trocket.grammar.com.grammar.trocket.RESOURCEID";
+    public static final String RESOURCEID = "com.grammar.trocket.grammar.com.grammar.trocket.RESOURCEID";
     public static final String EXERCISEID = "com.grammar.trocket.grammar.com.grammar.trocket.EXERCISEID";
     public static final String DICTIONARYID = "com.grammar.trocket.grammar.com.grammar.trocket.DICTIONARYID";
     //public static final String COURSE_SELECTED = "com.grammar.trocket.grammar.com.grammar.trocket.COURSE";
     private int currentTab = 0;
     public static Context context;
+    String dictionary;
+    String exercises;
+    String resources;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -72,6 +79,8 @@ public class MainMenu extends BaseActivityDrawer {
         super.onCreateDrawer();
         this.context = this.getApplicationContext();
 
+        loadPrefs(MainMenu.this);
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -82,56 +91,84 @@ public class MainMenu extends BaseActivityDrawer {
         tabLayout.setupWithViewPager(mViewPager);
 
         //Gets tab that was last clicked
-        try{
+        try {
             Intent intent = getIntent();
             currentTab = intent.getIntExtra(this.TAB_SELECT, currentTab);
 
             TabLayout.Tab tab = tabLayout.getTabAt(currentTab);
             tab.select();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
     }
 
-    public void loadPrefs(Context context){
+    public void loadPrefs(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(
                 "com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection", context.MODE_PRIVATE);
 
         CourseID = prefs.getInt(ModuleSelection.COURSE, -1);
-        
-        resultExercises = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.CATEGORY_TABLE + " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'exercise' " + "AND " + ModuleSelection.db.CATEGORY_COURSEID + " = " + MainMenu.CourseID, null);
-        resultResources = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.CATEGORY_TABLE + " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'resource' " + "AND " + ModuleSelection.db.CATEGORY_COURSEID + " = " + MainMenu.CourseID, null);
-        resultDictionary = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.DICTIONARY_TABLE + " WHERE " + ModuleSelection.db.DICTIONARY_COURSEID + " = " + MainMenu.CourseID, null);
-
-        try{
-            resultDictionary.moveToFirst();
-        }catch (Exception e){
-            Log.w("No Dictionary found", "No Dictionary defined");
-        }
-
-        try{
-            resultExercises.moveToFirst();
-        }catch (Exception e){
-            Log.w("No exercise found", "Non defined");
-        }
-
-        try{
-            resultResources.moveToFirst();
-        }catch (Exception e){
-            Log.w("No resources found", "Non defined");
-        }
 
 
-        try{
-            ExerciseID = resultExercises.getInt(resultExercises.getColumnIndex(ModuleSelection.db.CATEGORY_ID));
-            ResourcesID = resultResources.getInt(resultResources.getColumnIndex(ModuleSelection.db.CATEGORY_ID));
-            DictionaryID = resultDictionary.getInt(resultDictionary.getColumnIndex(ModuleSelection.db.DICTIONARY_ID));
+        try {
+//            ExerciseID = resultExercises.getInt(resultExercises.getColumnIndex(ModuleSelection.db.CATEGORY_ID));
+//            ResourcesID = resultResources.getInt(resultResources.getColumnIndex(ModuleSelection.db.CATEGORY_ID));
+//            DictionaryID = resultDictionary.getInt(resultDictionary.getColumnIndex(ModuleSelection.db.DICTIONARY_ID));
 
-            prefs.edit().putInt(MainMenu.RESOURCEID, ResourcesID ).apply();
-            prefs.edit().putInt(MainMenu.EXERCISEID, ExerciseID ).apply();
-            prefs.edit().putInt(MainMenu.DICTIONARYID, DictionaryID ).apply();
-        }catch (Exception e){
+            String topLevelIdString = "";
+
+            //Get exercise and resource ids
+            GetJSON getTopCats = new GetJSON(MainMenu.this, TableNames.CATEGORY_TABLE, "courseId", (CourseID + ""));
+            try {
+                topLevelIdString = getTopCats.execute().get();
+                Log.w("Categories", topLevelIdString);
+
+                JSONArray jsonArray = new JSONArray(topLevelIdString);
+                for (int j = 0; j < jsonArray.length(); ++j) {
+                    JSONObject jObject = jsonArray.getJSONObject(j);
+
+                    int id = Integer.parseInt(jObject.get("id").toString());
+                    String name = jObject.get("name").toString();
+
+                    if (jObject.get("kind").toString().equals("exercise")) {
+                        ExerciseID = id;
+                        exercises = name;
+                    } else {
+                        ResourcesID = id;
+                        resources = name;
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            String dictString = "";
+
+            GetJSON getDictionary = new GetJSON(MainMenu.this, TableNames.DICTIONARY_TABLE, "courseId", (CourseID + ""));
+            try {
+                dictString = getDictionary.execute().get();
+                Log.w("Categories", dictString);
+
+                JSONArray jsonArray = new JSONArray(dictString);
+                for (int j = 0; j < jsonArray.length(); ++j) {
+                    JSONObject jObject = jsonArray.getJSONObject(j);
+
+                    int id = Integer.parseInt(jObject.get("id").toString());
+                    Log.w("Dictionary name", jObject.get("title").toString());
+
+                    DictionaryID = id;
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
+
+
+            prefs.edit().putInt(MainMenu.RESOURCEID, ResourcesID).apply();
+            prefs.edit().putInt(MainMenu.EXERCISEID, ExerciseID).apply();
+            prefs.edit().putInt(MainMenu.DICTIONARYID, DictionaryID).apply();
+        } catch (Exception e) {
             e.printStackTrace();
             Log.w("Failed: ", "Has the user defined tabs in the course?");
         }
@@ -144,15 +181,15 @@ public class MainMenu extends BaseActivityDrawer {
         Log.w("Dictionary prefs are: ", DictionaryID + "");
     }
 
-    private static void findDialects(int courseID){
+    private static void findDialects(int courseID) {
         dialectsItems = new ArrayList<DialectItem>();
-        SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
-        dialectsCursor =  myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.DIALECT_TABLE + " WHERE " +  ModuleSelection.db.DIALECT_COURSEID + " = " + courseID, null);
-        while (dialectsCursor.moveToNext()){
-            String name = dialectsCursor.getString(dialectsCursor.getColumnIndex(ModuleSelection.db.DIALECT_NAME));
-            String code = dialectsCursor.getString(dialectsCursor.getColumnIndex(ModuleSelection.db.DIALECT_CODE));
-            dialectsItems.add(new DialectItem(name, code));
-        }
+//        SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
+//        dialectsCursor =  myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.DIALECT_TABLE + " WHERE " +  ModuleSelection.db.DIALECT_COURSEID + " = " + courseID, null);
+//        while (dialectsCursor.moveToNext()){
+//            String name = dialectsCursor.getString(dialectsCursor.getColumnIndex(ModuleSelection.db.DIALECT_NAME));
+//            String code = dialectsCursor.getString(dialectsCursor.getColumnIndex(ModuleSelection.db.DIALECT_CODE));
+//            dialectsItems.add(new DialectItem(name, code));
+//        }
 
     }
 
@@ -228,18 +265,20 @@ public class MainMenu extends BaseActivityDrawer {
          **/
         @Override
         public CharSequence getPageTitle(int position) {
-                switch (position) {
+            switch (position) {
                 case 0:
                     try {
-                        return resultExercises.getString(resultExercises.getColumnIndex(ModuleSelection.db.CATEGORY_NAME));
-                    }catch (Exception e){
+                        if(exercises == null){ return "EXERCISES";}
+                        return exercises;
+                    } catch (Exception e) {
                         e.printStackTrace();
                         return "EXERCISES";
                     }
                 case 1:
                     try {
-                        return resultResources.getString(resultResources.getColumnIndex(ModuleSelection.db.CATEGORY_NAME));
-                    }catch (Exception e){
+                        if(resources == null){ return "RESOURCES";}
+                        return resources;
+                    } catch (Exception e) {
                         e.printStackTrace();
                         return "RESOURCES";
                     }

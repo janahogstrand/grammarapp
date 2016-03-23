@@ -19,13 +19,30 @@ import java.net.URL;
 public class GetJSON extends AsyncTask<String, String, String> {
 
     private Activity activity;
-    //public static String jsonData = "";
     private String table;
-    private String cols[];
+    private String field;
+    private String id;
+
+    public GetJSON(Activity activity, String table, String field ,String id){
+        this.activity = activity;
+        this.table = table;
+        this.field = field;
+        this.id = id;
+
+    }
+
+    public GetJSON(Activity activity, String table, String field){
+        this.activity = activity;
+        this.table = table;
+        this.field = field;
+        this.id = "";
+    }
 
     public GetJSON(Activity activity, String table){
         this.activity = activity;
         this.table = table;
+        this.field = "";
+        this.id = "";
     }
 
         //private ProgressDialog progressDialog = new ProgressDialog(activity);
@@ -67,8 +84,14 @@ public class GetJSON extends AsyncTask<String, String, String> {
         String jsonData = null;
         try {
             jsonData = "";
+            if(field == ""){
+                url = new URL("http://grammarapp.herokuapp.com/api/" + table + "/" + id);
+                Log.w("Searching for :", "http://grammarapp.herokuapp.com/api/" + table + "/" + id);
+            }else {
+                url = new URL("http://grammarapp.herokuapp.com/api/" + table + "?" + field + "=" + id);
+                Log.w("Searching for :", "http://grammarapp.herokuapp.com/api/" + table + "?" + field + "=" + id);
+            }
 
-            url = new URL("http://grammarapp.herokuapp.com/api/" + table);
             urlConnection = (HttpURLConnection) url.openConnection();
             InputStream in = urlConnection.getInputStream();
             InputStreamReader isr = new InputStreamReader(in);

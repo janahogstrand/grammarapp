@@ -86,16 +86,16 @@ public class Alphabet extends BaseActivityDrawer{
 //        alphabetList.add(new AlphabetItem("Y", false));
 //        alphabetList.add(new AlphabetItem("Z", false));
 
-        SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
-        letters = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.DICTIONARYLETTER_TABLE + " WHERE " +  ModuleSelection.db.DICTIONARYLETTER_DICTIONARYID + " = " + MainMenu.DictionaryID
-                + " ORDER BY "  + ModuleSelection.db.DICTIONARYLETTER_TABLE + "." + ModuleSelection.db.DICTIONARYLETTER_LABEL + " ASC", null);
-        while(letters.moveToNext()) {
-            Log.i("Letter1", letters.getString(letters.getColumnIndex(ModuleSelection.db.DICTIONARYLETTER_COURSEID)));
-            Log.i("Letter2", letters.getString(letters.getColumnIndex(ModuleSelection.db.DICTIONARYLETTER_LABEL)));
-
-            String letter = letters.getString(letters.getColumnIndex(ModuleSelection.db.DICTIONARYLETTER_LABEL));
-            alphabetList.add(new AlphabetItem(letter, false));
-        }
+//        SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
+//        letters = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.DICTIONARYLETTER_TABLE + " WHERE " +  ModuleSelection.db.DICTIONARYLETTER_DICTIONARYID + " = " + MainMenu.DictionaryID
+//                + " ORDER BY "  + ModuleSelection.db.DICTIONARYLETTER_TABLE + "." + ModuleSelection.db.DICTIONARYLETTER_LABEL + " ASC", null);
+//        while(letters.moveToNext()) {
+//            Log.i("Letter1", letters.getString(letters.getColumnIndex(ModuleSelection.db.DICTIONARYLETTER_COURSEID)));
+//            Log.i("Letter2", letters.getString(letters.getColumnIndex(ModuleSelection.db.DICTIONARYLETTER_LABEL)));
+//
+//            String letter = letters.getString(letters.getColumnIndex(ModuleSelection.db.DICTIONARYLETTER_LABEL));
+//            alphabetList.add(new AlphabetItem(letter, false));
+//        }
         letters.move(-1);
         return alphabetList;
     }

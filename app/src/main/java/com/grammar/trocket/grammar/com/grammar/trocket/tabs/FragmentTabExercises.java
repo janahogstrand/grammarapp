@@ -64,22 +64,22 @@ public class FragmentTabExercises extends Fragment {
      **/
     private void initializeData() {
         categories = new ArrayList<>();
-        SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
-        result = myDatabase.rawQuery(
-                                    "SELECT * " +
-                                    "FROM " + ModuleSelection.db.CATEGORY_TABLE +
-                                    " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'exercise' " +
-                                            "AND " + ModuleSelection.db.CATEGORY_PARENTID + " = " + MainMenu.ExerciseID + " ORDER BY " + ModuleSelection.db.CATEGORY_HIERARCHY + " ASC ", null);
-        while(result.moveToNext()) {
-            Log.i("Category",  result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)));
-            Log.i("Category", result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_ICONURL)));
+//        SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
+//        result = myDatabase.rawQuery(
+//                                    "SELECT * " +
+//                                    "FROM " + ModuleSelection.db.CATEGORY_TABLE +
+//                                    " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'exercise' " +
+//                                            "AND " + ModuleSelection.db.CATEGORY_PARENTID + " = " + MainMenu.ExerciseID + " ORDER BY " + ModuleSelection.db.CATEGORY_HIERARCHY + " ASC ", null);
+//        while(result.moveToNext()) {
+//            Log.i("Category",  result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)));
+//            Log.i("Category", result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_ICONURL)));
+//
+//            String name = result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_NAME));
+//            int catId = result.getInt(result.getColumnIndex(ModuleSelection.db.CATEGORY_ID));
+//            String icon = result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_ICONURL));
+//            categories.add(new Category(name, "", getIcon(icon), true, catId));
+//        }
 
-            String name = result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_NAME));
-            int catId = result.getInt(result.getColumnIndex(ModuleSelection.db.CATEGORY_ID));
-            String icon = result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_ICONURL));
-            categories.add(new Category(name, "", getIcon(icon), true, catId));
-
-        }
         result.move(-1);
     }
 
@@ -125,7 +125,7 @@ public class FragmentTabExercises extends Fragment {
             @Override
             public void onRefresh() {
                 Log.w("Updating.." , "Swiped clicked");
-                ModuleSelection.db.onCreate(ModuleSelection.db.getWritableDatabase());
+                //ModuleSelection.db.onCreate(ModuleSelection.db.getWritableDatabase());
                 Intent intent = new Intent(view.getContext(), MainMenu.class);
                 intent.putExtra(MainMenu.TAB_SELECT, 0);
                 view.getContext().startActivity(intent);
