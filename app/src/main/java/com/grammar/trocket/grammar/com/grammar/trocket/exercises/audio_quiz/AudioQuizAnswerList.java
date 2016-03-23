@@ -1,8 +1,5 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.exercises.audio_quiz;
 
-/**
- * Created by Sam on 06/03/2016.
- */
 public class AudioQuizAnswerList {
     AudioQuizQuestionsList audioQuestionListClass = new AudioQuizQuestionsList();
     String[] qusList = audioQuestionListClass.createArray();
@@ -14,37 +11,22 @@ public class AudioQuizAnswerList {
     public String getCorrectAnswer(String Question){
         String correctAnswer = "";
         if (Question.equals(qusList[0])){
-            correctAnswer = "Cat";
+            correctAnswer = "Hand-and-foot";
         }
-        if (Question.equals(qusList[1])){
-            correctAnswer = "Dog";
+        else if (Question.equals(qusList[1])){
+            correctAnswer = "Annerobinson";
         }
-        if (Question.equals(qusList[2])){
-            correctAnswer = "Fish";
+        else if (Question.equals(qusList[2])){
+            correctAnswer = "Protos";
         }
-        if (Question.equals(qusList[3])){
-            correctAnswer = "Guinea Pig";
+        else if (Question.equals(qusList[3])){
+            correctAnswer = "Policeman";
         }
-        if (Question.equals(qusList[4])){
+        else if (Question.equals(qusList[4])){
             correctAnswer = "Hippo";
         }
-        if (Question.equals(qusList[5])){
+        else if (Question.equals(qusList[5])){
             correctAnswer = "Horse";
-        }
-        if (Question.equals(qusList[6])){
-            correctAnswer = "Mouse";
-        }
-        if (Question.equals(qusList[7])){
-            correctAnswer = "Pig";
-        }
-        if (Question.equals(qusList[8])){
-            correctAnswer = "Shark";
-        }
-        if (Question.equals(qusList[9])){
-            correctAnswer = "Tiger";
-        }
-        if (Question.equals(qusList[10])){
-            correctAnswer = "Turtle";
         }
         return correctAnswer;
 
@@ -71,7 +53,7 @@ public class AudioQuizAnswerList {
             ans5 = "mouth-and-mouth";
             ans6 = "Foot-and-Foot";
         }
-        if (Question.equals(qusList[1])){
+        else if (Question.equals(qusList[1])){
             ans1 = "Andalucia";
             ans2 = "Dog";
             ans3 = "Andypandy";
@@ -79,7 +61,7 @@ public class AudioQuizAnswerList {
             ans5 = "robinson";
             ans6 = "Anne";
         }
-        if (Question.equals(qusList[2])){
+        else if (Question.equals(qusList[2])){
             ans1 = "Fish";
             ans2 = "Newtmen";
             ans3 = "Protos";
@@ -87,7 +69,7 @@ public class AudioQuizAnswerList {
             ans5 = "borghini";
             ans6 = "Lamb";
         }
-        if (Question.equals(qusList[3])){
+        else if (Question.equals(qusList[3])){
             ans1 = "Policeman";
             ans2 = "Guinea Pig";
             ans3 = "2p coin";
@@ -95,7 +77,7 @@ public class AudioQuizAnswerList {
             ans5 = "herring";
             ans6 = "Smoked";
         }
-        if (Question.equals(qusList[4])){
+        else if (Question.equals(qusList[4])){
             ans1 = "Hippo";
             ans2 = "Newly bought";
             ans3 = "Freshly cooked";
@@ -103,53 +85,13 @@ public class AudioQuizAnswerList {
             ans5 = "Firas";
             ans6 = "duck";
         }
-        if (Question.equals(qusList[5])){
+        else if (Question.equals(qusList[5])){
             ans1 = "Horse";
             ans2 = "Climbing";
             ans3 = "Swimming";
             ans4 = "Flying";
             ans5 = "cat";
             ans6 = "Jana";
-        }
-        if (Question.equals(qusList[6])){
-            ans1 = "Chargeboard";
-            ans2 = "Sprintboard";
-            ans3 = "Mouse";
-            ans4 = "Jogboard";
-            ans5 = "Jamie";
-            ans6 = "Ran";
-        }
-        if (Question.equals(qusList[7])){
-            ans1 = "Bash helmet";
-            ans2 = "Pig";
-            ans3 = "Mash helmet";
-            ans4 = "Flash helmet";
-            ans5 = "Sam";
-            ans6 = "Faisal";
-        }
-        if (Question.equals(qusList[8])){
-            ans1 = "Shingled";
-            ans2 = "Shark";
-            ans3 = "Pebbledashed";
-            ans4 = "Stoned";
-            ans5 = "Shriti";
-            ans6 = "Rahel";
-        }
-        if (Question.equals(qusList[9])){
-            ans1 = "Seer";
-            ans2 = "Rear";
-            ans3 = "Fear";
-            ans4 = "Tiger";
-            ans5 = "king";
-            ans6 = "boss";
-        }
-        if (Question.equals(qusList[10])){
-            ans1 = "Turtle";
-            ans2 = "Kitten love";
-            ans3 = "Bunny love";
-            ans4 = "Piggy love";
-            ans5 = "yes";
-            ans6 = "no";
         }
 
         options[0] = ans1;
@@ -161,4 +103,5 @@ public class AudioQuizAnswerList {
 
         return options;
     }
+
 }

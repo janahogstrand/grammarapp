@@ -2,23 +2,26 @@ package com.grammar.trocket.grammar.com.grammar.trocket.exercises.multiple_quiz;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
-import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizStatisticsActivity;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Multiple_Quiz_Main_Activity extends Activity {
 
-    public TextView question;
     public CheckBox answerOption1;
     public CheckBox answerOption2;
     public CheckBox answerOption3;
@@ -29,7 +32,7 @@ public class Multiple_Quiz_Main_Activity extends Activity {
     public Multiple_Quiz_Answers_List answersList;
     public String[] questionsListArray;
     public String[] correctAnswerArray;
-    public String currentQuestion;
+    public String currentQuestionAddress;
     public String[] answerOptionArray;
     public int successCounter = 0;
     public int mistakeCounter = 0;
@@ -37,13 +40,16 @@ public class Multiple_Quiz_Main_Activity extends Activity {
     public ArrayList<String> selectedAnswers = new ArrayList<>();
     public ArrayList<String> correctAnswerList = new ArrayList<>();
 
+    TextToSpeech textToSpeech;
+    Locale language;
+    public MediaPlayer player;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_multiple_quiz_main);
 
-        question = (TextView) findViewById(R.id.question);
         answerOption1 = (CheckBox) findViewById(R.id.answerOption1);
         answerOption2 = (CheckBox) findViewById(R.id.answerOption2);
         answerOption3 = (CheckBox) findViewById(R.id.answerOption3);
@@ -57,6 +63,20 @@ public class Multiple_Quiz_Main_Activity extends Activity {
 
         assignVariables();
         assignTextView();
+        assignLanguage();
+    }
+
+    /** 
+     * This method determines which language will be used by the textToSpeech API/object 
+     * and then sets it for the textToSpeech instance/variable. 
+     */
+    public void assignLanguage(){
+        language = new Locale("es", "ES");
+        textToSpeech=new TextToSpeech(Multiple_Quiz_Main_Activity.this, new TextToSpeech.OnInitListener() {
+            @Override public void onInit(int status) {
+                textToSpeech.setLanguage(language);
+            }
+        });
     }
 
     /**
@@ -68,9 +88,9 @@ public class Multiple_Quiz_Main_Activity extends Activity {
         correctAnswerList.clear();
         selectedAnswers.clear();
 
-        currentQuestion = questionsListArray[questionNumber];
-        answerOptionArray = answersList.getAnswerOptions(currentQuestion);
-        correctAnswerArray = answersList.getCorrectAnswer(currentQuestion);
+        currentQuestionAddress = questionsListArray[questionNumber];
+        answerOptionArray = answersList.getAnswerOptions(currentQuestionAddress);
+        correctAnswerArray = answersList.getCorrectAnswer(currentQuestionAddress);
 
         for (int i = 0; i != correctAnswerArray.length; i++)
         {
@@ -84,7 +104,6 @@ public class Multiple_Quiz_Main_Activity extends Activity {
      * are assigned an answer option for the current question.
      * */
     public void assignTextView(){
-        question.setText(currentQuestion);
         answerOption1.setText(answerOptionArray[0]);
         answerOption2.setText(answerOptionArray[1]);
         answerOption3.setText(answerOptionArray[2]);
@@ -107,6 +126,11 @@ public class Multiple_Quiz_Main_Activity extends Activity {
     public void checkResult(View view)
     {
         CheckBox changeBackground = null;
+
+        try {
+            stopAllSound();
+        }catch (Exception e){}
+
         while(!selectedAnswers.isEmpty())
         {
             for (int i = 0; i < selectedAnswers.size(); i++) {
@@ -214,8 +238,6 @@ public class Multiple_Quiz_Main_Activity extends Activity {
         answerOption4.setChecked(false);
         answerOption5.setChecked(false);
         answerOption6.setChecked(false);
-
-
     }
 
 
@@ -284,6 +306,71 @@ public class Multiple_Quiz_Main_Activity extends Activity {
             selectedAnswers.remove(answer.getText().toString());
         }
 
+    }
+
+
+    public void playAudio(View v) {
+        try {
+            stopAllSound();
+        }catch (Exception e){}
+
+        try {
+            setAudio(currentQuestionAddress);
+        } catch (Exception e) {
+            textToSpeech.speak(currentQuestionAddress, TextToSpeech.QUEUE_FLUSH, null);
+        }
+    }
+
+    /**
+     * Stops all current sound
+     * If media player is running this will stop
+     **/
+    public void stopAllSound() {
+        if (player != null) {
+            if (player.isPlaying()) {
+                player.stop();
+                player.reset();
+                player.release();
+                Log.w("Player released", "Audio Released");
+            }
+        }
+    }
+
+
+
+    public void setAudio(String address)throws IOException {
+        player = new MediaPlayer();
+        player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        player.setDataSource(address);
+        player.prepare();
+        player.start();
+    }
+
+
+    /**
+     * This method is called whenever an activity is closed or destroyed.
+     * This method stops the textToSpeech object from running and
+     * then destroys it inorder for it not to leak information.
+     */
+    @Override
+    protected void onDestroy() {
+        this.finish();
+        try {
+        if(player != null){
+            if (player.isPlaying()) {
+                player.stop();
+                player.reset();
+                player.release();
+                Log.d("Player released ", "Player Destroyed");
+            }
+        }}catch (Exception e){}
+        //Close the Text to Speech Library
+        if(textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+            Log.d("-------------------", "TTS Destroyed");
+        }
+        super.onDestroy();
     }
 
 

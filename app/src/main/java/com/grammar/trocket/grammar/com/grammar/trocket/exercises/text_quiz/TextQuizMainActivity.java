@@ -11,7 +11,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.QuizDialog;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Quiz;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizStatisticsActivity;
+
+import java.util.Locale;
 
 public class TextQuizMainActivity extends Activity {
 
@@ -31,6 +36,7 @@ public class TextQuizMainActivity extends Activity {
     public int successCounter = 0;
     public int mistakeCounter = 0;
     public int questionNumber = 0;
+    public int parentId;
 
     public final static String EXTRA_MESSAGE = "com.firasaltayeb.quizbutton.MESSAGE";
     public final static String EXTRA_MESSAGE2 = "com.firasaltayeb.quizbutton.MESSAGE2";
@@ -41,6 +47,18 @@ public class TextQuizMainActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_text_quiz_main);
 
+        findAllViews();
+        findParentId();
+
+        questionsList = new TextQuizQuestionsList(parentId);
+        answersList = new TextQuizAnswersList();
+        questionsListArray = questionsList.createArray();
+
+        assignVariables();
+        assignTextView();
+    }
+
+    public void findAllViews(){
         question = (TextView) findViewById(R.id.question);
         answerOption1 = (Button) findViewById(R.id.answerOption1);
         answerOption2 = (Button) findViewById(R.id.answerOption2);
@@ -48,12 +66,11 @@ public class TextQuizMainActivity extends Activity {
         answerOption4 = (Button) findViewById(R.id.answerOption4);
         answerOption5 = (Button) findViewById(R.id.answerOption5);
         answerOption6 = (Button) findViewById(R.id.answerOption6);
+    }
 
-        questionsList = new TextQuizQuestionsList();
-        answersList = new TextQuizAnswersList();
-        questionsListArray = questionsList.createArray();
-        assignVariables();
-        assignTextView();
+    public void findParentId(){
+        Intent intent = getIntent();
+        parentId = intent.getIntExtra(QuizDialog.QUIZ_ID,0);
     }
 
     /**

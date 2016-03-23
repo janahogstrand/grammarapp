@@ -20,12 +20,12 @@ import java.util.ArrayList;
  */
 public class QuizDialog extends AlertDialog.Builder {
 
-    public final static String QUIZ_INFO = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE";
+    public final static String QUIZ_ID = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE";
 
-    Context context;
-    Intent intent;
-    ArrayList<Quiz> quizList;
-    Cursor allQuizDetails;
+    public Context context;
+    public Intent intent;
+    public ArrayList<Quiz> quizList;
+    public static Cursor allQuizDetails;
 
     /**
      * @param allQuizDetails Use this to get information about quizzes
@@ -64,9 +64,11 @@ public class QuizDialog extends AlertDialog.Builder {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int position) {
+                        int clickedId = quizList.get(position).getId();
 
                         switch (quizList.get(position).getQuizType()) {
-                            case "Text": intent = new Intent(context, TextQuizMainActivity.class);
+                            case "Text":
+                                intent = new Intent(context, TextQuizMainActivity.class);
                                 break;
                             case "Multiple":  intent = new Intent(context, Multiple_Quiz_Main_Activity.class);
                                 break;
@@ -75,10 +77,7 @@ public class QuizDialog extends AlertDialog.Builder {
                             case "Picture":  intent = new Intent(context, Image_Quiz_Main.class);
                         }
 
-//                        String selectedDialect = quizOptions.getItem(position);
-//                        intent.putExtra(QUIZ_INFO, selectedDialect);
-
-
+                        intent.putExtra(QUIZ_ID , clickedId);
                         context.startActivity(intent);
                     }
                 });

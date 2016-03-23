@@ -146,8 +146,9 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         while(buttonChildren.moveToNext()){
             String title =  buttonChildren.getString(buttonChildren.getColumnIndex(MainMenu.db.QUIZ_INSTRUCTION));
             String type =  buttonChildren.getString(buttonChildren.getColumnIndex(MainMenu.db.QUIZ_KIND));
+            int id = buttonChildren.getInt(buttonChildren.getColumnIndex(MainMenu.db.QUIZ_ID));
             arrayAdapter.add(title);
-            quizList.add(new Quiz(title, type));
+            quizList.add(new Quiz(title, type, id));
         }
 
         //If no matches found return null

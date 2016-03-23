@@ -6,10 +6,12 @@ package com.grammar.trocket.grammar.com.grammar.trocket.exercises;
 public class Quiz {
     private String name;
     private String quizType;
+    private int id;
 
-    public Quiz(String name, String quizType){
+    public Quiz(String name, String quizType, int id){
         this.name = name;
         this.quizType = quizType;
+        this.id = id;
     }
 
     public String getName(){
@@ -18,6 +20,10 @@ public class Quiz {
 
     public String getQuizType(){
         return quizType;
+    }
+
+    public int getId(){
+        return id;
     }
 
 

@@ -1,8 +1,5 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.exercises.audio_quiz;
 
-/**
- * Created by Sam on 06/03/2016.
- */
 public class AudioQuizQuestionsList {
 
     /**
@@ -12,17 +9,12 @@ public class AudioQuizQuestionsList {
 
     public String[] createArray() {
         String[] QuestionsList = new String[48];
-        QuestionsList[0] = "el gato"; //cat
-        QuestionsList[1] = "el perro"; //dog
-        QuestionsList[2] = "el pez"; //fish
-        QuestionsList[3] = "la cobaya"; //guinea pig
-        QuestionsList[4] = "el hipopótamo"; //hippo
-        QuestionsList[5] =  "el caballo"; //horse
-        QuestionsList[6] = "el ratón"; //mouse
-        QuestionsList[7] = "el cerdo"; //pig
-        QuestionsList[8] = "el tiburón"; //shark
-        QuestionsList[9] = "el tigre"; //tiger
-        QuestionsList[10] = "la tortuga"; //turtle
+        QuestionsList[0] = "https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1";
+        QuestionsList[1] = "1";
+        QuestionsList[2] = "2";
+        QuestionsList[3] = "3";
+        QuestionsList[4] = "4";
+        QuestionsList[5] = "5";
         return QuestionsList;
     }
 

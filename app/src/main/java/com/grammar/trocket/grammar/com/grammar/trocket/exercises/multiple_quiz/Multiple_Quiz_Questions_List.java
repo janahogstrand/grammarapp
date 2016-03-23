@@ -10,16 +10,16 @@ public class Multiple_Quiz_Questions_List {
      */
     public String[] createArray(){
         String[] QuestionsList = new String[48];
-        QuestionsList[0] = "Which of these are primary colours?";
-        QuestionsList[1] = "Which of these are vehicles?";
-        QuestionsList[2] = "Which of these are common pets?";
-        QuestionsList[3] = "Which of these are drinks?";
-        QuestionsList[4] = "Which of these are Elements?";
-        QuestionsList[5] = "Which of these Dragon Ball series are actually good?";
-        QuestionsList[6] = "Which of these are animals in Korean?";
-        QuestionsList[7] = "Which of these are South American Countries?";
-        QuestionsList[8] = "I'M MISTER MEESEEKS!";
-        QuestionsList[9] = "Which of these are starter pokemon in the original Pokemon Red and Green?";
+        QuestionsList[0] = "https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1";
+        QuestionsList[1] = "1";
+        QuestionsList[2] = "2";
+        QuestionsList[3] = "3";
+        QuestionsList[4] = "4";
+        QuestionsList[5] = "5";
+        QuestionsList[6] = "What is the name of the instrument panel in a car?";
+        QuestionsList[7] = "What type of protective headgear do motorcyclists wear?";
+        QuestionsList[8] = "Which of these refers to an alcoholic drink served with ice?";
+        QuestionsList[9] = "Which of these is an obstruction built across a river?";
         QuestionsList[10] = "Which of these is an adolescent romantic attachment?";
         return QuestionsList;
     }

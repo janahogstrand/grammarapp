@@ -62,8 +62,10 @@ public class FragmentTabExercises extends Fragment {
         SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
         result = myDatabase.rawQuery(
                                     "SELECT * " +
-                                    "FROM " + MainMenu.db.CATEGORY_TABLE +
-                                    " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'exercise' " + "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + MainMenu.ExerciseID, null);
+                                    "FROM " + MainMenu.db.CATEGORY_TABLE + " " +
+                                    "WHERE " + MainMenu.db.CATEGORY_KIND + " = 'exercise' " +
+                                    "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + MainMenu.ExerciseID, null);
+
         while(result.moveToNext()) {
             Log.i("Category",  result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
             Log.i("Category", result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_ICONURL)));
