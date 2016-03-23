@@ -181,22 +181,11 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
                             view.getContext(),
                             android.R.layout.select_dialog_singlechoice);
 
-//                    arrayAdapter.add("Spanish");
-//                    arrayAdapter.add("Mexican");
-
                     ArrayList <DialectItem> dialectItems = MainMenu.dialectsItems;
 
                     for(DialectItem dialect: dialectItems){
                         arrayAdapter.add(dialect.getName());
                     }
-
-//                    Cursor dialects = MainMenu.dialectsCursor;
-//                    //dialects.move(-1);
-//                    while(dialects.moveToNext()){
-//                        String name = dialects.getString(dialects.getColumnIndex(ModuleSelection.db.DIALECT_NAME));
-//                        arrayAdapter.add(name);
-//                        Log.w("Dialect", name);
-//                    }
 
                     DialectDialog dialectDialog = new DialectDialog(context, arrayAdapter, intent);
 

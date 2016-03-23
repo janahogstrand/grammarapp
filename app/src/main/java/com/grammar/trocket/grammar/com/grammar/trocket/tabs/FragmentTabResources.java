@@ -69,19 +69,6 @@ public class FragmentTabResources extends Fragment {
      **/
     private void initializeData() {
         categories = new ArrayList<>();
-
-        categories = new ArrayList<>();
-//        SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
-//        result = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.CATEGORY_TABLE +
-//                " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'resource' "
-//                + "AND " + ModuleSelection.db.CATEGORY_PARENTID + " = " + MainMenu.ResourcesID + " ORDER BY " + ModuleSelection.db.CATEGORY_HIERARCHY + " ASC ", null);
-//        while(result.moveToNext()) {
-//            Log.i("Category",  result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)));
-//            Log.i("Category", result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_ICONURL)));
-//            String icon = result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_ICONURL));
-//            categories.add(new Category(result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)), "Learn basic greetings!", getIcon(icon), true, true,  result.getInt(result.getColumnIndex(ModuleSelection.db.CATEGORY_ID)) ));
-//        }
-
         String cardsString = "";
         //Get exercise and resource ids
         GetJSON getExerciseCards = new GetJSON((Activity) view.getContext(), TableNames.CATEGORY_TABLE, "parentId", (MainMenu.ResourcesID + ""));

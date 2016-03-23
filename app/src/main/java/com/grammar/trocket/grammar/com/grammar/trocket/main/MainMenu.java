@@ -1,5 +1,6 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.main;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.util.Log;
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.backend.GetJSON;
 import com.grammar.trocket.grammar.com.grammar.trocket.backend.TableNames;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.category.Category;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.DialectItem;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleSelection;
 import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabDictionary;
@@ -23,9 +25,12 @@ import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabExercises
 import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabResources;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.concurrent.ExecutionException;
 
 public class MainMenu extends BaseActivityDrawer {
 
@@ -181,15 +186,30 @@ public class MainMenu extends BaseActivityDrawer {
         Log.w("Dictionary prefs are: ", DictionaryID + "");
     }
 
-    private static void findDialects(int courseID) {
+    private void findDialects(int courseID) {
         dialectsItems = new ArrayList<DialectItem>();
-//        SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
-//        dialectsCursor =  myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.DIALECT_TABLE + " WHERE " +  ModuleSelection.db.DIALECT_COURSEID + " = " + courseID, null);
-//        while (dialectsCursor.moveToNext()){
-//            String name = dialectsCursor.getString(dialectsCursor.getColumnIndex(ModuleSelection.db.DIALECT_NAME));
-//            String code = dialectsCursor.getString(dialectsCursor.getColumnIndex(ModuleSelection.db.DIALECT_CODE));
-//            dialectsItems.add(new DialectItem(name, code));
-//        }
+        String dialectString;
+        GetJSON dialectsFinder = new GetJSON((Activity) MainMenu.this, TableNames.DIALECT_TABLE, "courseId", (CourseID + ""));
+        try {
+            dialectString = dialectsFinder.execute().get();
+            Log.w("Categories", dialectString);
+
+            JSONArray jsonArray = new JSONArray(dialectString);
+            for (int j = 0; j < jsonArray.length(); ++j) {
+                JSONObject jObject = jsonArray.getJSONObject(j);
+
+                String name =  jObject.get(TableNames.DIALECT_NAME).toString();
+                String code = jObject.get(TableNames.DIALECT_CODE).toString();
+                dialectsItems.add(new DialectItem(name, code));
+
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 

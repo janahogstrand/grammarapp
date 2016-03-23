@@ -58,7 +58,7 @@ public class Category implements Comparable<Category> {
         int compareOrder = ((Category) compare).getOrder();
 
         //ascending order
-        Log.w("Ordering..", this.name + "compared" + compare);
+        Log.w("Ordering.. ", this.name + "compared to " + compare.name);
         return this.order - compareOrder;
     }
 
