@@ -13,6 +13,8 @@ import com.grammar.trocket.grammar.com.grammar.trocket.exercises.multiple_quiz.M
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.audio_quiz.AudioQuizMainActivity;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 
 /**
@@ -25,12 +27,12 @@ public class QuizDialog extends AlertDialog.Builder {
     Context context;
     Intent intent;
     ArrayList<Quiz> quizList;
-    Cursor allQuizDetails;
+    JSONArray allQuizDetails;
 
     /**
      * @param allQuizDetails Use this to get information about quizzes
      * */
-    public QuizDialog(Context context, final ArrayAdapter<String> quizOptions, ArrayList<Quiz> quizList, Cursor allQuizDetails) {
+    public QuizDialog(Context context, final ArrayAdapter<String> quizOptions, ArrayList<Quiz> quizList, JSONArray allQuizDetails) {
         super(context);
         this.context = context;
         this.quizList = quizList;
