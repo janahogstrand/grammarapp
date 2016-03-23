@@ -1,9 +1,29 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.exercises.text_quiz;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.QuizDialog;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
+
+import java.util.ArrayList;
+
+
 /**
  * Created by firasAltayeb on 15/02/2016.
  */
 public class TextQuizQuestionsList {
+
+    Cursor allQuizDetails;
+    Cursor currentTextQuizDetails;
+    Cursor currentQuestionAnswer;
+    ArrayList<String> questions;
+    ArrayList<Integer> questionsID;
+    int parentId;
+
+
+    public  TextQuizQuestionsList() {}
 
     /**
      * Creates an array with size 48 slots and then assigns the slots with questions for the game as strings.

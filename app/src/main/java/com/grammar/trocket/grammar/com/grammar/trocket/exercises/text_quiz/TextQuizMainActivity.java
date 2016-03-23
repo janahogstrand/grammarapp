@@ -9,13 +9,14 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.QuizDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizStatisticsActivity;
+
 
 public class TextQuizMainActivity extends Activity {
 
-    public TextView question;
+    public TextView questionView;
     public Button answerOption1;
     public Button answerOption2;
     public Button answerOption3;
@@ -31,6 +32,7 @@ public class TextQuizMainActivity extends Activity {
     public int successCounter = 0;
     public int mistakeCounter = 0;
     public int questionNumber = 0;
+    public int parentId;
 
     public final static String EXTRA_MESSAGE = "com.firasaltayeb.quizbutton.MESSAGE";
     public final static String EXTRA_MESSAGE2 = "com.firasaltayeb.quizbutton.MESSAGE2";
@@ -41,19 +43,23 @@ public class TextQuizMainActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_text_quiz_main);
 
-        question = (TextView) findViewById(R.id.question);
+        findAllViews();
+        questionsList = new TextQuizQuestionsList();
+        answersList = new TextQuizAnswersList();
+        questionsListArray = questionsList.createArray();
+
+        assignVariables();
+        assignViews();
+    }
+
+    public void findAllViews(){
+        questionView = (TextView) findViewById(R.id.question);
         answerOption1 = (Button) findViewById(R.id.answerOption1);
         answerOption2 = (Button) findViewById(R.id.answerOption2);
         answerOption3 = (Button) findViewById(R.id.answerOption3);
         answerOption4 = (Button) findViewById(R.id.answerOption4);
         answerOption5 = (Button) findViewById(R.id.answerOption5);
         answerOption6 = (Button) findViewById(R.id.answerOption6);
-
-        questionsList = new TextQuizQuestionsList();
-        answersList = new TextQuizAnswersList();
-        questionsListArray = questionsList.createArray();
-        assignVariables();
-        assignTextView();
     }
 
     /**
@@ -71,8 +77,8 @@ public class TextQuizMainActivity extends Activity {
      * The TextView is assigned the current question and the each of the button
      * are assigned an answer option for the current question.
      * */
-    public void assignTextView(){
-        question.setText(currentQuestion);
+    public void assignViews(){
+        questionView.setText(currentQuestion);
         answerOption1.setText(answerOptionArray[0]);
         answerOption2.setText(answerOptionArray[1]);
         answerOption3.setText(answerOptionArray[2]);
@@ -147,12 +153,13 @@ public class TextQuizMainActivity extends Activity {
         answerOption5.setClickable(false);
         answerOption6.setClickable(false);
     }
+
     /**
      * Colors all the button's background to white thus
      * returning it to its original color and then set the buttons
      * to be clickable.
      */
-    public void restoreColor(){
+    public void restoreView(){
         answerOption1.setBackgroundResource(R.drawable.quiz_rounded_button_primary);
         answerOption2.setBackgroundResource(R.drawable.quiz_rounded_button_secondary);
         answerOption3.setBackgroundResource(R.drawable.quiz_rounded_button_primary);
@@ -185,8 +192,8 @@ public class TextQuizMainActivity extends Activity {
             handler.postDelayed(new Runnable() {
                 public void run() {
                     assignVariables();
-                    assignTextView();
-                    restoreColor();
+                    assignViews();
+                    restoreView();
                 }
             }, 1000);
         }

@@ -8,8 +8,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.teerachel.imagequizactivity.Image_Quiz_Main"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:weightSum="1">
+    ​
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,92 +18,162 @@
         android:id="@+id/questionBtn"
         android:textColor="#000000"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.7"
+        android:layout_weight=".1"
         android:textSize="50dp" />
-
+    ​
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:id="@+id/topLayer"
-        android:layout_weight="0.7"
-        android:weightSum=".9">
+        android:layout_weight=".3"
+        android:weightSum="1">
+        ​
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".4">
+            ​
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:id="@+id/firstView"
+                android:onClick="checkResult"
+                android:tag="answerOption1"
+                android:layout_gravity="left|center_horizontal"
+                android:layout_alignParentEnd="true" />
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/firstView"
-            android:onClick="checkResult"
-            android:tag="firstView" />
+            ​
+        </RelativeLayout>
+        ​
+        ​
 
         <Space
-            android:layout_width="60dp"
-            android:layout_height="match_parent" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".2" />
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/secondView"
-            android:onClick="checkResult"
-            android:tag="secondView"/>
-
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".4" >
+            ​
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:id="@+id/secondView"
+                android:onClick="checkResult"
+                android:tag="answerOption2"
+                android:layout_gravity="center_horizontal|right"
+                android:layout_alignParentEnd="false" />
+        </RelativeLayout>
+        ​
+        ​
     </LinearLayout>
+    ​
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_height="0dp"
         android:id="@+id/midLayer"
-        android:layout_weight="0.7">
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/thirdView"
-            android:onClick="checkResult"
-            android:tag="thirdView"/>
+        android:layout_weight=".3"
+        android:weightSum="1"
+        android:layout_gravity="center_horizontal">
+        ​
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4">
+            ​
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:id="@+id/thirdView"
+                android:onClick="checkResult"
+                android:tag="answerOption3"
+                android:layout_weight="0.4"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+        ​
+        ​
+        ​
 
         <Space
-            android:layout_width="60dp"
-            android:layout_height="match_parent" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".2" />
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/fourthView"
-            android:onClick="checkResult"
-            android:tag="fourthView"/>
-
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4">
+            ​
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:id="@+id/fourthView"
+                android:onClick="checkResult"
+                android:tag="answerOption4"
+                android:layout_weight=".4"
+                android:layout_alignParentEnd="false" />
+        </RelativeLayout>
+        ​
+        ​
     </LinearLayout>
-
+    ​
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:id="@+id/bottomLayer"
-        android:layout_weight="0.7">
+        android:layout_weight=".3"
+        android:weightSum="1"
+        android:transitionGroup="true">
+        ​
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/fifthView"
-            android:onClick="checkResult"
-            android:tag="fifthView"/>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4">
+            ​
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:id="@+id/fifthView"
+                android:onClick="checkResult"
+                android:tag="answerOption5"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
 
         <Space
-            android:layout_width="60dp"
-            android:layout_height="match_parent" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".2" />
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/sixthView"
-            android:onClick="checkResult"
-            android:tag="sixthView"/>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4">
+            ​
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:id="@+id/sixthView"
+                android:onClick="checkResult"
+                android:tag="answerOption6"/>
 
+        </RelativeLayout>
+
+        ​
+        ​
+        ​
+
+        ​
     </LinearLayout>
 
+    ​
 </LinearLayout>

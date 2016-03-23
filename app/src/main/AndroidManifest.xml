@@ -51,7 +51,7 @@
         <activity android:name=".com.grammar.trocket.exercises.image_quiz.Image_Quiz_Main"
                   android:label="Image_Quiz_Main"
             />
-        <activity android:name=".com.grammar.trocket.exercises.multiple_quiz.Multiple_Quiz_Main_Activity" android:label=""/>
+        <activity android:name=".com.grammar.trocket.exercises.multiple_quiz.MultipleQuizMainActivity" android:label=""/>
 
     </application>
 

@@ -1,11 +1,12 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.exercises.image_quiz;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.util.Log;
 import android.view.View;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Toast;
 import android.content.Intent;
 import android.widget.TextView;
 import android.widget.ImageView;
@@ -18,12 +19,12 @@ import com.squareup.picasso.Picasso;
 
 public class Image_Quiz_Main extends Activity {
 
-    public ImageView firstView;
-    public ImageView secondView;
-    public ImageView thirdView;
-    public ImageView fourthView;
-    public ImageView fifthView;
-    public ImageView sixthView;
+    public ImageView answerOption1;
+    public ImageView answerOption2;
+    public ImageView answerOption3;
+    public ImageView answerOption4;
+    public ImageView answerOption5;
+    public ImageView answerOption6;
     public TextView question;
     public Image_Quiz_Question questions;
     public Image_Quiz_Answers answers;
@@ -78,12 +79,12 @@ public class Image_Quiz_Main extends Activity {
     public void findViewByIds(){
         question = (TextView) findViewById(R.id.questionBtn);
 
-        firstView = (ImageView) findViewById(R.id.firstView);
-        secondView = (ImageView) findViewById(R.id.secondView);
-        thirdView = (ImageView) findViewById(R.id.thirdView);
-        fourthView = (ImageView) findViewById(R.id.fourthView);
-        fifthView = (ImageView) findViewById(R.id.fifthView);
-        sixthView = (ImageView) findViewById(R.id.sixthView);
+        answerOption1 = (ImageView) findViewById(R.id.firstView);
+        answerOption2 = (ImageView) findViewById(R.id.secondView);
+        answerOption3 = (ImageView) findViewById(R.id.thirdView);
+        answerOption4 = (ImageView) findViewById(R.id.fourthView);
+        answerOption5 = (ImageView) findViewById(R.id.fifthView);
+        answerOption6 = (ImageView) findViewById(R.id.sixthView);
     }
 
 
@@ -99,23 +100,23 @@ public class Image_Quiz_Main extends Activity {
 
 
     public void setImages(){
-        Picasso.with(firstView.getContext()).load(imageAddress1).placeholder(R.drawable.loading_animation)
-                .error(android.R.drawable.stat_notify_error).into(firstView);
+        Picasso.with(answerOption1.getContext()).load(imageAddress1).placeholder(R.drawable.loading_animation)
+                .error(android.R.drawable.stat_notify_error).into(answerOption1);
 
-        Picasso.with(secondView.getContext()).load(imageAddress2).placeholder(R.drawable.loading_animation)
-                .error(android.R.drawable.stat_notify_error).into(secondView);
+        Picasso.with(answerOption2.getContext()).load(imageAddress2).placeholder(R.drawable.loading_animation)
+                .error(android.R.drawable.stat_notify_error).into(answerOption2);
 
-        Picasso.with(thirdView.getContext()).load(imageAddress3).placeholder(R.drawable.loading_animation)
-                .error(android.R.drawable.stat_notify_error).into(thirdView);
+        Picasso.with(answerOption3.getContext()).load(imageAddress3).placeholder(R.drawable.loading_animation)
+                .error(android.R.drawable.stat_notify_error).into(answerOption3);
 
-        Picasso.with(fourthView.getContext()).load(imageAddress4).placeholder(R.drawable.loading_animation)
-                .error(android.R.drawable.stat_notify_error).into(fourthView);
+        Picasso.with(answerOption4.getContext()).load(imageAddress4).placeholder(R.drawable.loading_animation)
+                .error(android.R.drawable.stat_notify_error).into(answerOption4);
 
-        Picasso.with(fifthView.getContext()).load(imageAddress5).placeholder(R.drawable.loading_animation)
-                .error(android.R.drawable.stat_notify_error).into(fifthView);
+        Picasso.with(answerOption5.getContext()).load(imageAddress5).placeholder(R.drawable.loading_animation)
+                .error(android.R.drawable.stat_notify_error).into(answerOption5);
 
-        Picasso.with(sixthView.getContext()).load(imageAddress6).placeholder(R.drawable.loading_animation)
-                .error(android.R.drawable.stat_notify_error).into(sixthView);
+        Picasso.with(answerOption6.getContext()).load(imageAddress6).placeholder(R.drawable.loading_animation)
+                .error(android.R.drawable.stat_notify_error).into(answerOption6);
     }
 
 
@@ -131,16 +132,26 @@ public class Image_Quiz_Main extends Activity {
      * @param view
      */
     public void checkResult(final View view) {
-
+        final ImageView variableName = (ImageView) findViewById(view.getId());
         if(correctAns.equals(view.getTag().toString())) {
             successCounter++;
-            Toast.makeText(Image_Quiz_Main.this,
-                    "You're correct!", Toast.LENGTH_LONG).show();
+            variableName.setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);
+            variableName.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    variableName.clearColorFilter();
+                }
+            }, 1000);
         }
         else {
             mistakeCounter++;
-            Toast.makeText(Image_Quiz_Main.this,
-                    "Sorry, try again :(", Toast.LENGTH_LONG).show();
+            variableName.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+            variableName.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    variableName.clearColorFilter();
+                }
+            }, 1000);
         }
 
         Log.d("pressedView", view.getTag().toString() );
