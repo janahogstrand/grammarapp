@@ -256,7 +256,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String VIDEO_TITLE = "title";
     public static final String VIDEO_COURSEID = "course_id";
     public static final String[] VIDEO_COLUMNS = {
-            VIDEO_TABLE,
             VIDEO_ID,
             VIDEO_URL,
             VIDEO_SUBTITLEDURL,
@@ -442,7 +441,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             DICTIONARYWORD_TABLE,
             QUIZ_TABLE,
             QUIZQUESTION_TABLE,
-            QUIZANSWER_TABLE,
+            //QUIZANSWER_TABLE,
             VIDEO_TABLE
 // IF UNCOMMENTING THE LINES BELOW, ADD A COMMA TO THE END OF THE LINE ABOVE.
 //            TAP_TABLE,
@@ -511,7 +510,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.w("Created..", VIDEO_TABLE);
 
         for(String table: DATABASE_TABLE_NAMES) {
-            insertIntoTable("http://grammarapp.herokuapp.com/api/" + table, table);
+            insertIntoTable("http://grammarcms.herokuapp.com/api/" + table, table);
             Log.w("Inserted..", table);
         }
 
@@ -533,89 +532,166 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void insertIntoTable(String url, String table) {
-        downloadJSON(url);
-        while(!taskDone) {
-            Log.w("WHILE", "STUCK IN WHILE LOOP");
-        }
-        if (insertData(table, jsonData)) {
-            Log.i("Result", "Data inserted");
-        } else {
-            Log.i("Result", "Data HAS NOT BEEN inserted");
-        }
-        taskDone = false;
-    }
+        //downloadJSON(url, table);
 
-    public Boolean insertData(String... params) {
-        //getWritableDatabase();
-        long result = 0;
-        switch(params[0]) {
-            case TABLEUPDATES_TABLE:
-                selectedColumns = TABLEUPDATE_COLUMNS;
-                break;
-            case COURSE_TABLE:
-                selectedColumns = COURSE_COLUMNS;
-                break;
-            case CATEGORY_TABLE:
-                selectedColumns = CATEGORY_COLUMNS;
-                break;
-            case CONTENT_TABLE:
-                selectedColumns = CONTENT_COLUMNS;
-                break;
-            case DIALECT_TABLE:
-                selectedColumns = DIALECT_COLUMNS;
-                break;
-            case DICTIONARY_TABLE:
-                selectedColumns = DICTIONARY_COLUMNS;
-                break;
-            case DICTIONARYLETTER_TABLE:
-                selectedColumns = DICTIONARYLETTER_COLUMNS;
-                break;
-            case DICTIONARYWORD_TABLE:
-                selectedColumns = DICTIONARYWORD_COLUMNS;
-                break;
-            case QUIZ_TABLE:
-                selectedColumns = QUIZ_COLUMNS;
-                break;
-            case QUIZQUESTION_TABLE:
-                selectedColumns = QUIZQUESTION_COLUMNS;
-                break;
-            case QUIZANSWER_TABLE:
-                selectedColumns = QUIZANSWER_COLUMNS;
-                break;
-            case VIDEO_TABLE:
-                selectedColumns = VIDEO_COLUMNS;
-                break;
-        }
-
-        try {
-            JSONArray jsonArray = new JSONArray(params[1]);
-            Log.i("Columns", params[0]);
-            Log.i("JSON", (Integer.toString(jsonArray.getJSONObject(0).length())));
-
-            //SQLiteDatabase db = this.getWritableDatabase();
-            for(int j = 0; j < jsonArray.length(); ++j) {
-                ContentValues contentValues = new ContentValues();
-                for (int i = 0; i < selectedColumns.length; ++i) {
-                    contentValues.put(selectedColumns[i], jsonArray.getJSONObject(j).getString(selectedColumns[i]));
-                }
-                result = this.db.insert(params[0], null, contentValues);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        if(result == -1) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public void downloadJSON(String url) {
         DownloadJSONTask task = new DownloadJSONTask();
-        task.execute(url);
+        task.execute(url, table);
+
+//        while(!taskDone) {
+//            Log.w("WHILE", "STUCK IN WHILE LOOP");
+//        }
+//        if (insertData(table, jsonData)) {
+//            Log.i("Result", "Data inserted");
+//        } else {
+//            Log.i("Result", "Data HAS NOT BEEN inserted");
+//        }
+        //taskDone = false;
+    }
+
+//    public Boolean insertData(String... params) {
+//        //getWritableDatabase();
+//        long result = 0;
+//        switch(params[0]) {
+//            case TABLEUPDATES_TABLE:
+//                selectedColumns = TABLEUPDATE_COLUMNS;
+//                break;
+//            case COURSE_TABLE:
+//                selectedColumns = COURSE_COLUMNS;
+//                break;
+//            case CATEGORY_TABLE:
+//                selectedColumns = CATEGORY_COLUMNS;
+//                break;
+//            case CONTENT_TABLE:
+//                selectedColumns = CONTENT_COLUMNS;
+//                break;
+//            case DIALECT_TABLE:
+//                selectedColumns = DIALECT_COLUMNS;
+//                break;
+//            case DICTIONARY_TABLE:
+//                selectedColumns = DICTIONARY_COLUMNS;
+//                break;
+//            case DICTIONARYLETTER_TABLE:
+//                selectedColumns = DICTIONARYLETTER_COLUMNS;
+//                break;
+//            case DICTIONARYWORD_TABLE:
+//                selectedColumns = DICTIONARYWORD_COLUMNS;
+//                break;
+//            case QUIZ_TABLE:
+//                selectedColumns = QUIZ_COLUMNS;
+//                break;
+//            case QUIZQUESTION_TABLE:
+//                selectedColumns = QUIZQUESTION_COLUMNS;
+//                break;
+//            case QUIZANSWER_TABLE:
+//                selectedColumns = QUIZANSWER_COLUMNS;
+//                break;
+//            case VIDEO_TABLE:
+//                selectedColumns = VIDEO_COLUMNS;
+//                break;
+//        }
+//
+//        try {
+//            JSONArray jsonArray = new JSONArray(params[1]);
+//            Log.i("Columns", params[0]);
+//            Log.i("JSON", (Integer.toString(jsonArray.getJSONObject(0).length())));
+//
+//            //SQLiteDatabase db = this.getWritableDatabase();
+//            for(int j = 0; j < jsonArray.length(); ++j) {
+//                ContentValues contentValues = new ContentValues();
+//                for (int i = 0; i < selectedColumns.length; ++i) {
+//                    contentValues.put(selectedColumns[i], jsonArray.getJSONObject(j).getString(selectedColumns[i]));
+//                }
+//                result = this.db.insert(params[0], null, contentValues);
+//            }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        if(result == -1) {
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
+
+    public void downloadJSON(String url, String table) {
+        DownloadJSONTask task = new DownloadJSONTask();
+        task.execute(url, table);
     }
 
     public class DownloadJSONTask extends AsyncTask<String, Void, String> {
+
+        public Boolean insertData(String... params) {
+            //getWritableDatabase();
+            long result = 0;
+            switch(params[0]) {
+                case TABLEUPDATES_TABLE:
+                    selectedColumns = TABLEUPDATE_COLUMNS;
+                    break;
+                case COURSE_TABLE:
+                    selectedColumns = COURSE_COLUMNS;
+                    break;
+                case CATEGORY_TABLE:
+                    selectedColumns = CATEGORY_COLUMNS;
+                    break;
+                case CONTENT_TABLE:
+                    selectedColumns = CONTENT_COLUMNS;
+                    break;
+                case DIALECT_TABLE:
+                    selectedColumns = DIALECT_COLUMNS;
+                    break;
+                case DICTIONARY_TABLE:
+                    selectedColumns = DICTIONARY_COLUMNS;
+                    break;
+                case DICTIONARYLETTER_TABLE:
+                    selectedColumns = DICTIONARYLETTER_COLUMNS;
+                    break;
+                case DICTIONARYWORD_TABLE:
+                    selectedColumns = DICTIONARYWORD_COLUMNS;
+                    break;
+                case QUIZ_TABLE:
+                    selectedColumns = QUIZ_COLUMNS;
+                    break;
+                case QUIZQUESTION_TABLE:
+                    selectedColumns = QUIZQUESTION_COLUMNS;
+                    break;
+                case QUIZANSWER_TABLE:
+                    selectedColumns = QUIZANSWER_COLUMNS;
+                    break;
+                case VIDEO_TABLE:
+                    selectedColumns = VIDEO_COLUMNS;
+                    break;
+            }
+
+            try {
+                JSONArray jsonArray = new JSONArray(params[1]);
+                Log.i("Columns", params[0]);
+                Log.i("JSON", (Integer.toString(jsonArray.getJSONObject(0).length())));
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                for(int j = 0; j < jsonArray.length(); ++j) {
+                    ContentValues contentValues = new ContentValues();
+                    for (int i = 0; i < selectedColumns.length; ++i) {
+                        contentValues.put(selectedColumns[i], jsonArray.getJSONObject(j).getString(selectedColumns[i]));
+                    }
+                    result = db.insert(params[0], null, contentValues);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if(result == -1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        //ProgressDialog progressDialog = new ProgressDialog(MainMenu.context);
+//        @Override
+//        protected void onPreExecute() {
+//            //progressDialog.show();
+//            super.onPreExecute();
+//
+//        }
 
         @Override
         protected String doInBackground(String... params) {
@@ -636,16 +712,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     data = isr.read();
                 }
                 taskDone = true;
+                if (insertData(params[1], jsonData)) {
+                    Log.i("Result", "Data inserted");
+                } else {
+                    Log.i("Result", "Data HAS NOT BEEN inserted");
+                }
                 return jsonData;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            if (insertData(params[1], jsonData)) {
+                Log.i("Result", "Data inserted");
+            } else {
+                Log.i("Result", "Data HAS NOT BEEN inserted");
+            }
             taskDone = true;
             return jsonData;
         }
+
+
+
+        @Override
+        protected void onPostExecute(String result) {;
+            super.onPostExecute(result);
+            MainMenu.loadPrefs(MainMenu.context);
+            //progressDialog.dismiss();
+
+
+        }
+
     }
 
 

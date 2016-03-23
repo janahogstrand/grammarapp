@@ -1,10 +1,14 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.main;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -25,6 +29,7 @@ import java.util.ArrayList;
 public class MainMenu extends BaseActivityDrawer {
 
     //TODO Shared prefs
+    public static ProgressDialog progressDialog;
     public static String MainLanguage = "Spanish";
     public static int CourseID;
     public static int ExerciseID = -1;
@@ -43,6 +48,7 @@ public class MainMenu extends BaseActivityDrawer {
     public static final String DICTIONARYID = "com.grammar.trocket.grammar.com.grammar.trocket.DICTIONARYID";
     //public static final String COURSE_SELECTED = "com.grammar.trocket.grammar.com.grammar.trocket.COURSE";
     private int currentTab = 0;
+    public static Context context;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -67,13 +73,59 @@ public class MainMenu extends BaseActivityDrawer {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         super.onCreateDrawer();
+        this.context = this.getApplicationContext();
 
-        loadDatabase();
-        loadPrefs();
+        //ProgressDialog.show(MainMenu.this, "title", "loading");
+        //backgroundWork(MainMenu.this);
+        try {
+            backgroundWork(MainMenu.this);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //progressDialog = ProgressDialog.show(context, "title", "loading");
+        //loadDatabase(MainMenu.this);
+        //loadPrefs(MainMenu.this);
+
         //db.onCreate(db.getWritableDatabase());
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
+//        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+//
+//        // Set up the ViewPager with the sections adapter.
+//        mViewPager = (ViewPager) findViewById(R.id.container);
+//        mViewPager.setAdapter(mSectionsPagerAdapter);
+//
+//        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+//        tabLayout.setupWithViewPager(mViewPager);
+//
+//        //Gets tab that was last clicked
+//        try{
+//            Intent intent = getIntent();
+//            currentTab = intent.getIntExtra(this.TAB_SELECT, currentTab);
+//
+//            TabLayout.Tab tab = tabLayout.getTabAt(currentTab);
+//            tab.select();
+//        }catch (Exception e){
+//
+//        }
+
+    }
+
+    private void backgroundWork(final Context context) throws InterruptedException {
+        //progressDialog = ProgressDialog.show(context, "title", "loading");
+
+        //progressDialog = ProgressDialog.show(context, "title", "loading");
+        Thread loadDB = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                loadDatabase(context);
+                //MainMenu.loadPrefs(context);
+            }
+        });
+        loadDB.start();
+        loadDB.join();
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -96,9 +148,9 @@ public class MainMenu extends BaseActivityDrawer {
 
     }
 
-    private void loadPrefs(){
-        SharedPreferences prefs = this.getApplicationContext().getSharedPreferences(
-                "com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection", this.getApplicationContext().MODE_PRIVATE);
+    public static void loadPrefs(Context context){
+        SharedPreferences prefs = context.getSharedPreferences(
+                "com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection", context.MODE_PRIVATE);
 
         CourseID = prefs.getInt(ModuleSelection.COURSE, -1);
 
@@ -129,11 +181,11 @@ public class MainMenu extends BaseActivityDrawer {
         try{
             ExerciseID = resultExercises.getInt(resultExercises.getColumnIndex(MainMenu.db.CATEGORY_ID));
             ResourcesID = resultResources.getInt(resultResources.getColumnIndex(MainMenu.db.CATEGORY_ID));
-            DictionaryID = resultDictionary.getInt(resultDictionary.getColumnIndex(MainMenu.db.DICTIONARY_ID));
+            //DictionaryID = resultDictionary.getInt(resultDictionary.getColumnIndex(MainMenu.db.DICTIONARY_ID));
 
-            prefs.edit().putInt(this.RESOURCEID, ResourcesID ).apply();
-            prefs.edit().putInt(this.EXERCISEID, ExerciseID ).apply();
-            prefs.edit().putInt(this.DICTIONARYID, DictionaryID ).apply();
+            prefs.edit().putInt(MainMenu.RESOURCEID, ResourcesID ).apply();
+            prefs.edit().putInt(MainMenu.EXERCISEID, ExerciseID ).apply();
+            //prefs.edit().putInt(MainMenu.DICTIONARYID, DictionaryID ).apply();
         }catch (Exception e){
             e.printStackTrace();
             Log.w("Failed: ", "Has the user defined tabs in the course?");
@@ -147,7 +199,7 @@ public class MainMenu extends BaseActivityDrawer {
         Log.w("Dictionary prefs are: ", DictionaryID + "");
     }
 
-    private void findDialects(int courseID){
+    private static void findDialects(int courseID){
         dialectsItems = new ArrayList<DialectItem>();
         SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
         dialectsCursor =  myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.DIALECT_TABLE + " WHERE " +  MainMenu.db.DIALECT_COURSEID + " = " + courseID, null);
@@ -159,19 +211,32 @@ public class MainMenu extends BaseActivityDrawer {
 
     }
 
-    private void loadDatabase() {
-        db = DatabaseHelper.getInstance(getApplicationContext());
-        //db.getWritableDatabase();
-
-        // This must be put into the refresh method, and ALSO called onCreate, or just after onCreate.
+    private void loadDatabase(final Context context) {
+        db = DatabaseHelper.getInstance(context);
         db.onCreate(db.getWritableDatabase());
 
-        // Test cursor with select all from Course table
         result = db.selectDBTable(db.COURSE_TABLE);
+        Log.w("Hello", "hello");
 
-        while(result.moveToNext()) {
-            Log.i("Cursor", result.getString(result.getColumnIndex(db.COURSE_NAME)));
-        }
+//        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+//
+//        // Set up the ViewPager with the sections adapter.
+//        mViewPager = (ViewPager) findViewById(R.id.container);
+//        mViewPager.setAdapter(mSectionsPagerAdapter);
+//
+//        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+//        tabLayout.setupWithViewPager(mViewPager);
+//
+//        //Gets tab that was last clicked
+//        try{
+//            Intent intent = getIntent();
+//            currentTab = intent.getIntExtra(this.TAB_SELECT, currentTab);
+//
+//            TabLayout.Tab tab = tabLayout.getTabAt(currentTab);
+//            tab.select();
+//        }catch (Exception e){
+//
+//        }
     }
 
     /**

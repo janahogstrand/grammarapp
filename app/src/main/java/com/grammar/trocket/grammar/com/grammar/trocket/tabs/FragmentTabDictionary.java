@@ -50,9 +50,15 @@ public class FragmentTabDictionary extends Fragment {
         GridLayoutManager glm = new GridLayoutManager(view.getContext(), 2);
         rv.setLayoutManager(glm);
 
+        try {
+            alphabetAdapter = new DictionaryAlphabetAdapter(getData(), "DictionaryItemsList");
+            rv.setAdapter(alphabetAdapter);
 
-        alphabetAdapter = new DictionaryAlphabetAdapter(getData(), "DictionaryItemsList");
-        rv.setAdapter(alphabetAdapter);
+        }catch (Exception e){
+
+        }
+
+
 
         return view;
     }

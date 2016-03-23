@@ -46,8 +46,12 @@ public class FragmentTabExercises extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setHasFixedSize(true);
 
-        initializeData();
-        initializeAdapter();
+        try {
+            initializeData();
+            initializeAdapter();
+        }catch (Exception e){
+
+        }
 
         return v;
     }
@@ -71,7 +75,8 @@ public class FragmentTabExercises extends Fragment {
 
             String name = result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME));
             int catId = result.getInt(result.getColumnIndex(MainMenu.db.CATEGORY_ID));
-            categories.add(new Category(name, "", R.drawable.ic_likes, true, catId));
+            String icon = result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_ICONURL));
+            categories.add(new Category(name, "", getIcon(icon), true, catId));
 
         }
         result.move(-1);
@@ -83,6 +88,30 @@ public class FragmentTabExercises extends Fragment {
     private void initializeAdapter() {
         CategoryAdapter adapter = new CategoryAdapter(categories);
         rv.setAdapter(adapter);
+    }
+
+    private int getIcon(String icon){
+        switch (icon){
+            case "R.drawable.ic_greetings":
+                return R.drawable.ic_greetings;
+            case "R.drawable.ic_checking_in":
+                return R.drawable.ic_checking_in;
+            case "R.drawable.ic_directions":
+                return R.drawable.ic_directions;
+            case "R.drawable.ic_sightseeing":
+                return R.drawable.ic_sightseeing;
+            case "R.drawable.ic_eating":
+                return R.drawable.ic_eating;
+            case "R.drawable.ic_likes":
+                return R.drawable.ic_likes;
+            case "R.drawable.ic_planning":
+                return R.drawable.ic_planning;
+            case "R.drawable.ic_dating":
+                return R.drawable.ic_dating;
+            case "R.drawable.ic_shopping":
+                return R.drawable.ic_shopping;
+        }
+        return 0;
     }
 
     /**

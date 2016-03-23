@@ -62,7 +62,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
             Cursor result;
             result = categoryViewHolder.myDatabase.rawQuery("SELECT * " +
                                                             "FROM " + MainMenu.db.CATEGORY_TABLE +
-                                                            " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'exercise' " + "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + catID, null);
+                                                            " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'exercise' " + "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + catID
+                    + " ORDER BY " + MainMenu.db.CATEGORY_HIERARCHY + " ASC ", null);
 
             //SET INVISIBLE
             categoryViewHolder.observe.setVisibility(View.INVISIBLE);
