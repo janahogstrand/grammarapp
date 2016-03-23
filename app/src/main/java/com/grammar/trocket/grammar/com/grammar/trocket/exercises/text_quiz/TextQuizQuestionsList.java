@@ -53,6 +53,7 @@ public class TextQuizQuestionsList {
         while (currentQuestionAnswer.moveToNext()) {
             String name = currentQuestionAnswer.getString(currentQuestionAnswer.
                     getColumnIndex(MainMenu.db.QUIZANSWER_TEXT));
+
             Log.w("222222222222222", name);
         }
         currentQuestionAnswer.move(-1);

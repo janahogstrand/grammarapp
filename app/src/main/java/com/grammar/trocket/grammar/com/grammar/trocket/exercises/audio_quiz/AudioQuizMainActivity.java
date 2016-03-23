@@ -45,20 +45,25 @@ public class AudioQuizMainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio_quiz_main);
 
+        findAllViews();
+
+        questionsAddresses = new AudioQuizQuestionsList();
+        answersList = new AudioQuizAnswerList();
+        questionsAddressesArray = questionsAddresses.createArray();
+        assignVariables();
+        assignViews();
+        assignLanguage();
+    }
+
+    public void findAllViews(){
         answerOption1 = (Button) findViewById(R.id.answerOption1);
         answerOption2 = (Button) findViewById(R.id.answerOption2);
         answerOption3 = (Button) findViewById(R.id.answerOption3);
         answerOption4 = (Button) findViewById(R.id.answerOption4);
         answerOption5 = (Button) findViewById(R.id.answerOption5);
         answerOption6 = (Button) findViewById(R.id.answerOption6);
-
-        questionsAddresses = new AudioQuizQuestionsList();
-        answersList = new AudioQuizAnswerList();
-        questionsAddressesArray = questionsAddresses.createArray();
-        assignVariables();
-        assignTextView();
-        assignLanguage();
     }
+
 
     /** 
      * This method determines which language will be used by the textToSpeech API/object 
@@ -90,7 +95,7 @@ public class AudioQuizMainActivity extends Activity {
      * The TextView is assigned the current question and the each of the button
      * are assigned an answer option for the current question.
      * */
-    public void assignTextView(){
+    public void assignViews(){
         answerOption1.setText(answerOptionArray[0]);
         answerOption2.setText(answerOptionArray[1]);
         answerOption3.setText(answerOptionArray[2]);
@@ -116,7 +121,7 @@ public class AudioQuizMainActivity extends Activity {
         }catch (Exception e){}
 
         Log.d("Answer Given:", pressedButton.getText().toString());
-        if(correctAnswer.equals(view.getTag().toString())) {
+        if(correctAnswer.equals(pressedButton.getText().toString()))  {
             Log.d("correct", "correct");
             pressedButton.setBackgroundResource(R.drawable.quiz_rounded_button_green);
             successCounter++;
@@ -189,8 +194,8 @@ public class AudioQuizMainActivity extends Activity {
             handler.postDelayed(new Runnable() {
                 public void run() {
                     assignVariables();
-                    assignTextView();
-                    restoreColor();
+                    assignViews();
+                    restoreView();
                 }
             }, 1000);
 
@@ -203,7 +208,7 @@ public class AudioQuizMainActivity extends Activity {
      * returning it to its original color and then set the buttons
      * to be clickable.
      */
-    public void restoreColor(){
+    public void restoreView(){
         answerOption1.setBackgroundResource(R.drawable.quiz_rounded_button_primary);
         answerOption2.setBackgroundResource(R.drawable.quiz_rounded_button_secondary);
         answerOption3.setBackgroundResource(R.drawable.quiz_rounded_button_primary);
