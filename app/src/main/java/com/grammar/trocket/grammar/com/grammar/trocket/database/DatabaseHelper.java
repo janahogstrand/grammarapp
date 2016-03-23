@@ -3,11 +3,14 @@ package com.grammar.trocket.grammar.com.grammar.trocket.database;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -541,8 +544,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public void insertIntoTable() {
-        downloadJSON();
+    public void insertIntoTable(Context context) {
+        downloadJSON(context);
     }
 
     public Cursor selectDBTable(String table) {
@@ -617,12 +620,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void downloadJSON() {
-        DownloadCourseTask task = new DownloadCourseTask();
+    public void downloadJSON(Context context) {
+        DownloadCourseTask task = new DownloadCourseTask(context);
         task.execute();
     }
 
     public class DownloadCourseTask extends AsyncTask<String, Void, String> {
+
+        Context context;
+        ProgressDialog progressDialog;
+        private DownloadCourseTask(Context context) {
+            this.context = context.getApplicationContext();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog =  new ProgressDialog(context);
+            progressDialog.show();
+        }
+
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            progressDialog.dismiss();
+            Intent startMainMenu =  new Intent(context, MainMenu.class);
+            context.startActivity(startMainMenu);
+        }
 
         @Override
         protected String doInBackground(String... params) {

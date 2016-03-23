@@ -10,16 +10,23 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".com.grammar.trocket.main.MainMenu"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
+
+        <activity android:name=".com.grammar.trocket.main.module_selection.ModuleSelection"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="Module Selection">
+
+        <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".com.grammar.trocket.main.MainMenu"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity android:name=".com.grammar.trocket.resources.ListViewActivity" android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".com.grammar.trocket.resources.Festivals" android:label="Festivals" android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".com.grammar.trocket.resources.Times" android:label="Times" android:theme="@style/AppTheme.NoActionBar" />

@@ -24,11 +24,26 @@ public class ModuleSelection extends BaseActivityDrawer {
     public static String LANGUAGE = "com.grammar.trocket.grammar.com.grammar.trocket.main.language";
     public static String COURSE = "com.grammar.trocket.grammar.com.grammar.trocket.main.COURSE";
 
+    public static DatabaseHelper db;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_module_main);
         super.onCreateDrawer();
+
+        db = DatabaseHelper.getInstance(getApplicationContext());
+        db.getWritableDatabase();
+
+        Cursor result = db.selectDBTable(db.COURSE_TABLE);
+
+        while(result.moveToNext()) {
+            Log.i("Cursor", result.getString(result.getColumnIndex(db.COURSE_NAME)));
+        }
+
+
+        db.insertIntoTable(getApplicationContext());
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
 
