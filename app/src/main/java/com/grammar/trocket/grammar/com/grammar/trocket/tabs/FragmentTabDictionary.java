@@ -72,8 +72,8 @@ public class FragmentTabDictionary extends Fragment {
 //        letters = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.CATEGORY_TABLE + " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'resource'", null);
 //        //letters = ModuleSelection.db.selectDBTable(ModuleSelection.db.COURSE_TABLE);
 //        while(letters.moveToNext()) {
-//            //Log.i("Cursor2", letters.getString(letters.getColumnIndex(ModuleSelection.db.COURSE_NAME)) + letters.getColumnIndex(ModuleSelection.db.COURSE_NAME) + "" + letters.getColumnIndex(DatabaseHelper.COURSE_CREATOR) + "" + letters.getColumnIndex(DatabaseHelper.COURSE_ID) + "" );
-//            //moduleData.add(new ModuleItem(letters.getString(letters.getColumnIndex(ModuleSelection.db.COURSE_NAME)), letters.getString(letters.getColumnIndex(ModuleSelection.db.COURSE_CREATOR)), letters.getColumnIndex(DatabaseHelper.COURSE_ID)));
+//            //Log.i("Cursor2", letters.getString(letters.getColumnIndex(ModuleSelection.db.COURSE_NAME)) + letters.getColumnIndex(ModuleSelection.db.COURSE_NAME) + "" + letters.getColumnIndex(TableNames.COURSE_CREATOR) + "" + letters.getColumnIndex(TableNames.COURSE_ID) + "" );
+//            //moduleData.add(new ModuleItem(letters.getString(letters.getColumnIndex(ModuleSelection.db.COURSE_NAME)), letters.getString(letters.getColumnIndex(ModuleSelection.db.COURSE_CREATOR)), letters.getColumnIndex(TableNames.COURSE_ID)));
 //            Log.i("Category",  letters.getString(letters.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)));
 //
 //        }

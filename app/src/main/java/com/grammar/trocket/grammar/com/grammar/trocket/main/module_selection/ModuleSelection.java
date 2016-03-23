@@ -7,11 +7,16 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.grammar.trocket.grammar.R;
-import com.grammar.trocket.grammar.com.grammar.trocket.database.DatabaseHelper;
+import com.grammar.trocket.grammar.com.grammar.trocket.backend.GetJSON;
+import com.grammar.trocket.grammar.com.grammar.trocket.backend.TableNames;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
-import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by jamiemoreland on 18/03/16.
@@ -23,8 +28,8 @@ public class ModuleSelection extends BaseActivityDrawer {
     public static Cursor result;
     public static String LANGUAGE = "com.grammar.trocket.grammar.com.grammar.trocket.main.language";
     public static String COURSE = "com.grammar.trocket.grammar.com.grammar.trocket.main.COURSE";
-
-    public static DatabaseHelper db;
+    private  String modulesString;
+    //public static TableNames db;
 
 
     @Override
@@ -33,15 +38,15 @@ public class ModuleSelection extends BaseActivityDrawer {
         setContentView(R.layout.activity_module_main);
         super.onCreateDrawer();
 
-        db = DatabaseHelper.getInstance(getApplicationContext());
-        db.getWritableDatabase();
-
-        Cursor result = db.selectDBTable(db.COURSE_TABLE);
-
-        while (result.moveToNext()) {
-            Log.i("Cursor", result.getString(result.getColumnIndex(db.COURSE_NAME)));
+        GetJSON getModules = new GetJSON(ModuleSelection.this, TableNames.COURSE_TABLE);
+        try {
+            modulesString = getModules.execute().get();
+            Log.w("Modules" , modulesString);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
-
 
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
@@ -54,29 +59,25 @@ public class ModuleSelection extends BaseActivityDrawer {
 
         moduleAdapter = new ModuleAdapter(getData(),ModuleSelection.this);
         rv.setAdapter(moduleAdapter);
-
-        //db.insertIntoTable(ModuleSelection.this);
     }
 
     private ArrayList<ModuleItem> getData() {
-//        Thread thread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-                moduleData = new ArrayList<ModuleItem>();
-                result = db.selectDBTable(db.COURSE_TABLE);
-                while (result.moveToNext()) {
-                    moduleData.add(new ModuleItem(result.getString(result.getColumnIndex(db.COURSE_NAME)), result.getString(result.getColumnIndex(db.COURSE_CREATOR)), result.getInt(result.getColumnIndex(DatabaseHelper.COURSE_ID))));
-                }
-//            }
-//        });
-//        thread.start();
-//        try {
-//            thread.join();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        moduleData = new ArrayList<ModuleItem>();
 
-
+        try {
+            JSONArray jsonArray = new JSONArray(modulesString);
+            for (int j = 0; j < jsonArray.length(); ++j) {
+                JSONObject jObject = jsonArray.getJSONObject(j);
+//                Log.w("JSON: ", jObject.toString());
+//                Log.w("JSON name: ", jObject.get("name").toString());
+                String name = jObject.get("name").toString();
+                String creator = jObject.get("creator").toString();
+                int id = Integer.parseInt(jObject.get("id").toString());
+                moduleData.add(new ModuleItem(name, creator, id));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return moduleData;
     }
 }

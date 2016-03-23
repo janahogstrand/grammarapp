@@ -7,8 +7,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,7 +15,6 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 
 import com.grammar.trocket.grammar.R;
-import com.grammar.trocket.grammar.com.grammar.trocket.database.DatabaseHelper;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.DialectItem;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleSelection;
 import com.grammar.trocket.grammar.com.grammar.trocket.tabs.FragmentTabDictionary;
@@ -35,7 +32,7 @@ public class MainMenu extends BaseActivityDrawer {
     public static int ExerciseID = -1;
     public  static int ResourcesID = -1;
     public  static int DictionaryID = -1;
-    //public static DatabaseHelper db;
+    //public static TableNames db;
     public static Cursor result;
     public static Cursor resultExercises;
     public static Cursor resultResources;
@@ -75,16 +72,6 @@ public class MainMenu extends BaseActivityDrawer {
         super.onCreateDrawer();
         this.context = this.getApplicationContext();
 
-        //ProgressDialog.show(MainMenu.this, "title", "loading");
-        //backgroundWork(MainMenu.this);
-//        try {
-//            backgroundWork(MainMenu.this);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-
-        loadPrefs(context);
-
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -107,31 +94,12 @@ public class MainMenu extends BaseActivityDrawer {
 
     }
 
-//    private void backgroundWork(final Context context) throws InterruptedException {
-//        //progressDialog = ProgressDialog.show(context, "title", "loading");
-//
-//        //progressDialog = ProgressDialog.show(context, "title", "loading");
-//        Thread loadDB = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                loadDatabase(context);
-//                //MainMenu.loadPrefs(context);
-//            }
-//        });
-//        loadDB.start();
-//        loadDB.join();
-//
-//
-//
-//    }
-
     public void loadPrefs(Context context){
         SharedPreferences prefs = context.getSharedPreferences(
                 "com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection", context.MODE_PRIVATE);
 
         CourseID = prefs.getInt(ModuleSelection.COURSE, -1);
-
-        SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
+        
         resultExercises = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.CATEGORY_TABLE + " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'exercise' " + "AND " + ModuleSelection.db.CATEGORY_COURSEID + " = " + MainMenu.CourseID, null);
         resultResources = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.CATEGORY_TABLE + " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'resource' " + "AND " + ModuleSelection.db.CATEGORY_COURSEID + " = " + MainMenu.CourseID, null);
         resultDictionary = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.DICTIONARY_TABLE + " WHERE " + ModuleSelection.db.DICTIONARY_COURSEID + " = " + MainMenu.CourseID, null);
@@ -189,7 +157,7 @@ public class MainMenu extends BaseActivityDrawer {
     }
 
 //    private void loadDatabase(final Context context) {
-//        db = DatabaseHelper.getInstance(context);
+//        db = TableNames.getInstance(context);
 //        db.onCreate(db.getWritableDatabase());
 //
 //        result = db.selectDBTable(db.COURSE_TABLE);

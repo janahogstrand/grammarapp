@@ -44,10 +44,10 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleView
                     Log.w("Prefs are: ", MainMenu.CourseID + "   " + moduleData.get(getAdapterPosition()).getModuleId());
 
                     //ModuleSelection.db.
-                    ModuleSelection.db.insertIntoTable((Activity) view.getContext());
+                    //ModuleSelection.db.insertIntoTable((Activity) view.getContext());
 
-//                    Intent intent = new Intent(view.getContext(), MainMenu.class);
-//                    view.getContext().startActivity(intent);
+                    Intent intent = new Intent(view.getContext(), MainMenu.class);
+                    view.getContext().startActivity(intent);
                 }
             });
 

@@ -13,12 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.grammar.trocket.grammar.com.grammar.trocket.database.DatabaseHelper;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.category.Category;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.category.CategoryAdapter;
 import com.grammar.trocket.grammar.R;
-import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleItem;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleSelection;
 
 import java.util.ArrayList;
