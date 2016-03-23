@@ -38,12 +38,11 @@ public class ModuleSelection extends BaseActivityDrawer {
 
         Cursor result = db.selectDBTable(db.COURSE_TABLE);
 
-        while(result.moveToNext()) {
+        while (result.moveToNext()) {
             Log.i("Cursor", result.getString(result.getColumnIndex(db.COURSE_NAME)));
         }
 
 
-        db.insertIntoTable(getApplicationContext());
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
 
@@ -55,14 +54,28 @@ public class ModuleSelection extends BaseActivityDrawer {
 
         moduleAdapter = new ModuleAdapter(getData());
         rv.setAdapter(moduleAdapter);
+
+        db.insertIntoTable(ModuleSelection.this);
     }
 
     private ArrayList<ModuleItem> getData() {
-        moduleData = new ArrayList<ModuleItem>();
-        result = MainMenu.db.selectDBTable(MainMenu.db.COURSE_TABLE);
-        while(result.moveToNext()) {
-            moduleData.add(new ModuleItem(result.getString(result.getColumnIndex(MainMenu.db.COURSE_NAME)), result.getString(result.getColumnIndex(MainMenu.db.COURSE_CREATOR)), result.getInt(result.getColumnIndex(DatabaseHelper.COURSE_ID))));
-        }
+//        Thread thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+                moduleData = new ArrayList<ModuleItem>();
+                result = db.selectDBTable(db.COURSE_TABLE);
+                while (result.moveToNext()) {
+                    moduleData.add(new ModuleItem(result.getString(result.getColumnIndex(db.COURSE_NAME)), result.getString(result.getColumnIndex(db.COURSE_CREATOR)), result.getInt(result.getColumnIndex(DatabaseHelper.COURSE_ID))));
+                }
+//            }
+//        });
+//        thread.start();
+//        try {
+//            thread.join();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
 
         return moduleData;
     }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleSelection;
 
 import java.util.List;
 
@@ -61,9 +62,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
 
             Cursor result;
             result = categoryViewHolder.myDatabase.rawQuery("SELECT * " +
-                                                            "FROM " + MainMenu.db.CATEGORY_TABLE +
-                                                            " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'exercise' " + "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + catID
-                    + " ORDER BY " + MainMenu.db.CATEGORY_HIERARCHY + " ASC ", null);
+                                                            "FROM " + ModuleSelection.db.CATEGORY_TABLE +
+                                                            " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'exercise' " + "AND " + ModuleSelection.db.CATEGORY_PARENTID + " = " + catID
+                    + " ORDER BY " + ModuleSelection.db.CATEGORY_HIERARCHY + " ASC ", null);
 
             //SET INVISIBLE
             categoryViewHolder.observe.setVisibility(View.INVISIBLE);
@@ -73,17 +74,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
             int index = 0;
             //Sets visable if exists and renames
             while(result.moveToNext()) {
-                Log.w("sub-cat", result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)) + "  " + index);
+                Log.w("sub-cat", result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)) + "  " + index);
                 if(index == 0){
-                    categoryViewHolder.observe.setText(result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
+                    categoryViewHolder.observe.setText(result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)));
                     categoryViewHolder.observe.setVisibility(View.VISIBLE);
                 }
                 if(index == 1){
-                    categoryViewHolder.reflect.setText(result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
+                    categoryViewHolder.reflect.setText(result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)));
                     categoryViewHolder.reflect.setVisibility(View.VISIBLE);
                 }
                 if(index == 2){
-                    categoryViewHolder.experiment.setText(result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
+                    categoryViewHolder.experiment.setText(result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)));
                     categoryViewHolder.experiment.setVisibility(View.VISIBLE);
                 }
                 index++;

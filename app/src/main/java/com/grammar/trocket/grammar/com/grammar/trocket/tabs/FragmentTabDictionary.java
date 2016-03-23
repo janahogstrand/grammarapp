@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.category.Category;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleSelection;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary.DictionaryAlphabetAdapter;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary.AlphabetItem;
 
@@ -67,24 +68,24 @@ public class FragmentTabDictionary extends Fragment {
     private ArrayList<AlphabetItem> getData() {
         alphabetList = new ArrayList<AlphabetItem>();
 
-//        SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
-//        letters = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'resource'", null);
-//        //letters = MainMenu.db.selectDBTable(MainMenu.db.COURSE_TABLE);
+//        SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
+//        letters = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.CATEGORY_TABLE + " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'resource'", null);
+//        //letters = ModuleSelection.db.selectDBTable(ModuleSelection.db.COURSE_TABLE);
 //        while(letters.moveToNext()) {
-//            //Log.i("Cursor2", letters.getString(letters.getColumnIndex(MainMenu.db.COURSE_NAME)) + letters.getColumnIndex(MainMenu.db.COURSE_NAME) + "" + letters.getColumnIndex(DatabaseHelper.COURSE_CREATOR) + "" + letters.getColumnIndex(DatabaseHelper.COURSE_ID) + "" );
-//            //moduleData.add(new ModuleItem(letters.getString(letters.getColumnIndex(MainMenu.db.COURSE_NAME)), letters.getString(letters.getColumnIndex(MainMenu.db.COURSE_CREATOR)), letters.getColumnIndex(DatabaseHelper.COURSE_ID)));
-//            Log.i("Category",  letters.getString(letters.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
+//            //Log.i("Cursor2", letters.getString(letters.getColumnIndex(ModuleSelection.db.COURSE_NAME)) + letters.getColumnIndex(ModuleSelection.db.COURSE_NAME) + "" + letters.getColumnIndex(DatabaseHelper.COURSE_CREATOR) + "" + letters.getColumnIndex(DatabaseHelper.COURSE_ID) + "" );
+//            //moduleData.add(new ModuleItem(letters.getString(letters.getColumnIndex(ModuleSelection.db.COURSE_NAME)), letters.getString(letters.getColumnIndex(ModuleSelection.db.COURSE_CREATOR)), letters.getColumnIndex(DatabaseHelper.COURSE_ID)));
+//            Log.i("Category",  letters.getString(letters.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)));
 //
 //        }
 
-        SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
-        letters = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.DICTIONARYLETTER_TABLE + " WHERE " +  MainMenu.db.DICTIONARYLETTER_DICTIONARYID + " = " + MainMenu.DictionaryID
-                + " ORDER BY "  + MainMenu.db.DICTIONARYLETTER_TABLE + "." + MainMenu.db.DICTIONARYLETTER_LABEL + " ASC", null);
+        SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
+        letters = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.DICTIONARYLETTER_TABLE + " WHERE " +  ModuleSelection.db.DICTIONARYLETTER_DICTIONARYID + " = " + MainMenu.DictionaryID
+                + " ORDER BY "  + ModuleSelection.db.DICTIONARYLETTER_TABLE + "." + ModuleSelection.db.DICTIONARYLETTER_LABEL + " ASC", null);
         while(letters.moveToNext()) {
-            Log.i("Letter1",  letters.getString(letters.getColumnIndex(MainMenu.db.DICTIONARYLETTER_COURSEID)));
-            Log.i("Letter2", letters.getString(letters.getColumnIndex(MainMenu.db.DICTIONARYLETTER_LABEL)));
+            Log.i("Letter1",  letters.getString(letters.getColumnIndex(ModuleSelection.db.DICTIONARYLETTER_COURSEID)));
+            Log.i("Letter2", letters.getString(letters.getColumnIndex(ModuleSelection.db.DICTIONARYLETTER_LABEL)));
 
-            String letter = letters.getString(letters.getColumnIndex(MainMenu.db.DICTIONARYLETTER_LABEL));
+            String letter = letters.getString(letters.getColumnIndex(ModuleSelection.db.DICTIONARYLETTER_LABEL));
             alphabetList.add(new AlphabetItem(letter, true));
         }
         letters.move(-1);
@@ -101,7 +102,7 @@ public class FragmentTabDictionary extends Fragment {
             @Override
             public void onRefresh() {
                 Log.w("Updating..", "Swiped clicked");
-                MainMenu.db.onCreate(MainMenu.db.getWritableDatabase());
+                ModuleSelection.db.onCreate(ModuleSelection.db.getWritableDatabase());
                 Intent intent = new Intent(view.getContext(), MainMenu.class);
                 intent.putExtra(MainMenu.TAB_SELECT, 2);
                 view.getContext().startActivity(intent);

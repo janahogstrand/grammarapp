@@ -19,6 +19,7 @@ import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.QuizDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Quiz;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.DialectItem;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleSelection;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.DaysOfTheWeek;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Festivals;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.ListViewActivity;
@@ -51,7 +52,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
     List<Category> categories;
     int index;
     Intent intent;
-    SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
+    SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
 
     /**
      * Init views
@@ -95,9 +96,9 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
     private Cursor searchParentCategory(boolean isResource, int parentCategoryID){
         Cursor cardChildren;
         if(!isResource){
-            cardChildren = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'exercise' " + "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + parentCategoryID, null);
+            cardChildren = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.CATEGORY_TABLE + " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'exercise' " + "AND " + ModuleSelection.db.CATEGORY_PARENTID + " = " + parentCategoryID, null);
         } else {
-            cardChildren = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'resource' " + "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + parentCategoryID, null);
+            cardChildren = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.CATEGORY_TABLE + " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'resource' " + "AND " + ModuleSelection.db.CATEGORY_PARENTID + " = " + parentCategoryID, null);
         }
 
         return cardChildren;
@@ -110,9 +111,9 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
      * */
     private Cursor searchParentQuiz(int parentCategoryID){
         Cursor cardChildren;
-            cardChildren = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE +
-                    " JOIN " + MainMenu.db.QUIZ_TABLE + " ON " + MainMenu.db.CATEGORY_TABLE + "." + MainMenu.db.CATEGORY_ID + " = " + MainMenu.db.QUIZ_TABLE + "." + MainMenu.db.QUIZ_CATEGORYID +
-                    " WHERE " + MainMenu.db.QUIZ_CATEGORYID + " = " + parentCategoryID, null);
+            cardChildren = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.CATEGORY_TABLE +
+                    " JOIN " + ModuleSelection.db.QUIZ_TABLE + " ON " + ModuleSelection.db.CATEGORY_TABLE + "." + ModuleSelection.db.CATEGORY_ID + " = " + ModuleSelection.db.QUIZ_TABLE + "." + ModuleSelection.db.QUIZ_CATEGORYID +
+                    " WHERE " + ModuleSelection.db.QUIZ_CATEGORYID + " = " + parentCategoryID, null);
         return cardChildren;
     }
 
@@ -135,17 +136,17 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             cardChildren.moveToNext();
         }
 
-        Log.w("Child of parent:", cardChildren.getString(cardChildren.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
+        Log.w("Child of parent:", cardChildren.getString(cardChildren.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)));
 
-        int clickedCategoryID = cardChildren.getInt(cardChildren.getColumnIndex(MainMenu.db.CATEGORY_ID));
+        int clickedCategoryID = cardChildren.getInt(cardChildren.getColumnIndex(ModuleSelection.db.CATEGORY_ID));
         Cursor buttonChildren = searchParentQuiz(clickedCategoryID);
 
         //Creates new entries with details stored
         //Fills arrayadapter
         //Fill quizList
         while(buttonChildren.moveToNext()){
-            String title =  buttonChildren.getString(buttonChildren.getColumnIndex(MainMenu.db.QUIZ_INSTRUCTION));
-            String type =  buttonChildren.getString(buttonChildren.getColumnIndex(MainMenu.db.QUIZ_KIND));
+            String title =  buttonChildren.getString(buttonChildren.getColumnIndex(ModuleSelection.db.QUIZ_INSTRUCTION));
+            String type =  buttonChildren.getString(buttonChildren.getColumnIndex(ModuleSelection.db.QUIZ_KIND));
             arrayAdapter.add(title);
             quizList.add(new Quiz(title, type));
         }
@@ -192,7 +193,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
 //                    Cursor dialects = MainMenu.dialectsCursor;
 //                    //dialects.move(-1);
 //                    while(dialects.moveToNext()){
-//                        String name = dialects.getString(dialects.getColumnIndex(MainMenu.db.DIALECT_NAME));
+//                        String name = dialects.getString(dialects.getColumnIndex(ModuleSelection.db.DIALECT_NAME));
 //                        arrayAdapter.add(name);
 //                        Log.w("Dialect", name);
 //                    }

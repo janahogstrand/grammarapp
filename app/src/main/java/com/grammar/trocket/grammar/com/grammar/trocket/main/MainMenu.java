@@ -35,7 +35,7 @@ public class MainMenu extends BaseActivityDrawer {
     public static int ExerciseID = -1;
     public  static int ResourcesID = -1;
     public  static int DictionaryID = -1;
-    public static DatabaseHelper db;
+    //public static DatabaseHelper db;
     public static Cursor result;
     public static Cursor resultExercises;
     public static Cursor resultResources;
@@ -77,54 +77,13 @@ public class MainMenu extends BaseActivityDrawer {
 
         //ProgressDialog.show(MainMenu.this, "title", "loading");
         //backgroundWork(MainMenu.this);
-        try {
-            backgroundWork(MainMenu.this);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        //progressDialog = ProgressDialog.show(context, "title", "loading");
-        //loadDatabase(MainMenu.this);
-        //loadPrefs(MainMenu.this);
-
-        //db.onCreate(db.getWritableDatabase());
-
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-//        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-//
-//        // Set up the ViewPager with the sections adapter.
-//        mViewPager = (ViewPager) findViewById(R.id.container);
-//        mViewPager.setAdapter(mSectionsPagerAdapter);
-//
-//        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-//        tabLayout.setupWithViewPager(mViewPager);
-//
-//        //Gets tab that was last clicked
-//        try{
-//            Intent intent = getIntent();
-//            currentTab = intent.getIntExtra(this.TAB_SELECT, currentTab);
-//
-//            TabLayout.Tab tab = tabLayout.getTabAt(currentTab);
-//            tab.select();
-//        }catch (Exception e){
-//
+//        try {
+//            backgroundWork(MainMenu.this);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
 //        }
 
-    }
-
-    private void backgroundWork(final Context context) throws InterruptedException {
-        //progressDialog = ProgressDialog.show(context, "title", "loading");
-
-        //progressDialog = ProgressDialog.show(context, "title", "loading");
-        Thread loadDB = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                loadDatabase(context);
-                //MainMenu.loadPrefs(context);
-            }
-        });
-        loadDB.start();
-        loadDB.join();
+        loadPrefs(context);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -148,16 +107,34 @@ public class MainMenu extends BaseActivityDrawer {
 
     }
 
-    public static void loadPrefs(Context context){
+//    private void backgroundWork(final Context context) throws InterruptedException {
+//        //progressDialog = ProgressDialog.show(context, "title", "loading");
+//
+//        //progressDialog = ProgressDialog.show(context, "title", "loading");
+//        Thread loadDB = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                loadDatabase(context);
+//                //MainMenu.loadPrefs(context);
+//            }
+//        });
+//        loadDB.start();
+//        loadDB.join();
+//
+//
+//
+//    }
+
+    public void loadPrefs(Context context){
         SharedPreferences prefs = context.getSharedPreferences(
                 "com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection", context.MODE_PRIVATE);
 
         CourseID = prefs.getInt(ModuleSelection.COURSE, -1);
 
-        SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
-        resultExercises = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'exercise' " + "AND " + MainMenu.db.CATEGORY_COURSEID + " = " + MainMenu.CourseID, null);
-        resultResources = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'resource' " + "AND " + MainMenu.db.CATEGORY_COURSEID + " = " + MainMenu.CourseID, null);
-        resultDictionary = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.DICTIONARY_TABLE + " WHERE " + MainMenu.db.DICTIONARY_COURSEID + " = " + MainMenu.CourseID, null);
+        SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
+        resultExercises = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.CATEGORY_TABLE + " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'exercise' " + "AND " + ModuleSelection.db.CATEGORY_COURSEID + " = " + MainMenu.CourseID, null);
+        resultResources = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.CATEGORY_TABLE + " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'resource' " + "AND " + ModuleSelection.db.CATEGORY_COURSEID + " = " + MainMenu.CourseID, null);
+        resultDictionary = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.DICTIONARY_TABLE + " WHERE " + ModuleSelection.db.DICTIONARY_COURSEID + " = " + MainMenu.CourseID, null);
 
         try{
             resultDictionary.moveToFirst();
@@ -179,13 +156,13 @@ public class MainMenu extends BaseActivityDrawer {
 
 
         try{
-            ExerciseID = resultExercises.getInt(resultExercises.getColumnIndex(MainMenu.db.CATEGORY_ID));
-            ResourcesID = resultResources.getInt(resultResources.getColumnIndex(MainMenu.db.CATEGORY_ID));
-            //DictionaryID = resultDictionary.getInt(resultDictionary.getColumnIndex(MainMenu.db.DICTIONARY_ID));
+            ExerciseID = resultExercises.getInt(resultExercises.getColumnIndex(ModuleSelection.db.CATEGORY_ID));
+            ResourcesID = resultResources.getInt(resultResources.getColumnIndex(ModuleSelection.db.CATEGORY_ID));
+            DictionaryID = resultDictionary.getInt(resultDictionary.getColumnIndex(ModuleSelection.db.DICTIONARY_ID));
 
             prefs.edit().putInt(MainMenu.RESOURCEID, ResourcesID ).apply();
             prefs.edit().putInt(MainMenu.EXERCISEID, ExerciseID ).apply();
-            //prefs.edit().putInt(MainMenu.DICTIONARYID, DictionaryID ).apply();
+            prefs.edit().putInt(MainMenu.DICTIONARYID, DictionaryID ).apply();
         }catch (Exception e){
             e.printStackTrace();
             Log.w("Failed: ", "Has the user defined tabs in the course?");
@@ -201,43 +178,43 @@ public class MainMenu extends BaseActivityDrawer {
 
     private static void findDialects(int courseID){
         dialectsItems = new ArrayList<DialectItem>();
-        SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
-        dialectsCursor =  myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.DIALECT_TABLE + " WHERE " +  MainMenu.db.DIALECT_COURSEID + " = " + courseID, null);
+        SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
+        dialectsCursor =  myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.DIALECT_TABLE + " WHERE " +  ModuleSelection.db.DIALECT_COURSEID + " = " + courseID, null);
         while (dialectsCursor.moveToNext()){
-            String name = dialectsCursor.getString(dialectsCursor.getColumnIndex(MainMenu.db.DIALECT_NAME));
-            String code = dialectsCursor.getString(dialectsCursor.getColumnIndex(MainMenu.db.DIALECT_CODE));
+            String name = dialectsCursor.getString(dialectsCursor.getColumnIndex(ModuleSelection.db.DIALECT_NAME));
+            String code = dialectsCursor.getString(dialectsCursor.getColumnIndex(ModuleSelection.db.DIALECT_CODE));
             dialectsItems.add(new DialectItem(name, code));
         }
 
     }
 
-    private void loadDatabase(final Context context) {
-        db = DatabaseHelper.getInstance(context);
-        db.onCreate(db.getWritableDatabase());
-
-        result = db.selectDBTable(db.COURSE_TABLE);
-        Log.w("Hello", "hello");
-
-//        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+//    private void loadDatabase(final Context context) {
+//        db = DatabaseHelper.getInstance(context);
+//        db.onCreate(db.getWritableDatabase());
 //
-//        // Set up the ViewPager with the sections adapter.
-//        mViewPager = (ViewPager) findViewById(R.id.container);
-//        mViewPager.setAdapter(mSectionsPagerAdapter);
+//        result = db.selectDBTable(db.COURSE_TABLE);
+//        Log.w("Hello", "hello");
 //
-//        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-//        tabLayout.setupWithViewPager(mViewPager);
-//
-//        //Gets tab that was last clicked
-//        try{
-//            Intent intent = getIntent();
-//            currentTab = intent.getIntExtra(this.TAB_SELECT, currentTab);
-//
-//            TabLayout.Tab tab = tabLayout.getTabAt(currentTab);
-//            tab.select();
-//        }catch (Exception e){
-//
-//        }
-    }
+////        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+////
+////        // Set up the ViewPager with the sections adapter.
+////        mViewPager = (ViewPager) findViewById(R.id.container);
+////        mViewPager.setAdapter(mSectionsPagerAdapter);
+////
+////        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+////        tabLayout.setupWithViewPager(mViewPager);
+////
+////        //Gets tab that was last clicked
+////        try{
+////            Intent intent = getIntent();
+////            currentTab = intent.getIntExtra(this.TAB_SELECT, currentTab);
+////
+////            TabLayout.Tab tab = tabLayout.getTabAt(currentTab);
+////            tab.select();
+////        }catch (Exception e){
+////
+////        }
+//    }
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -286,14 +263,14 @@ public class MainMenu extends BaseActivityDrawer {
                 switch (position) {
                 case 0:
                     try {
-                        return resultExercises.getString(resultExercises.getColumnIndex(MainMenu.db.CATEGORY_NAME));
+                        return resultExercises.getString(resultExercises.getColumnIndex(ModuleSelection.db.CATEGORY_NAME));
                     }catch (Exception e){
                         e.printStackTrace();
                         return "EXERCISES";
                     }
                 case 1:
                     try {
-                        return resultResources.getString(resultResources.getColumnIndex(MainMenu.db.CATEGORY_NAME));
+                        return resultResources.getString(resultResources.getColumnIndex(ModuleSelection.db.CATEGORY_NAME));
                     }catch (Exception e){
                         e.printStackTrace();
                         return "RESOURCES";

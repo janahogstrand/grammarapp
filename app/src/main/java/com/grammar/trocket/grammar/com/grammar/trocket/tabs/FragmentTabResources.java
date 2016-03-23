@@ -19,6 +19,7 @@ import com.grammar.trocket.grammar.com.grammar.trocket.main.category.Category;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.category.CategoryAdapter;
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleItem;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleSelection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,15 +66,15 @@ public class FragmentTabResources extends Fragment {
         categories = new ArrayList<>();
 
         categories = new ArrayList<>();
-        SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
-        result = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE +
-                " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'resource' "
-                + "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + MainMenu.ResourcesID + " ORDER BY " + MainMenu.db.CATEGORY_HIERARCHY + " ASC ", null);
+        SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
+        result = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.CATEGORY_TABLE +
+                " WHERE " + ModuleSelection.db.CATEGORY_KIND + " = 'resource' "
+                + "AND " + ModuleSelection.db.CATEGORY_PARENTID + " = " + MainMenu.ResourcesID + " ORDER BY " + ModuleSelection.db.CATEGORY_HIERARCHY + " ASC ", null);
         while(result.moveToNext()) {
-            Log.i("Category",  result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
-            Log.i("Category",  result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_ICONURL)));
-            String icon = result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_ICONURL));
-            categories.add(new Category(result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)), "Learn basic greetings!", getIcon(icon), true, true,  result.getInt(result.getColumnIndex(MainMenu.db.CATEGORY_ID)) ));
+            Log.i("Category",  result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)));
+            Log.i("Category", result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_ICONURL)));
+            String icon = result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_ICONURL));
+            categories.add(new Category(result.getString(result.getColumnIndex(ModuleSelection.db.CATEGORY_NAME)), "Learn basic greetings!", getIcon(icon), true, true,  result.getInt(result.getColumnIndex(ModuleSelection.db.CATEGORY_ID)) ));
 
         }
         result.move(-1);
@@ -122,7 +123,7 @@ public class FragmentTabResources extends Fragment {
             @Override
             public void onRefresh() {
                 Log.w("Updating..", "Swiped clicked");
-                MainMenu.db.onCreate(MainMenu.db.getWritableDatabase());
+                ModuleSelection.db.onCreate(ModuleSelection.db.getWritableDatabase());
 
                 Intent intent = new Intent(view.getContext(), MainMenu.class);
                 intent.putExtra(MainMenu.TAB_SELECT, 1);

@@ -1,5 +1,6 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.database;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -544,8 +545,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public void insertIntoTable(Context context) {
-        downloadJSON(context);
+    public void insertIntoTable(Activity activity) {
+        downloadJSON(activity);
     }
 
     public Cursor selectDBTable(String table) {
@@ -620,23 +621,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void downloadJSON(Context context) {
-        DownloadCourseTask task = new DownloadCourseTask(context);
+    public void downloadJSON(Activity activity) {
+        DownloadCourseTask task = new DownloadCourseTask(activity);
         task.execute();
     }
 
     public class DownloadCourseTask extends AsyncTask<String, Void, String> {
 
         Context context;
+        Activity activity;
         ProgressDialog progressDialog;
-        private DownloadCourseTask(Context context) {
-            this.context = context.getApplicationContext();
+        private DownloadCourseTask(Activity activity) {
+            this.context = activity.getApplicationContext();
+            this.activity = activity;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog =  new ProgressDialog(context);
+            progressDialog =  new ProgressDialog(activity);
             progressDialog.show();
         }
 
@@ -646,8 +649,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             super.onPostExecute(s);
 
             progressDialog.dismiss();
-            Intent startMainMenu =  new Intent(context, MainMenu.class);
-            context.startActivity(startMainMenu);
+            Intent startMainMenu =  new Intent(activity, MainMenu.class);
+            activity.startActivity(startMainMenu);
         }
 
         @Override

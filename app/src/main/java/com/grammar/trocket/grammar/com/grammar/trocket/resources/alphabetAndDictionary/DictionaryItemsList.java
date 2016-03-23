@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleSelection;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -79,17 +80,17 @@ public class DictionaryItemsList extends BaseActivityDrawer{
     private ArrayList<DictionaryItem> getData() {
         wordList = new ArrayList<DictionaryItem>();
 
-        SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
-        words = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.DICTIONARYLETTER_TABLE +
-                " JOIN " + MainMenu.db.DICTIONARYWORD_TABLE + " ON " + MainMenu.db.DICTIONARYLETTER_TABLE +"." + MainMenu.db.DICTIONARYLETTER_ID + " = " +  MainMenu.db.DICTIONARYWORD_TABLE + "." + MainMenu.db.DICTIONARYWORD_DICTIONARYLETTERID +
-                " WHERE " +  MainMenu.db.DICTIONARYLETTER_DICTIONARYID + " = " + MainMenu.DictionaryID + " ORDER BY "  + MainMenu.db.DICTIONARYWORD_TABLE + "." + MainMenu.db.DICTIONARYWORD_LABEL + " ASC", null);
+        SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
+        words = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.DICTIONARYLETTER_TABLE +
+                " JOIN " + ModuleSelection.db.DICTIONARYWORD_TABLE + " ON " + ModuleSelection.db.DICTIONARYLETTER_TABLE +"." + ModuleSelection.db.DICTIONARYLETTER_ID + " = " +  ModuleSelection.db.DICTIONARYWORD_TABLE + "." + ModuleSelection.db.DICTIONARYWORD_DICTIONARYLETTERID +
+                " WHERE " +  ModuleSelection.db.DICTIONARYLETTER_DICTIONARYID + " = " + MainMenu.DictionaryID + " ORDER BY "  + ModuleSelection.db.DICTIONARYWORD_TABLE + "." + ModuleSelection.db.DICTIONARYWORD_LABEL + " ASC", null);
 
 
         while(words.moveToNext()) {
-            Log.i("Letter1", words.getString(words.getColumnIndex(MainMenu.db.DICTIONARYLETTER_COURSEID)));
-            Log.i("Letter2", words.getString(words.getColumnIndex(MainMenu.db.DICTIONARYLETTER_LABEL)));
+            Log.i("Letter1", words.getString(words.getColumnIndex(ModuleSelection.db.DICTIONARYLETTER_COURSEID)));
+            Log.i("Letter2", words.getString(words.getColumnIndex(ModuleSelection.db.DICTIONARYLETTER_LABEL)));
 
-            String word = words.getString(words.getColumnIndex(MainMenu.db.DICTIONARYWORD_LABEL));
+            String word = words.getString(words.getColumnIndex(ModuleSelection.db.DICTIONARYWORD_LABEL));
             ;
             wordList.add(new DictionaryItem(word, ""));
         }
