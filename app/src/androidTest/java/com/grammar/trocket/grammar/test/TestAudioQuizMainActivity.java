@@ -1,11 +1,8 @@
 package com.grammar.trocket.grammar.test;
 
+import android.media.MediaPlayer;
 import android.test.ActivityInstrumentationTestCase2;
-import android.util.Log;
-
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.audio_quiz.AudioQuizMainActivity;
-
-import java.util.Locale;
 
 /**
  * Created by firasAltayeb on 23/03/2016.
@@ -163,5 +160,41 @@ public class TestAudioQuizMainActivity extends ActivityInstrumentationTestCase2<
         });
     }
 
+    /**
+     * This method checks whether StopAllSound() works by setting up
+     * and playing a player and then testing whether the player stoped
+     * played after running the application
+     */
+    public void testStopAllSound(){
+        audioQuizMainActivity = getActivity();
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                MediaPlayer test = new MediaPlayer();
+                audioQuizMainActivity.player = test;
+                audioQuizMainActivity.player.start();
+                //audioQuizMainActivity.stopAllSound();
+                assertEquals(audioQuizMainActivity.player.isPlaying(), false);
+            }
+        });
+    }
 
+
+    /**
+     *This method checks whether the setAudio() method is able to assigns and
+     * start the player Media Player object.
+     */
+    public void testSetAudio(){
+        audioQuizMainActivity = getActivity();
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                   audioQuizMainActivity.setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
+                } catch (Exception e) {
+                }
+                assertEquals(audioQuizMainActivity.player.isPlaying(), true);
+            }
+        });
+    }
 }

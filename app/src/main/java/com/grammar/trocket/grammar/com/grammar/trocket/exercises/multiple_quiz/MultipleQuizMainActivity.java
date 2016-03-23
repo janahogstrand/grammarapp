@@ -11,16 +11,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
-
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizStatisticsActivity;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class Multiple_Quiz_Main_Activity extends Activity {
+public class MultipleQuizMainActivity extends Activity {
 
     public CheckBox answerOption1;
     public CheckBox answerOption2;
@@ -28,8 +26,10 @@ public class Multiple_Quiz_Main_Activity extends Activity {
     public CheckBox answerOption4;
     public CheckBox answerOption5;
     public CheckBox answerOption6;
-    public Multiple_Quiz_Questions_List questionsList;
-    public Multiple_Quiz_Answers_List answersList;
+    public CheckBox changeBackground;
+
+    public MultipleQuizQuestionsList questionsList;
+    public MultipleQuizAnswersList answersList;
     public String[] questionsListArray;
     public String[] correctAnswerArray;
     public String currentQuestionAddress;
@@ -37,11 +37,10 @@ public class Multiple_Quiz_Main_Activity extends Activity {
     public int successCounter = 0;
     public int mistakeCounter = 0;
     public int questionNumber = 0;
-    public ArrayList<String> selectedAnswers = new ArrayList<>();
-    public ArrayList<String> correctAnswerList = new ArrayList<>();
-
-    TextToSpeech textToSpeech;
-    Locale language;
+    public ArrayList<String> selectedAnswers;
+    public ArrayList<String> correctAnswerList;
+    public TextToSpeech textToSpeech;
+    public Locale language;
     public MediaPlayer player;
 
     @Override
@@ -50,21 +49,29 @@ public class Multiple_Quiz_Main_Activity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_multiple_quiz_main);
 
+        findAllViews();
+
+        selectedAnswers = new ArrayList<>();
+        correctAnswerList = new ArrayList<>();
+        questionsList = new MultipleQuizQuestionsList();
+        questionsListArray = questionsList.createArray();
+        answersList = new MultipleQuizAnswersList();
+
+        assignVariables();
+        assignViews();
+        assignLanguage();
+    }
+
+
+    public void findAllViews(){
         answerOption1 = (CheckBox) findViewById(R.id.answerOption1);
         answerOption2 = (CheckBox) findViewById(R.id.answerOption2);
         answerOption3 = (CheckBox) findViewById(R.id.answerOption3);
         answerOption4 = (CheckBox) findViewById(R.id.answerOption4);
         answerOption5 = (CheckBox) findViewById(R.id.answerOption5);
         answerOption6 = (CheckBox) findViewById(R.id.answerOption6);
-
-        questionsList = new Multiple_Quiz_Questions_List();
-        questionsListArray = questionsList.createArray();
-        answersList = new Multiple_Quiz_Answers_List();
-
-        assignVariables();
-        assignTextView();
-        assignLanguage();
     }
+
 
     /** 
      * This method determines which language will be used by the textToSpeech API/object 
@@ -72,7 +79,7 @@ public class Multiple_Quiz_Main_Activity extends Activity {
      */
     public void assignLanguage(){
         language = new Locale("es", "ES");
-        textToSpeech=new TextToSpeech(Multiple_Quiz_Main_Activity.this, new TextToSpeech.OnInitListener() {
+        textToSpeech=new TextToSpeech(MultipleQuizMainActivity.this, new TextToSpeech.OnInitListener() {
             @Override public void onInit(int status) {
                 textToSpeech.setLanguage(language);
             }
@@ -100,10 +107,31 @@ public class Multiple_Quiz_Main_Activity extends Activity {
     }
 
     /**
+     * This method is called when the user clicks on the check boxes.
+     * This method adds the checked boxes to the selectedAnswers arrayList, but
+     * if the check box text is already in the selectedAnswers arrayList this
+     * method removes it.
+     * @param view
+     */
+    public void checkboxUse(View view)
+    {
+        CheckBox clickedBox = (CheckBox) view;
+        if(!selectedAnswers.contains(clickedBox.getText().toString()))
+        {
+            selectedAnswers.add(clickedBox.getText().toString());
+        }
+        else
+        {
+            selectedAnswers.remove(clickedBox.getText().toString());
+        }
+
+    }
+
+    /**
      * The TextView is assigned the current question and the each of the button
      * are assigned an answer option for the current question.
      * */
-    public void assignTextView(){
+    public void assignViews(){
         answerOption1.setText(answerOptionArray[0]);
         answerOption2.setText(answerOptionArray[1]);
         answerOption3.setText(answerOptionArray[2]);
@@ -125,28 +153,21 @@ public class Multiple_Quiz_Main_Activity extends Activity {
 
     public void checkResult(View view)
     {
-        CheckBox changeBackground = null;
-
         try {
             stopAllSound();
         }catch (Exception e){}
 
-        while(!selectedAnswers.isEmpty())
-        {
-            for (int i = 0; i < selectedAnswers.size(); i++) {
-                if (correctAnswerList.contains(selectedAnswers.get(i))) {
-                    Log.d("correct", "correct");
-                    changeBackground = checkBoxForBackgroundChange(selectedAnswers.get(i));
-                    changeBackground.setBackgroundResource(R.drawable.quiz_rounded_button_green);
-                    successCounter++;
-                    selectedAnswers.remove(i);
-                } else {
-                    Log.d("mistake", selectedAnswers.get(i));
-                    changeBackground = checkBoxForBackgroundChange(selectedAnswers.get(i));
-                    changeBackground.setBackgroundResource(R.drawable.quiz_rounded_button_red);
-                    mistakeCounter++;
-                    selectedAnswers.remove(i);
-                }
+        for (int i = 0; i < selectedAnswers.size(); i++) {
+            if (correctAnswerList.contains(selectedAnswers.get(i))) {
+                Log.d("correct", "correct");
+                changeBackground = checkBoxForBackgroundChange(selectedAnswers.get(i));
+                changeBackground.setBackgroundResource(R.drawable.quiz_rounded_button_green);
+                successCounter++;
+            } else {
+                Log.d("mistake", selectedAnswers.get(i));
+                changeBackground = checkBoxForBackgroundChange(selectedAnswers.get(i));
+                changeBackground.setBackgroundResource(R.drawable.quiz_rounded_button_red);
+                mistakeCounter++;
             }
         }
 
@@ -165,27 +186,27 @@ public class Multiple_Quiz_Main_Activity extends Activity {
     {
         CheckBox value = null;
 
-        if(selectedAnswer == answerOption1.getText().toString())
+        if(selectedAnswer.equals(answerOption1.getText().toString()))
         {
             value = answerOption1;
         }
-        if(selectedAnswer == answerOption2.getText().toString())
+        if(selectedAnswer.equals(answerOption2.getText().toString()))
         {
             value = answerOption2;
         }
-        if(selectedAnswer == answerOption3.getText().toString())
+        if(selectedAnswer.equals(answerOption3.getText().toString()))
         {
             value = answerOption3;
         }
-        if(selectedAnswer == answerOption4.getText().toString())
+        if(selectedAnswer.equals(answerOption4.getText().toString()))
         {
             value = answerOption4;
         }
-        if(selectedAnswer == answerOption5.getText().toString())
+        if(selectedAnswer.equals(answerOption5.getText().toString()))
         {
             value = answerOption5;
         }
-        if (selectedAnswer == answerOption6.getText().toString())
+        if (selectedAnswer.equals(answerOption6.getText().toString()))
         {
             value = answerOption6;
         }
@@ -231,7 +252,6 @@ public class Multiple_Quiz_Main_Activity extends Activity {
         answerOption4.setClickable(false);
         answerOption5.setClickable(false);
         answerOption6.setClickable(false);
-
         answerOption1.setChecked(false);
         answerOption2.setChecked(false);
         answerOption3.setChecked(false);
@@ -259,8 +279,8 @@ public class Multiple_Quiz_Main_Activity extends Activity {
             handler.postDelayed(new Runnable() {
                 public void run() {
                     assignVariables();
-                    assignTextView();
-                    restoreColor();
+                    assignViews();
+                    restoreView();
                 }
             }, 1000);
         }
@@ -271,7 +291,7 @@ public class Multiple_Quiz_Main_Activity extends Activity {
      * returning it to its original color and then set the buttons
      * to be clickable.
      */
-    public void restoreColor(){
+    public void restoreView(){
         answerOption1.setBackgroundResource(R.drawable.quiz_rounded_button_primary);
         answerOption2.setBackgroundResource(R.drawable.quiz_rounded_button_secondary);
         answerOption3.setBackgroundResource(R.drawable.quiz_rounded_button_primary);
@@ -284,28 +304,6 @@ public class Multiple_Quiz_Main_Activity extends Activity {
         answerOption4.setClickable(true);
         answerOption5.setClickable(true);
         answerOption6.setClickable(true);
-    }
-
-
-    /**
-     * This method is called when the user clicks on the check boxes.
-     * This method adds the checked boxes to the selectedAnswers arrayList, but
-     * if the check box text is already in the selectedAnswers arrayList this
-     * method removes it.
-     * @param view
-     */
-    public void checkboxUse(View view)
-    {
-        CheckBox answer = (CheckBox) view;
-        if(!selectedAnswers.contains(answer.getText().toString()))
-        {
-            selectedAnswers.add(answer.getText().toString());
-        }
-        else
-        {
-            selectedAnswers.remove(answer.getText().toString());
-        }
-
     }
 
 

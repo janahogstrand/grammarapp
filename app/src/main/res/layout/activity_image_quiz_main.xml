@@ -40,7 +40,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/firstView"
                 android:onClick="checkResult"
-                android:tag="firstView"
+                android:tag="answerOption1"
                 android:layout_gravity="left|center_horizontal"
                 android:layout_alignParentEnd="true" />
 
@@ -64,7 +64,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/secondView"
                 android:onClick="checkResult"
-                android:tag="secondView"
+                android:tag="answerOption2"
                 android:layout_gravity="center_horizontal|right"
                 android:layout_alignParentEnd="false" />
         </RelativeLayout>
@@ -92,7 +92,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/thirdView"
                 android:onClick="checkResult"
-                android:tag="thirdView"
+                android:tag="answerOption3"
                 android:layout_weight="0.4"
                 android:layout_alignParentEnd="true" />
         </RelativeLayout>
@@ -115,7 +115,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/fourthView"
                 android:onClick="checkResult"
-                android:tag="fourthView"
+                android:tag="answerOption4"
                 android:layout_weight=".4"
                 android:layout_alignParentEnd="false" />
         </RelativeLayout>
@@ -144,7 +144,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/fifthView"
                 android:onClick="checkResult"
-                android:tag="fifthView"
+                android:tag="answerOption5"
                 android:layout_alignParentEnd="true" />
 
         </RelativeLayout>
@@ -164,7 +164,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/sixthView"
                 android:onClick="checkResult"
-                android:tag="sixthView"/>
+                android:tag="answerOption6"/>
 
         </RelativeLayout>
 

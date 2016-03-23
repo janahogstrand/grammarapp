@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Quiz;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.image_quiz.Image_Quiz_Main;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.multiple_quiz.Multiple_Quiz_Main_Activity;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.multiple_quiz.MultipleQuizMainActivity;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.audio_quiz.AudioQuizMainActivity;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity;
 
@@ -70,7 +70,7 @@ public class QuizDialog extends AlertDialog.Builder {
                             case "Text":
                                 intent = new Intent(context, TextQuizMainActivity.class);
                                 break;
-                            case "Multiple":  intent = new Intent(context, Multiple_Quiz_Main_Activity.class);
+                            case "Multiple":  intent = new Intent(context, MultipleQuizMainActivity.class);
                                 break;
                             case "Audio":  intent = new Intent(context, AudioQuizMainActivity.class);
                                 break;

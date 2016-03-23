@@ -3,7 +3,7 @@ package com.grammar.trocket.grammar.com.grammar.trocket.exercises.multiple_quiz;
 /**
  * Created by firasAltayeb on 15/02/2016.
  */
-public class Multiple_Quiz_Questions_List {
+public class MultipleQuizQuestionsList {
 
     /**
      * Creates an array with size 48 slots and then assigns the slots with questions for the game as strings.
