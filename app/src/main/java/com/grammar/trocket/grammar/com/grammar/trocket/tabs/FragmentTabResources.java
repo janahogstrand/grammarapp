@@ -63,7 +63,9 @@ public class FragmentTabResources extends Fragment {
 
         categories = new ArrayList<>();
         SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
-        result = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'resource' " + "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + MainMenu.ResourcesID, null);
+        result = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE +
+                " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'resource' "
+                + "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + MainMenu.ResourcesID + " ORDER BY " + MainMenu.db.CATEGORY_HIERARCHY + " ASC ", null);
         while(result.moveToNext()) {
             Log.i("Category",  result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
             Log.i("Category",  result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_ICONURL)));
