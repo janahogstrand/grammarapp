@@ -640,6 +640,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog =  new ProgressDialog(activity);
+            progressDialog.setMessage("Loading..");
             progressDialog.show();
         }
 

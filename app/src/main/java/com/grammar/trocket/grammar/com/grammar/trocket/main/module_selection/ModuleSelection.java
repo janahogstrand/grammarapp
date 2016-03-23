@@ -52,10 +52,10 @@ public class ModuleSelection extends BaseActivityDrawer {
         rv.setLayoutManager(glm);
 
 
-        moduleAdapter = new ModuleAdapter(getData());
+        moduleAdapter = new ModuleAdapter(getData(),ModuleSelection.this);
         rv.setAdapter(moduleAdapter);
 
-        db.insertIntoTable(ModuleSelection.this);
+        //db.insertIntoTable(ModuleSelection.this);
     }
 
     private ArrayList<ModuleItem> getData() {
