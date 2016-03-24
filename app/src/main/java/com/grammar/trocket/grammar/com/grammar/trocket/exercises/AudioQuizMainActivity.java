@@ -6,10 +6,13 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.QuizDialog;
 
@@ -26,6 +29,7 @@ public class AudioQuizMainActivity extends Activity {
     public Button answerOption4;
     public Button answerOption5;
     public Button answerOption6;
+    public TextView titleTxt;
 
     public com.grammar.trocket.grammar.com.grammar.trocket.exercises.quizzesQuestions quizzesQuestions;
     public quizzesAnswers answersList;
@@ -45,6 +49,7 @@ public class AudioQuizMainActivity extends Activity {
     public TextToSpeech textToSpeech;
     public Locale language;
     public MediaPlayer player;
+    public Handler handler;
 
 
     @Override
@@ -53,6 +58,7 @@ public class AudioQuizMainActivity extends Activity {
         setContentView(R.layout.activity_audio_quiz_main);
 
         findAllViews();
+        assignLanguage();
         getSelectedQuizPosition();
 
         runOnUiThread(new Runnable() {
@@ -65,12 +71,36 @@ public class AudioQuizMainActivity extends Activity {
 
         assignVariables();
 
-//       new LongOperation().execute("execute");
+//        runOnUiThread(new Runnable() {
+//            public void run() {}
+//        });
+//
+//        handler = new Handler() {
+//            @Override
+//            public void handleMessage(Message msg) {
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                    }
+//                });
+//            }
+//        };
 
-        assignViews();
-        assignLanguage();
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                quizzesQuestions = new quizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
+                answersList = new quizzesAnswers(AudioQuizMainActivity.this, questionsList, selectedQuizType);
+                questionsList = quizzesQuestions.getQuizQuestions();
+                assignVariables();
+                assignViews();
+                titleTxt.setText("Select the correct translation for the audio");
+            }
+        }, 100);
+
 
     }
+
 
 //    private class LongOperation extends AsyncTask<String, Integer, String> {
 //
@@ -82,9 +112,6 @@ public class AudioQuizMainActivity extends Activity {
 //            quizzesQuestions = new QuizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
 //            answersList = new QuizzesAnswers(AudioQuizMainActivity.this, questionsList,selectedQuizType );
 //
-//            questionsList = quizzesQuestions.getQuizQuestions();
-//            assignVariables();
-//
 //            Log.d("onPreExecute done", "onPreExecute done");
 //         }
 //
@@ -92,8 +119,8 @@ public class AudioQuizMainActivity extends Activity {
 //        protected String doInBackground(String... params) {
 //            Log.d("doInBackground", "doInBackground");
 //
-//            //questionsList = quizzesQuestions.getQuizQuestions();
-//            //assignVariables();
+//            questionsList = quizzesQuestions.getQuizQuestions();
+//            assignVariables();
 //
 //            Log.d("doInBackground finished", "doInBackground finished");
 //
@@ -121,6 +148,7 @@ public class AudioQuizMainActivity extends Activity {
 
 
     public void findAllViews(){
+        titleTxt = (TextView) findViewById(R.id.titleTxt);
         answerOption1 = (Button) findViewById(R.id.answerOption1);
         answerOption2 = (Button) findViewById(R.id.answerOption2);
         answerOption3 = (Button) findViewById(R.id.answerOption3);
@@ -128,17 +156,6 @@ public class AudioQuizMainActivity extends Activity {
         answerOption5 = (Button) findViewById(R.id.answerOption5);
         answerOption6 = (Button) findViewById(R.id.answerOption6);
     }
-
-    /**
-     * This method gets the position and the type of the chosen quiz.
-     */
-    public void getSelectedQuizPosition(){
-        Intent intent = getIntent();
-        selectedQuizPosition = QuizDialog.SELECTED_QUIZ_POSITION;
-        selectedQuizType = intent.getStringExtra(QuizDialog.SELECTED_QUIZ_TYPE);
-    }
-
-
 
     /** 
      * This method determines which language will be used by the textToSpeech API/object 
@@ -153,6 +170,15 @@ public class AudioQuizMainActivity extends Activity {
         });
     }
 
+
+    /**
+     * This method gets the position and the type of the chosen quiz.
+     */
+    public void getSelectedQuizPosition(){
+        Intent intent = getIntent();
+        selectedQuizPosition = QuizDialog.SELECTED_QUIZ_POSITION;
+        selectedQuizType = intent.getStringExtra(QuizDialog.SELECTED_QUIZ_TYPE);
+    }
 
 
     /**

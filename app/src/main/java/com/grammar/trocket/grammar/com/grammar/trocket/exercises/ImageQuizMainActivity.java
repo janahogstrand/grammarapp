@@ -42,6 +42,7 @@ public class ImageQuizMainActivity extends Activity {
     public int questionNumber = 0;
     public String selectedQuizType;
     public int selectedQuizPosition;
+    public Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +51,19 @@ public class ImageQuizMainActivity extends Activity {
 
         findAllViews();
         getSelectedQuizPosition();
+        questionView.setText("Loading Questions");
 
-        quizzesQuestions = new quizzesQuestions(ImageQuizMainActivity.this,selectedQuizPosition,selectedQuizType);
-        questionsList = quizzesQuestions.getQuizQuestions();
-        answersList = new quizzesAnswers(ImageQuizMainActivity.this, questionsList, selectedQuizType);
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                quizzesQuestions = new quizzesQuestions(ImageQuizMainActivity.this,selectedQuizPosition,selectedQuizType);
+                questionsList = quizzesQuestions.getQuizQuestions();
+                answersList = new quizzesAnswers(ImageQuizMainActivity.this, questionsList, selectedQuizType);
+                assignVariables();
+                assignViews();
 
-
-        assignVariables();
-        assignViews();
+            }
+        }, 100);
 
     }
 

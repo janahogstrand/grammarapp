@@ -2,6 +2,7 @@ package com.grammar.trocket.grammar.com.grammar.trocket.resources;
 
 import android.content.Intent;
 import android.media.AudioManager;
+import android.os.Handler;
 import android.util.Log;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.speech.tts.TextToSpeech;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
@@ -22,15 +25,14 @@ import java.util.Locale;
 
 public class ListViewActivity extends BaseActivityDrawer {
 
-
     String dialect;
-    String type;
     Locale language;
     ListView listView;
     ArrayList<NumberCalendarItem> data = new ArrayList<>();
     LinearLayout linerLayout;
     TextToSpeech textToSpeech;
     MediaPlayer player;
+     Handler handler;
     int id;
 
     @Override
@@ -42,14 +44,21 @@ public class ListViewActivity extends BaseActivityDrawer {
         listView = (ListView) findViewById(R.id.listView);
         linerLayout = (LinearLayout)findViewById(R.id.linerLayout);
 
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
 
-        assignLanguage();
-        assignStringArray();
+                assignLanguage();
+                assignStringArray();
+                ListViewAdapter adapter = new ListViewAdapter(ListViewActivity.this, data);
+                listView.setAdapter(adapter);
+                listView.setOnItemClickListener(myOnClickListener);
 
-        ListViewAdapter adapter =  new ListViewAdapter(this, data);
+            }
+        }, 100);
 
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(myOnClickListener);
+
+
 
     }
 
@@ -60,16 +69,10 @@ public class ListViewActivity extends BaseActivityDrawer {
         Intent intent = getIntent();
         id = intent.getIntExtra(DialectDialog.CALLER_INFO, -1);
         ListViewActivityItems listViewActivityItems = new ListViewActivityItems(ListViewActivity.this, id);
+
         Log.w("currentItem.id", Integer.toString(id));
 
-        type = intent.getStringExtra("type");
         data = listViewActivityItems.getArray();
-//        if(type.equals("calendar")){
-//            data = listViewActivityItems.getCalendarArray();
-//        }
-//        else {
-//            data = listViewActivityItems.getNummberArray();
-//        }
 
     }
 
@@ -105,23 +108,15 @@ public class ListViewActivity extends BaseActivityDrawer {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             stopAllSound();
-            String clickedView = String.valueOf(parent.getItemAtPosition(position));
+
+            String selectedView = ((TextView) view.findViewById(R.id.name)).getText().toString();
+
 
             try {
-                if (clickedView.equals("1"))
-                {
-                    setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
-                }
-                else if (clickedView.equals("2"))
-                {
-                    setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
-                }
-                else {
                     setAudio("");
-                }
 
             }catch (Exception e){
-                textToSpeech.speak(clickedView, TextToSpeech.QUEUE_FLUSH, null);
+                textToSpeech.speak(selectedView, TextToSpeech.QUEUE_FLUSH, null);
             }
 
         }

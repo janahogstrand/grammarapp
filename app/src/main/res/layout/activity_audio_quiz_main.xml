@@ -24,8 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Select the correct translation for the audio"
-            android:id="@+id/txtTitle"
+            android:text="Loading Questions"
+            android:id="@+id/titleTxt"
             android:layout_weight=".4"
             android:textColor="#000000"
             android:gravity="center"/>
@@ -54,7 +54,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New Button"
+            android:text="Loading"
             android:id="@+id/answerOption1"
             android:layout_weight=".09"
             android:onClick="checkResult"
@@ -66,7 +66,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New Button"
+            android:text="Loading"
             android:id="@+id/answerOption2"
             android:layout_weight=".09"
             android:onClick="checkResult"
@@ -78,7 +78,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New Button"
+            android:text="Loading"
             android:id="@+id/answerOption3"
             android:layout_weight=".09"
             android:onClick="checkResult"
@@ -90,7 +90,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New Button"
+            android:text="Loading"
             android:id="@+id/answerOption4"
             android:layout_weight=".09"
             android:onClick="checkResult"
@@ -102,7 +102,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New Button"
+            android:text="Loading"
             android:id="@+id/answerOption5"
             android:layout_weight=".09"
             android:onClick="checkResult"
@@ -114,7 +114,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New Button"
+            android:text="Loading"
             android:id="@+id/answerOption6"
             android:layout_weight=".09"
             android:onClick="checkResult"

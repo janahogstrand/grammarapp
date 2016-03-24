@@ -14,7 +14,6 @@ public class TestTextQuizMainActivity extends ActivityInstrumentationTestCase2<T
 
     public TestTextQuizMainActivity() {
         super(TextQuizMainActivity.class);
-
     }
 
     /**
