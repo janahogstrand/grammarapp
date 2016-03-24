@@ -2,7 +2,7 @@ package com.grammar.trocket.grammar.test;
 
 import android.media.MediaPlayer;
 import android.test.ActivityInstrumentationTestCase2;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.audio_quiz.AudioQuizMainActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.AudioQuizMainActivity;
 
 /**
  * Created by firasAltayeb on 23/03/2016.

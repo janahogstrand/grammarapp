@@ -1,4 +1,4 @@
-package com.grammar.trocket.grammar.com.grammar.trocket.exercises.audio_quiz;
+package com.grammar.trocket.grammar.com.grammar.trocket.exercises;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,11 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.QuizDialog;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Questions;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizStatisticsActivity;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.TextQuizMainActivity;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.quizzesAnswers;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.quizzesQuestions;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -60,14 +55,64 @@ public class AudioQuizMainActivity extends Activity {
         findAllViews();
         getSelectedQuizPosition();
 
-        quizzesQuestions = new quizzesQuestions(AudioQuizMainActivity.this,selectedQuizPosition, selectedQuizType);
+//        runOnUiThread(new Runnable() {
+//            public void run() {}
+//        });
+
+        quizzesQuestions = new quizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
         questionsList = quizzesQuestions.getQuizQuestions();
         answersList = new quizzesAnswers(AudioQuizMainActivity.this, questionsList);
-
         assignVariables();
+
+        //new LongOperation().execute("execute");
+
         assignViews();
         assignLanguage();
+
     }
+
+//    private class LongOperation extends AsyncTask<String, Integer, String> {
+//
+//        @Override
+//        protected void onPreExecute() {
+//            Log.d("onPreExecute", "onPreExecute");
+//            quizzesQuestions = new quizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
+//            Log.d("onPreExecute done", "onPreExecute done");
+//         }
+//
+//        @Override
+//        protected String doInBackground(String... params) {
+//            Log.d("doInBackground", "doInBackground");
+//
+//            questionsList = quizzesQuestions.getQuizQuestions();
+//            answersList = new quizzesAnswers(AudioQuizMainActivity.this, questionsList);
+//            assignVariables();
+//
+//            Log.d("doInBackground finished", "doInBackground finished");
+//
+//            //publishProgress(0);
+//            return "Executed";
+//        }
+//
+//        @Override
+//        protected void onProgressUpdate(Integer... values) {
+////            Log.d("onProgressUpdate", "onProgressUpdate");
+////            assignViews();
+////            assignLanguage();
+//
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String result) {
+//
+//            Log.d("onPostExecute", "onPostExecute");
+//            assignViews();
+//            assignLanguage();
+//            Log.d("onPostExecute finished", "onPostExecute finished");
+//        }
+//
+//    }
+
 
     public void findAllViews(){
         answerOption1 = (Button) findViewById(R.id.answerOption1);
