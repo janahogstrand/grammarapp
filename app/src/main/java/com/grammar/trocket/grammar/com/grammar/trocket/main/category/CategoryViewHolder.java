@@ -17,7 +17,9 @@ import com.grammar.trocket.grammar.com.grammar.trocket.backend.GetJSON;
 import com.grammar.trocket.grammar.com.grammar.trocket.backend.TableNames;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.QuizDialog;
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.VideoDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Quiz;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.VideoItem;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.DialectItem;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.DaysOfTheWeek;
@@ -115,6 +117,26 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         return children;
     }
 
+    private String getClickedCategoryIdsChildren(int parentCategoryID, int clickedIndex, boolean isQuiz) throws JSONException, ExecutionException, InterruptedException {
+        String cardChildren = searchParentCategory(parentCategoryID);
+        JSONArray jsonArray = new JSONArray(cardChildren);
+        String buttonChildren;
+
+        JSONObject cardChild = jsonArray.getJSONObject(clickedIndex);
+
+        Log.w("Child of parent:", cardChild.get(TableNames.CATEGORY_NAME).toString());
+
+        int clickedCategoryID = Integer.parseInt(cardChild.get(TableNames.CATEGORY_ID).toString());
+
+        if (isQuiz) {
+            buttonChildren = searchParentQuiz(clickedCategoryID);
+        } else {
+            buttonChildren = searchParentVideo(clickedCategoryID);
+        }
+
+        return buttonChildren;
+    }
+
     /**
      * Used by searchAndReturnQuiz
      * Joins categories and quizzes to find a children of categories
@@ -127,29 +149,36 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         return getQuiz;
     }
 
+    private String searchParentVideo(int parentCategoryID) throws ExecutionException, InterruptedException {
+        GetJSON getVideos = new GetJSON((Activity) this.view.getContext(), TableNames.VIDEO_TABLE, "parentId", (parentCategoryID + ""));
+        String getVideo = getVideos.execute().get();
+        Log.w("Found videos... : ", getVideo);
+        return getVideo;
+    }
+
     /**
      * Searches a parent id to see if it belongs
      * to any quizzes
      * a dialog is returned is so
      * else returns null meaning it found none
      **/
-    private QuizDialog searchAndReturnQuiz(Context context, int parentCategoryID, int clickedIndex) throws JSONException, ExecutionException, InterruptedException {
+    private QuizDialog searchAndReturnQuiz(Context context, String buttonChildren) throws JSONException, ExecutionException, InterruptedException {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 view.getContext(),
                 android.R.layout.select_dialog_singlechoice);
 
         ArrayList<Quiz> quizList = new ArrayList<Quiz>();
 
-        String cardChildren = searchParentCategory(parentCategoryID);
-        JSONArray jsonArray = new JSONArray(cardChildren);
-
-        JSONObject cardChild = jsonArray.getJSONObject(clickedIndex);
-
-        Log.w("Child of parent:", cardChild.get(TableNames.CATEGORY_NAME).toString());
-
-        int clickedCategoryID = Integer.parseInt(cardChild.get(TableNames.CATEGORY_ID).toString());
-
-        String buttonChildren = searchParentQuiz(clickedCategoryID);
+//        String cardChildren = searchParentCategory(parentCategoryID);
+//        JSONArray jsonArray = new JSONArray(cardChildren);
+//
+//        JSONObject cardChild = jsonArray.getJSONObject(clickedIndex);
+//
+//        Log.w("Child of parent:", cardChild.get(TableNames.CATEGORY_NAME).toString());
+//
+//        int clickedCategoryID = Integer.parseInt(cardChild.get(TableNames.CATEGORY_ID).toString());
+//
+//        String buttonChildren = searchParentQuiz(clickedCategoryID);
         JSONArray buttonChildrenJSON = new JSONArray(buttonChildren);
 
         //Creates new entries with details stored
@@ -171,6 +200,40 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         QuizDialog quizDialog = new QuizDialog(context, arrayAdapter, quizList, buttonChildrenJSON);
 
         return quizDialog;
+    }
+
+    private VideoDialog searchAndReturnVideo(Context context, String buttonChildren) throws JSONException, ExecutionException, InterruptedException {
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                view.getContext(),
+                android.R.layout.select_dialog_singlechoice);
+
+        ArrayList<VideoItem> videoList = new ArrayList<VideoItem>();
+
+        JSONArray buttonChildrenJSON = new JSONArray(buttonChildren);
+
+        //Creates new entries with details stored
+        //Fills arrayadapter
+        //Fill videoList
+        Log.w("Could not find quiz: ", "Searching for video");
+        for (int i = 0; i < buttonChildrenJSON.length(); ++i) {
+            JSONObject child = buttonChildrenJSON.getJSONObject(i);
+            String title = child.get(TableNames.VIDEO_TITLE).toString();
+            String url = child.get(TableNames.VIDEO_URL).toString();
+            String urlSub = child.get(TableNames.VIDEO_SUBTITLEDURL).toString();
+            int id = Integer.parseInt(child.get(TableNames.VIDEO_CATEGORYID).toString());
+            Log.w("Found: ", title);
+            arrayAdapter.add(title);
+            videoList.add(new VideoItem(title, url, urlSub, id));
+        }
+
+        //If no matches found return null
+        if (arrayAdapter.isEmpty()) {
+            return null;
+        }
+
+        VideoDialog videoDialog = new VideoDialog(context, arrayAdapter, videoList, buttonChildrenJSON);
+
+        return videoDialog;
     }
 
 
@@ -219,20 +282,8 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
                 //ParentId which is a  card for example Greetings
                 int parentCategoryID = categories.get(getAdapterPosition()).id;
-                QuizDialog quizDialog = null;
-                try {
-                    quizDialog = searchAndReturnQuiz(context, parentCategoryID, 0);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
-                if (quizDialog != null) {
-                    quizDialog.show();
-                }
+                loadQuizOrVideo(context, 0, parentCategoryID);
 
             }
         });
@@ -242,20 +293,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View v) {
                 Context context = v.getContext();
                 int parentCategoryID = categories.get(getAdapterPosition()).id;
-                QuizDialog quizDialog = null;
-                try {
-                    quizDialog = searchAndReturnQuiz(context, parentCategoryID, 1);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                if (quizDialog != null) {
-                    quizDialog.show();
-                }
+                loadQuizOrVideo(context, 1, parentCategoryID);
             }
         });
 
@@ -264,22 +302,38 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View v) {
                 Context context = v.getContext();
                 int parentCategoryID = categories.get(getAdapterPosition()).id;
-                QuizDialog quizDialog = null;
-                try {
-                    quizDialog = searchAndReturnQuiz(context, parentCategoryID, 2);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                if (quizDialog != null) {
-                    quizDialog.show();
-                }
+                loadQuizOrVideo(context, 2, parentCategoryID);
             }
         });
+    }
+
+    private void loadQuizOrVideo(Context context, int index, int parentCategoryID) {
+        QuizDialog quizDialog = null;
+        VideoDialog videoDialog = null;
+
+        String buttonChildren;
+        try {
+            buttonChildren = getClickedCategoryIdsChildren(parentCategoryID, index, true);
+            quizDialog = searchAndReturnQuiz(context, buttonChildren);
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+
+        try {
+            buttonChildren = getClickedCategoryIdsChildren(parentCategoryID, index, false);
+            videoDialog = searchAndReturnVideo(context, buttonChildren);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+
+
+        if (quizDialog != null) {
+            quizDialog.show();
+        } else if (videoDialog != null) {
+            videoDialog.show();
+        } else {
+            Log.w("No content: ", "Couldn't find quiz or video");
+        }
     }
 
 
