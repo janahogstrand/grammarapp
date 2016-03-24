@@ -50,6 +50,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_category, viewGroup, false);
         CategoryViewHolder cvh = new CategoryViewHolder(v, categorys, null);
 
+        cvh.observe.setVisibility(View.INVISIBLE);
+        cvh.reflect.setVisibility(View.INVISIBLE);
+        cvh.experiment.setVisibility(View.INVISIBLE);
+
         if(!categorys.get(i).isResource){
             int catID = categorys.get(i).id;
             //If an exercise rename buttons
@@ -62,9 +66,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
 
                 JSONArray jsonArray = new JSONArray(catString);
 
-
+                JSONObject button;
                 for (int k = 0; k < 3; ++k) {
-                    JSONObject button = jsonArray.getJSONObject(k);
+                    try {
+                        button = jsonArray.getJSONObject(k);
+                    }catch (JSONException e){
+                        Log.w("Could not find button", "Observe,reflect,experiment");
+                        break;
+                    }
+
                     String name = button.get(TableNames.CATEGORY_NAME).toString();
                     int order;
                     int id;
@@ -105,12 +115,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-            }
-        } else {
-            if (categorys.get(i).isResource) {
-                cvh.observe.setVisibility(View.INVISIBLE);
-                cvh.reflect.setVisibility(View.INVISIBLE);
-                cvh.experiment.setVisibility(View.INVISIBLE);
             }
         }
 
