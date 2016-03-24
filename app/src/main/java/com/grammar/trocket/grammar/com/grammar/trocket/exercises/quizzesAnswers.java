@@ -13,13 +13,13 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by firasAltayeb on 15/02/2016.
  */
-public class QuizzesAnswers {
+public class quizzesAnswers {
 
     public ArrayList<Question> questionsList;
     public Activity callingActivity;
     public String selectedQuizType;
 
-    public QuizzesAnswers(Activity callingActivity, ArrayList<Question> questionsList, String selectedQuizType){
+    public quizzesAnswers(Activity callingActivity, ArrayList<Question> questionsList, String selectedQuizType){
 
         this.callingActivity = callingActivity;
         this.questionsList = questionsList;

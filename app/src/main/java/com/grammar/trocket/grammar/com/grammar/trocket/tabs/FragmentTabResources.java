@@ -102,7 +102,7 @@ public class FragmentTabResources extends Fragment {
      * Set new adapter
      **/
     private void initializeAdapter() {
-        CategoryAdapter adapter = new CategoryAdapter(categories);
+        CategoryAdapter adapter = new CategoryAdapter(categories, null);
         rv.setAdapter(adapter);
     }
 

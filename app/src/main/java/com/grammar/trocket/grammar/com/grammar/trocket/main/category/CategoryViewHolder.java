@@ -132,7 +132,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         JSONObject cardChild = jsonArray.getJSONObject(clickedIndex);
 
         Log.w("Wrong child of parent:", cardChild.get(TableNames.CATEGORY_NAME).toString());
-        Log.w("Real Child of parent:", cardButtonArrayList.get(clickedIndex).getName());
+        //Log.w("Real Child of parent:", cardButtonArrayList.get(clickedIndex).getName());
 
 
         //int clickedCategoryID = Integer.parseInt(cardChild.get(TableNames.CATEGORY_ID).toString());

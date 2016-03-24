@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
@@ -28,8 +27,8 @@ public class AudioQuizMainActivity extends Activity {
     public Button answerOption5;
     public Button answerOption6;
 
-    public QuizzesQuestions quizzesQuestions;
-    public QuizzesAnswers answersList;
+    public com.grammar.trocket.grammar.com.grammar.trocket.exercises.quizzesQuestions quizzesQuestions;
+    public quizzesAnswers answersList;
     public ArrayList<Question> questionsList;
 
 
@@ -60,8 +59,8 @@ public class AudioQuizMainActivity extends Activity {
             public void run() {}
         });
 
-        quizzesQuestions = new QuizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
-        answersList = new QuizzesAnswers(AudioQuizMainActivity.this, questionsList, selectedQuizType);
+        quizzesQuestions = new quizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
+        answersList = new quizzesAnswers(AudioQuizMainActivity.this, questionsList, selectedQuizType);
         questionsList = quizzesQuestions.getQuizQuestions();
 
         assignVariables();

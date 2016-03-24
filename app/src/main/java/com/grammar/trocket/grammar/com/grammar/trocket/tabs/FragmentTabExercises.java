@@ -16,6 +16,7 @@ import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.backend.GetJSON;
 import com.grammar.trocket.grammar.com.grammar.trocket.backend.TableNames;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.category.CardButton;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.category.Category;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.category.CategoryAdapter;
 
@@ -34,6 +35,7 @@ public class FragmentTabExercises extends Fragment {
     private RecyclerView rv;
     private SwipeRefreshLayout swipeContainer;
     private View view;
+    public ArrayList<CardButton> cardButtonArrayList;
 
     /**
      * Inflate fragments tab 1
@@ -90,12 +92,56 @@ public class FragmentTabExercises extends Fragment {
 
                 Collections.sort(categories);
 
+
+
+
+                String catString;
+                GetJSON getButtonCategories = new GetJSON((Activity) view.getContext(), TableNames.CATEGORY_TABLE, "parentId", (id + ""));
+                try {
+                    catString = getButtonCategories.execute().get();
+                    cardButtonArrayList = new ArrayList<CardButton>();
+
+                    JSONArray buttonArray = new JSONArray(catString);
+
+                    JSONObject button2;
+                    for (int k = 0; k < 3; ++k) {
+                        try {
+                            button2 = buttonArray.getJSONObject(k);
+                            String myid = button2.get("id").toString();
+                            Log.w("But id", myid);
+
+                        } catch (JSONException e) {
+                            Log.w("Could not find button", "Observe,reflect,experiment");
+                            break;
+                        }
+
+                        String name2 = button2.get(TableNames.CATEGORY_NAME).toString();
+                        int contentId = Integer.parseInt(button2.get(TableNames.CATEGORY_CONTENT).toString());
+                        int myid = Integer.parseInt(button2.get("id").toString());
+                        Log.w("But name", name2);
+//                        int order2;
+//                        int id2;
+//                        int contentId;
+//                        try {
+//                            order2 = Integer.parseInt(button2.get(TableNames.CATEGORY_HIERARCHY).toString());
+//                            id2 = Integer.parseInt(button2.get(TableNames.CATEGORY_ID).toString());
+//                            contentId = Integer.parseInt(button2.get(TableNames.CATEGORY_CONTENT).toString());
+//                        } catch (NumberFormatException e) {
+//                            order2 = 0;
+//                            id2 = 0;
+//                            contentId = 0;
+//                        }
+
+                        cardButtonArrayList.add(new CardButton(name2, 0, myid, contentId));
+                    }
+                }catch (Exception e){
+
+                }
+
+
+
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -104,7 +150,7 @@ public class FragmentTabExercises extends Fragment {
      * Set new adapter
      **/
     private void initializeAdapter() {
-        CategoryAdapter adapter = new CategoryAdapter(categories);
+        CategoryAdapter adapter = new CategoryAdapter(categories, cardButtonArrayList);
         rv.setAdapter(adapter);
     }
 
