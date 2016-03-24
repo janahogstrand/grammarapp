@@ -79,6 +79,7 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
      **/
     private void playAudio() {
         String phrase = data.get(getAdapterPosition()).getSpanishName().toString();
+        Log.i("Audio phrase", phrase);
         try {
             assignAudio(phrase);
         } catch (Exception e) {
@@ -94,19 +95,7 @@ public class FestivalTimeViewHolder extends RecyclerView.ViewHolder {
      * @throws NullPointerException When no audio is found
      */
     private void assignAudio(String text) throws IOException {
-        switch (text) {
-            case "Son las doce en punto":
-                setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
-                break;
-            case "El Indianas":
-                setAudio("https://www.dropbox.com/s/7mga5icr0uweph/U01-E05.mp3?raw=1");
-                break;
-            case "Es Test":
-                setAudio("https://www.dropbox.com/s/7mga5icr0uweph/U01-E05.mp3?raw=1");
-                break;
-            default:
-                player = null;
-        }
+        player = null;
         player.start();
     }
 

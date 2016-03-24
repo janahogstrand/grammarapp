@@ -55,7 +55,9 @@ public class  Festivals extends BaseActivityDrawer {
         id = intent.getIntExtra(DialectDialog.CALLER_INFO, -1);
 
         getDialect();
-        initTTS();
+        String dialectCode = MainMenu.dialectsIDCode.get(MainMenu.dialectsNameID.get(dialect));
+        String[] dCode = dialectCode.split("_");
+        initTTS(dCode[0], dCode[1]);
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
 
         LinearLayoutManager glm = new LinearLayoutManager(Festivals.this);
@@ -105,47 +107,10 @@ public class  Festivals extends BaseActivityDrawer {
                 festData.add(new FestivalTimeItem(foreign,english,url,id));
             }
 
-//            for (int j = 0; j < jsonArray.length(); ++j) {
-//                JSONObject jObject = jsonArray.getJSONObject(j);
-
-//                String letter = jObject.get(TableNames.DICTIONARYLETTER_LABEL).toString();
-//                int id = Integer.parseInt(jObject.get(TableNames.DICTIONARYLETTER_ID).toString());
-//                alphabetList.add(new AlphabetItem(letter, true, id));
-//                Collections.sort(alphabetList,
-//                        new Comparator<AlphabetItem>() {
-//                            public int compare(AlphabetItem letter1, AlphabetItem letter2) {
-//                                return letter1.getLetter().toUpperCase().compareTo(letter2.getLetter().toUpperCase());
-//                            }
-//                        });
-           // }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-//        festData.add(new FestivalTimeItem("Uno de noviembre - Dia de Todos los Santos", "All Saints Day", fixString("https://www.dropbox.com/s/60o0jnj9ynmei8w/festivals0.png?raw=") , dialect));
-//        festData.add(new FestivalTimeItem("12 de octubre", "Columbus Day",fixString("https://www.dropbox.com/s/idh6b3ngfzpf1no/festivals1.png?ra=1"), dialect));
-//        festData.add(new FestivalTimeItem("marzo o abril, semana santa", "Easter (March or April)", fixString("https://www.dropbox.com/s/rs97sn34kjr7h6e/festivals2.png?raw="), dialect));
-//        festData.add(new FestivalTimeItem("Uno de noviembre - Dia de Todos los Santos", "All Saints Day", fixString("https://www.dropbox.com/s/60o0jnj9ynmei8w/festivals0.png?raw=") , dialect));
-//        festData.add(new FestivalTimeItem("12 de octubre", "Columbus Day",fixString("https://www.dropbox.com/s/idh6b3ngfzpf1no/festivals1.png?rw=1"), dialect));
-//        festData.add(new FestivalTimeItem("marzo o abril, semana santa", "Easter (March or April)", fixString("https://www.dropbox.com/s/rs97sn34kjr7h6e/festivals2.png?raw="), dialect));
-//        festData.add(new FestivalTimeItem("Uno de noviembre - Dia de Todos los Santos", "All Saints Day", fixString("https://www.dropbox.com/s/60o0jnj9ynmei8w/festivals0.png?raw=") , dialect));
-//        festData.add(new FestivalTimeItem("12 de octubre", "Columbus Day",fixString("https://www.dropbox.com/s/idh6b3ngfzpf1no/festivals1.png?aw=1"), dialect));
-//        festData.add(new FestivalTimeItem("marzo o abril, semana santa", "Easter (March or April)", fixString("https://www.dropbox.com/s/rs97sn34kjr7h6e/festivals2.png?raw="), dialect));
-//        festData.add(new FestivalTimeItem("Uno de noviembre - Dia de Todos los Santos", "All Saints Day", fixString("https://www.dropbox.com/s/60o0jnj9ynmei8w/festivals0.png?raw=") , dialect));
-//        festData.add(new FestivalTimeItem("12 de octubre", "Columbus Day",fixString("https://www.dropbox.com/s/idh6b3ngfzpf1no/festivals1.png?ra=1"), dialect));
-//        festData.add(new FestivalTimeItem("marzo o abril, semana santa", "Easter (March or April)", fixString("https://www.dropbox.com/s/rs97sn34kjr7h6e/festivals2.png?raw="), dialect));
-//        festData.add(new FestivalTimeItem("Uno de noviembre - Dia de Todos los Santos", "All Saints Day", fixString("https://www.dropbox.com/s/60o0jnj9ynmei8w/festivals0.png?raw=") , dialect));
-//        festData.add(new FestivalTimeItem("12 de octubre", "Columbus Day",fixString("https://www.dropbox.com/s/idh6b3ngfzpf1no/festivals1.png?ra=1"), dialect));
-//        festData.add(new FestivalTimeItem("marzo o abril, semana santa", "Easter (March or April)", fixString("https://www.dropbox.com/s/rs97sn34kjr7h6e/festivals2.png?raw="), dialect));
-//        festData.add(new FestivalTimeItem("Uno de noviembre - Dia de Todos los Santos", "All Saints Day", fixString("https://www.dropbox.com/s/60o0jnj9ynmei8w/festivals0.png?raw=") , dialect));
-//        festData.add(new FestivalTimeItem("12 de octubre", "Columbus Day",fixString("https://www.dropbox.com/s/idh6b3ngfzpf1no/festivals1.png?rw=1"), dialect));
-//        festData.add(new FestivalTimeItem("marzo o abril, semana santa", "Easter (March or April)", fixString("https://www.dropbox.com/s/rs97sn34kjr7h6e/festivals2.png?raw="), dialect));
-//        festData.add(new FestivalTimeItem("Uno de noviembre - Dia de Todos los Santos", "All Saints Day", fixString("https://www.dropbox.com/s/60o0jnj9ynmei8w/festivals0.png?raw=") , dialect));
-//        festData.add(new FestivalTimeItem("12 de octubre", "Columbus Day",fixString("https://www.dropbox.com/s/idh6b3ngfzpf1no/festivals1.png?aw=1"), dialect));
-//        festData.add(new FestivalTimeItem("marzo o abril, semana santa", "Easter (March or April)", fixString("https://www.dropbox.com/s/rs97sn34kjr7h6e/festivals2.png?raw="), dialect));
-//        festData.add(new FestivalTimeItem("Uno de noviembre - Dia de Todos los Santos", "All Saints Day", fixString("https://www.dropbox.com/s/60o0jnj9ynmei8w/festivals0.png?raw=") , dialect));
-//        festData.add(new FestivalTimeItem("12 de octubre", "Columbus Day",fixString("https://www.dropbox.com/s/idh6b3ngfzpf1no/festivals1.png?ra=1"), dialect));
-//        festData.add(new FestivalTimeItem("marzo o abril, semana santa", "Easter (March or April)", fixString("https://www.dropbox.com/s/rs97sn34kjr7h6e/festivals2.png?raw="), dialect));
 
         return festData;
     }
@@ -159,11 +124,11 @@ public class  Festivals extends BaseActivityDrawer {
         return imageAddress;
     }
 
-    private void initTTS(){
+    private void initTTS(final String lang1, final String lang2){
         FestivalTimeViewHolder.textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
-                FestivalTimeViewHolder.textToSpeech .setLanguage(new Locale("Es", "es"));
+                FestivalTimeViewHolder.textToSpeech .setLanguage(new Locale(lang1, lang2));
             }
         });
     }

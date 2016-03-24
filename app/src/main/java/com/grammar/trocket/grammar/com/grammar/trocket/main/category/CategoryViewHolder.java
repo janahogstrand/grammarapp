@@ -35,6 +35,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -284,10 +285,10 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
                     intent.putExtra(DialectDialog.CALLER_INFO, currentItem.id);
                     Log.w("currentItem.id", Integer.toString(currentItem.id));
 
-                    ArrayList<DialectItem> dialectItems = MainMenu.dialectsItems;
+                    HashMap<String, Integer> dialectItems = MainMenu.dialectsNameID;
 
-                    for (DialectItem dialect : dialectItems) {
-                        arrayAdapter.add(dialect.getName());
+                    for (String dialect : dialectItems.keySet()) {
+                        arrayAdapter.add(dialect);
                     }
 
                     DialectDialog dialectDialog = new DialectDialog(context, arrayAdapter, intent, categories.get(getAdapterPosition()).id);
@@ -367,36 +368,9 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
     // TODO Adjust code below according to the database
     public void selectIntent(Context context) {
-        //Load dialog with adapter
 
-//        String topLevelIdString = "";
-//        GetJSON getTopCats = new GetJSON((Activity) context, TableNames.CATEGORY_TABLE, "parentId", (currentItem.id + ""));
-//        try {
-//            topLevelIdString = getTopCats.execute().get();
-//            Log.w("Categories", topLevelIdString);
-//
-//            JSONArray jsonArray = new JSONArray(topLevelIdString);
-//            for (int j = 0; j < jsonArray.length(); ++j) {
-//
-//
-
-//                JSONObject jObject = jsonArray.getJSONObject(j);
-//
-//                int id = Integer.parseInt(jObject.get("id").toString());
-//                String name = jObject.get("name").toString();
-//
-//                if (jObject.get("kind").toString().equals("exercise")) {
-//                    ExerciseID = id;
-//                    exercises = name;
-//                } else {
-//                    ResourcesID = id;
-//                    resources = name;
-//                }
-//            }
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-
+//        Log.i("Test", MainMenu.contentsItems.get("11"));
+        Log.i("Test", Integer.toString(currentItem.contentId));
         switch (MainMenu.contentsItems.get(currentItem.contentId)) {
             case "Alphabet":
                 intent = new Intent(context, Alphabet.class);
@@ -422,9 +396,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
                 intent = new Intent(context, Times.class);
                 break;
             default:
-                intent = new Intent(context, ListViewActivity.class);
-
-        }
+                intent = new Intent(context, ListViewActivity.class);        }
 
     }
 

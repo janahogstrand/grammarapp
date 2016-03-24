@@ -6,13 +6,15 @@ package com.grammar.trocket.grammar.com.grammar.trocket.resources.seasons;
 public class Cluster {
 
     String id;
+    String dialectId;
     String categoryId;
     String title;
     String instruction;
     String help;
 
-    public Cluster(String id, String categoryId, String title, String instruction, String help) {
+    public Cluster(String id, String dialectId, String categoryId, String title, String instruction, String help) {
         this.id = id;
+        this.dialectId = dialectId;
         this.categoryId = categoryId;
         this.title = title;
         this.instruction = instruction;
@@ -25,6 +27,10 @@ public class Cluster {
 
     public String getCategoryId() {
         return categoryId;
+    }
+
+    public String getDialectId() {
+        return dialectId;
     }
 
     public String getTitle() {

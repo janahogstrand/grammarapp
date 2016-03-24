@@ -53,6 +53,7 @@ public class SeasonsFirstActivity extends AppCompatActivity {
      * the selected language.
      */
     public void assignLanguage(){
+
         language = new Locale("es", "ES");
         textToSpeech=new TextToSpeech(SeasonsFirstActivity.this, new TextToSpeech.OnInitListener() {
             @Override public void onInit(int status) {

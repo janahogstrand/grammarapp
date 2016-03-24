@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 
 
 import java.io.IOException;
@@ -81,12 +82,10 @@ public class ListViewActivity extends BaseActivityDrawer {
         Intent intent = getIntent();
 
         dialect = intent.getStringExtra(DialectDialog.DIALECT_INFO);
-        if(dialect.equals("Spanish")){
-            language = new Locale("es", "ES");
-        }
-        else {
-            language = new Locale("es", "US");
-        }
+        String dialectCode = MainMenu.dialectsIDCode.get(MainMenu.dialectsNameID.get(dialect));
+        String[] dCode = dialectCode.split("_");
+
+        language = new Locale(dCode[0], dCode[1]);
 
         textToSpeech=new TextToSpeech(ListViewActivity.this, new TextToSpeech.OnInitListener() {
             @Override public void onInit(int status) {

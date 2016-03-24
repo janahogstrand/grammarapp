@@ -140,6 +140,7 @@ public class SeasonsMain extends BaseActivityDrawer {
 
             season = new Cluster(
                     cluster.get(TableNames.CLUSTER_ID).toString(),
+                    cluster.get(TableNames.CLUSTER_DIALECTID).toString(),
                     cluster.get(TableNames.CLUSTER_CATEGORYID).toString(),
                     cluster.get(TableNames.CLUSTER_TITLE).toString(),
                     cluster.get(TableNames.CLUSTER_INSTRUCTION).toString(),

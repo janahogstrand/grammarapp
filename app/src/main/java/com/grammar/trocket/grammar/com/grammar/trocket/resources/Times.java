@@ -12,6 +12,7 @@ import com.grammar.trocket.grammar.com.grammar.trocket.backend.GetJSON;
 import com.grammar.trocket.grammar.com.grammar.trocket.backend.TableNames;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.festivalAndTime.FestivalTimeAdapter;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.festivalAndTime.FestivalTimeItem;
 import com.grammar.trocket.grammar.R;
@@ -50,7 +51,9 @@ public class Times extends BaseActivityDrawer {
         id = intent.getIntExtra(DialectDialog.CALLER_INFO, -1);
 
         getDialect();
-        initTTS();
+        String dialectCode = MainMenu.dialectsIDCode.get(MainMenu.dialectsNameID.get(dialect));
+        String[] dCode = dialectCode.split("_");
+        initTTS(dCode[0], dCode[1]);
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
@@ -107,13 +110,6 @@ public class Times extends BaseActivityDrawer {
         }
 
 
-
-//        timeData.add(new FestivalTimeItem("Son las doce en punto", "",fixString("https://www.dropbox.com/s/htma0lwlcjcmzjm/time.png?dl=0"), dialect));
-//        timeData.add(new FestivalTimeItem("Son las doce y cinco", "",fixString("https://www.dropbox.com/s/htma0lwlcjcmzjm/time.png?dl=0"), dialect));
-//        timeData.add(new FestivalTimeItem("Son las doce y cuarto", "",fixString("https://www.dropbox.com/s/htma0lwlcjcmzjm/time.png?dl=0"), dialect));
-//        timeData.add(new FestivalTimeItem("Son las doce y media", "",fixString("https://www.dropbox.com/s/htma0lwlcjcmzjm/time.png?dl=0"), dialect));
-//        timeData.add(new FestivalTimeItem("Es la una menos cuarto", "",fixString("https://www.dropbox.com/s/htma0lwlcjcmzjm/time.png?dl=0"), dialect));
-
         return timeData;
     }
 
@@ -126,11 +122,11 @@ public class Times extends BaseActivityDrawer {
         return imageAddress;
     }
 
-    private void initTTS(){
+    private void initTTS(final String lang1, final String lang2){
         FestivalTimeViewHolder.textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
-                FestivalTimeViewHolder.textToSpeech .setLanguage(new Locale("Es", "es"));
+                FestivalTimeViewHolder.textToSpeech .setLanguage(new Locale(lang1, lang2));
             }
         });
     }

@@ -47,7 +47,8 @@ public class MainMenu extends BaseActivityDrawer {
 //    public String exerciseIdString;
 //    public String resourceIdString;
 
-    public static ArrayList<DialectItem> dialectsItems;
+    public static HashMap<String, Integer> dialectsNameID;
+    public static HashMap<Integer, String> dialectsIDCode;
     public static HashMap<Integer, String> contentsItems;
     public static Cursor dialectsCursor;
     public static final String TAB_SELECT = "com.grammar.trocket.grammar.com.grammar.trocket.TAB";
@@ -190,7 +191,8 @@ public class MainMenu extends BaseActivityDrawer {
     }
 
     private void findDialects(int courseID) {
-        dialectsItems = new ArrayList<DialectItem>();
+        dialectsNameID = new HashMap<>();
+        dialectsIDCode = new HashMap<>();
         String dialectString;
         GetJSON dialectsFinder = new GetJSON((Activity) MainMenu.this, TableNames.DIALECT_TABLE, "courseId", (CourseID + ""));
         try {
@@ -201,9 +203,11 @@ public class MainMenu extends BaseActivityDrawer {
             for (int j = 0; j < jsonArray.length(); ++j) {
                 JSONObject jObject = jsonArray.getJSONObject(j);
 
+                int id =  Integer.parseInt(jObject.get(TableNames.DIALECT_ID).toString());
                 String name =  jObject.get(TableNames.DIALECT_NAME).toString();
                 String code = jObject.get(TableNames.DIALECT_CODE).toString();
-                dialectsItems.add(new DialectItem(name, code));
+                dialectsNameID.put(name, id);
+                dialectsIDCode.put(id, code);
 
             }
         } catch (InterruptedException e) {
