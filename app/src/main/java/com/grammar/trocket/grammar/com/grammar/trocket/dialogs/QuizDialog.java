@@ -7,9 +7,9 @@ import android.support.v7.app.AlertDialog;
 import android.widget.ArrayAdapter;
 
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Quiz;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.image_quiz.Image_Quiz_Main;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.ImageQuizMain;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.AudioQuizMainActivity;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.multiple_quiz.MultipleQuizMainActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.MultipleQuizMainActivity;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.TextQuizMainActivity;
 
 import org.json.JSONArray;
@@ -74,7 +74,7 @@ public class QuizDialog extends AlertDialog.Builder {
                                 break;
                             case "Audio":  intent = new Intent(context, AudioQuizMainActivity.class);
                                 break;
-                            case "Picture":  intent = new Intent(context, Image_Quiz_Main.class);
+                            case "Picture":  intent = new Intent(context, ImageQuizMain.class);
                         }
 
                         SELECTED_QUIZ_POSITION = position;

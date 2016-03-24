@@ -2,9 +2,8 @@ package com.grammar.trocket.grammar.test;
 
 import android.media.MediaPlayer;
 import android.test.ActivityInstrumentationTestCase2;
-import android.util.Log;
 
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.multiple_quiz.MultipleQuizMainActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.MultipleQuizMainActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;

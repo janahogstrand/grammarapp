@@ -1,4 +1,4 @@
-package com.grammar.trocket.grammar.com.grammar.trocket.exercises.multiple_quiz;
+package com.grammar.trocket.grammar.com.grammar.trocket.exercises;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
 import com.grammar.trocket.grammar.R;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizStatisticsActivity;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.TextQuizMainActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.QuizDialog;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -28,17 +28,24 @@ public class MultipleQuizMainActivity extends Activity {
     public CheckBox answerOption6;
     public CheckBox changeBackground;
 
-    public MultipleQuizQuestionsList questionsList;
-    public MultipleQuizAnswersList answersList;
-    public String[] questionsListArray;
-    public String[] correctAnswerArray;
-    public String currentQuestionAddress;
+    public QuizzesQuestions quizzesQuestions;
+    public ArrayList<Questions> questionsList;
+    public QuizzesAnswers answersList;
+
+
+    public Questions currentQuestion;
     public String[] answerOptionArray;
+    public ArrayList<String> correctAnswerList;
+
+    public String selectedQuizType;
+    public int selectedQuizPosition;
+
+
     public int successCounter = 0;
     public int mistakeCounter = 0;
     public int questionNumber = 0;
     public ArrayList<String> selectedAnswers;
-    public ArrayList<String> correctAnswerList;
+
     public TextToSpeech textToSpeech;
     public Locale language;
     public MediaPlayer player;
@@ -50,18 +57,29 @@ public class MultipleQuizMainActivity extends Activity {
         setContentView(R.layout.activity_multiple_quiz_main);
 
         findAllViews();
+        getSelectedQuizPosition();
 
         selectedAnswers = new ArrayList<>();
         correctAnswerList = new ArrayList<>();
-        questionsList = new MultipleQuizQuestionsList();
-        questionsListArray = questionsList.createArray();
-        answersList = new MultipleQuizAnswersList();
+
+        quizzesQuestions = new QuizzesQuestions(MultipleQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
+        questionsList = quizzesQuestions.getQuizQuestions();
+        answersList = new QuizzesAnswers(MultipleQuizMainActivity.this, questionsList, selectedQuizType);
 
         assignVariables();
         assignViews();
         assignLanguage();
     }
 
+
+    /**
+     * This method gets the position and the type of the chosen quiz.
+     */
+    public void getSelectedQuizPosition(){
+        Intent intent = getIntent();
+        selectedQuizPosition = QuizDialog.SELECTED_QUIZ_POSITION;
+        selectedQuizType = intent.getStringExtra(QuizDialog.SELECTED_QUIZ_TYPE);
+    }
 
     public void findAllViews(){
         answerOption1 = (CheckBox) findViewById(R.id.answerOption1);
@@ -95,14 +113,10 @@ public class MultipleQuizMainActivity extends Activity {
         correctAnswerList.clear();
         selectedAnswers.clear();
 
-        currentQuestionAddress = questionsListArray[questionNumber];
-        answerOptionArray = answersList.getAnswerOptions(currentQuestionAddress);
-        correctAnswerArray = answersList.getCorrectAnswer(currentQuestionAddress);
+        currentQuestion = questionsList.get(questionNumber);
+        answerOptionArray = answersList.getAnswerOptions(currentQuestion);
+        correctAnswerList = answersList.getCorrectAnswerList(currentQuestion, answerOptionArray);
 
-        for (int i = 0; i != correctAnswerArray.length; i++)
-        {
-            correctAnswerList.add(correctAnswerArray[i]);
-        }
 
     }
 
@@ -267,7 +281,7 @@ public class MultipleQuizMainActivity extends Activity {
      * how the user performed in the quiz.
      */
     public void checkQuestionNumber(){
-        if(questionNumber == 10){
+        if(questionNumber == questionsList.size()){
             Intent intent = new Intent(this, QuizStatisticsActivity.class);
             intent.putExtra(TextQuizMainActivity.EXTRA_MESSAGE, ""+successCounter);
             intent.putExtra(TextQuizMainActivity.EXTRA_MESSAGE2, ""+mistakeCounter);
@@ -313,9 +327,9 @@ public class MultipleQuizMainActivity extends Activity {
         }catch (Exception e){}
 
         try {
-            setAudio(currentQuestionAddress);
+            setAudio(currentQuestion.getName());
         } catch (Exception e) {
-            textToSpeech.speak(currentQuestionAddress, TextToSpeech.QUEUE_FLUSH, null);
+            textToSpeech.speak(currentQuestion.getName(), TextToSpeech.QUEUE_FLUSH, null);
         }
     }
 

@@ -25,9 +25,9 @@ public class TextQuizMainActivity extends Activity {
     public Button answerOption5;
     public Button answerOption6;
 
-    public quizzesQuestions quizzesQuestions;
+    public QuizzesQuestions quizzesQuestions;
     public ArrayList<Questions> questionsList;
-    public quizzesAnswers answersList;
+    public QuizzesAnswers answersList;
 
     public String correctAnswer;
     public Questions currentQuestion;
@@ -52,9 +52,9 @@ public class TextQuizMainActivity extends Activity {
         findAllViews();
         getSelectedQuizPosition();
 
-        quizzesQuestions = new quizzesQuestions(TextQuizMainActivity.this,selectedQuizPosition,selectedQuizType);
+        quizzesQuestions = new QuizzesQuestions(TextQuizMainActivity.this,selectedQuizPosition,selectedQuizType);
         questionsList = quizzesQuestions.getQuizQuestions();
-        answersList = new quizzesAnswers(TextQuizMainActivity.this, questionsList);
+        answersList = new QuizzesAnswers(TextQuizMainActivity.this, questionsList, selectedQuizType);
 
         assignVariables();
         assignViews();

@@ -1,4 +1,4 @@
-package com.grammar.trocket.grammar.com.grammar.trocket.exercises.image_quiz;
+package com.grammar.trocket.grammar.com.grammar.trocket.exercises;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -12,73 +12,57 @@ import android.widget.TextView;
 import android.widget.ImageView;
 
 import com.grammar.trocket.grammar.R;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizStatisticsActivity;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.TextQuizMainActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.QuizDialog;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 
-public class Image_Quiz_Main extends Activity {
 
+public class ImageQuizMain extends Activity {
+
+    public TextView questionView;
     public ImageView answerOption1;
     public ImageView answerOption2;
     public ImageView answerOption3;
     public ImageView answerOption4;
     public ImageView answerOption5;
     public ImageView answerOption6;
-    public TextView question;
-    public Image_Quiz_Question questions;
-    public Image_Quiz_Answers answers;
-    public String[] questionList;
-    public String correctAns;
-    public String currentQuestion;
+
+
+    public QuizzesQuestions quizzesQuestions;
+    public ArrayList<Questions> questionsList;
+    public QuizzesAnswers answersList;
+
+    public String correctAnswer;
+    public Questions currentQuestion;
+    public String[] answerOptionArray;
+
     public int successCounter = 0;
     public int mistakeCounter = 0;
     public int questionNumber = 0;
-    public String imageAddress1;
-    public String imageAddress2;
-    public String imageAddress3;
-    public String imageAddress4;
-    public String imageAddress5;
-    public String imageAddress6;
-
+    public String selectedQuizType;
+    public int selectedQuizPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_quiz_main);
 
-        questions = new Image_Quiz_Question();
-        answers = new Image_Quiz_Answers();
-        questionList = questions.createArray();
+        findAllViews();
+        getSelectedQuizPosition();
+
+        quizzesQuestions = new QuizzesQuestions(ImageQuizMain.this,selectedQuizPosition,selectedQuizType);
+        questionsList = quizzesQuestions.getQuizQuestions();
+        answersList = new QuizzesAnswers(ImageQuizMain.this, questionsList, selectedQuizType);
 
 
-        findAndAdjustAddresses();
-        findViewByIds();
+        assignVariables();
         assignViews();
-        setImages();
 
     }
 
-    public void findAndAdjustAddresses(){
-        imageAddress1 = "https://www.dropbox.com/s/na7kxqo36le8elu/aeroplane.png?dl=0";
-        imageAddress2 = "https://www.dropbox.com/s/dnc4e8jppzlmw72/car.png?dl=0";
-        imageAddress3 = "https://www.dropbox.com/s/6om2t6p7zmcyk65/train.png?dl=0";
-        imageAddress4 = "https://www.dropbox.com/s/sriywah61eygdnb/bus.png?dl=0";
-        imageAddress5 = "https://www.dropbox.com/s/qu3njgt1nbetw5j/cycle.png?dl=0";
-        imageAddress6 = "https://www.dropbox.com/s/dywmen629grh3wm/ship.png?dl=0";
-
-        imageAddress1 = imageAddress1.substring(0, imageAddress1.length()-4) + "raw=1";
-        imageAddress2 = imageAddress2.substring(0, imageAddress2.length()-4) + "raw=1";
-        imageAddress3 = imageAddress3.substring(0, imageAddress3.length()-4) + "raw=1";
-        imageAddress4 = imageAddress4.substring(0, imageAddress4.length()-4) + "raw=1";
-        imageAddress5 = imageAddress5.substring(0, imageAddress5.length()-4) + "raw=1";
-        imageAddress6 = imageAddress6.substring(0, imageAddress6.length()-4) + "raw=1";
-
-    }
-
-    public void findViewByIds(){
-        question = (TextView) findViewById(R.id.questionBtn);
-
+    public void findAllViews(){
+        questionView = (TextView) findViewById(R.id.questionBtn);
         answerOption1 = (ImageView) findViewById(R.id.firstView);
         answerOption2 = (ImageView) findViewById(R.id.secondView);
         answerOption3 = (ImageView) findViewById(R.id.thirdView);
@@ -87,35 +71,45 @@ public class Image_Quiz_Main extends Activity {
         answerOption6 = (ImageView) findViewById(R.id.sixthView);
     }
 
+    /**
+     * This method gets the position and the type of the chosen quiz.
+     */
+    public void getSelectedQuizPosition(){
+        Intent intent = getIntent();
+        selectedQuizPosition = QuizDialog.SELECTED_QUIZ_POSITION;
+        selectedQuizType = intent.getStringExtra(QuizDialog.SELECTED_QUIZ_TYPE);
+    }
+
 
     /**
      * The TextView is assigned the current question and the each of the button
      * are assigned an answer option for the current question.
      * */
-    public void assignViews(){
-        currentQuestion = questionList[questionNumber];
-        correctAns = answers.getCorrectAnswer(currentQuestion);
-        question.setText(currentQuestion);
+    public void assignVariables(){
+        currentQuestion = questionsList.get(questionNumber);
+        correctAnswer = answersList.getCorrectAnswer(currentQuestion);
+        answerOptionArray = answersList.getAnswerOptions(currentQuestion);
     }
 
 
-    public void setImages(){
-        Picasso.with(answerOption1.getContext()).load(imageAddress1).placeholder(R.drawable.loading_animation)
+    public void assignViews(){
+        questionView.setText(currentQuestion.getName());
+        Picasso.with(answerOption1.getContext()).load(answerOptionArray[0]).placeholder(R.drawable.loading_animation)
                 .error(android.R.drawable.stat_notify_error).into(answerOption1);
 
-        Picasso.with(answerOption2.getContext()).load(imageAddress2).placeholder(R.drawable.loading_animation)
+        Picasso.with(answerOption2.getContext()).load(answerOptionArray[1]).placeholder(R.drawable.loading_animation)
                 .error(android.R.drawable.stat_notify_error).into(answerOption2);
 
-        Picasso.with(answerOption3.getContext()).load(imageAddress3).placeholder(R.drawable.loading_animation)
+        Picasso.with(answerOption3.getContext()).load(answerOptionArray[2]).placeholder(R.drawable.loading_animation)
                 .error(android.R.drawable.stat_notify_error).into(answerOption3);
 
-        Picasso.with(answerOption4.getContext()).load(imageAddress4).placeholder(R.drawable.loading_animation)
+        Picasso.with(answerOption4.getContext()).load(answerOptionArray[3]).placeholder(R.drawable.loading_animation)
                 .error(android.R.drawable.stat_notify_error).into(answerOption4);
 
-        Picasso.with(answerOption5.getContext()).load(imageAddress5).placeholder(R.drawable.loading_animation)
+        Picasso.with(answerOption5.getContext()).load(answerOptionArray[4]).placeholder(R.drawable.loading_animation)
                 .error(android.R.drawable.stat_notify_error).into(answerOption5);
 
-        Picasso.with(answerOption6.getContext()).load(imageAddress6).placeholder(R.drawable.loading_animation)
+        Picasso.with(answerOption6.getContext()).load(answerOptionArray[5]).placeholder(R.drawable.loading_animation)
                 .error(android.R.drawable.stat_notify_error).into(answerOption6);
     }
 
@@ -133,7 +127,10 @@ public class Image_Quiz_Main extends Activity {
      */
     public void checkResult(final View view) {
         final ImageView variableName = (ImageView) findViewById(view.getId());
-        if(correctAns.equals(view.getTag().toString())) {
+
+        String pressedView = getPressedViewsUrl(view);
+
+        if(correctAnswer.equals(pressedView)) {
             successCounter++;
             variableName.setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);
             variableName.postDelayed(new Runnable() {
@@ -154,12 +151,36 @@ public class Image_Quiz_Main extends Activity {
             }, 1000);
         }
 
-        Log.d("pressedView", view.getTag().toString() );
+        Log.d("pressedView", view.getTag().toString());
         questionNumber++;
         checkQuestionNumber();
     }
 
 
+    public String getPressedViewsUrl(View view){
+
+        String pressedView = "";
+        if ((view.getTag().toString()).equals("answerOption1")){
+            pressedView = answerOptionArray[0];
+        }
+        else if ((view.getTag().toString()).equals("answerOption2")){
+            pressedView = answerOptionArray[1];
+        }
+        else if ((view.getTag().toString()).equals("answerOption3")){
+            pressedView = answerOptionArray[2];
+        }
+        else if ((view.getTag().toString()).equals("answerOption4")){
+            pressedView = answerOptionArray[3];
+        }
+        else if ((view.getTag().toString()).equals("answerOption5")){
+            pressedView = answerOptionArray[4];
+        }
+        else if ((view.getTag().toString()).equals("answerOption6")){
+            pressedView = answerOptionArray[5];
+        }
+
+        return pressedView;
+    }
 
     /**
      * If the question number is equal to 6 ((indicating that all the questions are over
@@ -167,7 +188,7 @@ public class Image_Quiz_Main extends Activity {
      * how the user performed in the quiz.
      */
     public void checkQuestionNumber(){
-        if(questionNumber == 6){
+        if(questionNumber == questionsList.size()){
             Intent intent = new Intent(this, QuizStatisticsActivity.class);
             intent.putExtra(TextQuizMainActivity.EXTRA_MESSAGE, ""+successCounter);
             intent.putExtra(TextQuizMainActivity.EXTRA_MESSAGE2, ""+mistakeCounter);
@@ -178,6 +199,7 @@ public class Image_Quiz_Main extends Activity {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
+                    assignVariables();
                     assignViews();
                 }
             }, 1000);

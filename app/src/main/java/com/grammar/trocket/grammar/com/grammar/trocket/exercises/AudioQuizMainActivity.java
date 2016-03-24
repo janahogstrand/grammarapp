@@ -27,10 +27,9 @@ public class AudioQuizMainActivity extends Activity {
     public Button answerOption5;
     public Button answerOption6;
 
-
-    public quizzesQuestions quizzesQuestions;
+    public QuizzesQuestions quizzesQuestions;
     public ArrayList<Questions> questionsList;
-    public quizzesAnswers answersList;
+    public QuizzesAnswers answersList;
 
     public String correctAnswer;
     public Questions currentQuestion;
@@ -59,9 +58,9 @@ public class AudioQuizMainActivity extends Activity {
 //            public void run() {}
 //        });
 
-        quizzesQuestions = new quizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
+        quizzesQuestions = new QuizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
         questionsList = quizzesQuestions.getQuizQuestions();
-        answersList = new quizzesAnswers(AudioQuizMainActivity.this, questionsList);
+        answersList = new QuizzesAnswers(AudioQuizMainActivity.this, questionsList, selectedQuizType);
         assignVariables();
 
         //new LongOperation().execute("execute");
@@ -76,7 +75,7 @@ public class AudioQuizMainActivity extends Activity {
 //        @Override
 //        protected void onPreExecute() {
 //            Log.d("onPreExecute", "onPreExecute");
-//            quizzesQuestions = new quizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
+//            QuizzesQuestions = new QuizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
 //            Log.d("onPreExecute done", "onPreExecute done");
 //         }
 //
@@ -84,8 +83,8 @@ public class AudioQuizMainActivity extends Activity {
 //        protected String doInBackground(String... params) {
 //            Log.d("doInBackground", "doInBackground");
 //
-//            questionsList = quizzesQuestions.getQuizQuestions();
-//            answersList = new quizzesAnswers(AudioQuizMainActivity.this, questionsList);
+//            questionsList = QuizzesQuestions.getQuizQuestions();
+//            answersList = new QuizzesAnswers(AudioQuizMainActivity.this, questionsList);
 //            assignVariables();
 //
 //            Log.d("doInBackground finished", "doInBackground finished");
@@ -260,7 +259,7 @@ public class AudioQuizMainActivity extends Activity {
      * how the user performed in the quiz.
      */
     public void checkQuestionNumber(){
-        if(questionNumber == 5){
+        if(questionNumber == questionsList.size()){
             Intent intent = new Intent(this, QuizStatisticsActivity.class);
             intent.putExtra(TextQuizMainActivity.EXTRA_MESSAGE, ""+successCounter);
             intent.putExtra(TextQuizMainActivity.EXTRA_MESSAGE2, ""+mistakeCounter);

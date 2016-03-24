@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by firasAltayeb on 15/02/2016.
  */
-public class quizzesQuestions {
+public class QuizzesQuestions {
 
 
     public Quiz selectedQuiz;
@@ -32,7 +32,7 @@ public class quizzesQuestions {
     public ArrayList<String> currentQuestions;
 
 
-    public quizzesQuestions(Activity callingActivity, int selectedQuizPosition, String selectedQuizType) {
+    public QuizzesQuestions(Activity callingActivity, int selectedQuizPosition, String selectedQuizType) {
         currentQuestions = new ArrayList<>();
         allQuestions = new ArrayList<>();
         this.quizList = QuizDialog.quizList;
@@ -56,8 +56,9 @@ public class quizzesQuestions {
         ArrayList<Questions> qusList = new ArrayList<Questions>();
         GetJSON getTopCats = new GetJSON(callingActivity, TableNames.QUIZQUESTION_TABLE, "parentId", (selectedQuiz.getId() + ""));
 
-        try {
-                if(selectedQuiz.getQuizType().equals("Text")) {
+        try
+        {
+                if(selectedQuiz.getQuizType().equals("Text") || selectedQuiz.getQuizType().equals("Picture")) {
 
                     topLevelIdString = getTopCats.execute().get();
                     JSONArray jsonArray = new JSONArray(topLevelIdString);
@@ -72,7 +73,7 @@ public class quizzesQuestions {
 
                     }
                 }
-                else if(selectedQuiz.getQuizType().equals("Audio")){
+                else if(selectedQuiz.getQuizType().equals("Audio") || selectedQuiz.getQuizType().equals("Multiple")){
 
                         topLevelIdString = getTopCats.execute().get();
                         JSONArray jsonArray = new JSONArray(topLevelIdString);
@@ -94,6 +95,8 @@ public class quizzesQuestions {
 
                         }
                 }
+
+
 
         } catch (InterruptedException e) {
             e.printStackTrace();
