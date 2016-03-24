@@ -1,6 +1,8 @@
 package com.grammar.trocket.grammar.test;
 
 import android.test.ActivityInstrumentationTestCase2;
+
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Question;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.TextQuizMainActivity;
 
 /**
@@ -51,7 +53,8 @@ public class TestTextQuizMainActivity extends ActivityInstrumentationTestCase2<T
         getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
-                textQuizMainActivity.currentQuestion = "currentQuestion";
+                Question test = new Question("test",10);
+                textQuizMainActivity.currentQuestion = test;
                 textQuizMainActivity.answerOptionArray = testArray;
                 textQuizMainActivity.assignViews();
                 assertEquals("currentQuestion", textQuizMainActivity.questionView.getText().toString());

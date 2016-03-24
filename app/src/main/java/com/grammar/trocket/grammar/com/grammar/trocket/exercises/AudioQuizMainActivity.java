@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
@@ -28,11 +29,12 @@ public class AudioQuizMainActivity extends Activity {
     public Button answerOption6;
 
     public QuizzesQuestions quizzesQuestions;
-    public ArrayList<Questions> questionsList;
     public QuizzesAnswers answersList;
+    public ArrayList<Question> questionsList;
+
 
     public String correctAnswer;
-    public Questions currentQuestion;
+    public Question currentQuestion;
     public String[] answerOptionArray;
 
     public String selectedQuizType;
@@ -54,16 +56,17 @@ public class AudioQuizMainActivity extends Activity {
         findAllViews();
         getSelectedQuizPosition();
 
-//        runOnUiThread(new Runnable() {
-//            public void run() {}
-//        });
+        runOnUiThread(new Runnable() {
+            public void run() {}
+        });
 
         quizzesQuestions = new QuizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
-        questionsList = quizzesQuestions.getQuizQuestions();
         answersList = new QuizzesAnswers(AudioQuizMainActivity.this, questionsList, selectedQuizType);
+        questionsList = quizzesQuestions.getQuizQuestions();
+
         assignVariables();
 
-        //new LongOperation().execute("execute");
+//       new LongOperation().execute("execute");
 
         assignViews();
         assignLanguage();
@@ -74,8 +77,15 @@ public class AudioQuizMainActivity extends Activity {
 //
 //        @Override
 //        protected void onPreExecute() {
+//            findAllViews();
+//            getSelectedQuizPosition();
 //            Log.d("onPreExecute", "onPreExecute");
-//            QuizzesQuestions = new QuizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
+//            quizzesQuestions = new QuizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
+//            answersList = new QuizzesAnswers(AudioQuizMainActivity.this, questionsList,selectedQuizType );
+//
+//            questionsList = quizzesQuestions.getQuizQuestions();
+//            assignVariables();
+//
 //            Log.d("onPreExecute done", "onPreExecute done");
 //         }
 //
@@ -83,9 +93,8 @@ public class AudioQuizMainActivity extends Activity {
 //        protected String doInBackground(String... params) {
 //            Log.d("doInBackground", "doInBackground");
 //
-//            questionsList = QuizzesQuestions.getQuizQuestions();
-//            answersList = new QuizzesAnswers(AudioQuizMainActivity.this, questionsList);
-//            assignVariables();
+//            //questionsList = quizzesQuestions.getQuizQuestions();
+//            //assignVariables();
 //
 //            Log.d("doInBackground finished", "doInBackground finished");
 //
@@ -98,16 +107,15 @@ public class AudioQuizMainActivity extends Activity {
 ////            Log.d("onProgressUpdate", "onProgressUpdate");
 ////            assignViews();
 ////            assignLanguage();
-//
 //        }
 //
 //        @Override
 //        protected void onPostExecute(String result) {
-//
 //            Log.d("onPostExecute", "onPostExecute");
 //            assignViews();
 //            assignLanguage();
 //            Log.d("onPostExecute finished", "onPostExecute finished");
+//
 //        }
 //
 //    }

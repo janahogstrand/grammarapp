@@ -26,11 +26,11 @@ public class TextQuizMainActivity extends Activity {
     public Button answerOption6;
 
     public QuizzesQuestions quizzesQuestions;
-    public ArrayList<Questions> questionsList;
+    public ArrayList<Question> questionsList;
     public QuizzesAnswers answersList;
 
     public String correctAnswer;
-    public Questions currentQuestion;
+    public Question currentQuestion;
     public String[] answerOptionArray;
 
 

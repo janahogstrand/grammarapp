@@ -15,11 +15,11 @@ import java.util.concurrent.ExecutionException;
  */
 public class QuizzesAnswers {
 
-    public ArrayList<Questions> questionsList;
+    public ArrayList<Question> questionsList;
     public Activity callingActivity;
     public String selectedQuizType;
 
-    public QuizzesAnswers(Activity callingActivity, ArrayList<Questions> questionsList, String selectedQuizType){
+    public QuizzesAnswers(Activity callingActivity, ArrayList<Question> questionsList, String selectedQuizType){
 
         this.callingActivity = callingActivity;
         this.questionsList = questionsList;
@@ -27,7 +27,7 @@ public class QuizzesAnswers {
     }
 
 
-    public String getCorrectAnswer(Questions questions){
+    public String getCorrectAnswer(Question questions){
 
         String topLevelIdString = "";
         int correctOrNot = 0;
@@ -81,9 +81,7 @@ public class QuizzesAnswers {
 
     }
 
-
-
-    public ArrayList<String> getCorrectAnswerList(Questions currentQuestion, String[] answerOptionArray){
+    public ArrayList<String> getCorrectAnswerList(Question currentQuestion, String[] answerOptionArray){
 
         String topLevelIdString = "";
         int correctOrNot = 0;
@@ -122,9 +120,7 @@ public class QuizzesAnswers {
     }
 
 
-
-
-    public String[] getAnswerOptions(Questions questions){
+    public String[] getAnswerOptions(Question questions){
 
         String[] options = new String[6];
         String topLevelIdString = "";

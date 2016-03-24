@@ -29,11 +29,11 @@ public class MultipleQuizMainActivity extends Activity {
     public CheckBox changeBackground;
 
     public QuizzesQuestions quizzesQuestions;
-    public ArrayList<Questions> questionsList;
+    public ArrayList<Question> questionsList;
     public QuizzesAnswers answersList;
 
 
-    public Questions currentQuestion;
+    public Question currentQuestion;
     public String[] answerOptionArray;
     public ArrayList<String> correctAnswerList;
 

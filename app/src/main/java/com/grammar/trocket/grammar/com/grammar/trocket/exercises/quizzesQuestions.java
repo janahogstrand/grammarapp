@@ -2,7 +2,6 @@ package com.grammar.trocket.grammar.com.grammar.trocket.exercises;
 
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.grammar.trocket.grammar.com.grammar.trocket.backend.GetJSON;
 import com.grammar.trocket.grammar.com.grammar.trocket.backend.TableNames;
@@ -22,28 +21,27 @@ public class QuizzesQuestions {
 
 
     public Quiz selectedQuiz;
-    public JSONArray allQuizDetails;
     public String selectedQuizType;
     public int selectedQuizPosition;
     public ArrayList<Quiz> quizList;
     public Activity callingActivity;
 
-    public ArrayList<Questions> allQuestions;
+    public ArrayList<Question> allQuestions;
     public ArrayList<String> currentQuestions;
 
 
     public QuizzesQuestions(Activity callingActivity, int selectedQuizPosition, String selectedQuizType) {
-        currentQuestions = new ArrayList<>();
         allQuestions = new ArrayList<>();
+        currentQuestions = new ArrayList<>();
         this.quizList = QuizDialog.quizList;
-        this.allQuizDetails = QuizDialog.allQuizDetails;
-        this.selectedQuizPosition = selectedQuizPosition;
+
         this.callingActivity = callingActivity;
+        this.selectedQuizPosition = selectedQuizPosition;
         this.selectedQuizType = selectedQuizType;
     }
 
 
-    public ArrayList<Questions> getQuizQuestions(){
+    public  ArrayList<Question> getQuizQuestions(){
         allQuestions.clear();
         String topLevelIdString = "";
         selectedQuiz = quizList.get(selectedQuizPosition);
@@ -53,7 +51,7 @@ public class QuizzesQuestions {
 //        Log.d("1111111111111", selectedQuiz.getQuizType());
 //        Log.d("1111111111111", "1111111111111");
 
-        ArrayList<Questions> qusList = new ArrayList<Questions>();
+        ArrayList<Question> qusList = new ArrayList<Question>();
         GetJSON getTopCats = new GetJSON(callingActivity, TableNames.QUIZQUESTION_TABLE, "parentId", (selectedQuiz.getId() + ""));
 
         try
@@ -69,7 +67,7 @@ public class QuizzesQuestions {
                         String questionText = jObject.get(TableNames.QUIZQUESTION_TEXT).toString();
                         int questionId = Integer.parseInt(jObject.get(TableNames.QUIZQUESTION_ID).toString());
 
-                        allQuestions.add(new Questions(questionText, questionId));
+                        allQuestions.add(new Question(questionText, questionId));
 
                     }
                 }
@@ -87,10 +85,10 @@ public class QuizzesQuestions {
                             String audioURL = jObject.get(TableNames.QUIZQUESTION_AUDIOURL).toString();
                             if(!(audioURL == null)){
                                 audioURL = audioURL.substring(0, audioURL.length()-4) + "raw=1";
-                                allQuestions.add(new Questions(audioURL, questionId));
+                                allQuestions.add(new Question(audioURL, questionId));
                             }
                             else if (audioURL == null) {
-                                allQuestions.add(new Questions(questionText, questionId));
+                                allQuestions.add(new Question(questionText, questionId));
                             }
 
                         }
@@ -108,7 +106,6 @@ public class QuizzesQuestions {
 
         return allQuestions;
     }
-
 
 
 }

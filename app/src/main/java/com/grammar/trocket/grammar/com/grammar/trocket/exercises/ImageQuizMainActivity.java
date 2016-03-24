@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 
-public class ImageQuizMain extends Activity {
+public class ImageQuizMainActivity extends Activity {
 
     public TextView questionView;
     public ImageView answerOption1;
@@ -30,11 +30,11 @@ public class ImageQuizMain extends Activity {
 
 
     public QuizzesQuestions quizzesQuestions;
-    public ArrayList<Questions> questionsList;
+    public ArrayList<Question> questionsList;
     public QuizzesAnswers answersList;
 
     public String correctAnswer;
-    public Questions currentQuestion;
+    public Question currentQuestion;
     public String[] answerOptionArray;
 
     public int successCounter = 0;
@@ -51,9 +51,9 @@ public class ImageQuizMain extends Activity {
         findAllViews();
         getSelectedQuizPosition();
 
-        quizzesQuestions = new QuizzesQuestions(ImageQuizMain.this,selectedQuizPosition,selectedQuizType);
+        quizzesQuestions = new QuizzesQuestions(ImageQuizMainActivity.this,selectedQuizPosition,selectedQuizType);
         questionsList = quizzesQuestions.getQuizQuestions();
-        answersList = new QuizzesAnswers(ImageQuizMain.this, questionsList, selectedQuizType);
+        answersList = new QuizzesAnswers(ImageQuizMainActivity.this, questionsList, selectedQuizType);
 
 
         assignVariables();
