@@ -3,15 +3,14 @@ package com.grammar.trocket.grammar.com.grammar.trocket.dialogs;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.widget.ArrayAdapter;
 
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Quiz;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.image_quiz.Image_Quiz_Main;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.multiple_quiz.Multiple_Quiz_Main_Activity;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.audio_quiz.AudioQuizMainActivity;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.ImageQuizMainActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.AudioQuizMainActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.MultipleQuizMainActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.TextQuizMainActivity;
 
 import org.json.JSONArray;
 
@@ -22,12 +21,13 @@ import java.util.ArrayList;
  */
 public class QuizDialog extends AlertDialog.Builder {
 
-    public final static String QUIZ_INFO = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE";
+    public static int SELECTED_QUIZ_POSITION = 0;
+    public final static String SELECTED_QUIZ_TYPE = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE";
 
     Context context;
     Intent intent;
-    ArrayList<Quiz> quizList;
-    JSONArray allQuizDetails;
+    public static ArrayList<Quiz> quizList;
+    public static JSONArray allQuizDetails;
 
     /**
      * @param allQuizDetails Use this to get information about quizzes
@@ -70,15 +70,15 @@ public class QuizDialog extends AlertDialog.Builder {
                         switch (quizList.get(position).getQuizType()) {
                             case "Text": intent = new Intent(context, TextQuizMainActivity.class);
                                 break;
-                            case "Multiple":  intent = new Intent(context, Multiple_Quiz_Main_Activity.class);
+                            case "Multiple":  intent = new Intent(context, MultipleQuizMainActivity.class);
                                 break;
                             case "Audio":  intent = new Intent(context, AudioQuizMainActivity.class);
                                 break;
-                            case "Picture":  intent = new Intent(context, Image_Quiz_Main.class);
+                            case "Picture":  intent = new Intent(context, ImageQuizMainActivity.class);
                         }
 
-//                        String selectedDialect = quizOptions.getItem(position);
-//                        intent.putExtra(QUIZ_INFO, selectedDialect);
+                        SELECTED_QUIZ_POSITION = position;
+                        intent.putExtra(SELECTED_QUIZ_TYPE, quizList.get(position).getQuizType());
 
 
                         context.startActivity(intent);

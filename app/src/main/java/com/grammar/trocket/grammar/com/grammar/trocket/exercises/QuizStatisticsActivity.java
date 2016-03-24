@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 
 public class QuizStatisticsActivity extends AppCompatActivity {

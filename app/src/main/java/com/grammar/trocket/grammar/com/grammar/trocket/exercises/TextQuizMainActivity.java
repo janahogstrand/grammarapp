@@ -1,65 +1,83 @@
-package com.grammar.trocket.grammar.com.grammar.trocket.exercises.audio_quiz;
+package com.grammar.trocket.grammar.com.grammar.trocket.exercises;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import com.grammar.trocket.grammar.R;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizStatisticsActivity;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.QuizDialog;
 
-import java.util.Locale;
+import java.util.ArrayList;
 
 
-/**
- * Created by Sam on 06/03/2016.
- */
-public class AudioQuizMainActivity extends Activity {
+public class TextQuizMainActivity extends Activity {
 
-    public TextView question;
+    public TextView questionView;
     public Button answerOption1;
     public Button answerOption2;
     public Button answerOption3;
     public Button answerOption4;
     public Button answerOption5;
     public Button answerOption6;
-    public boolean isSpanishDialect;
-    public AudioQuizQuestionsList questionsList;
-    public AudioQuizAnswerList answersList;
-    public String[] questionsListArray;
+
+    public QuizzesQuestions quizzesQuestions;
+    public ArrayList<Question> questionsList;
+    public QuizzesAnswers answersList;
+
     public String correctAnswer;
-    public String currentQuestion;
+    public Question currentQuestion;
     public String[] answerOptionArray;
+
+
     public int successCounter = 0;
     public int mistakeCounter = 0;
     public int questionNumber = 0;
-    TextToSpeech textToSpeech;
-    Locale language;
+    public String selectedQuizType;
+    public int selectedQuizPosition;
+
+    public final static String EXTRA_MESSAGE = "com.firasaltayeb.quizbutton.MESSAGE";
+    public final static String EXTRA_MESSAGE2 = "com.firasaltayeb.quizbutton.MESSAGE2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_audio_quiz_main);
-        isSpanishDialect = true; //THIS NEEDS TO BE CHANGED!!
-        question = (TextView) findViewById(R.id.question);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_text_quiz_main);
+
+        findAllViews();
+        getSelectedQuizPosition();
+
+        quizzesQuestions = new QuizzesQuestions(TextQuizMainActivity.this,selectedQuizPosition,selectedQuizType);
+        questionsList = quizzesQuestions.getQuizQuestions();
+        answersList = new QuizzesAnswers(TextQuizMainActivity.this, questionsList, selectedQuizType);
+
+        assignVariables();
+        assignViews();
+    }
+
+
+    public void findAllViews(){
+        questionView = (TextView) findViewById(R.id.question);
         answerOption1 = (Button) findViewById(R.id.answerOption1);
         answerOption2 = (Button) findViewById(R.id.answerOption2);
         answerOption3 = (Button) findViewById(R.id.answerOption3);
         answerOption4 = (Button) findViewById(R.id.answerOption4);
         answerOption5 = (Button) findViewById(R.id.answerOption5);
         answerOption6 = (Button) findViewById(R.id.answerOption6);
+    }
 
-        questionsList = new AudioQuizQuestionsList();
-        answersList = new AudioQuizAnswerList();
-        questionsListArray = questionsList.createArray();
-        assignVariables();
-        assignTextView();
-        assignLanguage();
+    /**
+     * This method gets the position and the type of the chosen quiz.
+     */
+    public void getSelectedQuizPosition(){
+        Intent intent = getIntent();
+        selectedQuizPosition = QuizDialog.SELECTED_QUIZ_POSITION;
+        selectedQuizType = intent.getStringExtra(QuizDialog.SELECTED_QUIZ_TYPE);
     }
 
     /**
@@ -68,24 +86,29 @@ public class AudioQuizMainActivity extends Activity {
      * CorrectAnswer is assigned the current question's correct answer.
      */
     public void assignVariables(){
-        currentQuestion = questionsListArray[questionNumber];
-        answerOptionArray = answersList.getAnswerOptions(currentQuestion);
+        currentQuestion = questionsList.get(questionNumber);
         correctAnswer = answersList.getCorrectAnswer(currentQuestion);
-
+        answerOptionArray = answersList.getAnswerOptions(currentQuestion);
     }
 
     /**
      * The TextView is assigned the current question and the each of the button
      * are assigned an answer option for the current question.
      * */
-    public void assignTextView(){
-        question.setText(currentQuestion);
+    public void assignViews(){
+        questionView.setText(currentQuestion.getName());
         answerOption1.setText(answerOptionArray[0]);
         answerOption2.setText(answerOptionArray[1]);
         answerOption3.setText(answerOptionArray[2]);
         answerOption4.setText(answerOptionArray[3]);
         answerOption5.setText(answerOptionArray[4]);
         answerOption6.setText(answerOptionArray[5]);
+        if(answerOptionArray[0] == null){answerOption1.setVisibility(View.INVISIBLE);}
+        if(answerOptionArray[1] == null){answerOption2.setVisibility(View.INVISIBLE);}
+        if(answerOptionArray[2] == null){answerOption3.setVisibility(View.INVISIBLE);}
+        if(answerOptionArray[3] == null){answerOption4.setVisibility(View.INVISIBLE);}
+        if(answerOptionArray[4] == null){answerOption5.setVisibility(View.INVISIBLE);}
+        if(answerOptionArray[5] == null){answerOption6.setVisibility(View.INVISIBLE);}
     }
 
     /**
@@ -100,7 +123,6 @@ public class AudioQuizMainActivity extends Activity {
      */
     public void checkResult(View view) {
         Button pressedButton = (Button) view;
-        Log.d("Answer Given:", pressedButton.getText().toString());
         if(correctAnswer.equals(pressedButton.getText().toString())) {
             Log.d("correct", "correct");
             pressedButton.setBackgroundResource(R.drawable.quiz_rounded_button_green);
@@ -143,7 +165,6 @@ public class AudioQuizMainActivity extends Activity {
         }
     }
 
-
     /**
      * disables all the buttons to prevent the users to click a
      * second button while handler is pausing.
@@ -156,12 +177,13 @@ public class AudioQuizMainActivity extends Activity {
         answerOption5.setClickable(false);
         answerOption6.setClickable(false);
     }
+
     /**
      * Colors all the button's background to white thus
      * returning it to its original color and then set the buttons
      * to be clickable.
      */
-    public void restoreColor(){
+    public void restoreView(){
         answerOption1.setBackgroundResource(R.drawable.quiz_rounded_button_primary);
         answerOption2.setBackgroundResource(R.drawable.quiz_rounded_button_secondary);
         answerOption3.setBackgroundResource(R.drawable.quiz_rounded_button_primary);
@@ -182,73 +204,22 @@ public class AudioQuizMainActivity extends Activity {
      * how the user performed in the quiz.
      */
     public void checkQuestionNumber(){
-        if(questionNumber == 10){
-
+        if(questionNumber == questionsList.size()){
             Intent intent = new Intent(this, QuizStatisticsActivity.class);
-            intent.putExtra(TextQuizMainActivity.EXTRA_MESSAGE, ""+successCounter);
-            intent.putExtra(TextQuizMainActivity.EXTRA_MESSAGE2, ""+mistakeCounter);
+            intent.putExtra(EXTRA_MESSAGE, ""+successCounter);
+            intent.putExtra(EXTRA_MESSAGE2, ""+mistakeCounter);
             startActivity(intent);
         }
         else {
+            // Execute run() after 2 seconds have passed
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
                     assignVariables();
-                    assignTextView();
-                    restoreColor();
-                    playAudio();
+                    assignViews();
+                    restoreView();
                 }
             }, 1000);
-
-
         }
     }
-
-    /**
-     * This method assigns a language and a dialect to a variable according to the
-     * language the user has chosen and then assigns the textToSpeech object with
-     * the selected language. And then it call the playAudio() method.
-     */
-    public void assignLanguage() {
-        language = new Locale("es", "ES");
-        textToSpeech = new TextToSpeech(AudioQuizMainActivity.this, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                textToSpeech.setLanguage(language);
-                playAudio();
-            }
-        });
-    }
-
-
-    public void replyBtn(View v) {
-        playAudio();
-    }
-
-
-    public void playAudio(){
-        if(textToSpeech != null) {
-            textToSpeech.stop();
-        }
-        textToSpeech.speak(question.getText().toString(), TextToSpeech.QUEUE_ADD, null);
-    }
-
-
-    /**
-     * This method is called whenever an activity is closed or destroyed.
-     * This method stops the textToSpeech object from running and
-     * then destroys it inorder for it not to leak information.
-     */
-    @Override
-    protected void onDestroy() {
-        this.finish();
-        //Close the Text to Speech Library
-        if(textToSpeech != null) {
-            textToSpeech.stop();
-            textToSpeech.shutdown();
-            Log.d("-------------------", "TTS Destroyed");
-        }
-        super.onDestroy();
-    }
-
 }

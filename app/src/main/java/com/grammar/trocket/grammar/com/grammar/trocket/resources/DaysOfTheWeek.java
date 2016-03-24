@@ -81,7 +81,7 @@ public class DaysOfTheWeek extends BaseActivityDrawer {
             language = new Locale("es", "US");
         }
 
-        textToSpeech=new TextToSpeech(DaysOfTheWeek.this, new TextToSpeech.OnInitListener() {
+        textToSpeech = new TextToSpeech(DaysOfTheWeek.this, new TextToSpeech.OnInitListener() {
             @Override public void onInit(int status) {
                 textToSpeech.setLanguage(language);
             }
