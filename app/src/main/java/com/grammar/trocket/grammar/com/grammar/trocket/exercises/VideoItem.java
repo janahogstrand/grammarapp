@@ -18,6 +18,14 @@ public class VideoItem {
 
     }
 
+    public VideoItem(String name, String url, int id){
+        this.name = name;
+        this.url = url;
+        this.subUrl = null;
+        this.id = id;
+
+    }
+
     public String getName(){
         return name;
     }

@@ -214,6 +214,8 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         //Creates new entries with details stored
         //Fills arrayadapter
         //Fill videoList
+        String with = " with subtitles";
+        String without = "without subtitles";
         Log.w("Could not find quiz: ", "Searching for video");
         for (int i = 0; i < buttonChildrenJSON.length(); ++i) {
             JSONObject child = buttonChildrenJSON.getJSONObject(i);
@@ -222,8 +224,18 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             String urlSub = child.get(TableNames.VIDEO_SUBTITLEDURL).toString();
             int id = Integer.parseInt(child.get(TableNames.VIDEO_CATEGORYID).toString());
             Log.w("Found: ", title);
-            arrayAdapter.add(title);
-            videoList.add(new VideoItem(title, url, urlSub, id));
+
+            //Need two videos
+            if(urlSub != null){
+                arrayAdapter.add(title + with);
+                arrayAdapter.add(title + without);
+                videoList.add(new VideoItem(title + with, url, id));
+                videoList.add(new VideoItem(title + without, urlSub, id));
+            } else {
+                arrayAdapter.add(title);
+            }
+
+            videoList.add(new VideoItem(title, url, id));
         }
 
         //If no matches found return null
