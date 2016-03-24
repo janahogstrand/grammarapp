@@ -42,9 +42,9 @@ public class SeasonsThirdActivity extends AppCompatActivity {
      * in the Main content.
      */
     public void assignText() {
-        redOne.setText("septiembre");
-        redTwo.setText("octubre");
-        redThree.setText("noviembre");
+        redOne.setText(SeasonsMain.cSubItemData.get(6).getName());
+        redTwo.setText(SeasonsMain.cSubItemData.get(7).getName());
+        redThree.setText(SeasonsMain.cSubItemData.get(8).getName());
     }
 
     /**
@@ -74,13 +74,13 @@ public class SeasonsThirdActivity extends AppCompatActivity {
         try {
             if (clickedButton.getText().toString().equals("septiembre"))
             {
-                setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
+                setAudio(SeasonsMain.cSubItemData.get(6).getAudioUrl());
             } else if (clickedButton.getText().toString().equals("octubre"))
             {
-                setAudio("");
+                setAudio(SeasonsMain.cSubItemData.get(7).getAudioUrl());
             } else if (clickedButton.getText().toString().equals("noviembre"))
             {
-                setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
+                setAudio(SeasonsMain.cSubItemData.get(8).getAudioUrl());
             }
         } catch (Exception e) {
             String viewTextAsString = clickedButton.getText().toString();

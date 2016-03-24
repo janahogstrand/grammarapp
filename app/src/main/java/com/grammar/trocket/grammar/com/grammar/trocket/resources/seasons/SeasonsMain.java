@@ -23,8 +23,9 @@ import java.util.List;
 
 public class SeasonsMain extends BaseActivityDrawer {
 
-    public List<ClusterItem> cItemData;
-    public List<ClusterItem> cSubItemData;
+    public static List<ClusterItem> cItemData;
+    public static List<ClusterSubItem> cSubItemData;
+    public Cluster season;
     private String dialect;
     Activity activity;
     int id;
@@ -48,14 +49,26 @@ public class SeasonsMain extends BaseActivityDrawer {
         Intent intent = getIntent();
         id = intent.getIntExtra(DialectDialog.CALLER_INFO, -1);
 
+        getData();
+
+        Log.w(cItemData.get(0).getId(), cItemData.get(0).getName());
+        Log.w(cSubItemData.get(0).getId(), cSubItemData.get(0).getName());
+        for(int i = 0; i < cItemData.size(); ++i) {
+            Log.d(cItemData.get(i).getId(), cItemData.get(i).getName());
+        }
+
+        for(int i = 0; i < cSubItemData.size(); ++i) {
+            Log.i(cSubItemData.get(i).getId(), cSubItemData.get(i).getName());
+        }
+
         pageTitle = (TextView) findViewById(R.id.pageTitle);
-        pageTitle.setText("Las Estaciones y los Meses del Ano");
+        pageTitle.setText(season.getTitle());
 
         subTitle = (TextView) findViewById(R.id.subTitle);
-        subTitle.setText("Selecciona cada estacion y\naprende los nombres de los\nmeses del ano.");
+        subTitle.setText(season.getInstruction());
 
         engSubTitle = (TextView) findViewById(R.id.engSubtitle);
-        engSubTitle.setText("Select each season and learn the\nnames of the months");
+        engSubTitle.setText(season.getHelp());
 
 
         findAndAssignText();
@@ -73,10 +86,10 @@ public class SeasonsMain extends BaseActivityDrawer {
         autumnBtn = (Button) findViewById(R.id.autumnBtn);
         winterBtn = (Button) findViewById(R.id.winterBtn);
 
-        springBtn.setText("Primavera");
-        summerBtn.setText("Verano");
-        autumnBtn.setText("Otono");
-        winterBtn.setText("Invierno");
+        springBtn.setText(cItemData.get(0).getName());
+        summerBtn.setText(cItemData.get(1).getName());
+        autumnBtn.setText(cItemData.get(2).getName());
+        winterBtn.setText(cItemData.get(3).getName());
     }
 
 
@@ -111,8 +124,9 @@ public class SeasonsMain extends BaseActivityDrawer {
      *
      *
      **/
-    private List<FestivalTimeItem> getData() {
+    private void getData() {
         cItemData = new ArrayList<ClusterItem>();
+        cSubItemData = new ArrayList<ClusterSubItem>();
 
         String clusterString = "";
         GetJSON getcluster = new GetJSON(activity, TableNames.CLUSTER_TABLE, "parentId", (id + ""));
@@ -122,27 +136,56 @@ public class SeasonsMain extends BaseActivityDrawer {
 
             JSONArray jsonArray = new JSONArray(clusterString);
             JSONObject cluster = jsonArray.getJSONObject(0);
-            String clusterId = cluster.get(TableNames.CLUSTER_ID).toString();
+            String cId = cluster.get(TableNames.CLUSTER_ID).toString();
+
+            season = new Cluster(
+                    cluster.get(TableNames.CLUSTER_ID).toString(),
+                    cluster.get(TableNames.CLUSTER_CATEGORYID).toString(),
+                    cluster.get(TableNames.CLUSTER_TITLE).toString(),
+                    cluster.get(TableNames.CLUSTER_INSTRUCTION).toString(),
+                    cluster.get(TableNames.CLUSTER_HELP).toString()
+            );
 
             String cItems = "";
-            GetJSON getCItems = new GetJSON(activity, TableNames.CLUSTERITEM_TABLE, "parentId", clusterId);
+            GetJSON getCItems = new GetJSON(activity, TableNames.CLUSTERITEM_TABLE, "parentId", cId);
             cItems = getCItems.execute().get();
-            Log.w("Festivals", cItems);
+            Log.w("Cluster Items", cItems);
             JSONArray cItemArray = new JSONArray(cItems);
             for(int i = 0; i< cItemArray.length(); ++i){
                 JSONObject jObject = cItemArray.getJSONObject(i);
-                String foreign = jObject.get(TableNames.THUMBNAILTAPITEM_NAME).toString();
-                String english = jObject.get(TableNames.THUMBNAILTAPITEM_TRANSLATION).toString();
-                String url = jObject.get(TableNames.THUMBNAILTAPITEM_FULLIMAGEURL).toString();
-                String id = jObject.get(TableNames.THUMBNAILTAPITEM_ID).toString();
-                festData.add(new FestivalTimeItem(foreign,english,url,id));
+                String name = jObject.get(TableNames.CLUSTERITEM_NAME).toString();
+                String clusterId = jObject.get(TableNames.CLUSTER_ID).toString();
+                String hierarchy = jObject.get(TableNames.CLUSTERITEM_HIERARCHY).toString();
+                String id = jObject.get(TableNames.CLUSTERITEM_ID).toString();
+                cItemData.add(i, new ClusterItem(id,clusterId,name,hierarchy));
+            }
+
+            for(int i = 0; i < cItemData.size(); ++i) {
+                String cSubItems = "";
+                GetJSON getCSItems = new GetJSON(activity, TableNames.CLUSTERSUBITEM_TABLE, "parentId", cItemData.get(i).getId());
+                cSubItems = getCSItems.execute().get();
+                Log.w("Cluster Sub Items", cSubItems);
+                JSONArray cSItemArray = new JSONArray(cSubItems);
+                for(int j = 0; j < cSItemArray.length(); ++j){
+                    JSONObject jObject = cSItemArray.getJSONObject(j);
+
+                    Log.w("Cluster Sub Item", cSItemArray.getJSONObject(j).getString(TableNames.CLUSTERSUBITEM_NAME));
+
+                    String description = jObject.get(TableNames.CLUSTERSUBITEM_DESCRIPTION).toString();
+                    String clickable = jObject.get(TableNames.CLUSTERSUBITEM_CLICKABLE).toString();
+                    String audioUrl = jObject.get(TableNames.CLUSTERSUBITEM_AUDIOURL).toString();
+                    String name = jObject.get(TableNames.CLUSTERSUBITEM_NAME).toString();
+                    String clusterItemId = jObject.get(TableNames.CLUSTERITEM_ID).toString();
+                    String hierarchy = jObject.get(TableNames.CLUSTERSUBITEM_HIERARCHY).toString();
+                    String id = jObject.get(TableNames.CLUSTERSUBITEM_ID).toString();
+                    cSubItemData.add(new ClusterSubItem(id, clusterItemId, name, description, clickable, audioUrl, hierarchy));
+                }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return festData;
     }
 
 }

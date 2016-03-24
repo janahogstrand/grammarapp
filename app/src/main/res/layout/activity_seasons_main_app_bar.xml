@@ -91,12 +91,13 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="text"
-                android:id="@+id/summerBtn"
+                android:text="Text"
+                android:id="@+id/springBtn"
                 android:textColor="#ffffff"
-                android:background="#fa941f"
+                android:background="#6ad050"
                 android:minHeight="70sp"
                 android:minWidth="140sp"
+                android:layout_alignParentRight="true"
                 android:onClick="moveToNewActivity"
                 android:layout_weight=".3"/>
 
@@ -108,13 +109,12 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Text"
-                android:id="@+id/springBtn"
+                android:text="text"
+                android:id="@+id/summerBtn"
                 android:textColor="#ffffff"
-                android:background="#6ad050"
+                android:background="#fa941f"
                 android:minHeight="70sp"
                 android:minWidth="140sp"
-                android:layout_alignParentRight="true"
                 android:onClick="moveToNewActivity"
                 android:layout_weight=".3"/>
         </LinearLayout>
