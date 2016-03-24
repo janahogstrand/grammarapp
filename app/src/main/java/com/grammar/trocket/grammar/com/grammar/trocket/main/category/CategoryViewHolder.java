@@ -260,8 +260,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
                 //Card clicked
                 //Check if dialog is needed
                 Context context = view.getContext();
-                selectIntent(context);
-                intent.putExtra(DialectDialog.CALLER_INFO, currentItem.name);
+
 
                 if (currentItem.hasDialect && currentItem.isResource) {
                     //TODO make this adapter get information from database
@@ -269,13 +268,16 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
                             view.getContext(),
                             android.R.layout.select_dialog_singlechoice);
 
+                    selectIntent(context);
+                    intent.putExtra(DialectDialog.CALLER_INFO, currentItem.id);
+
                     ArrayList<DialectItem> dialectItems = MainMenu.dialectsItems;
 
                     for (DialectItem dialect : dialectItems) {
                         arrayAdapter.add(dialect.getName());
                     }
 
-                    DialectDialog dialectDialog = new DialectDialog(context, arrayAdapter, intent);
+                    DialectDialog dialectDialog = new DialectDialog(context, arrayAdapter, intent, categories.get(getAdapterPosition()).id);
 
                 }
 
@@ -353,6 +355,34 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
     // TODO Adjust code below according to the database
     public void selectIntent(Context context) {
         //Load dialog with adapter
+
+//        String topLevelIdString = "";
+//        GetJSON getTopCats = new GetJSON((Activity) context, TableNames.CATEGORY_TABLE, "parentId", (currentItem.id + ""));
+//        try {
+//            topLevelIdString = getTopCats.execute().get();
+//            Log.w("Categories", topLevelIdString);
+//
+//            JSONArray jsonArray = new JSONArray(topLevelIdString);
+//            for (int j = 0; j < jsonArray.length(); ++j) {
+//
+//
+
+//                JSONObject jObject = jsonArray.getJSONObject(j);
+//
+//                int id = Integer.parseInt(jObject.get("id").toString());
+//                String name = jObject.get("name").toString();
+//
+//                if (jObject.get("kind").toString().equals("exercise")) {
+//                    ExerciseID = id;
+//                    exercises = name;
+//                } else {
+//                    ResourcesID = id;
+//                    resources = name;
+//                }
+//            }
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         switch (currentItem.name) {
             case "El Alfabeto":

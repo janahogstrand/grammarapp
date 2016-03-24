@@ -93,19 +93,6 @@ public class DictionaryItemsList extends BaseActivityDrawer{
     private ArrayList<DictionaryItem> getData() {
         wordList = new ArrayList<DictionaryItem>();
 
-//        SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
-//        words = myDatabase.rawQuery("SELECT * FROM " + ModuleSelection.db.DICTIONARYLETTER_TABLE +
-//                " JOIN " + ModuleSelection.db.DICTIONARYWORD_TABLE + " ON " + ModuleSelection.db.DICTIONARYLETTER_TABLE +"." + ModuleSelection.db.DICTIONARYLETTER_ID + " = " +  ModuleSelection.db.DICTIONARYWORD_TABLE + "." + ModuleSelection.db.DICTIONARYWORD_DICTIONARYLETTERID +
-//                " WHERE " +  ModuleSelection.db.DICTIONARYLETTER_DICTIONARYID + " = " + MainMenu.DictionaryID + " ORDER BY "  + ModuleSelection.db.DICTIONARYWORD_TABLE + "." + ModuleSelection.db.DICTIONARYWORD_LABEL + " ASC", null);
-//
-//
-//        while(words.moveToNext()) {
-//            Log.i("Letter1", words.getString(words.getColumnIndex(ModuleSelection.db.DICTIONARYLETTER_COURSEID)));
-//            Log.i("Letter2", words.getString(words.getColumnIndex(ModuleSelection.db.DICTIONARYLETTER_LABEL)));
-//
-//            String word = words.getString(words.getColumnIndex(ModuleSelection.db.DICTIONARYWORD_LABEL));
-//            wordList.add(new DictionaryItem(word, ""));
-//        }
         String wordString = "";
         GetJSON getWords = new GetJSON(activity, TableNames.DICTIONARYWORD_TABLE, "parentId", (id + ""));
         try {
