@@ -81,10 +81,11 @@ public class FragmentTabResources extends Fragment {
                 JSONObject jObject = jsonArray.getJSONObject(j);
 
                 int id = Integer.parseInt(jObject.get("id").toString());
+                int contentId = Integer.parseInt(jObject.get("content").toString());
                 String name = jObject.get("name").toString();
                 int icon = getIcon(jObject.get("iconUrl").toString());
                 int order = Integer.parseInt(jObject.get("hierarchy").toString());
-                categories.add(new Category(name, "", icon, true, true, id,order));
+                categories.add(new Category(name, "", icon, true, true, id, contentId, order));
 
                 Collections.sort(categories);
             }

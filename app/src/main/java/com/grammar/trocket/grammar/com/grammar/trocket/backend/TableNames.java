@@ -263,5 +263,119 @@ public class TableNames {
     };
 
 
+    public static final String THUMBNAILTAP_TABLE = "thumbnail_taps";
+    public static final String THUMBNAILTAP_ID = "id";
+    public static final String THUMBNAILTAP_TITLE = "title";
+    public static final String THUMBNAILTAP_INSTRUCTION = "instruction";
+    public static final String THUMBNAILTAP_DIALECTID = "dialectId";
+    public static final String THUMBNAILTAP_HELP = "help";
+    public static final String THUMBNAILTAP_CREATEDAT = "created_at";
+    public static final String THUMBNAILTAP_UPDATEDAT = "updated_at";
+    public static final String THUMBNAILTAP_CATEGORYID = "category_id";
+    public static final String THUMBNAILTAP_COURSEID = "course_id";
+    public static final String[] THUMBNAILTAP_COLUMNS = {
+            THUMBNAILTAP_ID,
+            THUMBNAILTAP_TITLE,
+            THUMBNAILTAP_INSTRUCTION,
+            THUMBNAILTAP_DIALECTID,
+            THUMBNAILTAP_HELP,
+            THUMBNAILTAP_CREATEDAT,
+            THUMBNAILTAP_UPDATEDAT,
+            THUMBNAILTAP_CATEGORYID,
+            THUMBNAILTAP_COURSEID
+    };
+
+
+    public static final String THUMBNAILTAPITEM_TABLE = "thumbnail_tap_items";
+    public static final String THUMBNAILTAPITEM_ID = "id";
+    public static final String THUMBNAILTAPITEM_NAME = "name";
+    public static final String THUMBNAILTAPITEM_TRANSLATION = "translation";
+    public static final String THUMBNAILTAPITEM_FULLIMAGEURL = "fullImageUrl";
+    public static final String THUMBNAILTAPITEM_AUDIOURL = "audioUrl";
+    public static final String THUMBNAILTAPITEM_HIERARCHY = "hierarchy";
+    public static final String THUMBNAILTAPITEM_CREATEDAT = "created_at";
+    public static final String THUMBNAILTAPITEM_UPDATEDAT = "updated_at";
+    public static final String THUMBNAILTAPITEM_THUMBNAILTAPID = "thumbnail_tap_id";
+    public static final String THUMBNAILTAPITEM_COURSEID = "course_id";
+    public static final String[] THUMBNAILTAPITEM_COLUMNS = {
+            THUMBNAILTAPITEM_ID,
+            THUMBNAILTAPITEM_NAME,
+            THUMBNAILTAPITEM_TRANSLATION,
+            THUMBNAILTAPITEM_FULLIMAGEURL,
+            THUMBNAILTAPITEM_AUDIOURL,
+            THUMBNAILTAPITEM_HIERARCHY,
+            THUMBNAILTAPITEM_CREATEDAT,
+            THUMBNAILTAPITEM_UPDATEDAT,
+            THUMBNAILTAPITEM_THUMBNAILTAPID,
+            THUMBNAILTAPITEM_COURSEID
+    };
+
+
+    public static final String CLUSTER_TABLE = "clusters";
+    public static final String CLUSTER_ID = "id";
+    public static final String CLUSTER_TITLE = "title";
+    public static final String CLUSTER_INSTRUCTION = "instruction";
+    public static final String CLUSTER_DIALECTID = "dialectId";
+    public static final String CLUSTER_HELP = "help";
+    public static final String CLUSTER_CREATEDAT = "created_at";
+    public static final String CLUSTER_UPDATEDAT = "updated_at";
+    public static final String CLUSTER_CATEGORYID = "category_id";
+    public static final String CLUSTER_COURSEID = "course_id";
+    public static final String[] CLUSTER_COLUMNS = {
+            CLUSTER_ID,
+            CLUSTER_TITLE,
+            CLUSTER_INSTRUCTION,
+            CLUSTER_DIALECTID,
+            CLUSTER_HELP,
+            CLUSTER_CREATEDAT,
+            CLUSTER_UPDATEDAT,
+            CLUSTER_CATEGORYID,
+            CLUSTER_COURSEID
+    };
+
+
+    public static final String CLUSTERITEM_TABLE = "cluster_items";
+    public static final String CLUSTERITEM_ID = "id";
+    public static final String CLUSTERITEM_NAME = "name";
+    public static final String CLUSTERITEM_HIERARCHY = "hierarchy";
+    public static final String CLUSTERITEM_CREATEDAT = "created_at";
+    public static final String CLUSTERITEM_UPDATEDAT = "updated_at";
+    public static final String CLUSTERITEM_CLUSTERID = "cluster_id";
+    public static final String CLUSTERITEM_COURSEID = "course_id";
+    public static final String[] CLUSTERITEM_COLUMNS = {
+            CLUSTERITEM_ID,
+            CLUSTERITEM_NAME,
+            CLUSTERITEM_HIERARCHY,
+            CLUSTERITEM_CREATEDAT,
+            CLUSTERITEM_UPDATEDAT,
+            CLUSTERITEM_CLUSTERID,
+            CLUSTERITEM_COURSEID
+    };
+
+
+    public static final String CLUSTERSUBITEM_TABLE = "cluster_sub_items";
+    public static final String CLUSTERSUBITEM_ID = "id";
+    public static final String CLUSTERSUBITEM_NAME = "name";
+    public static final String CLUSTERSUBITEM_DESCRIPTION = "description";
+    public static final String CLUSTERSUBITEM_CLICKABLE = "clickable";
+    public static final String CLUSTERSUBITEM_AUDIOURL = "audioUrl";
+    public static final String CLUSTERSUBITEM_HIERARCHY = "hierarchy";
+    public static final String CLUSTERSUBITEM_CREATEDAT = "created_at";
+    public static final String CLUSTERSUBITEM_UPDATEDAT = "updated_at";
+    public static final String CLUSTERSUBITEM_CLUSTERITEMID = "cluster_item_id";
+    public static final String CLUSTERSUBITEM_COURSEID = "course_id";
+    public static final String[] CLUSTERSUBITEM_COLUMNS = {
+            CLUSTERSUBITEM_ID,
+            CLUSTERSUBITEM_NAME,
+            CLUSTERSUBITEM_DESCRIPTION,
+            CLUSTERSUBITEM_CLICKABLE,
+            CLUSTERSUBITEM_AUDIOURL,
+            CLUSTERSUBITEM_HIERARCHY,
+            CLUSTERSUBITEM_CREATEDAT,
+            CLUSTERSUBITEM_UPDATEDAT,
+            CLUSTERSUBITEM_CLUSTERITEMID,
+            CLUSTERSUBITEM_COURSEID
+    };
+
 
 }

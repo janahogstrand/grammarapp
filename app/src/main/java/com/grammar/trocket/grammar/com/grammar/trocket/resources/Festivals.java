@@ -82,25 +82,26 @@ public class  Festivals extends BaseActivityDrawer {
         festData = new ArrayList<FestivalTimeItem>();
 
         String festString = "";
-        GetJSON getFest = new GetJSON(activity, "thumbnail_taps", "parentId", (id + ""));
+        GetJSON getFest = new GetJSON(activity, TableNames.THUMBNAILTAP_TABLE, "parentId", (id + ""));
         try {
             festString = getFest.execute().get();
             Log.w("Categories", festString);
 
             JSONArray jsonArray = new JSONArray(festString);
             JSONObject festival = jsonArray.getJSONObject(0);
-            String festId = festival.get(TableNames.TAP_ID).toString();
+            String festId = festival.get(TableNames.THUMBNAILTAP_ID).toString();
 
             String festItems = "";
-            GetJSON getFests = new GetJSON(activity, "thumbnail_tap_items", "parentId", festId);
+            GetJSON getFests = new GetJSON(activity, TableNames.THUMBNAILTAPITEM_TABLE, "parentId", festId);
             festItems = getFests.execute().get();
+            Log.w("Festivals", festItems);
             JSONArray festArray = new JSONArray(festItems);
             for(int i = 0; i< festArray.length(); ++i){
-                JSONObject jObject = jsonArray.getJSONObject(i);
-                String foreign = jObject.get("name").toString();
-                String english = jObject.get("translation").toString();
-                String url = jObject.get("fullImageUrl").toString();
-                String id = jObject.get("id").toString();
+                JSONObject jObject = festArray.getJSONObject(i);
+                String foreign = jObject.get(TableNames.THUMBNAILTAPITEM_NAME).toString();
+                String english = jObject.get(TableNames.THUMBNAILTAPITEM_TRANSLATION).toString();
+                String url = jObject.get(TableNames.THUMBNAILTAPITEM_FULLIMAGEURL).toString();
+                String id = jObject.get(TableNames.THUMBNAILTAPITEM_ID).toString();
                 festData.add(new FestivalTimeItem(foreign,english,url,id));
             }
 

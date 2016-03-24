@@ -30,6 +30,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 public class MainMenu extends BaseActivityDrawer {
@@ -47,6 +48,7 @@ public class MainMenu extends BaseActivityDrawer {
 //    public String resourceIdString;
 
     public static ArrayList<DialectItem> dialectsItems;
+    public static HashMap<Integer, String> contentsItems;
     public static Cursor dialectsCursor;
     public static final String TAB_SELECT = "com.grammar.trocket.grammar.com.grammar.trocket.TAB";
     public static final String RESOURCEID = "com.grammar.trocket.grammar.com.grammar.trocket.RESOURCEID";
@@ -180,6 +182,7 @@ public class MainMenu extends BaseActivityDrawer {
 
         CourseID = prefs.getInt(ModuleSelection.COURSE, -1);
         findDialects(CourseID);
+        findContents(CourseID);
         Log.w("Prefs are: ", MainMenu.CourseID + "");
         Log.w("Resources prefs are: ", ResourcesID + "");
         Log.w("Exercise prefs are: ", ExerciseID + "");
@@ -201,6 +204,33 @@ public class MainMenu extends BaseActivityDrawer {
                 String name =  jObject.get(TableNames.DIALECT_NAME).toString();
                 String code = jObject.get(TableNames.DIALECT_CODE).toString();
                 dialectsItems.add(new DialectItem(name, code));
+
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void findContents(int courseID) {
+        contentsItems = new HashMap<>();
+        String contentString;
+        GetJSON dialectsFinder = new GetJSON((Activity) MainMenu.this, TableNames.CONTENT_TABLE);
+        try {
+            contentString = dialectsFinder.execute().get();
+            Log.w("Categories", contentString);
+
+            JSONArray jsonArray = new JSONArray(contentString);
+            for (int j = 0; j < jsonArray.length(); ++j) {
+                JSONObject jObject = jsonArray.getJSONObject(j);
+
+                String name =  jObject.get(TableNames.CONTENT_NAME).toString();
+                int id = Integer.parseInt(jObject.get(TableNames.CONTENT_ID).toString());
+                contentsItems.put(id, name);
 
             }
         } catch (InterruptedException e) {

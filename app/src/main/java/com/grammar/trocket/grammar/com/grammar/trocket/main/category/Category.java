@@ -13,6 +13,7 @@ public class Category implements Comparable<Category> {
     boolean hasDialect;
     boolean isResource;
     int id;
+    int contentId;
     private int order;
 
 
@@ -30,6 +31,7 @@ public class Category implements Comparable<Category> {
         this.isResource = false;
         this.id = id;
         this.order = order;
+        this.contentId = 0;
     }
 
     /**
@@ -39,13 +41,14 @@ public class Category implements Comparable<Category> {
      * @param  hasDialect Dialect  of category
      * @param isResource Set true if this is a boolean, this will turn buttons on the card invisible
      **/
-    public Category(String name, String desc, int icon, boolean hasDialect, boolean isResource, int id, int order) {
+    public Category(String name, String desc, int icon, boolean hasDialect, boolean isResource, int id, int contentId, int order) {
         this.name = name;
         this.desc = desc;
         this.icon = icon;
         this.hasDialect = hasDialect;
         this.isResource = isResource;
         this.id = id;
+        this.contentId = contentId;
         this.order = order;
     }
 

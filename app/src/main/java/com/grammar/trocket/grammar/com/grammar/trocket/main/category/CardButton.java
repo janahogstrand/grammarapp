@@ -8,10 +8,14 @@ import android.util.Log;
 public class CardButton implements Comparable<CardButton> {
     private String name;
     private int order;
+    private int id;
+    private int contentId;
 
-    public CardButton(String name, int order){
+    public CardButton(String name, int order, int id, int contentId){
         this.name = name;
         this.order = order;
+        this.id = id;
+        this.contentId = contentId;
     }
 
     public int getOrder(){
@@ -20,6 +24,14 @@ public class CardButton implements Comparable<CardButton> {
 
     public String getName(){
         return name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getContentId() {
+        return contentId;
     }
 
     @Override

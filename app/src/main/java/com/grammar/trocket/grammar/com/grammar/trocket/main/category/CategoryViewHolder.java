@@ -58,6 +58,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
     public Category currentItem;
     List<Category> categories;
     int index;
+    int contentType;
     Intent intent;
     //SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
 
@@ -270,6 +271,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
                     selectIntent(context);
                     intent.putExtra(DialectDialog.CALLER_INFO, currentItem.id);
+                    Log.w("currentItem.id", Integer.toString(currentItem.id));
 
                     ArrayList<DialectItem> dialectItems = MainMenu.dialectsItems;
 
@@ -384,26 +386,28 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
 //            e.printStackTrace();
 //        }
 
-        switch (currentItem.name) {
-            case "El Alfabeto":
+        switch (MainMenu.contentsItems.get(currentItem.contentId)) {
+            case "Alphabet":
                 intent = new Intent(context, Alphabet.class);
                 break;
-            case "Los Numeros":
+            case "Numbers":
+                intent = new Intent(context, ListViewActivity.class);
+                intent.putExtra("type", "number");
+                break;
+            case "Days of the Week":
                 intent = new Intent(context, ListViewActivity.class);
                 break;
-            case "Los Dias":
-                intent = new Intent(context, DaysOfTheWeek.class);
-                break;
-            case "El Calendario":
+            case "Calendar":
                 intent = new Intent(context, ListViewActivity.class);
+                intent.putExtra("type", "calendar");
                 break;
-            case "Festividades":
+            case "Festivals":
                 intent = new Intent(context, Festivals.class);
                 break;
-            case "Estaciones y Meses":
+            case "Seasons":
                 intent = new Intent(context, SeasonsMain.class);
                 break;
-            case "La Hora":
+            case "Time":
                 intent = new Intent(context, Times.class);
                 break;
             default:

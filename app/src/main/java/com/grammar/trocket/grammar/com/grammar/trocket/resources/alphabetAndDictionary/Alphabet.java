@@ -1,5 +1,6 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,12 +11,19 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.backend.GetJSON;
+import com.grammar.trocket.grammar.com.grammar.trocket.backend.TableNames;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleSelection;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Locale;
 
 /**
@@ -60,6 +68,32 @@ public class Alphabet extends BaseActivityDrawer{
     private ArrayList<AlphabetItem> getData() {
         alphabetList = new ArrayList<AlphabetItem>();
 
+        String letterString = "";
+        GetJSON getLetters = new GetJSON(Alphabet.this, TableNames.DICTIONARYLETTER_TABLE, "parentId", (MainMenu.DictionaryID + ""));
+        try {
+            letterString = getLetters.execute().get();
+            Log.w("Alphabet", letterString);
+
+            JSONArray jsonArray = new JSONArray(letterString);
+            for (int j = 0; j < jsonArray.length(); ++j) {
+                JSONObject jObject = jsonArray.getJSONObject(j);
+                String letter = jObject.get(TableNames.DICTIONARYLETTER_LABEL).toString();
+                int id = Integer.parseInt(jObject.get(TableNames.DICTIONARYLETTER_ID).toString());
+                alphabetList.add(new AlphabetItem(letter, true, id));
+                Collections.sort(alphabetList,
+                        new Comparator<AlphabetItem>() {
+                            public int compare(AlphabetItem letter1, AlphabetItem letter2) {
+                                return letter1.getLetter().toUpperCase().compareTo(letter2.getLetter().toUpperCase());
+                            }
+                        });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return alphabetList;
+
+
+
 //        alphabetList.add(new AlphabetItem("A", false));
 //        alphabetList.add(new AlphabetItem("B", false));
 //        alphabetList.add(new AlphabetItem("C", false));
@@ -96,8 +130,8 @@ public class Alphabet extends BaseActivityDrawer{
 //            String letter = letters.getString(letters.getColumnIndex(ModuleSelection.db.DICTIONARYLETTER_LABEL));
 //            alphabetList.add(new AlphabetItem(letter, false));
 //        }
-        letters.move(-1);
-        return alphabetList;
+//        letters.move(-1);
+//        return alphabetList;
     }
 
     private void initTTS(){

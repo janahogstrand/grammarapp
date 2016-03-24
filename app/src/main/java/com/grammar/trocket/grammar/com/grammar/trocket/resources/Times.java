@@ -1,5 +1,6 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.resources;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -7,12 +8,17 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.grammar.trocket.grammar.com.grammar.trocket.backend.GetJSON;
+import com.grammar.trocket.grammar.com.grammar.trocket.backend.TableNames;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.festivalAndTime.FestivalTimeAdapter;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.festivalAndTime.FestivalTimeItem;
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.festivalAndTime.FestivalTimeViewHolder;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +36,18 @@ import java.util.Locale;
 public class Times extends BaseActivityDrawer {
     private List<FestivalTimeItem> timeData;
     private String dialect;
+    Activity activity;
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_festivalstime_main);
         onCreateDrawer();
+        activity = Times.this;
+
+        Intent intent = getIntent();
+        id = intent.getIntExtra(DialectDialog.CALLER_INFO, -1);
 
         getDialect();
         initTTS();
@@ -63,12 +75,44 @@ public class Times extends BaseActivityDrawer {
      * @see FestivalTimeAdapter
      **/
     private List<FestivalTimeItem> getData() {
+
         timeData = new ArrayList<FestivalTimeItem>();
-        timeData.add(new FestivalTimeItem("Son las doce en punto", "",fixString("https://www.dropbox.com/s/htma0lwlcjcmzjm/time.png?dl=0"), dialect));
-        timeData.add(new FestivalTimeItem("Son las doce y cinco", "",fixString("https://www.dropbox.com/s/htma0lwlcjcmzjm/time.png?dl=0"), dialect));
-        timeData.add(new FestivalTimeItem("Son las doce y cuarto", "",fixString("https://www.dropbox.com/s/htma0lwlcjcmzjm/time.png?dl=0"), dialect));
-        timeData.add(new FestivalTimeItem("Son las doce y media", "",fixString("https://www.dropbox.com/s/htma0lwlcjcmzjm/time.png?dl=0"), dialect));
-        timeData.add(new FestivalTimeItem("Es la una menos cuarto", "",fixString("https://www.dropbox.com/s/htma0lwlcjcmzjm/time.png?dl=0"), dialect));
+
+        String timeString = "";
+        GetJSON getTime = new GetJSON(activity, TableNames.THUMBNAILTAP_TABLE, "parentId", (id + ""));
+        try {
+            timeString = getTime.execute().get();
+            Log.w("Categories", timeString);
+
+            JSONArray jsonArray = new JSONArray(timeString);
+            JSONObject time = jsonArray.getJSONObject(0);
+            String timeId = time.get(TableNames.THUMBNAILTAP_ID).toString();
+
+            String timeItems = "";
+            GetJSON getTimes = new GetJSON(activity, TableNames.THUMBNAILTAPITEM_TABLE, "parentId", timeId);
+            timeItems = getTimes.execute().get();
+            Log.w("Times", timeItems);
+            JSONArray timeArray = new JSONArray(timeItems);
+            for(int i = 0; i< timeArray.length(); ++i){
+                JSONObject jObject = timeArray.getJSONObject(i);
+                String foreign = jObject.get(TableNames.THUMBNAILTAPITEM_NAME).toString();
+                String english = jObject.get(TableNames.THUMBNAILTAPITEM_TRANSLATION).toString();
+                String url = jObject.get(TableNames.THUMBNAILTAPITEM_FULLIMAGEURL).toString();
+                String id = jObject.get(TableNames.THUMBNAILTAPITEM_ID).toString();
+                timeData.add(new FestivalTimeItem(foreign,english,url,id));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+//        timeData.add(new FestivalTimeItem("Son las doce en punto", "",fixString("https://www.dropbox.com/s/htma0lwlcjcmzjm/time.png?dl=0"), dialect));
+//        timeData.add(new FestivalTimeItem("Son las doce y cinco", "",fixString("https://www.dropbox.com/s/htma0lwlcjcmzjm/time.png?dl=0"), dialect));
+//        timeData.add(new FestivalTimeItem("Son las doce y cuarto", "",fixString("https://www.dropbox.com/s/htma0lwlcjcmzjm/time.png?dl=0"), dialect));
+//        timeData.add(new FestivalTimeItem("Son las doce y media", "",fixString("https://www.dropbox.com/s/htma0lwlcjcmzjm/time.png?dl=0"), dialect));
+//        timeData.add(new FestivalTimeItem("Es la una menos cuarto", "",fixString("https://www.dropbox.com/s/htma0lwlcjcmzjm/time.png?dl=0"), dialect));
 
         return timeData;
     }

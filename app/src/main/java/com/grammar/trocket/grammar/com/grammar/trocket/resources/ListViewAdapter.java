@@ -15,14 +15,14 @@ import java.util.ArrayList;
 public class ListViewAdapter extends BaseAdapter {
 
     private Activity activity;
-    private ArrayList<String>  data;
+    private ArrayList<NumberCalendarItem>  data;
 
-    public ListViewAdapter(Activity activity, ArrayList<String> data) {
+    public ListViewAdapter(Activity activity, ArrayList<NumberCalendarItem> data) {
         this.activity = activity;
         this.data = data;
     }
 
-    public void setData(ArrayList<String> data) {
+    public void setData(ArrayList<NumberCalendarItem> data) {
         this.data = data;
         notifyDataSetChanged();
     }
@@ -34,13 +34,14 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public NumberCalendarItem getItem(int position) {
         if (data == null) return null;
         return data.get(position);
     }
 
     @Override
-    public long getItemId(int position) {
+    public long getItemId(int position)
+    {
         return 0;
     }
 
@@ -67,10 +68,12 @@ public class ListViewAdapter extends BaseAdapter {
         TextView textView = (TextView) output.findViewById(R.id.name);
 
         // get the name to display
-        String name = (String) getItem(position);
+        NumberCalendarItem numCalItem = getItem(position);
+        String name = numCalItem.getLabel();
+        String pronunciation = numCalItem.getPronunciation();
 
         // put the name in the TextView
-        textView.setText(name);
+        textView.setText(name + "\n" + pronunciation);
         textView.setGravity(Gravity.CENTER);
 
         if (position%2==0) {

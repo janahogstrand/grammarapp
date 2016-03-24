@@ -50,17 +50,22 @@ public class DictionaryAlphabetAdapter extends RecyclerView.Adapter<DictionaryAl
                 @Override
                 public void onClick(View v) {
                     //Check if it is a dictionary item
-                    String letter = alphabetList.get(getAdapterPosition()).getLetter();
 
-                    if(alphabetList.get(getAdapterPosition()).getIsDictionary()){
+                    if(callerName.equals("DictionaryItemsList")) {
+                        String letter = alphabetList.get(getAdapterPosition()).getLetter();
 
-                        intent = new Intent(v.getContext(), DictionaryItemsList.class);
-                        intent.putExtra(DialectDialog.DIALECT_INFO, language);
-                        intent.putExtra(Alphabet.LETTER, letter.toUpperCase());
-                        intent.putExtra("getletterid", alphabetList.get(getAdapterPosition()).getId());
-                        v.getContext().startActivity(intent);
+                        if (alphabetList.get(getAdapterPosition()).getIsDictionary()) {
 
-                    }else {
+                            intent = new Intent(v.getContext(), DictionaryItemsList.class);
+                            intent.putExtra(DialectDialog.DIALECT_INFO, language);
+                            intent.putExtra(Alphabet.LETTER, letter.toUpperCase());
+                            intent.putExtra("getletterid", alphabetList.get(getAdapterPosition()).getId());
+                            v.getContext().startActivity(intent);
+
+                        } else {
+                            playAudio();
+                        }
+                    } else {
                         playAudio();
                     }
                 }

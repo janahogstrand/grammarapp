@@ -1,15 +1,33 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.resources.seasons;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.backend.GetJSON;
+import com.grammar.trocket.grammar.com.grammar.trocket.backend.TableNames;
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.festivalAndTime.FestivalTimeItem;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SeasonsMain extends BaseActivityDrawer {
+
+    public List<ClusterItem> cItemData;
+    public List<ClusterItem> cSubItemData;
+    private String dialect;
+    Activity activity;
+    int id;
 
     Button springBtn;
     Button summerBtn;
@@ -26,6 +44,9 @@ public class SeasonsMain extends BaseActivityDrawer {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seasons_main);
         super.onCreateDrawer();
+
+        Intent intent = getIntent();
+        id = intent.getIntExtra(DialectDialog.CALLER_INFO, -1);
 
         pageTitle = (TextView) findViewById(R.id.pageTitle);
         pageTitle.setText("Las Estaciones y los Meses del Ano");
@@ -67,17 +88,61 @@ public class SeasonsMain extends BaseActivityDrawer {
     public void moveToNewActivity(View v){
         String idAsString = v.getResources().getResourceName(v.getId());
         if(idAsString.equals("com.grammar.trocket.grammar:id/springBtn")){
-            startActivity(new Intent(SeasonsMain.this, SeasonsFirstActivity.class));
+            Intent intent = new Intent(SeasonsMain.this, SeasonsFirstActivity.class);
+            startActivity(intent);
         }
         else if(idAsString.equals("com.grammar.trocket.grammar:id/summerBtn")){
-            startActivity(new Intent(SeasonsMain.this, SeasonsSecondActivity.class));
+            Intent intent = new Intent(SeasonsMain.this, SeasonsSecondActivity.class);
+            startActivity(intent);
         }
         else if(idAsString.equals("com.grammar.trocket.grammar:id/autumnBtn")){
-            startActivity(new Intent(SeasonsMain.this, SeasonsThirdActivity.class));
+            Intent intent = new Intent(SeasonsMain.this, SeasonsThirdActivity.class);
+            startActivity(intent);
         }
         else{
-            startActivity(new Intent(SeasonsMain.this, SeasonsFourthActivity.class));
+            Intent intent = new Intent(SeasonsMain.this, SeasonsFourthActivity.class);
+            startActivity(intent);
         }
+    }
+
+
+    /**
+     * Gets data to pass to adapter
+     *
+     *
+     **/
+    private List<FestivalTimeItem> getData() {
+        cItemData = new ArrayList<ClusterItem>();
+
+        String clusterString = "";
+        GetJSON getcluster = new GetJSON(activity, TableNames.CLUSTER_TABLE, "parentId", (id + ""));
+        try {
+            clusterString = getcluster.execute().get();
+            Log.w("Seasons", clusterString);
+
+            JSONArray jsonArray = new JSONArray(clusterString);
+            JSONObject cluster = jsonArray.getJSONObject(0);
+            String clusterId = cluster.get(TableNames.CLUSTER_ID).toString();
+
+            String cItems = "";
+            GetJSON getCItems = new GetJSON(activity, TableNames.CLUSTERITEM_TABLE, "parentId", clusterId);
+            cItems = getCItems.execute().get();
+            Log.w("Festivals", cItems);
+            JSONArray cItemArray = new JSONArray(cItems);
+            for(int i = 0; i< cItemArray.length(); ++i){
+                JSONObject jObject = cItemArray.getJSONObject(i);
+                String foreign = jObject.get(TableNames.THUMBNAILTAPITEM_NAME).toString();
+                String english = jObject.get(TableNames.THUMBNAILTAPITEM_TRANSLATION).toString();
+                String url = jObject.get(TableNames.THUMBNAILTAPITEM_FULLIMAGEURL).toString();
+                String id = jObject.get(TableNames.THUMBNAILTAPITEM_ID).toString();
+                festData.add(new FestivalTimeItem(foreign,english,url,id));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return festData;
     }
 
 }

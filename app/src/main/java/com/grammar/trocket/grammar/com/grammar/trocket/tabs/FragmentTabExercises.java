@@ -128,6 +128,12 @@ public class FragmentTabExercises extends Fragment {
                 return R.drawable.ic_dating;
             case "R.drawable.ic_shopping":
                 return R.drawable.ic_shopping;
+            case "R.drawable.ic_home":
+                return R.drawable.ic_home;
+            case "R.drawable.ic_travel":
+                return R.drawable.ic_travel;
+            case "R.drawable.ic_world":
+                return R.drawable.ic_world;
         }
         return 0;
     }

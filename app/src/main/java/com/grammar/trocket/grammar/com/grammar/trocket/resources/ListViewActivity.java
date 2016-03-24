@@ -23,13 +23,14 @@ public class ListViewActivity extends BaseActivityDrawer {
 
 
     String dialect;
-    String callerInfo;
+    String type;
     Locale language;
     ListView listView;
-    ArrayList<String> data = new ArrayList<String>();
+    ArrayList<NumberCalendarItem> data = new ArrayList<>();
     LinearLayout linerLayout;
     TextToSpeech textToSpeech;
     MediaPlayer player;
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class ListViewActivity extends BaseActivityDrawer {
 
         listView = (ListView) findViewById(R.id.listView);
         linerLayout = (LinearLayout)findViewById(R.id.linerLayout);
+
 
         assignLanguage();
         assignStringArray();
@@ -55,15 +57,18 @@ public class ListViewActivity extends BaseActivityDrawer {
      */
     public void assignStringArray(){
         Intent intent = getIntent();
-        ListViewActivityItems listViewActivityItems = new ListViewActivityItems();
+        id = intent.getIntExtra(DialectDialog.CALLER_INFO, -1);
+        ListViewActivityItems listViewActivityItems = new ListViewActivityItems(ListViewActivity.this, id);
+        Log.w("currentItem.id", Integer.toString(id));
 
-        callerInfo = intent.getStringExtra(DialectDialog.CALLER_INFO);
-        if(callerInfo.equals("El Calendario")){
-            data = listViewActivityItems.getCalendarArray();
-        }
-        else {
-            data = listViewActivityItems.getNummberArray();
-        }
+        type = intent.getStringExtra("type");
+        data = listViewActivityItems.getArray();
+//        if(type.equals("calendar")){
+//            data = listViewActivityItems.getCalendarArray();
+//        }
+//        else {
+//            data = listViewActivityItems.getNummberArray();
+//        }
 
     }
 

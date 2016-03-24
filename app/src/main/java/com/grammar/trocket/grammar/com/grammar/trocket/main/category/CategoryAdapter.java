@@ -62,6 +62,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
         categoryViewHolder.desc.setText(categorys.get(i).desc);
         categoryViewHolder.icon.setImageResource(categorys.get(i).icon);
         categoryViewHolder.currentItem = categorys.get(i);
+        categoryViewHolder.contentType = categorys.get(i).contentId;
 
         //If an exercise rename buttons
         if (!categoryViewHolder.categories.get(i).isResource) {
@@ -87,13 +88,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
                     JSONObject button = jsonArray.getJSONObject(k);
                     String name = button.get(TableNames.CATEGORY_NAME).toString();
                     int order;
+                    int id;
+                    int contentId;
                     try {
                         order = Integer.parseInt(button.get(TableNames.CATEGORY_HIERARCHY).toString());
+                        id = Integer.parseInt(button.get(TableNames.CATEGORY_ID).toString());
+                        contentId = Integer.parseInt(button.get(TableNames.CATEGORY_CONTENT).toString());
                     } catch (NumberFormatException e) {
                         order = 0;
+                        id = 0;
+                        contentId = 0;
                     }
 
-                    cardButtonArrayList.add(new CardButton(name, order));
+                    cardButtonArrayList.add(new CardButton(name, order, id, contentId));
                 }
 
                 Collections.sort(cardButtonArrayList);
