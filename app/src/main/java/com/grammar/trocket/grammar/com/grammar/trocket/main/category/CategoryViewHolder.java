@@ -81,6 +81,9 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         checkResource();
         makeOnClicks();
 
+
+
+
     }
 
     /**
