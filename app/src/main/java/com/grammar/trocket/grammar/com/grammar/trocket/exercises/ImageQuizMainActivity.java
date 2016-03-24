@@ -52,8 +52,6 @@ public class ImageQuizMainActivity extends Activity {
         findAllViews();
         getSelectedQuizPosition();
 
-
-
         handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
