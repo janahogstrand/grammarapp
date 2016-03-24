@@ -1,6 +1,7 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.backend;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -22,13 +23,18 @@ public class GetJSON extends AsyncTask<String, String, String> {
     private String table;
     private String field;
     private String id;
+    private ProgressDialog progressDialog;
 
     public GetJSON(Activity activity, String table, String field ,String id){
         this.activity = activity;
         this.table = table;
         this.field = field;
         this.id = id;
-
+        this.progressDialog = new ProgressDialog(activity);
+        progressDialog.setMessage("Fetching data...");
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+        //progressDialog.show();
     }
 
     public GetJSON(Activity activity, String table, String field){
@@ -36,6 +42,11 @@ public class GetJSON extends AsyncTask<String, String, String> {
         this.table = table;
         this.field = field;
         this.id = "";
+        this.progressDialog = new ProgressDialog(activity);
+        progressDialog.setMessage("Fetching data...");
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+        //progressDialog.show();
     }
 
     public GetJSON(Activity activity, String table){
@@ -43,41 +54,33 @@ public class GetJSON extends AsyncTask<String, String, String> {
         this.table = table;
         this.field = "";
         this.id = "";
+        this.progressDialog = new ProgressDialog(activity);
+        progressDialog.setMessage("Fetching data...");
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+        //progressDialog.show();
     }
 
         //private ProgressDialog progressDialog = new ProgressDialog(activity);
         InputStream inputStream = null;
         String result = "";
 
-//    private String processJSON(){
-//        String jsonQueryResult = null;
-//        if(!jsonData.equals("[]")) {
-//            try {
-//                JSONArray jsonArray = new JSONArray(jsonData);
-//                Log.i("Columns", table);
-//                Log.i("JSON", (Integer.toString(jsonArray.getJSONObject(0).length())));
-//
-//                for (int j = 0; j < jsonArray.length(); ++j) {
-//                    JSONObject jObject = jsonArray.getJSONObject(j);
-//                    Log.w("JSON: ", jObject.toString());
-//                    //Log.w("JSON name: ", jObject.get("name").toString());
-//                    jsonQueryResult = jObject.toString();
-//                }
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//                Log.i("Result", "No JSON data at api link");
-//                return null;
-//            }
-//        } else {
-//            Log.i("Result", "No JSON data at api link");
-//            return null;
-//        }
-//        return jsonQueryResult;
-//    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+//        this.progressDialog = new ProgressDialog(activity);
+//        progressDialog.setMessage("Fetching data...");
+        progressDialog.show();
+
+        Log.w("Progess Dialog", "...");
+
+
+
+    }
 
     @Override
     protected String doInBackground(String... params) {
-
         URL url;
         HttpURLConnection urlConnection = null;
         String result = null;
@@ -106,7 +109,18 @@ public class GetJSON extends AsyncTask<String, String, String> {
             e.printStackTrace();
         }
         //result = processJSON();
+        //if(progressDialog.isShowing()){
+            progressDialog.dismiss();
+        //}
             return jsonData;
 
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+//        if(progressDialog.isShowing()){
+//            progressDialog.dismiss();
+//        }
     }
 }
