@@ -96,12 +96,12 @@ public class TextQuizMainActivity extends Activity {
         answerOption4.setText(answerOptionArray[3]);
         answerOption5.setText(answerOptionArray[4]);
         answerOption6.setText(answerOptionArray[5]);
-//        if(answerOptionArray[0].equals("")){answerOption1.setVisibility(View.INVISIBLE);}
-//        if(answerOptionArray[1].equals("")){answerOption2.setVisibility(View.INVISIBLE);}
-//        if(answerOptionArray[2].equals("")){answerOption3.setVisibility(View.INVISIBLE);}
-//        if(answerOptionArray[3].equals("")){answerOption4.setVisibility(View.INVISIBLE);}
-//        if(answerOptionArray[4].equals("")){answerOption5.setVisibility(View.INVISIBLE);}
-//        if(answerOptionArray[5].equals("")){answerOption6.setVisibility(View.INVISIBLE);}
+        if(answerOptionArray[0] == null){answerOption1.setVisibility(View.INVISIBLE);}
+        if(answerOptionArray[1] == null){answerOption2.setVisibility(View.INVISIBLE);}
+        if(answerOptionArray[2] == null){answerOption3.setVisibility(View.INVISIBLE);}
+        if(answerOptionArray[3] == null){answerOption4.setVisibility(View.INVISIBLE);}
+        if(answerOptionArray[4] == null){answerOption5.setVisibility(View.INVISIBLE);}
+        if(answerOptionArray[5] == null){answerOption6.setVisibility(View.INVISIBLE);}
     }
 
     /**
