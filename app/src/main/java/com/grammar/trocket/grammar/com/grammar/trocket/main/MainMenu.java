@@ -1,12 +1,17 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.main;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -34,6 +39,7 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 public class MainMenu extends BaseActivityDrawer {
+
 
     //TODO Shared prefs
     public static ProgressDialog progressDialog;
@@ -86,9 +92,8 @@ public class MainMenu extends BaseActivityDrawer {
         setContentView(R.layout.activity_main_menu);
         super.onCreateDrawer();
         this.context = this.getApplicationContext();
-
         loadPrefs(MainMenu.this);
-
+        SharedPreferences  settings = PreferenceManager.getDefaultSharedPreferences(context);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -247,6 +252,7 @@ public class MainMenu extends BaseActivityDrawer {
 
     }
 
+
 //    private void loadDatabase(final Context context) {
 //        db = TableNames.getInstance(context);
 //        db.onCreate(db.getWritableDatabase());
@@ -343,5 +349,17 @@ public class MainMenu extends BaseActivityDrawer {
         }
 
 
+    }
+
+    public boolean checkConnection() {
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            connected = true;
+        } else
+            connected = false;
+        return connected;
     }
 }
