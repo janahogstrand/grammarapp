@@ -1,5 +1,7 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary;
 
+import android.util.Log;
+
 /**
  * Created by jamiemoreland on 18/03/16.
  * This class is for an Alphabet Item
@@ -7,7 +9,7 @@ package com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDic
  * its a dictionary item, if so this will change on click
  * functionality
  */
-public class AlphabetItem {
+public class AlphabetItem{
     private String letter;
     private boolean isDictionary;
 
@@ -29,6 +31,10 @@ public class AlphabetItem {
      * */
     public boolean getIsDictionary(){
         return isDictionary;
+    }
+
+    public String toString(){
+        return letter;
     }
 
 }
