@@ -34,6 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -60,13 +61,14 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
     int index;
     int contentType;
     Intent intent;
+    ArrayList<CardButton> cardButtonArrayList;
     //SQLiteDatabase myDatabase = ModuleSelection.db.getWritableDatabase();
 
     /**
      * Init views
      * Set on click listener
      **/
-    CategoryViewHolder(View itemView, List<Category> categories) {
+    CategoryViewHolder(View itemView, List<Category> categories, ArrayList<CardButton> cardButtonArrayList) {
         super(itemView);
         this.categories = categories;
         cv = (CardView) itemView.findViewById(R.id.cv);
@@ -76,10 +78,14 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         observe = (Button) itemView.findViewById(R.id.observe);
         reflect = (Button) itemView.findViewById(R.id.reflect);
         experiment = (Button) itemView.findViewById(R.id.experiment);
+        this.cardButtonArrayList = cardButtonArrayList;
 
         view = itemView;
         checkResource();
         makeOnClicks();
+
+
+
 
     }
 
@@ -125,9 +131,14 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
         JSONObject cardChild = jsonArray.getJSONObject(clickedIndex);
 
-        Log.w("Child of parent:", cardChild.get(TableNames.CATEGORY_NAME).toString());
+        Log.w("Wrong child of parent:", cardChild.get(TableNames.CATEGORY_NAME).toString());
+        Log.w("Real Child of parent:", cardButtonArrayList.get(clickedIndex).getName());
 
-        int clickedCategoryID = Integer.parseInt(cardChild.get(TableNames.CATEGORY_ID).toString());
+
+        //int clickedCategoryID = Integer.parseInt(cardChild.get(TableNames.CATEGORY_ID).toString());
+
+        int clickedCategoryID = cardButtonArrayList.get(clickedIndex).getId();
+
 
         if (isQuiz) {
             buttonChildren = searchParentQuiz(clickedCategoryID);
@@ -228,13 +239,13 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             Log.w("Found: ", title);
 
             //Need two videos
-            if(urlSub != null){
+            if(urlSub.equals("null")){
+                arrayAdapter.add(title);
+            } else {
                 arrayAdapter.add(title + with);
                 arrayAdapter.add(title + without);
-                videoList.add(new VideoItem(title + with, url, id));
-                videoList.add(new VideoItem(title + without, urlSub, id));
-            } else {
-                arrayAdapter.add(title);
+                videoList.add(new VideoItem(title + with, urlSub, id));
+                videoList.add(new VideoItem(title + without, url, id));
             }
 
             videoList.add(new VideoItem(title, url, id));

@@ -48,37 +48,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     @Override
     public CategoryViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_category, viewGroup, false);
-        CategoryViewHolder cvh = new CategoryViewHolder(v, categorys);
-        return cvh;
-    }
+        CategoryViewHolder cvh = new CategoryViewHolder(v, categorys, null);
 
-
-    /**
-     * Add values
-     **/
-    @Override
-    public void onBindViewHolder(CategoryViewHolder categoryViewHolder, int i) {
-        categoryViewHolder.catName.setText(categorys.get(i).name);
-        categoryViewHolder.desc.setText(categorys.get(i).desc);
-        categoryViewHolder.icon.setImageResource(categorys.get(i).icon);
-        categoryViewHolder.currentItem = categorys.get(i);
-        categoryViewHolder.contentType = categorys.get(i).contentId;
-
-        //If an exercise rename buttons
-        if (!categoryViewHolder.categories.get(i).isResource) {
+        if(!categorys.get(i).isResource){
             int catID = categorys.get(i).id;
+            //If an exercise rename buttons
 
             String catString;
-            GetJSON getButtonCategories = new GetJSON((Activity) categoryViewHolder.view.getContext(), TableNames.CATEGORY_TABLE, "parentId", (catID + ""));
+            GetJSON getButtonCategories = new GetJSON((Activity) v.getContext(), TableNames.CATEGORY_TABLE, "parentId", (catID + ""));
             try {
                 catString = getButtonCategories.execute().get();
-                //Log.w("buttons", catString);
-
-                //SET INVISIBLE
-                categoryViewHolder.observe.setVisibility(View.INVISIBLE);
-                categoryViewHolder.reflect.setVisibility(View.INVISIBLE);
-                categoryViewHolder.experiment.setVisibility(View.INVISIBLE);
-
                 ArrayList<CardButton> cardButtonArrayList = new ArrayList<CardButton>();
 
                 JSONArray jsonArray = new JSONArray(catString);
@@ -105,28 +84,50 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
 
                 Collections.sort(cardButtonArrayList);
 
+
+
+                cvh = new CategoryViewHolder(v, categorys, cardButtonArrayList);
+
                 for (int j = 0; j < cardButtonArrayList.size(); ++j) {
+                    Log.w("Card order", cardButtonArrayList.get(j).getOrder() + ""  + "-" + cardButtonArrayList.get(j).getName());
                     //JSONObject jObject = jsonArray.getJSONObject(j);
                     String name = cardButtonArrayList.get(j).getName();
                     if (j == 0) {
-                        categoryViewHolder.observe.setText(name);
-                        categoryViewHolder.observe.setVisibility(View.VISIBLE);
+                        cvh.observe.setText(name);
+                        cvh.observe.setVisibility(View.VISIBLE);
                     } else if (j == 1) {
-                        categoryViewHolder.reflect.setText(name);
-                        categoryViewHolder.reflect.setVisibility(View.VISIBLE);
+                        cvh.reflect.setText(name);
+                        cvh.reflect.setVisibility(View.VISIBLE);
                     } else if (j == 2) {
-                        categoryViewHolder.experiment.setText(name);
-                        categoryViewHolder.experiment.setVisibility(View.VISIBLE);
+                        cvh.experiment.setText(name);
+                        cvh.experiment.setVisibility(View.VISIBLE);
                     }
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else {
+            if (categorys.get(i).isResource) {
+                cvh.observe.setVisibility(View.INVISIBLE);
+                cvh.reflect.setVisibility(View.INVISIBLE);
+                cvh.experiment.setVisibility(View.INVISIBLE);
+            }
         }
+
+        return cvh;
+    }
+
+
+    /**
+     * Add values
+     **/
+    @Override
+    public void onBindViewHolder(CategoryViewHolder categoryViewHolder, int i) {
+        categoryViewHolder.catName.setText(categorys.get(i).name);
+        categoryViewHolder.desc.setText(categorys.get(i).desc);
+        categoryViewHolder.icon.setImageResource(categorys.get(i).icon);
+        categoryViewHolder.currentItem = categorys.get(i);
+        categoryViewHolder.contentType = categorys.get(i).contentId;
 
     }
 
