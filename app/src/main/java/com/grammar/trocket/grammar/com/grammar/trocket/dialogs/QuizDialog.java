@@ -3,7 +3,6 @@ package com.grammar.trocket.grammar.com.grammar.trocket.dialogs;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.widget.ArrayAdapter;
 
@@ -11,7 +10,7 @@ import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Quiz;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.image_quiz.Image_Quiz_Main;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.audio_quiz.AudioQuizMainActivity;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.multiple_quiz.MultipleQuizMainActivity;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.TextQuizMainActivity;
 
 import org.json.JSONArray;
 
@@ -22,7 +21,8 @@ import java.util.ArrayList;
  */
 public class QuizDialog extends AlertDialog.Builder {
 
-    public final static String SELECTED_QUIZ = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE";
+    public static int SELECTED_QUIZ_POSITION = 0;
+    public final static String SELECTED_QUIZ_TYPE = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE";
 
     Context context;
     Intent intent;
@@ -77,7 +77,8 @@ public class QuizDialog extends AlertDialog.Builder {
                             case "Picture":  intent = new Intent(context, Image_Quiz_Main.class);
                         }
 
-                       intent.putExtra(SELECTED_QUIZ, position);
+                        SELECTED_QUIZ_POSITION = position;
+                        intent.putExtra(SELECTED_QUIZ_TYPE, quizList.get(position).getQuizType());
 
 
                         context.startActivity(intent);

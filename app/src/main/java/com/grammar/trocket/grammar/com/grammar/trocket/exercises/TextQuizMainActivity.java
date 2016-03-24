@@ -1,4 +1,4 @@
-package com.grammar.trocket.grammar.com.grammar.trocket.exercises.text_quiz;
+package com.grammar.trocket.grammar.com.grammar.trocket.exercises;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,8 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.QuizDialog;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Questions;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizStatisticsActivity;
 
 import java.util.ArrayList;
 
@@ -26,15 +24,20 @@ public class TextQuizMainActivity extends Activity {
     public Button answerOption4;
     public Button answerOption5;
     public Button answerOption6;
+
     public quizzesQuestions quizzesQuestions;
-    public quizzesAnswers answersList;
     public ArrayList<Questions> questionsList;
+    public quizzesAnswers answersList;
+
     public String correctAnswer;
     public Questions currentQuestion;
     public String[] answerOptionArray;
+
+
     public int successCounter = 0;
     public int mistakeCounter = 0;
     public int questionNumber = 0;
+    public String selectedQuizType;
     public int selectedQuizPosition;
 
     public final static String EXTRA_MESSAGE = "com.firasaltayeb.quizbutton.MESSAGE";
@@ -49,7 +52,7 @@ public class TextQuizMainActivity extends Activity {
         findAllViews();
         getSelectedQuizPosition();
 
-        quizzesQuestions = new quizzesQuestions(TextQuizMainActivity.this,selectedQuizPosition);
+        quizzesQuestions = new quizzesQuestions(TextQuizMainActivity.this,selectedQuizPosition,selectedQuizType);
         questionsList = quizzesQuestions.getQuizQuestions();
         answersList = new quizzesAnswers(TextQuizMainActivity.this, questionsList);
 
@@ -68,9 +71,13 @@ public class TextQuizMainActivity extends Activity {
         answerOption6 = (Button) findViewById(R.id.answerOption6);
     }
 
+    /**
+     * This method gets the position and the type of the chosen quiz.
+     */
     public void getSelectedQuizPosition(){
         Intent intent = getIntent();
-        selectedQuizPosition = intent.getIntExtra(QuizDialog.SELECTED_QUIZ, 0);
+        selectedQuizPosition = QuizDialog.SELECTED_QUIZ_POSITION;
+        selectedQuizType = intent.getStringExtra(QuizDialog.SELECTED_QUIZ_TYPE);
     }
 
     /**

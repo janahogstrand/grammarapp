@@ -13,7 +13,7 @@ import android.view.Window;
 import android.widget.CheckBox;
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizStatisticsActivity;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.TextQuizMainActivity;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;

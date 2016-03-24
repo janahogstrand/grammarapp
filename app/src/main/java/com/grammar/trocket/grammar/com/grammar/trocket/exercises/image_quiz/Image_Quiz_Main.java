@@ -13,7 +13,7 @@ import android.widget.ImageView;
 
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizStatisticsActivity;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.TextQuizMainActivity;
 import com.squareup.picasso.Picasso;
 
 

@@ -11,10 +11,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.QuizDialog;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Questions;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizStatisticsActivity;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.text_quiz.TextQuizMainActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.TextQuizMainActivity;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.quizzesAnswers;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.quizzesQuestions;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class AudioQuizMainActivity extends Activity {
@@ -26,12 +31,19 @@ public class AudioQuizMainActivity extends Activity {
     public Button answerOption4;
     public Button answerOption5;
     public Button answerOption6;
-    public AudioQuizQuestionsList questionsAddresses;
-    public AudioQuizAnswerList answersList;
-    public String[] questionsAddressesArray;
+
+
+    public quizzesQuestions quizzesQuestions;
+    public ArrayList<Questions> questionsList;
+    public quizzesAnswers answersList;
+
     public String correctAnswer;
-    public String currentQuestionAddress;
+    public Questions currentQuestion;
     public String[] answerOptionArray;
+
+    public String selectedQuizType;
+    public int selectedQuizPosition;
+
     public int successCounter = 0;
     public int mistakeCounter = 0;
     public int questionNumber = 0;
@@ -39,16 +51,19 @@ public class AudioQuizMainActivity extends Activity {
     public Locale language;
     public MediaPlayer player;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio_quiz_main);
 
         findAllViews();
+        getSelectedQuizPosition();
 
-        questionsAddresses = new AudioQuizQuestionsList();
-        answersList = new AudioQuizAnswerList();
-        questionsAddressesArray = questionsAddresses.createArray();
+        quizzesQuestions = new quizzesQuestions(AudioQuizMainActivity.this,selectedQuizPosition, selectedQuizType);
+        questionsList = quizzesQuestions.getQuizQuestions();
+        answersList = new quizzesAnswers(AudioQuizMainActivity.this, questionsList);
+
         assignVariables();
         assignViews();
         assignLanguage();
@@ -62,6 +77,16 @@ public class AudioQuizMainActivity extends Activity {
         answerOption5 = (Button) findViewById(R.id.answerOption5);
         answerOption6 = (Button) findViewById(R.id.answerOption6);
     }
+
+    /**
+     * This method gets the position and the type of the chosen quiz.
+     */
+    public void getSelectedQuizPosition(){
+        Intent intent = getIntent();
+        selectedQuizPosition = QuizDialog.SELECTED_QUIZ_POSITION;
+        selectedQuizType = intent.getStringExtra(QuizDialog.SELECTED_QUIZ_TYPE);
+    }
+
 
 
     /** 
@@ -85,10 +110,12 @@ public class AudioQuizMainActivity extends Activity {
      * CorrectAnswer is assigned the current question's correct answer.
      */
     public void assignVariables(){
-        currentQuestionAddress = questionsAddressesArray[questionNumber];
-        answerOptionArray = answersList.getAnswerOptions(currentQuestionAddress);
-        correctAnswer = answersList.getCorrectAnswer(currentQuestionAddress);
+        currentQuestion = questionsList.get(questionNumber);
+        correctAnswer = answersList.getCorrectAnswer(currentQuestion);
+        answerOptionArray = answersList.getAnswerOptions(currentQuestion);
     }
+
+
 
     /**
      * The TextView is assigned the current question and the each of the button
@@ -101,6 +128,12 @@ public class AudioQuizMainActivity extends Activity {
         answerOption4.setText(answerOptionArray[3]);
         answerOption5.setText(answerOptionArray[4]);
         answerOption6.setText(answerOptionArray[5]);
+        if(answerOptionArray[0] == null){answerOption1.setVisibility(View.INVISIBLE);}
+        if(answerOptionArray[1] == null){answerOption2.setVisibility(View.INVISIBLE);}
+        if(answerOptionArray[2] == null){answerOption3.setVisibility(View.INVISIBLE);}
+        if(answerOptionArray[3] == null){answerOption4.setVisibility(View.INVISIBLE);}
+        if(answerOptionArray[4] == null){answerOption5.setVisibility(View.INVISIBLE);}
+        if(answerOptionArray[5] == null){answerOption6.setVisibility(View.INVISIBLE);}
     }
 
     /**
@@ -229,9 +262,9 @@ public class AudioQuizMainActivity extends Activity {
         }catch (Exception e){}
 
         try {
-            setAudio(currentQuestionAddress);
+            setAudio(currentQuestion.getName());
         } catch (Exception e) {
-            textToSpeech.speak(currentQuestionAddress, TextToSpeech.QUEUE_FLUSH, null);
+            textToSpeech.speak(currentQuestion.getName(), TextToSpeech.QUEUE_FLUSH, null);
         }
     }
 
