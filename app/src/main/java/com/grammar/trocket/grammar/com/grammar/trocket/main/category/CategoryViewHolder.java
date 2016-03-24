@@ -135,9 +135,9 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         //Log.w("Real Child of parent:", cardButtonArrayList.get(clickedIndex).getName());
 
 
-        //int clickedCategoryID = Integer.parseInt(cardChild.get(TableNames.CATEGORY_ID).toString());
+        int clickedCategoryID = Integer.parseInt(cardChild.get(TableNames.CATEGORY_ID).toString());
 
-        int clickedCategoryID = cardButtonArrayList.get(clickedIndex).getId();
+        //int clickedCategoryID = cardButtonArrayList.get(clickedIndex).getId();
 
 
         if (isQuiz) {
