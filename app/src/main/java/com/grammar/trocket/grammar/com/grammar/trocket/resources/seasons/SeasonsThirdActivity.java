@@ -72,15 +72,30 @@ public class SeasonsThirdActivity extends AppCompatActivity {
         Button clickedButton = (Button) v;
         stopAllSound();
         try {
-            if (clickedButton.getText().toString().equals("septiembre"))
+            if (clickedButton.equals(redOne))
             {
-                setAudio(SeasonsMain.cSubItemData.get(6).getAudioUrl());
-            } else if (clickedButton.getText().toString().equals("octubre"))
+                if(SeasonsMain.cSubItemData.get(6).getAudioUrl().equals("null")) {
+                    String viewTextAsString = clickedButton.getText().toString();
+                    textToSpeech.speak(viewTextAsString, TextToSpeech.QUEUE_FLUSH, null);
+                } else {
+                    setAudio(SeasonsMain.cSubItemData.get(6).getAudioUrl());
+                }
+            } else if (clickedButton.equals(redTwo))
             {
-                setAudio(SeasonsMain.cSubItemData.get(7).getAudioUrl());
-            } else if (clickedButton.getText().toString().equals("noviembre"))
+                if(SeasonsMain.cSubItemData.get(7).getAudioUrl().equals("null")) {
+                    String viewTextAsString = clickedButton.getText().toString();
+                    textToSpeech.speak(viewTextAsString, TextToSpeech.QUEUE_FLUSH, null);
+                } else {
+                    setAudio(SeasonsMain.cSubItemData.get(7).getAudioUrl());
+                }
+            } else if (clickedButton.equals(redThree))
             {
-                setAudio(SeasonsMain.cSubItemData.get(8).getAudioUrl());
+                if(SeasonsMain.cSubItemData.get(8).getAudioUrl().equals("null")) {
+                    String viewTextAsString = clickedButton.getText().toString();
+                    textToSpeech.speak(viewTextAsString, TextToSpeech.QUEUE_FLUSH, null);
+                } else {
+                    setAudio(SeasonsMain.cSubItemData.get(8).getAudioUrl());
+                }
             }
         } catch (Exception e) {
             String viewTextAsString = clickedButton.getText().toString();

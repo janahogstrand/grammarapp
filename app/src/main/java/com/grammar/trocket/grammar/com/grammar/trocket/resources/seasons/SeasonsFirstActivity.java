@@ -72,15 +72,30 @@ public class SeasonsFirstActivity extends AppCompatActivity {
         Button clickedButton = (Button) view;
         stopAllSound();
         try {
-            if (clickedButton.getText().toString().equals("marzo"))
+            if (clickedButton.equals(pinkOne))
             {
-                setAudio(SeasonsMain.cSubItemData.get(0).getAudioUrl());
-            } else if (clickedButton.getText().toString().equals("abril"))
+                if(SeasonsMain.cSubItemData.get(0).getAudioUrl().equals("null")) {
+                    String viewTextAsString = clickedButton.getText().toString();
+                    textToSpeech.speak(viewTextAsString, TextToSpeech.QUEUE_FLUSH, null);
+                } else {
+                    setAudio(SeasonsMain.cSubItemData.get(0).getAudioUrl());
+                }
+            } else if (clickedButton.equals(pinkTwo))
             {
-                setAudio(SeasonsMain.cSubItemData.get(1).getAudioUrl());
-            } else if (clickedButton.getText().toString().equals("mayo"))
+                if(SeasonsMain.cSubItemData.get(1).getAudioUrl().equals("null")) {
+                    String viewTextAsString = clickedButton.getText().toString();
+                    textToSpeech.speak(viewTextAsString, TextToSpeech.QUEUE_FLUSH, null);
+                } else {
+                    setAudio(SeasonsMain.cSubItemData.get(1).getAudioUrl());
+                }
+            } else if (clickedButton.equals(pinkThree))
             {
-                setAudio(SeasonsMain.cSubItemData.get(2).getAudioUrl());
+                if(SeasonsMain.cSubItemData.get(2).getAudioUrl().equals("null")) {
+                    String viewTextAsString = clickedButton.getText().toString();
+                    textToSpeech.speak(viewTextAsString, TextToSpeech.QUEUE_FLUSH, null);
+                } else {
+                    setAudio(SeasonsMain.cSubItemData.get(2).getAudioUrl());
+                }
             }
         } catch (Exception e) {
             String viewTextAsString = clickedButton.getText().toString();
