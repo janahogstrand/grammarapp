@@ -42,9 +42,9 @@ public class SeasonsFirstActivity extends AppCompatActivity {
      * in the Main content.
      */
     public void assignText() {
-        pinkOne.setText("marzo");
-        pinkTwo.setText("abril");
-        pinkThree.setText("mayo");
+        pinkOne.setText(SeasonsMain.cSubItemData.get(0).getName());
+        pinkTwo.setText(SeasonsMain.cSubItemData.get(1).getName());
+        pinkThree.setText(SeasonsMain.cSubItemData.get(2).getName());
     }
 
     /**
@@ -74,20 +74,18 @@ public class SeasonsFirstActivity extends AppCompatActivity {
         try {
             if (clickedButton.getText().toString().equals("marzo"))
             {
-                setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
+                setAudio(SeasonsMain.cSubItemData.get(0).getAudioUrl());
             } else if (clickedButton.getText().toString().equals("abril"))
             {
-                setAudio("");
+                setAudio(SeasonsMain.cSubItemData.get(1).getAudioUrl());
             } else if (clickedButton.getText().toString().equals("mayo"))
             {
-                setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
+                setAudio(SeasonsMain.cSubItemData.get(2).getAudioUrl());
             }
         } catch (Exception e) {
             String viewTextAsString = clickedButton.getText().toString();
             textToSpeech.speak(viewTextAsString, TextToSpeech.QUEUE_FLUSH, null);
         }
-
-
     }
 
     /**
