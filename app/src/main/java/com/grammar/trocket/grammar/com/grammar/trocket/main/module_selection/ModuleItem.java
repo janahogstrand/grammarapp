@@ -39,4 +39,5 @@ public class ModuleItem {
 //    public void addDialect(ArrayList<DialectItem> dialects){
 //        this.dialects = dialects;
 //    }
+
 }

@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by firasAltayeb on 15/02/2016.
  */
-public class QuizzesQuestions {
+class QuizzesQuestions {
 
 
     public Quiz selectedQuiz;

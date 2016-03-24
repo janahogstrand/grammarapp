@@ -7,9 +7,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleItem;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleSelection;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.Credits;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.VoiceRecording;
 
 /**
@@ -88,6 +91,11 @@ public class BaseActivityDrawer extends AppCompatActivity implements NavigationV
                 item.setTitle("Play Recording");
                 startPlaying = true;
             }
+        }
+
+        if (id == R.id.nav_credits){
+            Intent intent = new Intent(BaseActivityDrawer.this, Credits.class);
+            startActivity(intent);
         }
 
         return true;
