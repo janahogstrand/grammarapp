@@ -2,6 +2,7 @@ package com.grammar.trocket.grammar.com.grammar.trocket.resources;
 
 import android.content.Intent;
 import android.media.AudioManager;
+import android.os.Handler;
 import android.util.Log;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizzesAnswers;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizzesQuestions;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
 
 
@@ -21,15 +24,13 @@ import java.util.Locale;
 
 public class ListViewActivity extends BaseActivityDrawer {
 
-
-    String dialect;
-    String type;
     Locale language;
     ListView listView;
     ArrayList<NumberCalendarItem> data = new ArrayList<>();
     LinearLayout linerLayout;
     TextToSpeech textToSpeech;
     MediaPlayer player;
+     Handler handler;
     int id;
 
     @Override
@@ -41,12 +42,17 @@ public class ListViewActivity extends BaseActivityDrawer {
         listView = (ListView) findViewById(R.id.listView);
         linerLayout = (LinearLayout)findViewById(R.id.linerLayout);
 
+//        handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            public void run() {
+//
+//            }
+//        }, 100);
+
 
         assignLanguage();
         assignStringArray();
-
-        ListViewAdapter adapter =  new ListViewAdapter(this, data);
-
+        ListViewAdapter adapter = new ListViewAdapter(ListViewActivity.this, data);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(myOnClickListener);
 
@@ -59,16 +65,10 @@ public class ListViewActivity extends BaseActivityDrawer {
         Intent intent = getIntent();
         id = intent.getIntExtra(DialectDialog.CALLER_INFO, -1);
         ListViewActivityItems listViewActivityItems = new ListViewActivityItems(ListViewActivity.this, id);
+
         Log.w("currentItem.id", Integer.toString(id));
 
-        type = intent.getStringExtra("type");
         data = listViewActivityItems.getArray();
-//        if(type.equals("calendar")){
-//            data = listViewActivityItems.getCalendarArray();
-//        }
-//        else {
-//            data = listViewActivityItems.getNummberArray();
-//        }
 
     }
 
@@ -78,16 +78,7 @@ public class ListViewActivity extends BaseActivityDrawer {
      * the selected language.
      */
     public void assignLanguage(){
-        Intent intent = getIntent();
-
-        dialect = intent.getStringExtra(DialectDialog.DIALECT_INFO);
-        if(dialect.equals("Spanish")){
-            language = new Locale("es", "ES");
-        }
-        else {
-            language = new Locale("es", "US");
-        }
-
+        language = new Locale("es", "ES");
         textToSpeech=new TextToSpeech(ListViewActivity.this, new TextToSpeech.OnInitListener() {
             @Override public void onInit(int status) {
                 textToSpeech.setLanguage(language);
@@ -107,21 +98,17 @@ public class ListViewActivity extends BaseActivityDrawer {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             stopAllSound();
             String clickedView = String.valueOf(parent.getItemAtPosition(position));
+            //String selected = ((TextView) view.findViewById(R.id.your_textView_item_id)).getText().toString();
 
             try {
-                if (clickedView.equals("1"))
-                {
-                    setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
-                }
-                else if (clickedView.equals("2"))
-                {
-                    setAudio("https://www.dropbox.com/s/7mga5icr0uwep6h/U01-E05.mp3?raw=1");
-                }
-                else {
                     setAudio("");
-                }
 
             }catch (Exception e){
+
+                Log.d("clickedView", clickedView);
+                Log.d("clickedView", clickedView);
+                Log.d("clickedView", clickedView);
+                Log.d("clickedView", clickedView);
                 textToSpeech.speak(clickedView, TextToSpeech.QUEUE_FLUSH, null);
             }
 

@@ -51,6 +51,7 @@ public class ImageQuizMainActivity extends Activity {
 
         findAllViews();
         getSelectedQuizPosition();
+        questionView.setText("Loading Questions");
 
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -60,7 +61,7 @@ public class ImageQuizMainActivity extends Activity {
                 answersList = new QuizzesAnswers(ImageQuizMainActivity.this, questionsList, selectedQuizType);
                 assignVariables();
                 assignViews();
-                questionView.setText("Loading Questions");
+
             }
         }, 100);
 
