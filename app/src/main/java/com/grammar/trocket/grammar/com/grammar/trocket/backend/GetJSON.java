@@ -3,6 +3,9 @@ package com.grammar.trocket.grammar.com.grammar.trocket.backend;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,11 +15,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.UnknownHostException;
 
 /**
  * Created by jamiemoreland on 23/03/16.
  */
 public class GetJSON extends AsyncTask<String, String, String> {
+
+
 
     private Activity activity;
     private String table;
@@ -102,7 +108,7 @@ public class GetJSON extends AsyncTask<String, String, String> {
                 jsonData += (char) data;
                 data = isr.read();
             }
-        }catch (Exception e){
+        } catch (Exception e){
             e.printStackTrace();
         }
         //result = processJSON();

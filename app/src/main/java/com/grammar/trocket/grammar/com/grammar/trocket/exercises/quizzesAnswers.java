@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by firasAltayeb on 15/02/2016.
  */
-public class QuizzesAnswers {
+class QuizzesAnswers {
 
     public ArrayList<Question> questionsList;
     public Activity callingActivity;

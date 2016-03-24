@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_gravity="center_horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/textView2"
+            android:text="Credits \n \n Spanish Grammar and Vocabulary \n \n Copyright \n Modern Language Centre \n King’s College London 2016 \n \n Developers: \n Firas Altayeb \n Samuel Bridges \n Faisal Choura \n Jana Hogstrand \n Shristi Malla \n Jamie Moreland \n Ran Rana \n Rachel Tee \n \n Project Board: \n Initial stage: Dominique Borel and Catherine Brossard \n Final Stage: Dr. Ana María Sousa Aguiar de Medeiros and Anette Schroeder Rossell \n \n Project manager: \n Cecilia Trevino \n Instructional Design: Cecilia Trevino \n Content written by Cecilia Trevino with the help of Diego Iudicissa, Victoria \n Montesinos Gasser and Beatriz Sanitago. \n Content development: Cecilia Trevino and Philip Wallace \n Theme Design: Philip Wallace \n Language Consultancy: Alejandra Lopez Vazquez and Marta Nunez. \n Technical Consultancy: Philip Wallace and Vanessa Skiadelli. \n Video Scripts written by Cecilia Trevino \n Video Production: Vanessa Skiadelli and Cecilia Trevino. \n \n Voices: \n James Brillantes \n Cecilia Trevino \n Adrian Gordaliza-Vega \n Beatriz Santiago \n Lucia S. Moraga \n Alejandra Coutts-Lopez \n Diego de Jesús Flores-Jaime \n \n Audio recording and editing: James Brillantes and Cecilia Trevino \n Pictures selection and editing Victoria Montesinos Gasser and Cecilia Trevino \n Proofreading: Beatriz Santiago, Victoria Montesinos Gasser, Nick Shepherd, Tony \n Thorne and María Martínez Delgado Veiga. \n Testing: María Martínez Delgado Veiga. \n This project was funded by King’s College London Technology Enhanced Learning Fund. \n Special thanks to: \n \n Daniel Barrington and Dr. Ian Barrett from the Faculty of Arts and Humanities \n Nelly Mars and Teresa García form the Modern Language Centre. \n Professor Mark Russell, Elena Hernandez-Martin, and Vanessa Skiadelli, from the Centre of Technology Enhanced Learning. \n Dr. Erika Erdely Ruiz from the Centre for Mexican Studies National Autonomous \n University of Mexico (UNAM)-King’s College London. \n \n Credits for icons from the Noun Project (thenounproject.com) \n \n José Manuel de Laá \n Phil Goodwin \n Erica Margini \n Dominique Vicent \n Creative Stall \n Napoleon \n Icon Island \n Vera Lubimova \n Boudewijn Mijnlieff \n Danilo Celestino de Castro \n Noah Mormino \n Marie Van den Broeck \n Picons.me"/>
+    </ScrollView>
+
+</LinearLayout>
