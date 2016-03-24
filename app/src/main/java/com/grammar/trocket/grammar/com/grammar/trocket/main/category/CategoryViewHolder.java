@@ -229,12 +229,12 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
             //Need two videos
             if(urlSub.equals("null")){
+                arrayAdapter.add(title);
+            } else {
                 arrayAdapter.add(title + with);
                 arrayAdapter.add(title + without);
                 videoList.add(new VideoItem(title + with, urlSub, id));
                 videoList.add(new VideoItem(title + without, url, id));
-            } else {
-                arrayAdapter.add(title);
             }
 
             videoList.add(new VideoItem(title, url, id));

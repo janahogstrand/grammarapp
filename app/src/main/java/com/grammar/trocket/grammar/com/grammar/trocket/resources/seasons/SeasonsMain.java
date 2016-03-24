@@ -111,7 +111,7 @@ public class SeasonsMain extends BaseActivityDrawer {
      *
      *
      **/
-    private List<FestivalTimeItem> getData() {
+    private List<ClusterItem> getData() {
         cItemData = new ArrayList<ClusterItem>();
 
         String clusterString = "";
@@ -135,14 +135,14 @@ public class SeasonsMain extends BaseActivityDrawer {
                 String english = jObject.get(TableNames.THUMBNAILTAPITEM_TRANSLATION).toString();
                 String url = jObject.get(TableNames.THUMBNAILTAPITEM_FULLIMAGEURL).toString();
                 String id = jObject.get(TableNames.THUMBNAILTAPITEM_ID).toString();
-                festData.add(new FestivalTimeItem(foreign,english,url,id));
+                //cItemData.add(new FestivalTimeItem(foreign,english,url,id));
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return festData;
+        return cItemData;
     }
 
 }
