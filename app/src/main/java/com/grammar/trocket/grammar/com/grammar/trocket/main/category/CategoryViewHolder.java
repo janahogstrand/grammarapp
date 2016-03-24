@@ -188,8 +188,9 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             JSONObject child = buttonChildrenJSON.getJSONObject(i);
             String title = child.get(TableNames.QUIZ_INSTRUCTION).toString();
             String type = child.get(TableNames.QUIZ_KIND).toString();
+            int id = Integer.parseInt(child.get(TableNames.QUIZ_ID).toString());
             arrayAdapter.add(title);
-            quizList.add(new Quiz(title, type));
+            quizList.add(new Quiz(title, type, id));
         }
 
         //If no matches found return null

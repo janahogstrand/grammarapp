@@ -87,7 +87,8 @@ public class FragmentTabDictionary extends Fragment {
             for (int j = 0; j < jsonArray.length(); ++j) {
                 JSONObject jObject = jsonArray.getJSONObject(j);
                 String letter = jObject.get(TableNames.DICTIONARYLETTER_LABEL).toString();
-                alphabetList.add(new AlphabetItem(letter, true));
+                int id = Integer.parseInt(jObject.get(TableNames.DICTIONARYLETTER_ID).toString());
+                alphabetList.add(new AlphabetItem(letter, true, id));
                 Collections.sort(alphabetList,
                         new Comparator<AlphabetItem>() {
                             public int compare(AlphabetItem letter1, AlphabetItem letter2) {

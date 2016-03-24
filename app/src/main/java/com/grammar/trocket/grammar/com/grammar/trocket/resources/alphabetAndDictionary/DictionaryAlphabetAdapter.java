@@ -57,6 +57,7 @@ public class DictionaryAlphabetAdapter extends RecyclerView.Adapter<DictionaryAl
                         intent = new Intent(v.getContext(), DictionaryItemsList.class);
                         intent.putExtra(DialectDialog.DIALECT_INFO, language);
                         intent.putExtra(Alphabet.LETTER, letter.toUpperCase());
+                        intent.putExtra("getletterid", alphabetList.get(getAdapterPosition()).getId());
                         v.getContext().startActivity(intent);
 
                     }else {
@@ -96,23 +97,6 @@ public class DictionaryAlphabetAdapter extends RecyclerView.Adapter<DictionaryAl
     @Override
     public AlphabetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_alphabet, parent, false);
-
-//        if(callerName.equals("Alphabet")) {
-//            ++itemPositionAlphabet;
-//            if (itemPositionAlphabet % 2 == 0) {
-//                view.setBackgroundResource(R.drawable.quizz_rounded_button_primary);
-//            } else {
-//                view.setBackgroundResource(R.drawable.quizz_rounded_button_secondary);
-//            }
-//        }
-//        else if(callerName.equals("DictionaryItemsList")) {
-//            ++itemPositionDictionary;
-//            if (itemPositionDictionary % 2 == 0) {
-//                view.setBackgroundResource(R.drawable.quizz_rounded_button_primary);
-//            } else {
-//                view.setBackgroundResource(R.drawable.quizz_rounded_button_secondary);
-//            }
-//        }
 
         if(callerName.equals("Alphabet")) {
                 view.setBackgroundResource(R.drawable.quiz_rounded_button_primary);

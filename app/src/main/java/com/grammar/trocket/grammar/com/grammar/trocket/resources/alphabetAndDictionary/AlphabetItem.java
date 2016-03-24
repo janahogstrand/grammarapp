@@ -12,10 +12,12 @@ import android.util.Log;
 public class AlphabetItem{
     private String letter;
     private boolean isDictionary;
+    private int id;
 
-    public AlphabetItem(String letter, boolean isDictionary){
+    public AlphabetItem(String letter, boolean isDictionary, int id){
         this.letter = letter;
         this.isDictionary = isDictionary;
+        this.id = id;
     }
 
     /**
@@ -31,6 +33,10 @@ public class AlphabetItem{
      * */
     public boolean getIsDictionary(){
         return isDictionary;
+    }
+
+    public int getId(){
+        return id;
     }
 
     public String toString(){
