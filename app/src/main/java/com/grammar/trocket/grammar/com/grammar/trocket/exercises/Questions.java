@@ -1,16 +1,14 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.exercises;
 
 /**
- * Created by jamiemoreland on 09/03/16.
+ * Created by firasAltayeb on 24/03/2016.
  */
-public class Quiz {
+public class Questions {
     private String name;
-    private String quizType;
     private int id;
 
-    public Quiz(String name, String quizType, int id){
+    public Questions(String name, int id){
         this.name = name;
-        this.quizType = quizType;
         this.id = id;
     }
 
@@ -21,10 +19,5 @@ public class Quiz {
     public String getName(){
         return name;
     }
-
-    public String getQuizType(){
-        return quizType;
-    }
-
 
 }

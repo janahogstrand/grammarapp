@@ -11,7 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.QuizDialog;
+import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Questions;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizStatisticsActivity;
+
+import java.util.ArrayList;
 
 
 public class TextQuizMainActivity extends Activity {
@@ -23,16 +26,16 @@ public class TextQuizMainActivity extends Activity {
     public Button answerOption4;
     public Button answerOption5;
     public Button answerOption6;
-    public TextQuizQuestionsList questionsList;
-    public TextQuizAnswersList answersList;
-    public String[] questionsListArray;
+    public quizzesQuestions quizzesQuestions;
+    public quizzesAnswers answersList;
+    public ArrayList<Questions> questionsList;
     public String correctAnswer;
-    public String currentQuestion;
+    public Questions currentQuestion;
     public String[] answerOptionArray;
     public int successCounter = 0;
     public int mistakeCounter = 0;
     public int questionNumber = 0;
-    public int parentId;
+    public int selectedQuizPosition;
 
     public final static String EXTRA_MESSAGE = "com.firasaltayeb.quizbutton.MESSAGE";
     public final static String EXTRA_MESSAGE2 = "com.firasaltayeb.quizbutton.MESSAGE2";
@@ -44,13 +47,16 @@ public class TextQuizMainActivity extends Activity {
         setContentView(R.layout.activity_text_quiz_main);
 
         findAllViews();
-        questionsList = new TextQuizQuestionsList();
-        answersList = new TextQuizAnswersList();
-        questionsListArray = questionsList.createArray();
+        getSelectedQuizPosition();
+
+        quizzesQuestions = new quizzesQuestions(TextQuizMainActivity.this,selectedQuizPosition);
+        questionsList = quizzesQuestions.getQuizQuestions();
+        answersList = new quizzesAnswers(TextQuizMainActivity.this, questionsList);
 
         assignVariables();
         assignViews();
     }
+
 
     public void findAllViews(){
         questionView = (TextView) findViewById(R.id.question);
@@ -62,15 +68,20 @@ public class TextQuizMainActivity extends Activity {
         answerOption6 = (Button) findViewById(R.id.answerOption6);
     }
 
+    public void getSelectedQuizPosition(){
+        Intent intent = getIntent();
+        selectedQuizPosition = intent.getIntExtra(QuizDialog.SELECTED_QUIZ, 0);
+    }
+
     /**
      * CurrentQuestion is assigned a question questions list based on the questionNumber.
      * AnswerOptionArray is assigned an array which holds the current question's answer options.
      * CorrectAnswer is assigned the current question's correct answer.
      */
     public void assignVariables(){
-        currentQuestion = questionsListArray[questionNumber];
-        answerOptionArray = answersList.getAnswerOptions(currentQuestion);
+        currentQuestion = questionsList.get(questionNumber);
         correctAnswer = answersList.getCorrectAnswer(currentQuestion);
+        answerOptionArray = answersList.getAnswerOptions(currentQuestion);
     }
 
     /**
@@ -78,13 +89,19 @@ public class TextQuizMainActivity extends Activity {
      * are assigned an answer option for the current question.
      * */
     public void assignViews(){
-        questionView.setText(currentQuestion);
+        questionView.setText(currentQuestion.getName());
         answerOption1.setText(answerOptionArray[0]);
         answerOption2.setText(answerOptionArray[1]);
         answerOption3.setText(answerOptionArray[2]);
         answerOption4.setText(answerOptionArray[3]);
         answerOption5.setText(answerOptionArray[4]);
         answerOption6.setText(answerOptionArray[5]);
+//        if(answerOptionArray[0].equals("")){answerOption1.setVisibility(View.INVISIBLE);}
+//        if(answerOptionArray[1].equals("")){answerOption2.setVisibility(View.INVISIBLE);}
+//        if(answerOptionArray[2].equals("")){answerOption3.setVisibility(View.INVISIBLE);}
+//        if(answerOptionArray[3].equals("")){answerOption4.setVisibility(View.INVISIBLE);}
+//        if(answerOptionArray[4].equals("")){answerOption5.setVisibility(View.INVISIBLE);}
+//        if(answerOptionArray[5].equals("")){answerOption6.setVisibility(View.INVISIBLE);}
     }
 
     /**
@@ -180,7 +197,7 @@ public class TextQuizMainActivity extends Activity {
      * how the user performed in the quiz.
      */
     public void checkQuestionNumber(){
-        if(questionNumber == 10){
+        if(questionNumber == questionsList.size()){
             Intent intent = new Intent(this, QuizStatisticsActivity.class);
             intent.putExtra(EXTRA_MESSAGE, ""+successCounter);
             intent.putExtra(EXTRA_MESSAGE2, ""+mistakeCounter);

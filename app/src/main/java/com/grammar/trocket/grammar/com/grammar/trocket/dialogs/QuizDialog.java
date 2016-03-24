@@ -22,12 +22,12 @@ import java.util.ArrayList;
  */
 public class QuizDialog extends AlertDialog.Builder {
 
-    public final static String QUIZ_INFO = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE";
+    public final static String SELECTED_QUIZ = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE";
 
     Context context;
     Intent intent;
-    ArrayList<Quiz> quizList;
-    JSONArray allQuizDetails;
+    public static ArrayList<Quiz> quizList;
+    public static JSONArray allQuizDetails;
 
     /**
      * @param allQuizDetails Use this to get information about quizzes
@@ -77,8 +77,7 @@ public class QuizDialog extends AlertDialog.Builder {
                             case "Picture":  intent = new Intent(context, Image_Quiz_Main.class);
                         }
 
-//                        String selectedDialect = quizOptions.getItem(position);
-//                        intent.putExtra(QUIZ_INFO, selectedDialect);
+                       intent.putExtra(SELECTED_QUIZ, position);
 
 
                         context.startActivity(intent);
