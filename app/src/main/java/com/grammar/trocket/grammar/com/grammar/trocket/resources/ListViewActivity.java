@@ -11,10 +11,10 @@ import android.speech.tts.TextToSpeech;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizzesAnswers;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.QuizzesQuestions;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
 
 
@@ -42,19 +42,21 @@ public class ListViewActivity extends BaseActivityDrawer {
         listView = (ListView) findViewById(R.id.listView);
         linerLayout = (LinearLayout)findViewById(R.id.linerLayout);
 
-//        handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            public void run() {
-//
-//            }
-//        }, 100);
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+
+                assignLanguage();
+                assignStringArray();
+                ListViewAdapter adapter = new ListViewAdapter(ListViewActivity.this, data);
+                listView.setAdapter(adapter);
+                listView.setOnItemClickListener(myOnClickListener);
+
+            }
+        }, 100);
 
 
-        assignLanguage();
-        assignStringArray();
-        ListViewAdapter adapter = new ListViewAdapter(ListViewActivity.this, data);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(myOnClickListener);
+
 
     }
 
@@ -97,19 +99,15 @@ public class ListViewActivity extends BaseActivityDrawer {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             stopAllSound();
-            String clickedView = String.valueOf(parent.getItemAtPosition(position));
-            //String selected = ((TextView) view.findViewById(R.id.your_textView_item_id)).getText().toString();
+
+            String selectedView = ((TextView) view.findViewById(R.id.name)).getText().toString();
+
 
             try {
                     setAudio("");
 
             }catch (Exception e){
-
-                Log.d("clickedView", clickedView);
-                Log.d("clickedView", clickedView);
-                Log.d("clickedView", clickedView);
-                Log.d("clickedView", clickedView);
-                textToSpeech.speak(clickedView, TextToSpeech.QUEUE_FLUSH, null);
+                textToSpeech.speak(selectedView, TextToSpeech.QUEUE_FLUSH, null);
             }
 
         }
