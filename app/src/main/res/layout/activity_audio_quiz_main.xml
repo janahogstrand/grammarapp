@@ -46,9 +46,9 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Replay Audio"
-                android:id="@+id/replyBtn"
-                android:onClick="replyBtn"/>
+                android:text="Play Audio"
+                android:id="@+id/playBtn"
+                android:onClick="playAudio"/>
         </RelativeLayout>
 
         <Button
