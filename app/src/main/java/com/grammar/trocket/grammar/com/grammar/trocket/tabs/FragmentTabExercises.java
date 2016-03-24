@@ -1,8 +1,7 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.tabs;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,20 +12,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.backend.GetJSON;
+import com.grammar.trocket.grammar.com.grammar.trocket.backend.TableNames;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.category.Category;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.category.CategoryAdapter;
-import com.grammar.trocket.grammar.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class FragmentTabExercises extends Fragment {
 
     private List<Category> categories;
     private RecyclerView rv;
     private SwipeRefreshLayout swipeContainer;
-    public static Cursor result;
+    private View view;
 
     /**
      * Inflate fragments tab 1
@@ -36,7 +43,7 @@ public class FragmentTabExercises extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_tab_exercises, container, false);
         rv = (RecyclerView) v.findViewById(R.id.recycleView);
-
+        view = v;
         swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
         swipeContainer.setRefreshing(false);
 
@@ -46,8 +53,12 @@ public class FragmentTabExercises extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setHasFixedSize(true);
 
-        initializeData();
-        initializeAdapter();
+        try {
+            initializeData();
+            initializeAdapter();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return v;
     }
@@ -59,15 +70,34 @@ public class FragmentTabExercises extends Fragment {
      **/
     private void initializeData() {
         categories = new ArrayList<>();
-        SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
-        result = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'exercise' " + "AND " + MainMenu.db.CATEGORY_PARENTID + " = " + MainMenu.ExerciseID, null);
-        while(result.moveToNext()) {
-            Log.i("Category",  result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
-            Log.i("Category",  result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_ICONURL)));
-            categories.add(new Category(result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)), "Learn basic greetings!", R.drawable.ic_likes, true,  result.getInt(result.getColumnIndex(MainMenu.db.CATEGORY_ID)) ));
+        String cardsString = "";
+        //Get exercise and resource ids
+        GetJSON getExerciseCards = new GetJSON((Activity) view.getContext(), TableNames.CATEGORY_TABLE, "parentId", (MainMenu.ExerciseID + ""));
+        try {
+            cardsString = getExerciseCards.execute().get();
+            Log.w("Categories", cardsString);
 
+            JSONArray jsonArray = new JSONArray(cardsString);
+            for (int j = 0; j < jsonArray.length(); ++j) {
+                JSONObject jObject = jsonArray.getJSONObject(j);
+
+                int id = Integer.parseInt(jObject.get("id").toString());
+                String name = jObject.get("name").toString();
+                int icon = getIcon(jObject.get("iconUrl").toString());
+                Log.w("Exercise card: ", name + "  " + id + "  " + icon);
+                int order = Integer.parseInt(jObject.get("hierarchy").toString());
+                categories.add(new Category(name, "", icon, true, id, order));
+
+                Collections.sort(categories);
+
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        result.move(-1);
     }
 
     /**
@@ -78,17 +108,41 @@ public class FragmentTabExercises extends Fragment {
         rv.setAdapter(adapter);
     }
 
+    private int getIcon(String icon) {
+        switch (icon) {
+            case "R.drawable.ic_greetings":
+                return R.drawable.ic_greetings;
+            case "R.drawable.ic_checking_in":
+                return R.drawable.ic_checking_in;
+            case "R.drawable.ic_directions":
+                return R.drawable.ic_directions;
+            case "R.drawable.ic_sightseeing":
+                return R.drawable.ic_sightseeing;
+            case "R.drawable.ic_eating":
+                return R.drawable.ic_eating;
+            case "R.drawable.ic_likes":
+                return R.drawable.ic_likes;
+            case "R.drawable.ic_planning":
+                return R.drawable.ic_planning;
+            case "R.drawable.ic_dating":
+                return R.drawable.ic_dating;
+            case "R.drawable.ic_shopping":
+                return R.drawable.ic_shopping;
+        }
+        return 0;
+    }
+
     /**
      * Reloads main activity this time updating database
-     * **/
-    private void swipeListener(final View view){
+     **/
+    private void swipeListener(final View view) {
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Log.w("Updating.." , "Swiped clicked");
-                MainMenu.db.onCreate(MainMenu.db.getWritableDatabase());
+                Log.w("Updating..", "Swiped clicked");
+                //ModuleSelection.db.onCreate(ModuleSelection.db.getWritableDatabase());
                 Intent intent = new Intent(view.getContext(), MainMenu.class);
                 intent.putExtra(MainMenu.TAB_SELECT, 0);
                 view.getContext().startActivity(intent);

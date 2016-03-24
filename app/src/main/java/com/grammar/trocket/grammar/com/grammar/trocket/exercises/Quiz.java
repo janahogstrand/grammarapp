@@ -5,18 +5,24 @@ package com.grammar.trocket.grammar.com.grammar.trocket.exercises;
  */
 public class Quiz {
     private String name;
-    private QuizType quizType;
+    private String quizType;
+    private int id;
 
-    public Quiz(String name, QuizType quizType){
+    public Quiz(String name, String quizType, int id){
         this.name = name;
         this.quizType = quizType;
+        this.id = id;
+    }
+
+    public int getId(){
+        return id;
     }
 
     public String getName(){
         return name;
     }
 
-    public QuizType getQuizType(){
+    public String getQuizType(){
         return quizType;
     }
 

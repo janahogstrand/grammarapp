@@ -1,5 +1,6 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.tabs;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,11 +15,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.backend.GetJSON;
+import com.grammar.trocket.grammar.com.grammar.trocket.backend.TableNames;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.category.Category;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.ModuleSelection;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary.Alphabet;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary.DictionaryAlphabetAdapter;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary.AlphabetItem;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.concurrent.ExecutionException;
 
 
 public class FragmentTabDictionary extends Fragment {
@@ -27,7 +40,6 @@ public class FragmentTabDictionary extends Fragment {
     private DictionaryAlphabetAdapter alphabetAdapter;
     private ArrayList<AlphabetItem> alphabetList;
     private SwipeRefreshLayout swipeContainer;
-    public static Cursor result;
 
 
     /**
@@ -49,9 +61,15 @@ public class FragmentTabDictionary extends Fragment {
         GridLayoutManager glm = new GridLayoutManager(view.getContext(), 2);
         rv.setLayoutManager(glm);
 
+        try {
+            alphabetAdapter = new DictionaryAlphabetAdapter(getData(), "DictionaryItemsList");
+            rv.setAdapter(alphabetAdapter);
 
-        alphabetAdapter = new DictionaryAlphabetAdapter(getData(), "DictionaryItemsList");
-        rv.setAdapter(alphabetAdapter);
+        }catch (Exception e){
+
+        }
+
+
 
         return view;
     }
@@ -59,44 +77,28 @@ public class FragmentTabDictionary extends Fragment {
     //TODO database
     private ArrayList<AlphabetItem> getData() {
         alphabetList = new ArrayList<AlphabetItem>();
+        String letterString = "";
+        GetJSON getLetters = new GetJSON((Activity) view.getContext(), TableNames.DICTIONARYLETTER_TABLE, "parentId", (MainMenu.DictionaryID + ""));
+        try {
+            letterString = getLetters.execute().get();
+            Log.w("Categories", letterString);
 
-//        SQLiteDatabase myDatabase = MainMenu.db.getWritableDatabase();
-//        result = myDatabase.rawQuery("SELECT * FROM " + MainMenu.db.CATEGORY_TABLE + " WHERE " + MainMenu.db.CATEGORY_KIND + " = 'resource'", null);
-//        //result = MainMenu.db.selectDBTable(MainMenu.db.COURSE_TABLE);
-//        while(result.moveToNext()) {
-//            //Log.i("Cursor2", result.getString(result.getColumnIndex(MainMenu.db.COURSE_NAME)) + result.getColumnIndex(MainMenu.db.COURSE_NAME) + "" + result.getColumnIndex(DatabaseHelper.COURSE_CREATOR) + "" + result.getColumnIndex(DatabaseHelper.COURSE_ID) + "" );
-//            //moduleData.add(new ModuleItem(result.getString(result.getColumnIndex(MainMenu.db.COURSE_NAME)), result.getString(result.getColumnIndex(MainMenu.db.COURSE_CREATOR)), result.getColumnIndex(DatabaseHelper.COURSE_ID)));
-//            Log.i("Category",  result.getString(result.getColumnIndex(MainMenu.db.CATEGORY_NAME)));
-//
-//        }
-
-        alphabetList.add(new AlphabetItem("A", true));
-        alphabetList.add(new AlphabetItem("B", true));
-        alphabetList.add(new AlphabetItem("C", true));
-        alphabetList.add(new AlphabetItem("D", true));
-        alphabetList.add(new AlphabetItem("E", true));
-        alphabetList.add(new AlphabetItem("F", true));
-        alphabetList.add(new AlphabetItem("G", true));
-        alphabetList.add(new AlphabetItem("H", true));
-        alphabetList.add(new AlphabetItem("I", true));
-        alphabetList.add(new AlphabetItem("J", true));
-        alphabetList.add(new AlphabetItem("K", true));
-        alphabetList.add(new AlphabetItem("L", true));
-        alphabetList.add(new AlphabetItem("M", true));
-        alphabetList.add(new AlphabetItem("N", true));
-        alphabetList.add(new AlphabetItem("O", true));
-        alphabetList.add(new AlphabetItem("P", true));
-        alphabetList.add(new AlphabetItem("Q", true));
-        alphabetList.add(new AlphabetItem("R", true));
-        alphabetList.add(new AlphabetItem("S", true));
-        alphabetList.add(new AlphabetItem("T", true));
-        alphabetList.add(new AlphabetItem("U", true));
-        alphabetList.add(new AlphabetItem("W", true));
-        alphabetList.add(new AlphabetItem("X", true));
-        alphabetList.add(new AlphabetItem("Y", true));
-        alphabetList.add(new AlphabetItem("Z", true));
-
-
+            JSONArray jsonArray = new JSONArray(letterString);
+            for (int j = 0; j < jsonArray.length(); ++j) {
+                JSONObject jObject = jsonArray.getJSONObject(j);
+                String letter = jObject.get(TableNames.DICTIONARYLETTER_LABEL).toString();
+                int id = Integer.parseInt(jObject.get(TableNames.DICTIONARYLETTER_ID).toString());
+                alphabetList.add(new AlphabetItem(letter, true, id));
+                Collections.sort(alphabetList,
+                        new Comparator<AlphabetItem>() {
+                            public int compare(AlphabetItem letter1, AlphabetItem letter2) {
+                                return letter1.getLetter().toUpperCase().compareTo(letter2.getLetter().toUpperCase());
+                            }
+                        });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return alphabetList;
     }
 
@@ -110,7 +112,7 @@ public class FragmentTabDictionary extends Fragment {
             @Override
             public void onRefresh() {
                 Log.w("Updating..", "Swiped clicked");
-                MainMenu.db.onCreate(MainMenu.db.getWritableDatabase());
+                //ModuleSelection.db.onCreate(ModuleSelection.db.getWritableDatabase());
                 Intent intent = new Intent(view.getContext(), MainMenu.class);
                 intent.putExtra(MainMenu.TAB_SELECT, 2);
                 view.getContext().startActivity(intent);

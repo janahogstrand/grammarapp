@@ -1,5 +1,6 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleViewHolder> {
 
     private ArrayList<ModuleItem> moduleData;
+    public Activity activityItem;
 
     public class ModuleViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
@@ -41,6 +43,9 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleView
                     MainMenu.CourseID = prefs.getInt(ModuleSelection.COURSE, -1);
                     Log.w("Prefs are: ", MainMenu.CourseID + "   " + moduleData.get(getAdapterPosition()).getModuleId());
 
+                    //ModuleSelection.db.
+                    //ModuleSelection.db.insertIntoTable((Activity) view.getContext());
+
                     Intent intent = new Intent(view.getContext(), MainMenu.class);
                     view.getContext().startActivity(intent);
                 }
@@ -50,8 +55,9 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleView
         }
     }
 
-    public ModuleAdapter(ArrayList<ModuleItem> moduleData) {
+    public ModuleAdapter(ArrayList<ModuleItem> moduleData, Activity activity) {
         this.moduleData = moduleData;
+        this.activityItem = activity;
     }
 
     @Override

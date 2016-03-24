@@ -7,8 +7,7 @@ import android.widget.MediaController;
 import android.widget.VideoView;
 
 import com.grammar.trocket.grammar.R;
-import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.VideoObserveDialog;
-import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.VideoReflectDialog;
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.VideoDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
 
 public class Video extends BaseActivityDrawer {
@@ -26,9 +25,9 @@ public class Video extends BaseActivityDrawer {
         Intent intent = getIntent();
 
         try {
-            address = intent.getStringExtra(VideoReflectDialog.VIDEO_ADDRESS);
+            address = intent.getStringExtra(VideoDialog.VIDEO_ADDRESS);
         } catch (Exception e){
-            address = intent.getStringExtra(VideoObserveDialog.VIDEO_ADDRESS2);
+            e.printStackTrace();
         }
 
         /* IMPORTANT
