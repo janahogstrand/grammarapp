@@ -215,7 +215,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         //Fills arrayadapter
         //Fill videoList
         String with = " with subtitles";
-        String without = "without subtitles";
+        String without = " without subtitles";
         Log.w("Could not find quiz: ", "Searching for video");
         for (int i = 0; i < buttonChildrenJSON.length(); ++i) {
             JSONObject child = buttonChildrenJSON.getJSONObject(i);
