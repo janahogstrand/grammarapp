@@ -21,8 +21,6 @@ import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.VideoDialog;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.Quiz;
 import com.grammar.trocket.grammar.com.grammar.trocket.exercises.VideoItem;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
-import com.grammar.trocket.grammar.com.grammar.trocket.main.module_selection.DialectItem;
-import com.grammar.trocket.grammar.com.grammar.trocket.resources.DaysOfTheWeek;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Festivals;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.ListViewActivity;
 import com.grammar.trocket.grammar.com.grammar.trocket.resources.Times;
@@ -34,7 +32,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;

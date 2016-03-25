@@ -28,9 +28,9 @@ public class MultipleQuizMainActivity extends Activity {
     public CheckBox answerOption6;
     public CheckBox changeBackground;
 
-    public com.grammar.trocket.grammar.com.grammar.trocket.exercises.quizzesQuestions quizzesQuestions;
+    public QuizzesQuestions QuizzesQuestions;
     public ArrayList<Question> questionsList;
-    public quizzesAnswers answersList;
+    public QuizzesAnswers answersList;
 
 
     public Question currentQuestion;
@@ -62,9 +62,9 @@ public class MultipleQuizMainActivity extends Activity {
         selectedAnswers = new ArrayList<>();
         correctAnswerList = new ArrayList<>();
 
-        quizzesQuestions = new quizzesQuestions(MultipleQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
-        questionsList = quizzesQuestions.getQuizQuestions();
-        answersList = new quizzesAnswers(MultipleQuizMainActivity.this, questionsList, selectedQuizType);
+        QuizzesQuestions = new QuizzesQuestions(MultipleQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
+        questionsList = QuizzesQuestions.getQuizQuestions();
+        answersList = new QuizzesAnswers(MultipleQuizMainActivity.this, questionsList, selectedQuizType);
 
         assignVariables();
         assignViews();

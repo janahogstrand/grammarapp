@@ -29,9 +29,9 @@ public class ImageQuizMainActivity extends Activity {
     public ImageView answerOption6;
 
 
-    public com.grammar.trocket.grammar.com.grammar.trocket.exercises.quizzesQuestions quizzesQuestions;
+    public QuizzesQuestions QuizzesQuestions;
     public ArrayList<Question> questionsList;
-    public quizzesAnswers answersList;
+    public QuizzesAnswers answersList;
 
     public String correctAnswer;
     public Question currentQuestion;
@@ -56,9 +56,9 @@ public class ImageQuizMainActivity extends Activity {
         handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                quizzesQuestions = new quizzesQuestions(ImageQuizMainActivity.this,selectedQuizPosition,selectedQuizType);
-                questionsList = quizzesQuestions.getQuizQuestions();
-                answersList = new quizzesAnswers(ImageQuizMainActivity.this, questionsList, selectedQuizType);
+                QuizzesQuestions = new QuizzesQuestions(ImageQuizMainActivity.this,selectedQuizPosition,selectedQuizType);
+                questionsList = QuizzesQuestions.getQuizQuestions();
+                answersList = new QuizzesAnswers(ImageQuizMainActivity.this, questionsList, selectedQuizType);
                 assignVariables();
                 assignViews();
 

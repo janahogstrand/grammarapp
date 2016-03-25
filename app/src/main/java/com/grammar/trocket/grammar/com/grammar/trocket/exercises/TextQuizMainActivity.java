@@ -25,9 +25,9 @@ public class TextQuizMainActivity extends Activity {
     public Button answerOption5;
     public Button answerOption6;
 
-    public com.grammar.trocket.grammar.com.grammar.trocket.exercises.quizzesQuestions quizzesQuestions;
+    public QuizzesQuestions QuizzesQuestions;
     public ArrayList<Question> questionsList;
-    public quizzesAnswers answersList;
+    public QuizzesAnswers answersList;
 
     public String correctAnswer;
     public Question currentQuestion;
@@ -52,9 +52,9 @@ public class TextQuizMainActivity extends Activity {
         findAllViews();
         getSelectedQuizPosition();
 
-        quizzesQuestions = new quizzesQuestions(TextQuizMainActivity.this,selectedQuizPosition,selectedQuizType);
-        questionsList = quizzesQuestions.getQuizQuestions();
-        answersList = new quizzesAnswers(TextQuizMainActivity.this, questionsList, selectedQuizType);
+        QuizzesQuestions = new QuizzesQuestions(TextQuizMainActivity.this,selectedQuizPosition,selectedQuizType);
+        questionsList = QuizzesQuestions.getQuizQuestions();
+        answersList = new QuizzesAnswers(TextQuizMainActivity.this, questionsList, selectedQuizType);
 
         assignVariables();
         assignViews();

@@ -6,7 +6,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
@@ -31,8 +30,8 @@ public class AudioQuizMainActivity extends Activity {
     public Button answerOption6;
     public TextView titleTxt;
 
-    public com.grammar.trocket.grammar.com.grammar.trocket.exercises.quizzesQuestions quizzesQuestions;
-    public quizzesAnswers answersList;
+    public QuizzesQuestions QuizzesQuestions;
+    public QuizzesAnswers answersList;
     public ArrayList<Question> questionsList;
 
 
@@ -65,9 +64,9 @@ public class AudioQuizMainActivity extends Activity {
             public void run() {}
         });
 
-        quizzesQuestions = new quizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
-        answersList = new quizzesAnswers(AudioQuizMainActivity.this, questionsList, selectedQuizType);
-        questionsList = quizzesQuestions.getQuizQuestions();
+        QuizzesQuestions = new QuizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
+        answersList = new QuizzesAnswers(AudioQuizMainActivity.this, questionsList, selectedQuizType);
+        questionsList = QuizzesQuestions.getQuizQuestions();
 
         assignVariables();
 
@@ -89,9 +88,9 @@ public class AudioQuizMainActivity extends Activity {
         handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                quizzesQuestions = new quizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
-                answersList = new quizzesAnswers(AudioQuizMainActivity.this, questionsList, selectedQuizType);
-                questionsList = quizzesQuestions.getQuizQuestions();
+                QuizzesQuestions = new QuizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
+                answersList = new QuizzesAnswers(AudioQuizMainActivity.this, questionsList, selectedQuizType);
+                questionsList = QuizzesQuestions.getQuizQuestions();
                 assignVariables();
                 assignViews();
                 titleTxt.setText("Select the correct translation for the audio");
@@ -109,7 +108,7 @@ public class AudioQuizMainActivity extends Activity {
 //            findAllViews();
 //            getSelectedQuizPosition();
 //            Log.d("onPreExecute", "onPreExecute");
-//            quizzesQuestions = new QuizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
+//            QuizzesQuestions = new QuizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
 //            answersList = new QuizzesAnswers(AudioQuizMainActivity.this, questionsList,selectedQuizType );
 //
 //            Log.d("onPreExecute done", "onPreExecute done");
@@ -119,7 +118,7 @@ public class AudioQuizMainActivity extends Activity {
 //        protected String doInBackground(String... params) {
 //            Log.d("doInBackground", "doInBackground");
 //
-//            questionsList = quizzesQuestions.getQuizQuestions();
+//            questionsList = QuizzesQuestions.getQuizQuestions();
 //            assignVariables();
 //
 //            Log.d("doInBackground finished", "doInBackground finished");

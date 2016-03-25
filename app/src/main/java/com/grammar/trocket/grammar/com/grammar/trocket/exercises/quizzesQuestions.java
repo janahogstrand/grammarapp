@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by firasAltayeb on 15/02/2016.
  */
-public class quizzesQuestions {
+public class QuizzesQuestions {
 
 
     public Quiz selectedQuiz;
@@ -30,7 +30,7 @@ public class quizzesQuestions {
     public ArrayList<String> currentQuestions;
 
 
-    public quizzesQuestions(Activity callingActivity, int selectedQuizPosition, String selectedQuizType) {
+    public QuizzesQuestions(Activity callingActivity, int selectedQuizPosition, String selectedQuizType) {
         allQuestions = new ArrayList<>();
         currentQuestions = new ArrayList<>();
         this.quizList = QuizDialog.quizList;
