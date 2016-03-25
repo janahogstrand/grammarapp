@@ -21,19 +21,17 @@ import java.util.Locale;
 
 public class AudioQuizMainActivity extends Activity {
 
-
+    public TextView titleTxt;
     public Button answerOption1;
     public Button answerOption2;
     public Button answerOption3;
     public Button answerOption4;
     public Button answerOption5;
     public Button answerOption6;
-    public TextView titleTxt;
 
     public QuizzesQuestions QuizzesQuestions;
     public QuizzesAnswers answersList;
     public ArrayList<Question> questionsList;
-
 
     public String correctAnswer;
     public Question currentQuestion;
@@ -60,31 +58,6 @@ public class AudioQuizMainActivity extends Activity {
         assignLanguage();
         getSelectedQuizPosition();
 
-        runOnUiThread(new Runnable() {
-            public void run() {}
-        });
-
-        QuizzesQuestions = new QuizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
-        answersList = new QuizzesAnswers(AudioQuizMainActivity.this, questionsList, selectedQuizType);
-        questionsList = QuizzesQuestions.getQuizQuestions();
-
-        assignVariables();
-
-//        runOnUiThread(new Runnable() {
-//            public void run() {}
-//        });
-//
-//        handler = new Handler() {
-//            @Override
-//            public void handleMessage(Message msg) {
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                    }
-//                });
-//            }
-//        };
-
         handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -99,52 +72,6 @@ public class AudioQuizMainActivity extends Activity {
 
 
     }
-
-
-//    private class LongOperation extends AsyncTask<String, Integer, String> {
-//
-//        @Override
-//        protected void onPreExecute() {
-//            findAllViews();
-//            getSelectedQuizPosition();
-//            Log.d("onPreExecute", "onPreExecute");
-//            QuizzesQuestions = new QuizzesQuestions(AudioQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
-//            answersList = new QuizzesAnswers(AudioQuizMainActivity.this, questionsList,selectedQuizType );
-//
-//            Log.d("onPreExecute done", "onPreExecute done");
-//         }
-//
-//        @Override
-//        protected String doInBackground(String... params) {
-//            Log.d("doInBackground", "doInBackground");
-//
-//            questionsList = QuizzesQuestions.getQuizQuestions();
-//            assignVariables();
-//
-//            Log.d("doInBackground finished", "doInBackground finished");
-//
-//            //publishProgress(0);
-//            return "Executed";
-//        }
-//
-//        @Override
-//        protected void onProgressUpdate(Integer... values) {
-////            Log.d("onProgressUpdate", "onProgressUpdate");
-////            assignViews();
-////            assignLanguage();
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String result) {
-//            Log.d("onPostExecute", "onPostExecute");
-//            assignViews();
-//            assignLanguage();
-//            Log.d("onPostExecute finished", "onPostExecute finished");
-//
-//        }
-//
-//    }
-
 
     public void findAllViews(){
         titleTxt = (TextView) findViewById(R.id.titleTxt);
