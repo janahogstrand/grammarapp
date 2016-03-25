@@ -3,10 +3,7 @@ package com.grammar.trocket.grammar.com.grammar.trocket.resources;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
-
 import com.grammar.trocket.grammar.R;
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.TextQuizMainActivity;
 import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
 
 /**
@@ -25,6 +22,5 @@ public class Credits extends AppCompatActivity{
         super.onBackPressed();
         Intent intent = new Intent(Credits.this, MainMenu.class);
         startActivity(intent);
-        this.onDestroy();
     }
 }
