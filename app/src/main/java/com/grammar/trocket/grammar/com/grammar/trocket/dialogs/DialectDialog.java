@@ -12,14 +12,22 @@ import android.widget.ArrayAdapter;
  */
 public class DialectDialog extends AlertDialog.Builder {
 
-    Context c;
-    Intent intent;
+    public final static String DIALECT_INFO = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE";
+    public final static String CALLER_INFO = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE2";
+    //public static int CALLER_ID;
 
-    public DialectDialog(Context context, final ArrayAdapter<String> dialectOptions, Context c, Intent intent) {
+
+    Context context;
+    Intent intent;
+    int id;
+
+
+    public DialectDialog(Context context, final ArrayAdapter<String> dialectOptions, Intent intent, int id) {
         super(context);
-        this.c = c;
+        this.context = context;
         this.intent = intent;
-        addListContent(context, dialectOptions);
+        this.id = id;
+        addListContent(context, dialectOptions, id);
     }
 
     /**
@@ -29,9 +37,8 @@ public class DialectDialog extends AlertDialog.Builder {
      * @param context        context to run on
      * @param dialectOptions List of possible dialects
      **/
-    public void addListContent(final Context context, final ArrayAdapter<String> dialectOptions) {
+    public void addListContent(final Context context, final ArrayAdapter<String> dialectOptions, final int id) {
         this.setTitle("Select a dialect");
-
         //Set button
         this.setNegativeButton(
                 "Exit",
@@ -47,7 +54,11 @@ public class DialectDialog extends AlertDialog.Builder {
                 dialectOptions,
                 new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(DialogInterface dialog, int position) {
+                        String selectedDialect = dialectOptions.getItem(position);
+                        intent.putExtra(DIALECT_INFO, selectedDialect);
+                        intent.putExtra(CALLER_INFO, id);
+                        //CALLER_ID = id;
                         context.startActivity(intent);
                     }
                 });

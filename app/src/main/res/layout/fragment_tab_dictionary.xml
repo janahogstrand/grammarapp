@@ -8,25 +8,19 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.self.trocket.tabtest2.MainActivity$PlaceholderFragment">
 
-    <ScrollView
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <RelativeLayout
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/section_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:textSize="120sp"
-                android:text="RanaBananaRanaBananaRanaBananaRanaBananaRanaBananaRanaBananaRanaBananaRanaBananaRanaBananaRanaBananaRanaBananaRanaBananaRanaBananaRanaBananaRanaBananaRanaBanana"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
-
-    </ScrollView>
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 
 </RelativeLayout>

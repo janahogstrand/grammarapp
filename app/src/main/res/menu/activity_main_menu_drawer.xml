@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single"
-        android:id="@+id/sidebar_menu">
+           android:id="@+id/sidebar_menu">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_add_module"
             android:icon="@drawable/ic_menu_send"
-            android:title="Add new module" />
+            android:title="Select Module" />
+        <item
+            android:id="@+id/nav_record_audio"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Record Audio"/>
+        <item
+            android:id="@+id/nav_play_audio"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Play Recording"/>
         <item
             android:id="@+id/nav_credits"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@drawable/ic_menu_send"
             android:title="Credits"
-            />
-        <item
-            android:id="@+id/nav_glossary"
-            android:icon="@drawable/ic_menu_share"
-            android:title="Glossary"
-            />
-        <item
-            android:id="@+id/nav_other"
-            android:icon="@drawable/ic_menu_share"
-            android:title="Other"
             />
     </group>
 </menu>

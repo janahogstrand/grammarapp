@@ -1,16 +1,32 @@
 package com.grammar.trocket.grammar.com.grammar.trocket.resources;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
+import android.speech.tts.TextToSpeech;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
-import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeAdapter;
-import com.grammar.trocket.grammar.com.grammar.trocket.resources.recyclerview.FestivalTimeItem;
+import com.grammar.trocket.grammar.com.grammar.trocket.backend.GetJSON;
+import com.grammar.trocket.grammar.com.grammar.trocket.backend.TableNames;
+import com.grammar.trocket.grammar.com.grammar.trocket.dialogs.DialectDialog;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.BaseActivityDrawer;
+import com.grammar.trocket.grammar.com.grammar.trocket.main.MainMenu;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.alphabetAndDictionary.AlphabetItem;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.festivalAndTime.FestivalTimeAdapter;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.festivalAndTime.FestivalTimeItem;
 import com.grammar.trocket.grammar.R;
+import com.grammar.trocket.grammar.com.grammar.trocket.resources.festivalAndTime.FestivalTimeViewHolder;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -21,18 +37,30 @@ import java.util.List;
  * data can retrieved from the database and
  * views will then be inflated
  *
- * @see BigView
  */
-public class Festivals extends AppCompatActivity {
+public class  Festivals extends BaseActivityDrawer {
     private List<FestivalTimeItem> festData;
+    String dialect;
+    Activity activity;
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_festivalstime);
+        setContentView(R.layout.activity_festivalstime_main);
+        onCreateDrawer();
+        activity = Festivals.this;
+
+        Intent intent = getIntent();
+        id = intent.getIntExtra(DialectDialog.CALLER_INFO, -1);
+
+        getDialect();
+        String dialectCode = MainMenu.dialectsIDCode.get(MainMenu.dialectsNameID.get(dialect));
+        String[] dCode = dialectCode.split("_");
+        initTTS(dCode[0], dCode[1]);
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
 
-        GridLayoutManager glm = new GridLayoutManager(Festivals.this, 3);
+        LinearLayoutManager glm = new LinearLayoutManager(Festivals.this);
         rv.setLayoutManager(glm);
         rv.setHasFixedSize(true);
 
@@ -41,6 +69,10 @@ public class Festivals extends AppCompatActivity {
         rv.setAdapter(festivalTimeAdapter);
     }
 
+    public void getDialect(){
+        Intent intent = getIntent();
+        dialect = intent.getStringExtra(DialectDialog.DIALECT_INFO);
+    }
 
     /**
      * Gets data to pass to adapter
@@ -50,31 +82,65 @@ public class Festivals extends AppCompatActivity {
      **/
     private List<FestivalTimeItem> getData() {
         festData = new ArrayList<FestivalTimeItem>();
-        festData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder));
-        festData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2));
-        festData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3));
-        festData.add(new FestivalTimeItem("Es Test", "The Test", R.drawable.placeholder));
-        festData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2));
-        festData.add(new FestivalTimeItem("uber festival", "Wow much festival", R.drawable.placeholder3));
-        festData.add(new FestivalTimeItem("im trapped in a text view", "much test", R.drawable.placeholder));
-        festData.add(new FestivalTimeItem("Es Test", "The Brits", R.drawable.placeholder2));
-        festData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3));
-        festData.add(new FestivalTimeItem("Es Test", "The Box", R.drawable.placeholder));
-        festData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2));
-        festData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3));
-        festData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder));
-        festData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2));
-        festData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3));
-        festData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder));
-        festData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2));
-        festData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3));
-        festData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder));
-        festData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2));
-        festData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3));
-        festData.add(new FestivalTimeItem("Es Box", "The Box", R.drawable.placeholder));
-        festData.add(new FestivalTimeItem("Es Brits", "The Brits", R.drawable.placeholder2));
-        festData.add(new FestivalTimeItem("El Indianas", "India", R.drawable.placeholder3));
+
+        String festString = "";
+        GetJSON getFest = new GetJSON(activity, TableNames.THUMBNAILTAP_TABLE, "parentId", (id + ""));
+        try {
+            festString = getFest.execute().get();
+            Log.w("Categories", festString);
+
+            JSONArray jsonArray = new JSONArray(festString);
+            JSONObject festival = jsonArray.getJSONObject(0);
+            String festId = festival.get(TableNames.THUMBNAILTAP_ID).toString();
+
+            String festItems = "";
+            GetJSON getFests = new GetJSON(activity, TableNames.THUMBNAILTAPITEM_TABLE, "parentId", festId);
+            festItems = getFests.execute().get();
+            Log.w("Festivals", festItems);
+            JSONArray festArray = new JSONArray(festItems);
+            for(int i = 0; i< festArray.length(); ++i){
+                JSONObject jObject = festArray.getJSONObject(i);
+                String foreign = jObject.get(TableNames.THUMBNAILTAPITEM_NAME).toString();
+                String english = jObject.get(TableNames.THUMBNAILTAPITEM_TRANSLATION).toString();
+                String url = jObject.get(TableNames.THUMBNAILTAPITEM_FULLIMAGEURL).toString();
+                String id = jObject.get(TableNames.THUMBNAILTAPITEM_ID).toString();
+                festData.add(new FestivalTimeItem(foreign,english,url,id));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         return festData;
+    }
+
+    /**
+     * Makes String correct format
+     * To be used when making new FestivalTimeItem for url
+     * */
+    private String fixString(String imageAddress){
+        imageAddress = imageAddress.substring(0, imageAddress.length()-4) + "raw=1";
+        return imageAddress;
+    }
+
+    private void initTTS(final String lang1, final String lang2){
+        FestivalTimeViewHolder.textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                FestivalTimeViewHolder.textToSpeech .setLanguage(new Locale(lang1, lang2));
+            }
+        });
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        if(FestivalTimeViewHolder.textToSpeech != null){
+            FestivalTimeViewHolder.textToSpeech.shutdown();
+            Log.d("-------------------", "TTS Destroyed");
+
+        }
+        super.onDestroy();
     }
 }

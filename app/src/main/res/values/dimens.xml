@@ -3,7 +3,9 @@
     <dimen name="nav_header_vertical_spacing">5dp</dimen>
     <dimen name="nav_header_height">200dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">0dp</dimen>
     <dimen name="activity_vertical_margin">0dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <!-- My margins -->
+    <dimen name="fest_time_icons">90dp</dimen>
 </resources>
