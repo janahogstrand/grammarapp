@@ -3,7 +3,7 @@ package com.grammar.trocket.grammar.test;
 import android.media.MediaPlayer;
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.grammar.trocket.grammar.com.grammar.trocket.exercises.MultipleQuizMainActivity;
+import com.grammar.trocket.trocket.exercises.MultipleQuizMainActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
