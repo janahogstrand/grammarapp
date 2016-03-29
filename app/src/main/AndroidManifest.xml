@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="com.grammar.trocket.trocket.main.module_selection.ModuleSelection"
+        <activity android:name="com.grammar.trocket.grammingo.main.module_selection.ModuleSelection"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="Grammingo">
 
@@ -24,37 +24,37 @@
         </activity>
 
         <activity
-            android:name="com.grammar.trocket.trocket.main.MainMenu"
+            android:name="com.grammar.trocket.grammingo.main.MainMenu"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name="com.grammar.trocket.trocket.resources.ListViewActivity" android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait"/>
-        <activity android:name="com.grammar.trocket.trocket.resources.festivalAndTime.Festivals" android:label="Festivals" android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" />
-        <activity android:name="com.grammar.trocket.trocket.resources.festivalAndTime.Times" android:label="Times" android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" />
+        <activity android:name="com.grammar.trocket.grammingo.resources.ListViewActivity" android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait"/>
+        <activity android:name="com.grammar.trocket.grammingo.resources.festivalAndTime.Festivals" android:label="Festivals" android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" />
+        <activity android:name="com.grammar.trocket.grammingo.resources.festivalAndTime.Times" android:label="Times" android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" />
 
-        <activity android:name="com.grammar.trocket.trocket.resources.seasons.SeasonsMain"
+        <activity android:name="com.grammar.trocket.grammingo.resources.seasons.SeasonsMain"
                   android:theme="@style/AppTheme.NoActionBar"
                   android:label="Seasons"
                   android:screenOrientation="portrait"
             />
 
-        <activity android:name="com.grammar.trocket.trocket.resources.alphabetAndDictionary.Alphabet" android:theme="@style/AppTheme.NoActionBar" android:label="Alphabet" android:screenOrientation="portrait"/>
-        <activity android:name="com.grammar.trocket.trocket.resources.alphabetAndDictionary.DictionaryItemsList" android:theme="@style/AppTheme.NoActionBar" android:label="Dictionary" android:screenOrientation="portrait"/>
-        <activity android:name="com.grammar.trocket.trocket.resources.seasons.SeasonsFirstActivity" android:label="Seasons" android:screenOrientation="portrait"/>
-        <activity android:name="com.grammar.trocket.trocket.resources.seasons.SeasonsSecondActivity" android:label="Seasons" android:screenOrientation="portrait"/>
-        <activity android:name="com.grammar.trocket.trocket.resources.seasons.SeasonsThirdActivity" android:label="Seasons" android:screenOrientation="portrait"/>
-        <activity android:name="com.grammar.trocket.trocket.resources.seasons.SeasonsFourthActivity" android:label="Seasons" android:screenOrientation="portrait"/>
-        <activity android:name="com.grammar.trocket.trocket.exercises.TextQuizMainActivity" android:label="" android:screenOrientation="portrait"/>
-        <activity android:name="com.grammar.trocket.trocket.exercises.AudioQuizMainActivity" android:label="" android:screenOrientation="portrait"/>
-        <activity android:name="com.grammar.trocket.trocket.exercises.Video" android:label="" android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="landscape"/>
-        <activity android:name="com.grammar.trocket.trocket.exercises.QuizStatisticsActivity" android:label="" android:screenOrientation="portrait"/>
+        <activity android:name="com.grammar.trocket.grammingo.resources.alphabetAndDictionary.Alphabet" android:theme="@style/AppTheme.NoActionBar" android:label="Alphabet" android:screenOrientation="portrait"/>
+        <activity android:name="com.grammar.trocket.grammingo.resources.alphabetAndDictionary.DictionaryItemsList" android:theme="@style/AppTheme.NoActionBar" android:label="Dictionary" android:screenOrientation="portrait"/>
+        <activity android:name="com.grammar.trocket.grammingo.resources.seasons.SeasonsFirstActivity" android:label="Seasons" android:screenOrientation="portrait"/>
+        <activity android:name="com.grammar.trocket.grammingo.resources.seasons.SeasonsSecondActivity" android:label="Seasons" android:screenOrientation="portrait"/>
+        <activity android:name="com.grammar.trocket.grammingo.resources.seasons.SeasonsThirdActivity" android:label="Seasons" android:screenOrientation="portrait"/>
+        <activity android:name="com.grammar.trocket.grammingo.resources.seasons.SeasonsFourthActivity" android:label="Seasons" android:screenOrientation="portrait"/>
+        <activity android:name="com.grammar.trocket.grammingo.exercises.TextQuizMainActivity" android:label="" android:screenOrientation="portrait"/>
+        <activity android:name="com.grammar.trocket.grammingo.exercises.AudioQuizMainActivity" android:label="" android:screenOrientation="portrait"/>
+        <activity android:name="com.grammar.trocket.grammingo.exercises.Video" android:label="" android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="landscape"/>
+        <activity android:name="com.grammar.trocket.grammingo.exercises.QuizStatisticsActivity" android:label="" android:screenOrientation="portrait"/>
 
-        <activity android:name="com.grammar.trocket.trocket.exercises.ImageQuizMainActivity"
+        <activity android:name="com.grammar.trocket.grammingo.exercises.ImageQuizMainActivity"
                   android:label="Image_Quiz_Main"
                   android:screenOrientation="portrait"
             />
-        <activity android:name="com.grammar.trocket.trocket.exercises.MultipleQuizMainActivity" android:label="" android:screenOrientation="portrait"/>
-        <activity android:name="com.grammar.trocket.trocket.resources.Credits" android:label="Credits" android:screenOrientation="portrait"/>
+        <activity android:name="com.grammar.trocket.grammingo.exercises.MultipleQuizMainActivity" android:label="" android:screenOrientation="portrait"/>
+        <activity android:name="com.grammar.trocket.grammingo.resources.Credits" android:label="Credits" android:screenOrientation="portrait"/>
 
     </application>
 

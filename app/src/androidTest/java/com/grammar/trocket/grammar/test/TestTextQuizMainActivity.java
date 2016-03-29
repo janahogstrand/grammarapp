@@ -1,9 +1,8 @@
 package com.grammar.trocket.grammar.test;
 
 import android.test.ActivityInstrumentationTestCase2;
-
-import com.grammar.trocket.trocket.exercises.Question;
-import com.grammar.trocket.trocket.exercises.TextQuizMainActivity;
+import com.grammar.trocket.grammingo.exercises.Question;
+import com.grammar.trocket.grammingo.exercises.TextQuizMainActivity;
 
 /**
  * Created by firasAltayeb on 22/03/2016.
