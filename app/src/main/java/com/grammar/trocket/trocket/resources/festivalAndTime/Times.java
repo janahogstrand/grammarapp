@@ -1,26 +1,23 @@
-package com.grammar.trocket.trocket.resources;
+package com.grammar.trocket.trocket.resources.festivalAndTime;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-
+import android.view.View;
+import android.widget.TextView;
 import com.grammar.trocket.trocket.backend.GetJSON;
 import com.grammar.trocket.trocket.backend.TableNames;
 import com.grammar.trocket.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.trocket.main.BaseActivityDrawer;
 import com.grammar.trocket.trocket.main.MainMenu;
-import com.grammar.trocket.trocket.resources.festivalAndTime.FestivalTimeAdapter;
-import com.grammar.trocket.trocket.resources.festivalAndTime.FestivalTimeItem;
 import com.grammar.trocket.grammar.R;
-import com.grammar.trocket.trocket.resources.festivalAndTime.FestivalTimeViewHolder;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -35,10 +32,15 @@ import java.util.Locale;
  *
  */
 public class Times extends BaseActivityDrawer {
-    private List<FestivalTimeItem> timeData;
-    private String dialect;
+
+    List<FestivalTimeItem> timeData;
+    String dialect;
+    Handler handler;
     Activity activity;
+    TextView textView;
+    GridLayoutManager gridLayoutManager;
     int id;
+    RecyclerView rv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,36 +49,49 @@ public class Times extends BaseActivityDrawer {
         onCreateDrawer();
         activity = Times.this;
 
+        textView = (TextView) findViewById(R.id.festTimeTxtView);
+
         Intent intent = getIntent();
         id = intent.getIntExtra(DialectDialog.CALLER_INFO, -1);
 
         getDialect();
-        String dialectCode = MainMenu.dialectsIDCode.get(MainMenu.dialectsNameID.get(dialect));
-        String[] dCode = dialectCode.split("_");
-        initTTS(dCode[0], dCode[1]);
-        RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
+        rv = (RecyclerView) findViewById(R.id.rv);
+        gridLayoutManager = new GridLayoutManager(this, 3);
         rv.setLayoutManager(gridLayoutManager);
         rv.setHasFixedSize(true);
 
+        toggleBusyUi(true);
 
-        FestivalTimeAdapter festivalTimeAdapter = new FestivalTimeAdapter(getData());
-        rv.setAdapter(festivalTimeAdapter);
-    }
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
 
-    public void getDialect(){
-        Intent intent = getIntent();
-        dialect = intent.getStringExtra(DialectDialog.DIALECT_INFO);
+                FestivalTimeAdapter festivalTimeAdapter = new FestivalTimeAdapter(getData());
+                rv.setAdapter(festivalTimeAdapter);
+
+                toggleBusyUi(false);
+            }
+        }, 100);
+
     }
 
 
     /**
-     * Gets data to pass to adapter
-     * //TODO make this interact with database
-     *
-     * @see FestivalTimeAdapter
-     **/
+     * Sets the UI to either a "loading" state or a "data" stage, based on {@code busyRefreshing}.
+     */
+    private void toggleBusyUi(boolean busy) {
+        if (busy) {
+            textView.setVisibility(View.VISIBLE);
+            rv.setVisibility(View.GONE);
+        } else {
+            textView.setVisibility(View.GONE);
+            rv.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+
     private List<FestivalTimeItem> getData() {
 
         timeData = new ArrayList<FestivalTimeItem>();
@@ -113,13 +128,13 @@ public class Times extends BaseActivityDrawer {
         return timeData;
     }
 
-    /**
-     * Makes String correct format
-     * To be used when making new FestivalTimeItem for url
-     * */
-    private String fixString(String imageAddress){
-        imageAddress = imageAddress.substring(0, imageAddress.length()-4) + "raw=1";
-        return imageAddress;
+
+    public void getDialect(){
+        Intent intent = getIntent();
+        dialect = intent.getStringExtra(DialectDialog.DIALECT_INFO);
+        String dialectCode = MainMenu.dialectsIDCode.get(MainMenu.dialectsNameID.get(dialect));
+        String[] dCode = dialectCode.split("_");
+        initTTS(dCode[0], dCode[1]);
     }
 
     private void initTTS(final String lang1, final String lang2){

@@ -49,6 +49,7 @@ public class MultipleQuizMainActivity extends Activity {
     public TextToSpeech textToSpeech;
     public Locale language;
     public MediaPlayer player;
+    public Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +63,19 @@ public class MultipleQuizMainActivity extends Activity {
         selectedAnswers = new ArrayList<>();
         correctAnswerList = new ArrayList<>();
 
-        QuizzesQuestions = new QuizzesQuestions(MultipleQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
-        questionsList = QuizzesQuestions.getQuizQuestions();
-        answersList = new QuizzesAnswers(MultipleQuizMainActivity.this, questionsList, selectedQuizType);
+
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                QuizzesQuestions = new QuizzesQuestions(MultipleQuizMainActivity.this, selectedQuizPosition, selectedQuizType);
+                questionsList = QuizzesQuestions.getQuizQuestions();
+                answersList = new QuizzesAnswers(MultipleQuizMainActivity.this, questionsList, selectedQuizType);
+                assignVariables();
+                assignViews();
+
+            }
+        }, 100);
+
 
         assignVariables();
         assignViews();

@@ -7,10 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.grammar.trocket.grammar.R;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 /**
@@ -42,7 +40,6 @@ public class FestivalTimeAdapter extends RecyclerView.Adapter<FestivalTimeViewHo
     public FestivalTimeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_festival, parent, false);
         FestivalTimeViewHolder viewHolder = new FestivalTimeViewHolder(v, festivalData);
-
         return viewHolder;
     }
 
@@ -61,7 +58,6 @@ public class FestivalTimeAdapter extends RecyclerView.Adapter<FestivalTimeViewHo
                 .error(android.R.drawable.stat_notify_error)
                 .placeholder(R.drawable.loading_animation)
                 .into(holder.festivalPicture);
-
 
         title.setText(festivalData.get(position).getSpanishName());
         //desc.setText(festivalData.get(position).getEnglishName());

@@ -29,8 +29,8 @@
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name="com.grammar.trocket.trocket.resources.ListViewActivity" android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait"/>
-        <activity android:name="com.grammar.trocket.trocket.resources.Festivals" android:label="Festivals" android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" />
-        <activity android:name="com.grammar.trocket.trocket.resources.Times" android:label="Times" android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" />
+        <activity android:name="com.grammar.trocket.trocket.resources.festivalAndTime.Festivals" android:label="Festivals" android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" />
+        <activity android:name="com.grammar.trocket.trocket.resources.festivalAndTime.Times" android:label="Times" android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" />
 
         <activity android:name="com.grammar.trocket.trocket.resources.seasons.SeasonsMain"
                   android:theme="@style/AppTheme.NoActionBar"

@@ -14,8 +14,6 @@ public class DialectDialog extends AlertDialog.Builder {
 
     public final static String DIALECT_INFO = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE";
     public final static String CALLER_INFO = "com.grammar.trocket.grammar.com.grammar.trocket.MESSAGE2";
-    //public static int CALLER_ID;
-
 
     Context context;
     Intent intent;
@@ -30,13 +28,7 @@ public class DialectDialog extends AlertDialog.Builder {
         addListContent(context, dialectOptions, id);
     }
 
-    /**
-     * //TODO Implementation where information is off server
-     * Adds information to dialog
-     *
-     * @param context        context to run on
-     * @param dialectOptions List of possible dialects
-     **/
+
     public void addListContent(final Context context, final ArrayAdapter<String> dialectOptions, final int id) {
         this.setTitle("Select a dialect");
         //Set button
@@ -58,7 +50,6 @@ public class DialectDialog extends AlertDialog.Builder {
                         String selectedDialect = dialectOptions.getItem(position);
                         intent.putExtra(DIALECT_INFO, selectedDialect);
                         intent.putExtra(CALLER_INFO, id);
-                        //CALLER_ID = id;
                         context.startActivity(intent);
                     }
                 });

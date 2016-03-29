@@ -11,9 +11,7 @@ import android.speech.tts.TextToSpeech;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.trocket.dialogs.DialectDialog;
 import com.grammar.trocket.trocket.main.BaseActivityDrawer;
@@ -29,7 +27,7 @@ public class ListViewActivity extends BaseActivityDrawer {
     private String dialect;
     private Locale language;
     private ListView listView;
-    private ProgressBar loadingIcon;
+    private TextView textView;
     private ArrayList<NumberCalendarItem> data = new ArrayList<>();
     private LinearLayout linerLayout;
     private TextToSpeech textToSpeech;
@@ -46,12 +44,9 @@ public class ListViewActivity extends BaseActivityDrawer {
 
         listView = (ListView) findViewById(R.id.listView);
         linerLayout = (LinearLayout)findViewById(R.id.linerLayout);
-        loadingIcon = (ProgressBar) findViewById(R.id.loading_icon);
+        textView = (TextView) findViewById(R.id.listViewTxtView);
 
         toggleBusyUi(true);
-        Log.d("toggleBusyUi", "true");
-        Log.d("toggleBusyUi", "true");
-        Log.d("toggleBusyUi", "true");
 
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -61,15 +56,13 @@ public class ListViewActivity extends BaseActivityDrawer {
                 assignStringArray();
 
                 toggleBusyUi(false);
+
                 ListViewAdapter adapter = new ListViewAdapter(ListViewActivity.this, data);
                 listView.setAdapter(adapter);
                 listView.setOnItemClickListener(myOnClickListener);
 
-                Log.d("toggleBusyUi", "false");
-                Log.d("toggleBusyUi", "false");
-                Log.d("toggleBusyUi", "false");
             }
-        }, 5000);
+        }, 100);
 
 
 
@@ -78,12 +71,12 @@ public class ListViewActivity extends BaseActivityDrawer {
     /**
      * Sets the UI to either a "loading" state or a "data" stage, based on {@code busyRefreshing}.
      */
-    private void toggleBusyUi(final boolean busy) {
+    private void toggleBusyUi(boolean busy) {
                 if (busy) {
-                    loadingIcon.setVisibility(View.VISIBLE);
+                    textView.setVisibility(View.VISIBLE);
                     listView.setVisibility(View.GONE);
                 } else {
-                    loadingIcon.setVisibility(View.GONE);
+                    textView.setVisibility(View.GONE);
                     listView.setVisibility(View.VISIBLE);
                 }
     }

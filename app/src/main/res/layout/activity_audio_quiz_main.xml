@@ -24,11 +24,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Loading Questions"
             android:id="@+id/titleTxt"
             android:layout_weight=".4"
             android:textColor="#000000"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:text="Loading, Please Don&apos;t Click Any Button..." />
 
         <RelativeLayout
             android:layout_width="wrap_content"

@@ -42,18 +42,21 @@ public class FestivalTimeItem implements Parcelable {
     public String getEnglishName() {
         return englishName;
     }
+
     /**
      * Gets dialect
      * **/
     public String getDialect() {
         return dialect;
     }
+
     /**
      * Gets int of photo
      * **/
     public String getPhoto() {
         return picture;
     }
+
     /**
      * Constructor for parcel
      * data is parsed through
@@ -76,6 +79,7 @@ public class FestivalTimeItem implements Parcelable {
     public int describeContents() {
         return 0;
     }
+
     /**
      * Parses data to parcel
      * **/
@@ -83,6 +87,7 @@ public class FestivalTimeItem implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeStringArray(new String[]{this.spanishName, this.englishName, ("" + this.picture), this.dialect});
     }
+
     /**
      * Returns FestivalTimeItem with parcel parameter
      * **/

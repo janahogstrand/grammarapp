@@ -21,9 +21,9 @@ import com.grammar.trocket.trocket.dialogs.VideoDialog;
 import com.grammar.trocket.trocket.exercises.Quiz;
 import com.grammar.trocket.trocket.exercises.VideoItem;
 import com.grammar.trocket.trocket.main.MainMenu;
-import com.grammar.trocket.trocket.resources.Festivals;
+import com.grammar.trocket.trocket.resources.festivalAndTime.Festivals;
 import com.grammar.trocket.trocket.resources.ListViewActivity;
-import com.grammar.trocket.trocket.resources.Times;
+import com.grammar.trocket.trocket.resources.festivalAndTime.Times;
 import com.grammar.trocket.trocket.resources.alphabetAndDictionary.Alphabet;
 import com.grammar.trocket.trocket.resources.seasons.SeasonsMain;
 

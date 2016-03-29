@@ -8,9 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.grammar.trocket.grammar.R;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
