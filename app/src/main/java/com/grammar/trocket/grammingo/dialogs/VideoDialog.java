@@ -3,9 +3,14 @@ package com.grammar.trocket.grammingo.dialogs;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
+import com.grammar.trocket.grammar.R;
 import com.grammar.trocket.grammingo.exercises.Video;
 import com.grammar.trocket.grammingo.exercises.VideoItem;
 
@@ -30,7 +35,20 @@ public class VideoDialog extends AlertDialog.Builder {
         this.context = context;
         this.videoList = videoList;
         this.allVideoDetails = allVideoDetails;
+        addTitle("Select a video");
         addListContent(context, options);
+    }
+
+    private void addTitle(String text){
+        TextView title = new TextView(context);
+        title.setText(text);
+        title.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+        title.setPadding(10, 10, 10, 10);
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.WHITE);
+        title.setTextSize(40);
+        title.setTypeface(null, Typeface.BOLD);
+        setCustomTitle(title);
     }
 
     /**
@@ -41,7 +59,6 @@ public class VideoDialog extends AlertDialog.Builder {
      * @param options List of possible videos
      **/
     public void addListContent(final Context context, final ArrayAdapter<String> options) {
-        this.setTitle("Select a video");
 
         //Set button
         this.setNegativeButton(
