@@ -132,6 +132,20 @@ public class FragmentTabResources extends Fragment {
                 return R.drawable.ic_travel;
             case "R.drawable.ic_world":
                 return R.drawable.ic_world;
+            case "R.drawable.ic_alphabet":
+                return R.drawable.ic_alphabet;
+            case "R.drawable.ic_calendar":
+                return R.drawable.ic_calendar;
+            case "R.drawable.ic_day":
+                return R.drawable.ic_day;
+            case "R.drawable.ic_festivals":
+                return R.drawable.ic_festivals;
+            case "R.drawable.ic_numbers":
+                return R.drawable.ic_numbers;
+            case "R.drawable.ic_seasons":
+                return R.drawable.ic_seasons;
+            case "R.drawable.ic_time":
+                return R.drawable.ic_time;
         }
         return R.drawable.ic_menu_send;
     }
