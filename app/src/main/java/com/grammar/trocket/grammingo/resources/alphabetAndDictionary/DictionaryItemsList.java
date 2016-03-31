@@ -83,7 +83,6 @@ public class DictionaryItemsList extends BaseActivityDrawer {
         return index;
     }
 
-    //TODO database ORDER BY ASCENDING
     private ArrayList<DictionaryItem> getData() {
         wordList = new ArrayList<DictionaryItem>();
 
@@ -97,7 +96,7 @@ public class DictionaryItemsList extends BaseActivityDrawer {
             for (int j = 0; j < jsonArray.length(); ++j) {
                 JSONObject jObject = jsonArray.getJSONObject(j);
                 String word = jObject.get(TableNames.DICTIONARYLETTER_LABEL).toString();
-                wordList.add(new DictionaryItem(word, ""));
+                wordList.add(new DictionaryItem(splitString(word, 0), splitString(word, 1)));
                 Collections.sort(wordList, new Comparator<DictionaryItem>() {
                     @Override
                     public int compare(DictionaryItem one, DictionaryItem two) {
@@ -111,6 +110,17 @@ public class DictionaryItemsList extends BaseActivityDrawer {
 
 
         return wordList;
+    }
+
+    public String splitString(String word, int index){
+        String[] words = word.split(":");
+        if(words.length > 1){
+            return words[index];
+        } else if(index > 0){
+            return "";
+        }
+
+        return words[0];
     }
 
     /**

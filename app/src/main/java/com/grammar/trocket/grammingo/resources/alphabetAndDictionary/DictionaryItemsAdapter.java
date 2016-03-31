@@ -58,7 +58,7 @@ public class DictionaryItemsAdapter extends RecyclerView.Adapter<DictionaryItems
     public class DictionaryViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
         public TextView title2;
-        Locale language = new Locale("es", "ES");
+        //Locale language = new Locale("es", "ES");
         public DictionaryViewHolder(View itemView, ArrayList<DictionaryItem> wordList) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
@@ -80,7 +80,7 @@ public class DictionaryItemsAdapter extends RecyclerView.Adapter<DictionaryItems
         private void playAudio() {
             stopAllSound();
             String phrase = wordList.get(getAdapterPosition()).getForeignWord();
-            DictionaryItemsList.textToSpeech.setLanguage(language);
+            //DictionaryItemsList.textToSpeech.setLanguage(language);
             DictionaryItemsList.textToSpeech.speak(phrase, TextToSpeech.QUEUE_FLUSH, null);
         }
 
