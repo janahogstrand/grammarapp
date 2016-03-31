@@ -66,6 +66,7 @@ public class ListViewAdapter extends BaseAdapter {
         }
         // get hold of the TextView
         TextView textView = (TextView) output.findViewById(R.id.name);
+        TextView englishName = (TextView) output.findViewById(R.id.english_name);
 
         // get the name to display
         NumberCalendarItem numCalItem = getItem(position);
@@ -73,13 +74,21 @@ public class ListViewAdapter extends BaseAdapter {
         String pronunciation = numCalItem.getPronunciation();
 
         // put the name in the TextView
-        textView.setText(name + "\n" + pronunciation);
+        textView.setText(name);
+        englishName.setText(pronunciation);
+
         textView.setGravity(Gravity.CENTER);
+        if(englishName.getText() != ""){
+            englishName.setGravity(Gravity.CENTER);
+            englishName.setVisibility(View.VISIBLE);
+        }
 
         if (position%2==0) {
             textView.setBackgroundResource(R.drawable.quiz_rounded_button_primary);
+            englishName.setBackgroundResource(R.drawable.quiz_rounded_button_primary);
         } else {
             textView.setBackgroundResource(R.drawable.quiz_rounded_button_secondary);
+            englishName.setBackgroundResource(R.drawable.quiz_rounded_button_secondary);
         }
 
         return output;

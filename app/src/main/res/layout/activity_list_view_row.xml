@@ -12,5 +12,13 @@
         android:textStyle="bold"
         android:textSize="22sp"
         android:textColor="#ffffff" />
+    <TextView
+        android:id="@+id/english_name"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:textSize="22sp"
+        android:textColor="#ffffff" />
 
 </LinearLayout>
